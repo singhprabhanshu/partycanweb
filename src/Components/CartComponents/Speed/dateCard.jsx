@@ -27,11 +27,17 @@ class DateCard extends Component {
   constructor(props){
     super(props);
   } 
+    _getRootCardClass = ({ selectedId, id }) => {
+        if (id === selectedId) {
+            return "active";
+        }
+        
+    };
     render() {
         return (
             <React.Fragment>
                 <a style={{ cursor: 'pointer' }} onClick={() => this.props.changeShippingMethodOpacity(this.props.data.id)} >
-                    <Card style={styles(this.props).root}>
+                    <Card style={styles(this.props).root} className={this._getRootCardClass({ selectedId: this.props.selectedShippingMethod, id: this.props.data.id })}>
                         <CardBody style={styles(this.props).cardBody}>
                             
                             <div style={{ fontSize: 15 }}>

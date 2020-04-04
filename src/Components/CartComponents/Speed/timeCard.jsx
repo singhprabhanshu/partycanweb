@@ -27,12 +27,13 @@ class TimeCard extends Component {
   constructor(props){
     super(props);
   } 
+    _getRootCardClass = () => 'active';
     render() {
         return (
             <React.Fragment>
                 {/* <a style={{ cursor: 'pointer' }} onClick={() => this.props.changeTimeOpacity(this.props.data.id)} > */}
-                    <Card style={styles(this.props).root}>
-                        <CardBody style={styles(this.props).cardBody}>
+                    <Card style={styles(this.props).root} className={this._getRootCardClass()}>
+                        <CardBody style={styles(this.props).cardBody} >
                             
                             <div style={{ fontSize: 15  }}>
                                 {this.props.availableTime}

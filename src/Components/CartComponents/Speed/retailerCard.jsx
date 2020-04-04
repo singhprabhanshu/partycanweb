@@ -11,10 +11,17 @@ class RetailerCard extends Component {
   constructor(props){
     super(props);
   } 
+
+    _getRootCardClass = ({ selectedId, id }) => {
+        if (id === selectedId) {
+            return "retailerCards active";
+        }
+        return "retailerCards";
+    };
     render() {
         return (
             <React.Fragment>                
-                    <Card  className="retailerCards"  onClick={() => this.props.changeRetailerOpacity(this.props.data.id)}>
+                    <Card  className={this._getRootCardClass({ selectedId: this.props.selectedRetailer, id: this.props.data.id})}  onClick={() => this.props.changeRetailerOpacity(this.props.data.id)}>
                         <CardBody className="d-flex flex-column">
                             <div style={{ fontSize: 8, marginBottom: 10 }}>
                                 {this.props.data.name}
