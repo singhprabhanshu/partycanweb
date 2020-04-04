@@ -13,12 +13,17 @@ class AddressCard extends React.Component {
     constructor(props){
         super(props);
       } 
-    
+    _getRootCardClass = ({ selectedId, id }) => {
+      if (id === selectedId) {
+          return "addressCards active";
+      }
+      return "addressCards";
+    };
     
     render() {
         return (
             <React.Fragment>               
-               <Card className="addressCards" onClick={() => this.props.handleCardClick(this.props.data.id)} >
+               <Card className={this._getRootCardClass({ selectedId: this.props.selectedAddress, id: this.props.data.id})} onClick={() => this.props.handleCardClick(this.props.data.id)} >
                     <CardBody className="d-flex flex-column">
                         <div className="d-flex flex-wrap title">
                             {this.props.data.type}
