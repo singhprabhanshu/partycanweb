@@ -9,28 +9,29 @@ import { CarouselProvider, Slider, Slide, ButtonNext, Image, DotGroup } from 'pu
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import genericGetData from '../../Redux/Actions/genericGetData';
 import {Container, Row, Col} from 'reactstrap'
-import ReactDOM from 'react-dom';
+import slide1 from '../../assets/images/HOMEPAGE1.png'
+import slide2 from '../../assets/images/HOMEPAGE2.png'
+import slide3 from '../../assets/images/HOMEPAGE3.png'
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import IntroSlider from "react-intro-slider";
+import ReactDOM from "react-dom";
+
 const styles = theme => ({
    
 });
+
+
+  
 
 class SplashContainer extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            imageData: [],
-            sliderIsOpen: true,
-            
+            imageData: []
         }
     }
-
-     handleClose = () => { 
-            this.setState({sliderIsOpen: false});
-    };
 
     componentDidMount() {
         genericGetData({
@@ -49,24 +50,13 @@ class SplashContainer extends React.Component {
     }
 
     splashBannerSuccess= (data) => {
-        let imageData = [];
-        data.filter((data,index) => {
-            imageData.push(this.mapImageData(data));
-        })
-        this.setState({ imageData : imageData});
+        //this.setState({ imageData : data});
     }
-    mapImageData = (data) => ({
-        title: 'PARTY CAN',
-        description: data.text,       
-        image: data.imageurl,
-        link: data.link
-    })
     splashBannerFetchError = (data) => {
 
     }
 
-    render() {      
-   
+    render() {
         const { classes } = this.props;
         let renderImage = this.state.imageData.map((data, index)=> {
             return ( <Slide key={index} index= {index}>
@@ -87,20 +77,33 @@ class SplashContainer extends React.Component {
                      <CssBaseline />
                 <Container className="container-content d-flex flex-column justify-content-center">
                 <Row className="flex-grow-1">
-                      <Col className="text-center d-flex justify-content-center align-items-center position-relative" >
-                      <IntroSlider
-                        sliderIsOpen={this.state.sliderIsOpen}
-                        slides={this.state.imageData}
-                        size="fullscreen"
-                        skipButton
-                        handleClose={this.handleClose}
-                        slideStyle={{ borderRadius: "10px" }}
-                        sliderStyle={{ borderRadius: "10px" }}
-                        />
+                      <Col className="text-center d-flex justify-content-center  align-items-center position-relative" >
+                        <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} >
+                            <div className=" d-flex justify-content-between flex-column align-items-center h-100 ">
+                            <img src={slide1} className="img-responsive" />
+                                <p className="legend">MADE WITH 100% BLUE WEBER AGAVE TEQUILA, COMBIER LIQUEUR D'ORANGE TRIPLE SEC, AND FRESH LIME JUICE. 
+                                    THE PARTY CAN BRING CRAFT COCKTAIL GOODNESS TO YOUR GLASS IN SECONDS!</p>
+                            </div>
+                            <div className=" d-flex justify-content-between  flex-column align-items-center h-100">
+                            <img src={slide2} className="img-responsive" />
+                                <p className="legend">Legend 2</p>
+                            </div>
+                            <div className=" d-flex justify-content-between flex-column align-items-center h-100">
+                            <img src={slide3} className="img-responsive" />
+                                <p className="legend">Legend 3</p>
+                            </div>
+                    </Carousel>  
                     </Col>
                     </Row>  
                     </Container>
                 </Container>
+                <Container className="container-custom">
+                    <Row>
+                        <Col className="text-center" style={{height:70}} >
+                            <Button variant="text" color="secondary" className="txtButton" onClick={this.createAccount} ></Button>
+                        </Col>                        
+                    </Row>
+                </Container>     
          </React.Fragment>
         );
     }
