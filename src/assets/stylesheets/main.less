@@ -1,0 +1,759 @@
+@font-face {
+  font-family: 'Gibson-Regular';
+  src: url('../fonts/Gibson-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/Gibson-Regular.woff') format('woff'), url('../fonts/Gibson-Regular.ttf') format('truetype'), url('../fonts/Gibson-Regular.svg#Gibson-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Tungsten-Bold';
+  src: url('../fonts/Tungsten-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/Tungsten-Bold.otf') format('opentype'),
+    url('../fonts/Tungsten-Bold.woff') format('woff'), url('../fonts/Tungsten-Bold.ttf') format('truetype'), url('../fonts/Tungsten-Bold.svg#Tungsten-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Tungsten-Medium';
+  src: url('../fonts/Tungsten-Medium.eot?#iefix') format('embedded-opentype'), url('../fonts/Tungsten-Medium.otf') format('opentype'),
+    url('../fonts/Tungsten-Medium.woff') format('woff'), url('../fonts/Tungsten-Medium.ttf') format('truetype'), url('../fonts/Tungsten-Medium.svg#Tungsten-Medium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Tungsten-Semibold';
+  src: url('../fonts/Tungsten-Semibold.eot?#iefix') format('embedded-opentype'), url('../fonts/Tungsten-Semibold.otf') format('opentype'),
+    url('../fonts/Tungsten-Semibold.woff') format('woff'), url('../fonts/Tungsten-Semibold.ttf') format('truetype'), url('../fonts/Tungsten-Semibold.svg#Tungsten-Semibold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@primary : #00BFB2;
+@secondary: #E5554F;
+@soft-text: rgba(0, 0, 0, 0.8);
+@softer-text: rgba(0, 0, 0, 0.5);
+
+
+@color-l: #00BFB2;
+@color-2: #0032A0;
+@background-white: #fff;
+
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px @background-white inset !important;
+
+}
+
+.bodyBackground (@deg: -90deg, @startColor: #00BFB2, @midcolor: #0032A0, @endColor: #E5554F) {
+  background-color: @startColor;
+  background-image: -webkit-gradient(linear, left top, right top, from(@startColor), to(@endColor));
+  background-image: -webkit-linear-gradient(@deg, @startColor, @midcolor, @endColor);
+  background-image: -moz-linear-gradient(@deg, @startColor, @midcolor, @endColor);
+  background-image: -ms-linear-gradient(@deg, @startColor, @midcolor, @endColor);
+  background-image: -o-linear-gradient(@deg, @startColor, @midcolor, @endColor);
+  background-repeat: no-repeat;
+}
+
+html {
+  font-size: 62.5% !important;
+}
+
+body {
+  font-family: 'Gibson-Regular', sans-serif !important;
+  margin: 0;
+  font-size: 1.4rem !important;
+  color: #fff !important;
+  // overflow: hidden;
+  min-height: 100vh;
+  letter-spacing: .1rem !important;
+  .bodyBackground();
+}
+
+
+input,
+textarea,
+select form {
+  font-family: 'Gibson-Regular', sans-serif !important;
+  font-size: 1.4rem !important;
+  color: rgba(255, 255, 255, .8) !important;
+}
+
+.MuiInput-underline:before {
+  border-bottom: 1px solid rgba(255, 255, 255, .8) !important;
+}
+
+.boxshadownone {
+  box-shadow: none;
+}
+
+button:focus {
+  outline: none !important;
+  /* outline: 5px auto -webkit-focus-ring-color; */
+}
+
+.img-responsive{
+  width: auto!important;
+  max-width: 100%;
+}
+
+
+/////////////////////////// Layout styling css
+
+.emptyLayout, .mainLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container-content-section {
+  min-height: calc( 100vh - 12rem);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container-fluid{
+  padding-right: 0 !important;
+  padding-left: 0 !important;  
+}
+
+.container-content {
+    display: flex;
+    max-width: 192rem!important;
+    padding-right: 2.5rem!important;
+    padding-left: 2.5rem!important;
+    @media (max-width: 1366px){
+     
+    } 
+}
+
+
+.carousel .slide, .carousel .slide .legend{
+  background-color: transparent!important;
+}
+.carousel.carousel-slider, .carousel, .carousel .slide, .carousel .slider{
+  position: unset!important;
+}
+.carousel .control-dots{
+  right:0;
+}
+
+.carousel .control-arrow:before, .carousel.carousel-slider .control-arrow:before{
+  border: 0!important;
+}
+
+.carousel.carousel-slider .control-arrow:hover{
+  background-color: transparent!important;
+}
+
+.carousel .slide .legend{
+  left:0!important;
+  right: 0!important; 
+  margin: auto!important;
+  bottom:20px;
+opacity: 1!important;
+}
+
+
+////////////////////// Signup and login page css
+
+.container-custom {
+  width: 100%;
+  max-width: 45rem !important;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.WhiteCurveBg {
+  background-color: rgba(255, 255, 255, .1);
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  display: flex;
+  flex: 1;
+}
+
+
+.label-txt {
+  font-size: 1.6rem !important;
+  display: flex;
+  letter-spacing: .1rem !important;
+  color: #fff !important;
+}
+
+.locationTxt {
+  align-items: flex-end !important;
+  justify-content: center !important;
+  color: rgba(255, 255, 255, .67);
+  font-size: 1.2rem;
+  display: flex !important;
+  cursor: pointer;
+  transition: ease all .3s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+.text-input.error {
+  display: flex !important;
+  justify-content: flex-end;
+  position: absolute;
+  left: 0;
+
+  p {
+    text-align: right;
+    color: red;    
+    font-size: 1.1rem;
+  }
+}
+
+.txtButton {
+  text-align: center !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 4rem !important;
+  min-width: 15rem !important;
+  letter-spacing: .1rem !important;
+  line-height: 3rem !important;
+  color: #fff !important;
+  margin: 1.5rem 0 !important;
+}
+
+
+.holduptext {
+  font-family: 'Tungsten-Bold';
+  font-size: 5.5rem;
+  letter-spacing: .5rem;
+}
+
+.bottomActionbutton {
+  font-family: 'Gibson-Regular', sans-serif !important;
+  margin-top: 1rem !important;
+  text-align: center !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: #E5554F !important;
+  height: 4.8rem !important;
+  min-width: 25rem !important;
+  border-radius: 4rem !important;
+  letter-spacing: .1rem !important;
+  line-height: 5rem !important;
+  padding: 0 !important;
+  font-size: 1.5rem!important;
+  border: 0!important;
+}
+
+.custom-switch{
+  width: 49px!important;
+  padding:10px 0 10px 15px!important;
+  .MuiSwitch-track{
+    background-color: transparent!important;
+    border-radius: 15px;
+    border: solid 0.15rem #fff;
+  }
+  .Mui-checked+.MuiSwitch-track{
+      background-color: transparent!important;
+      border-radius: 15px;
+      border: solid 0.15rem #E5554F;
+      opacity: 1!important;
+    }  
+    .Mui-checked .MuiSwitch-thumb{
+      position: relative;
+      &:after{
+        position: absolute;
+        content: "";
+        color:#fff;
+        background:url(../images/check-white.png) no-repeat;
+        width: 1rem;
+        height: 1rem;
+        background-size: cover;
+        top: 5px;
+        right: 5px; 
+      }
+    }
+}
+
+////////////////////// Header & footer css
+
+.icons{
+  width: 3rem;
+  height: 3rem;
+  min-width: auto!important;
+  background-size: cover;
+  cursor: pointer;
+
+  &.addCircleIcon{
+    background-color: #00bfb3;
+    border-radius: 3rem;
+    color: #fff;
+    text-align: center;
+    line-height: 1.3rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    cursor: pointer;
+    min-width: auto!important;   
+
+    &:hover{
+      background-color: rgba(0, 191, 179, .5);
+    }
+  } 
+
+  &.homeIcons{
+    background-image: url(../images/HOMEPAGE_STORE.svg);
+  }
+
+  &.locationIcons{
+    background-image: url(../images/HOMEPAGE_STORE_LOCATOR.svg);
+  }
+
+  &.searchIcons{
+    background-image: url(../images/HOMEPAGE_ICONS_SEARCH.svg);
+  }
+
+  &.cartIcons{
+    background-image: url(../images/HOMEPAGE_ICONS_CART.svg);
+  }
+
+  &.settingIcons{
+    background-image: url(../images/HOMEPAGE_SETTINGS.svg);
+  }
+}
+
+
+.topHeader {
+  background: #0033a0; 
+  min-height: 7rem,
+}
+
+.footerLayout{
+  background-color: rgba(255, 255, 255, .1);  
+  font-size: 1rem;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  color:rgba(255, 255, 255, .6);
+  text-align: center;
+  min-height: 5rem;
+}
+
+
+
+
+///////Product page css
+
+.product-tabs{
+  background-color: rgba(255, 255, 255, .1);
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  padding-right: 1.6rem!important;
+  padding-left: 1.6rem!important;
+  
+  .MuiTab-root
+  {
+    min-width: 10rem!important;
+    margin: 1rem;   
+    min-height: 4rem!important;;
+    &.Mui-selected{
+      background-color: #50e2d8;
+      border-radius: 4rem;     
+    }
+  }
+}
+.productsList{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-right: 2.5rem!important;
+  padding-left: 2.5rem!important;
+
+  .card{
+    width: 25%;
+    background-color: transparent!important;
+    border: 0;
+    .prodcutMinDetails{
+      border-radius:1.5rem;
+      flex-direction: column;
+      margin:4rem 2rem;
+      display: flex;
+      align-items: center;     
+      border: 0!important;
+      transition: ease all .3s;
+      height: 100%;
+      cursor: pointer;
+        .card-img{
+          max-width: 24rem;
+        }        
+      }
+
+      @media(max-width:767px){
+        width: 50%; 
+      }
+
+
+      &:nth-child(3n+1) .prodcutMinDetails {
+        background-color: rgba(0, 191, 178, .3);
+        &:hover {
+          background-color: rgba(0, 191, 178, 1);
+        }
+      }
+
+    &:nth-child(3n-1) .prodcutMinDetails {
+      background-color: rgba(0, 50, 160, .3);
+      &:hover{
+        background-color: rgba(0, 50, 160, 1);
+      }
+    }
+
+    &:nth-child(3n+0) .prodcutMinDetails {     
+      background-color: rgba(229, 85, 79, .3);
+      &:hover{
+        background-color: rgba(229, 85, 79, 1);
+      }
+    } 
+}
+}
+
+
+////////////////////////////// Address section
+
+.secMinHeight{
+  min-height: calc(100vh - 180px);
+}
+.productImgSection{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  .imgProduct{
+    max-width: 42%;
+    position: relative;
+    z-index: 1;
+    margin-top: -10vh;
+  }
+  &:after{
+    position: absolute;
+    width: 100%;
+    top: -6rem;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, .4);
+    content: "";
+    border-bottom-left-radius:40rem;
+  }
+}
+.fs-11{
+  font-size: 1.1rem!important;
+}
+
+
+.cartActionBtn{
+  background-color: @color-l!important;
+}
+
+
+
+.block-title{
+  font-size: 1.8rem; 
+  text-transform: uppercase;
+}
+
+.block-sub-title{
+  font-size: 1.4rem; 
+  text-transform: uppercase;
+}
+
+.CardsWrapper{
+  // max-height: calc(100vh - 280px);
+  // overflow: auto;
+  margin: 0 -1rem;
+
+.card{
+  background-color: rgba(255, 255, 255, .3)!important;
+  width: 100%;  
+  border-radius: .5rem!important;
+  color:#fff!important;
+  transition: ease all .3s;
+  padding: 1.5rem;
+  margin: 1rem;
+  cursor: pointer;
+
+  &.addressCards{
+    max-width: 25rem;
+    min-height: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.speedCards{
+    max-width: 15rem;
+    min-height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.deliveryCards{
+    max-width: 15rem;
+    min-height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.retailerCards{
+    max-width: 15rem;
+    min-height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.dateTimerCards{
+    max-width: 10rem;
+    min-height: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover{
+    color:@color-l!important;
+    background-color: rgba(255, 255, 255, 1)!important;
+  }
+
+  &.active{
+    color:@color-l!important;
+    background-color: rgba(255, 255, 255, 1)!important;
+  }
+
+    .title{
+      font-family: 'Tungsten-Bold';
+      font-size: 3rem;
+      letter-spacing: .2rem;
+    }
+  }
+
+}
+
+.bread-crumb{
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.ingredientsList{
+  display: flex;
+  flex-direction: row;
+  padding-right: 2.5rem!important;
+  padding-left: 2.5rem!important;
+.card{
+  width: 23%;
+  border-radius:1.5rem;
+  margin:1rem 1%;
+  align-items: center;
+  background-color: rgba(0, 191, 178, .3);
+  border: 0!important;
+  transition: ease all .3s;
+  cursor: pointer;
+    .card-img{
+      max-width: 14rem;
+    }
+
+
+    &:nth-child(3n+1) {
+      background-color: rgba(0, 191, 178, .3);
+      &:hover{
+        background-color: rgba(0, 191, 178, 1);
+      }
+    }
+
+    &:nth-child(3n-1) {
+      background-color: rgba(0, 50, 160, .3);
+      &:hover{
+        background-color: rgba(0, 50, 160, 1);
+      }
+    }
+
+    &:nth-child(3n+0) {     
+      background-color: rgba(229, 85, 79, .3);
+      &:hover{
+        background-color: rgba(229, 85, 79, 1);
+      }
+    }
+
+    
+
+
+   
+
+}
+}
+
+
+
+////////////////////// Cart page css
+
+
+
+.cartContainer {
+  margin-top: 40px;
+  width: 100%;
+  color: white;
+
+  .CartItemParent {
+    .CarItemMain {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+    }
+    .cartItemChild {
+      display: flex;
+      justify-content: space-between;
+      background: #6EA2C2;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      margin: 10px;
+      min-height: 50px;
+      padding: 20px;
+      /* justify-content: center; */
+      align-items: center;
+    }
+    .remove-cart-icon {
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+  .couponParent {
+    width: 100%;
+    padding: 10px 20px;
+  }
+  .PriceSummaryParent {
+    padding: 10px 20px;
+    .PriceSummaryChild {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .CheckOutButtonParent{
+    padding-top: 10px;
+    padding-left: 20px;
+    .CheckOutButton{
+      width: 100%;
+      font-size: 1.4rem;
+      border-radius: 15px;
+    }
+    
+  }
+}
+
+.NoItemCart{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 50vh;
+}
+
+/////////////// Setting page Design
+.userInfoSettingCards{
+  background-color: rgba(255, 255, 255, .3)!important;
+  width: 100%;
+  max-width: 23%;
+  min-height: 21rem;
+  border-radius: .5rem!important;
+  color:#fff!important;
+  transition: ease all .3s;
+  padding: 1.5rem;
+  margin: 1.5rem;
+
+  &:hover{
+    cursor: pointer;
+  }
+
+  .title{
+    font-family: 'Tungsten-Bold';
+    font-size: 3rem;
+    letter-spacing: .2rem;
+  }
+}
+
+.userPreferenceSetting{
+  background-color: rgba(255, 255, 255, .3)!important;
+  width: 100%;
+  max-width: 23%;
+  min-height: 10rem;
+  border-radius: .5rem!important;
+  color:#fff!important;
+  transition: ease all .3s;
+  padding: 1.5rem;
+  margin: 1.5rem;
+
+  &:hover{
+    cursor: pointer;
+  }
+
+  .title{
+    font-family: 'Tungsten-Bold';
+    font-size: 3rem;
+    letter-spacing: .2rem;
+  }
+}
+
+.userpayment-setting {
+  width: 100%;
+  max-width: 20%;
+  min-height: 16rem;
+  border-radius: .5rem!important;
+  color:#fff!important;
+  transition: ease all .3s;
+  padding: 1.5rem;
+  margin: 1.5rem;
+  &:hover{
+    cursor: pointer;
+  }
+}
+.user-card-add {
+  background-color: rgba(255, 255, 255, .3)!important;
+  width: 100%;
+  max-width: 20%;
+  min-height: 16rem;
+  border-radius: .5rem!important;
+  color:#fff!important;
+  transition: ease all .3s;
+  padding: 1.5rem;
+  margin: 1.5rem;
+  &:hover{
+    cursor: pointer;
+  }
+}
+.orderSetting-card {
+  width: 100%;
+  max-width: 43%;
+  min-height: 21rem;
+  border-radius: .5rem!important;
+  color:#fff!important;
+  transition: ease all .3s;
+  padding: 1.5rem;
+  margin: 1.5rem;
+
+  &:hover{
+    cursor: pointer;
+  }
+  .title{
+    font-family: 'Tungsten-Bold';
+    font-size: 3rem;
+    letter-spacing: .2rem;
+  }
+}
