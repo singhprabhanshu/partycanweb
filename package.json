@@ -2,7 +2,7 @@
   "name": "party-can-desktop",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": "http://drinkpartycan.com:3001/",
   "dependencies": {
     "@babel/core": "7.9.0",
     "@date-io/moment": "^2.4.0",
