@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 import { SwitchInputField} from '../../Global/FormCompoents/wrapperComponent';
 import { Form, Field } from 'react-final-form';
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 
 class UserSetting extends React.Component {
     constructor(props){
@@ -17,10 +18,10 @@ class UserSetting extends React.Component {
     render() {
         let renderInfo = this.props.userInfo.map((data, index)=> {
             return (<React.Fragment key={data+index}>
-                <div className=" d-flex flex-column flex-wrap">
+               <div className="pb-4"> <div className=" d-flex flex-column flex-wrap">
                             {data.label}
                 </div>
-                <div style={{color: '#00BFB2', fontSize: '1.5rem'}}>{data.value}</div>  
+                <div style={{color: '#00BFB2', fontSize: '1.5rem'}}>{data.value}</div>  </div>
             </React.Fragment> )
         });
 
@@ -34,42 +35,50 @@ class UserSetting extends React.Component {
             </React.Fragment> )
         });
         return (
+            
             <React.Fragment>
-                <h5 style={{marginLeft: '21px', marginTop: '13px'}}>YOUR INFORMATION</h5>               
-                <Card className="userInfoSettingCards">
-                    <CardBody className="p-3 d-flex flex-column">
+                <div className="row CardsWrapper  mb-5 ">
+                 <Card className="paymentcard">
+                        <CardBody className="p-3 d-flex align-items-center justify-content-center flex-column usercardadd">
+                            <div className="mb-4"><AddCircleOutlineOutlinedIcon style={{ fontSize: 25 }} /> </div> 
+                            <div>ADD CARD</div>                      
+                        </CardBody>                          
+                        </Card>
+                        </div>
+                <div className="block-sub-title">YOUR INFORMATION</div>    
+                <div className="row CardsWrapper">               
+                <Card className="userInfoSettingCards  mb-5 ">
+                    <CardBody className="p-3 d-flex flex-column  w-100">
                     {this.props.userInfo && renderInfo}                
                     </CardBody>
                 </Card>
+                </div>
 
-                <h5 style={{marginLeft: '21px', marginTop: '13px'}}>YOUR PREFRENCES</h5>               
-                <Card className="userPreferenceSetting">
-                    <CardBody className="p-3 d-flex flex-column">
+                <div className="block-sub-title">YOUR PREFRENCES</div> 
+                <div className="row CardsWrapper">              
+                <Card className="userPreferenceSetting  mb-5 ">
+                    <CardBody className="p-3 d-flex flex-column w-100">
                     <Form onSubmit= {this.onSubmit}
                             render={({ handleSubmit }) => (
                         <form>
-                            <div className=" d-flex flex-column flex-wrap">
+                            <div className=" d-flex flex-row flex-wrap justify-content-between align-items-center">
                                 <Field name="notification" component={SwitchInputField} label='NOTIFICATIONS' />
                             </div>
-                            <div className=" d-flex flex-column flex-wrap">
+                            <div className=" d-flex flex-row flex-wrap justify-content-between align-items-center">
                                 <Field name="newsLetter" component={SwitchInputField} label='NEWSLETTER' />
                             </div>
                         </form>)}                           
                     />  
                     </CardBody>
                 </Card>
-                <h5 style={{marginLeft: '21px', marginTop: '13px'}}>PAYMENT METHOD</h5>               
-                <div className="row">
-                        <Card className="userpayment-setting">
-                            <CardBody className="p-3 d-flex flex-column">
+                </div>
+                <div className="block-sub-title">PAYMENT METHOD</div>               
+                <div className="row CardsWrapper  mb-5 ">
+                        <Card className="paymentcard active">
+                            <CardBody className="p-3 d-flex flex-column  w-100">
                                 {this.props.savedCards && renderCardInfo}                                   
                             </CardBody>
-                        </Card>
-                        <Card className="user-card-add">
-                            <CardBody className="p-3 d-flex flex-column">
-                                    <div style={{textAlign: 'center', marginTop: '44px'}}> ADD CARD</div>                               
-                            </CardBody>
-                        </Card>
+                        </Card>                          
                 </div>
             </React.Fragment>
           );

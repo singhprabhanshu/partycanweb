@@ -13,6 +13,7 @@ import { map as _map, findIndex as _findIndex, get as _get, isEmpty as _isEmpty 
 import genericGetData from "../../Redux/Actions/genericGetData";
 import genericPostData from "../../Redux/Actions/genericPostData";
 import ShoppingBasketOutlined from "@material-ui/icons/ShoppingBasketOutlined";
+import {Container, Row, Col} from 'reactstrap'
 import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
@@ -164,9 +165,15 @@ class ProductsListing extends React.Component {
         })
         return (
             <React.Fragment>
-                <CssBaseline />
-                <Grid container>
-                    <Grid container item xs={8}>
+            <Container fluid={true} className="productDetails">                
+                <Row className="no-gutters justify-content-lg-between secMinHeight">
+                    <Col lg={5} className="order-1 d-none d-lg-block order-md-2">
+                        <div className="productImgSection">
+                            <img src={_get(productDetailsData, 'images[0]', "")} className="imgProduct img-responsive" alt="Smiley face" />
+                        </div>
+                    </Col>
+
+                    <Col lg={7} className="p-5 order-2 order-md-1">
                         <div style={{ padding: "35px", marginLeft: "50px" }}>
                             <Grid container spacing={1}>
                                 <Grid container item xs={8}>
@@ -223,12 +230,10 @@ class ProductsListing extends React.Component {
                                 </Grid>
                             </div>
                         </div>
-                    </Grid>
-                    <Grid container item xs={4}>
-                        <img src={_get(productDetailsData, 'images[0]', "")} alt="Smiley face" height="522" width="202" />
-                    </Grid>
-                </Grid>
-
+                                    
+                    </Col>                        
+                    </Row>
+                    </Container>
 
             </React.Fragment>
         );

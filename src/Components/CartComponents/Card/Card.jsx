@@ -3,7 +3,9 @@ import { render } from 'react-dom'
 import Styles from './Styles'
 import { Form, Field } from 'react-final-form'
 import CardChild from './CardChild'
-import { Form as ReactStrapFrom, FormGroup, Button } from 'reactstrap';
+import { Form as ReactStrapFrom, FormGroup, Button, Container, Row, Col } from 'reactstrap';
+import proImg from '../../../assets/images/party-can.png'
+
 import {
     formatCreditCardNumber,
     formatCVC,
@@ -55,8 +57,16 @@ class App extends React.Component {
     }
     render() {
         return (
-            <div style={{ marginLeft: "30px", marginTop: "10px" }}>
-                <div className="row" style={{ width: "50%" }}>
+<React.Fragment>
+            <Container fluid={true}>                
+            <Row className="no-gutters justify-content-lg-between secMinHeight">
+            <Col lg={5} className="order-1 d-none d-lg-block order-md-2">
+                <div className="productImgSection">
+                        <img src={proImg} className="imgProduct img-responsive"></img>
+                 </div>
+                </Col>
+                <Col lg={6} className="p-5 order-2 order-md-1">            
+                <div className="row cardwrapper">
                     {!this.state.addCard ?
                         <div className="col-sm-6" onClick={this.addNewCard} style={{ height: "200px", marginTop: "10px", cursor: "pointer", background: "white", color: "red", display: "flex", justifyContent: "center", alignItems: "center" }} onClick={this.addCardFunction}>
                             <div>
@@ -144,25 +154,30 @@ class App extends React.Component {
                                             />
                                         </FormGroup>
                                     </ReactStrapFrom>
-                                    <Button
-                                        style={{ backgroundColor: '#00BFB2', height: 50, width: 250, borderRadius: 27, fontSize: 15 }}
-                                        type="submit"
-                                        disabled={submitting}>
-                                        <ArrowForwardIcon/> Save and Continue
-              </Button>
+
+                                    <div className="text-left mt-4" >
+                                        <Button variant="contained" disabled={submitting} color="primary" className="bottomActionbutton cartActionBtn" type="submit">
+                                            <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> Save and Continue
+                                        </Button>
+                                    </div> 
                                 </form>
                             )
                         }}
                     /> : null}
                 {!this.state.addCard ?
-                    <Button
-                        onClick={this.handleContinueFromExistingCard}
-                        disabled={!this.state.selectedCard}
-                        style={{ backgroundColor: '#00BFB2', height: 50, width: 250, borderRadius: 27, fontSize: 15, marginTop: "10px" }}
-                        type="submit">
-                         <ArrowForwardIcon/> Continue
-              </Button> : null}
-            </div>
+                    <div className="text-left mt-4" >
+                        <Button variant="contained" onClick={this.handleContinueFromExistingCard} disabled={!this.state.selectedCard} color="primary" className="bottomActionbutton cartActionBtn" type="submit">
+                            <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> Continue
+                        </Button>
+                    </div> 
+                : null}           
+          
+            </Col>
+                        
+                </Row>
+            </Container>
+            
+        </React.Fragment>
         )
     }
 }
