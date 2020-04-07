@@ -18,6 +18,7 @@ import { commonActionCreater } from '../../../Redux/Actions/commonAction';
 import { blue } from '@material-ui/core/colors';
 import {Container, Row, Col} from 'reactstrap'
 import proImg from '../../../assets/images/party-can.png'
+import { Loader } from '../../../Global/UIComponents/LoaderHoc';
 const styles = theme => ({
   root: {
     // flexGrow: 1,
@@ -41,6 +42,7 @@ class Speed extends React.Component {
       deliveryList: [],
       // selectedSpeed: {},
       selectedCardColor: '#00BFB2',
+      isLoading: false,
     }
   }
   selection = {
@@ -204,7 +206,9 @@ class Speed extends React.Component {
       // });
       // debugger;
       this.selectShipping({ selectedRetailer, selectedSpeedDelivery: selectedSpeed});
-      
+      this.setState({
+        isLoading: false
+      });
       // this.setState({
       //   ...this.state,
       //   deliveryList: deliveryList,
@@ -224,12 +228,19 @@ class Speed extends React.Component {
 
     const deliveryOptionsFetchError = (err) => {
       console.log(err);
+      this.setState({
+        isLoading: false
+      });
     };
 
     let body = {
+      api_token: "1c779ca336234ffc6a98807a6d36140e",
       cart_id:"26234",
       address_id: "2517"
     }
+    this.setState({
+      isLoading: true,
+    });
     genericPostData({
       dispatch: this.props.dispatch,
       reqObj: body,
@@ -358,6 +369,12 @@ class Speed extends React.Component {
   }
 
   render() {
+    // loader
+    const { isLoading } = this.state;
+    if (isLoading) {
+      return <Loader />
+    }
+
 
     let speed = this.state.deliveryList && this.state.deliveryList.speed && this.state.deliveryList.speed.map(a => {
       return (

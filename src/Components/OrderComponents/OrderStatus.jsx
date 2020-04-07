@@ -144,7 +144,7 @@ class OrderStatus extends React.Component {
         const steps = this.getSteps();
         const finalSteps = steps.map((label, index) => (
             <Step key={label} >
-              <StepLabel ><span style={{ color: 'white'}}>{label}</span></StepLabel>
+              <StepLabel icon={ index + 2 }><span style={{ color: 'white'}}>{label}</span></StepLabel>
               {/* <StepContent >
                 <Typography style={{ color: 'white'}}>{this.getStepContent(index)}</Typography>
                 <div className={classes.actionsContainer}>
@@ -177,7 +177,7 @@ class OrderStatus extends React.Component {
                 </div>
 
                 <div className={classes.root}>
-                    <Stepper activeStep={this.state.activeStep} orientation="vertical" style={{ backgroundColor: 'rgba(255,255,255,0)'}}>
+                    <Stepper activeStep={this.state.activeStep} orientation="vertical" style={{ backgroundColor: 'rgba(255,255,255,0)'}} connector={false}>
                         {finalSteps}
                     </Stepper>
                 </div>
