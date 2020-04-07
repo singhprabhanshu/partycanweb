@@ -557,6 +557,39 @@ opacity: 1!important;
     justify-content: center;
   }
 
+  &.paymentcard {      
+    max-width: 25rem;
+    min-height: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    @media(max-width:992px){
+      max-width: 100%;
+    }
+
+  } 
+ 
+
+  &.userPreferenceSetting, &.userInfoSettingCards{
+    max-width: 25rem;
+    min-height: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    @media(max-width:992px){
+      max-width: 100%;
+    }
+
+    &:hover{
+      color:@color-l!important;
+      background-color: rgba(255, 255, 255, .3)!important;
+    }
+  }
+
+ 
+
+
   &:hover{
     color:@color-l!important;
     background-color: rgba(255, 255, 255, 1)!important;
@@ -699,49 +732,6 @@ opacity: 1!important;
 }
 
 /////////////// Setting page Design
-.userInfoSettingCards{
-  background-color: rgba(255, 255, 255, .3)!important;
-  width: 100%;
-  max-width: 23%;
-  min-height: 21rem;
-  border-radius: .5rem!important;
-  color:#fff!important;
-  transition: ease all .3s;
-  padding: 1.5rem;
-  margin: 1.5rem;
-
-  &:hover{
-    cursor: pointer;
-  }
-
-  .title{
-    font-family: 'Tungsten-Bold';
-    font-size: 3rem;
-    letter-spacing: .2rem;
-  }
-}
-
-.userPreferenceSetting{
-  background-color: rgba(255, 255, 255, .3)!important;
-  width: 100%;
-  max-width: 23%;
-  min-height: 10rem;
-  border-radius: .5rem!important;
-  color:#fff!important;
-  transition: ease all .3s;
-  padding: 1.5rem;
-  margin: 1.5rem;
-
-  &:hover{
-    cursor: pointer;
-  }
-
-  .title{
-    font-family: 'Tungsten-Bold';
-    font-size: 3rem;
-    letter-spacing: .2rem;
-  }
-}
 
 .userpayment-setting {
   width: 100%;
@@ -756,20 +746,7 @@ opacity: 1!important;
     cursor: pointer;
   }
 }
-.user-card-add {
-  background-color: rgba(255, 255, 255, .3)!important;
-  width: 100%;
-  max-width: 20%;
-  min-height: 16rem;
-  border-radius: .5rem!important;
-  color:#fff!important;
-  transition: ease all .3s;
-  padding: 1.5rem;
-  margin: 1.5rem;
-  &:hover{
-    cursor: pointer;
-  }
-}
+
 .orderSetting-card {
   width: 100%;
   max-width: 43%;
