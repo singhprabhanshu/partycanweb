@@ -173,14 +173,16 @@ class ProductsListing extends React.Component {
                         </div>
                     </Col>
 
-                    <Col lg={7} className="p-5 order-2 order-md-1">
-                        <div style={{ padding: "35px", marginLeft: "50px" }}>
+                    <Col lg={7} className="p-5 order-2 order-md-1">                       
                             <Grid container spacing={1}>
                                 <Grid container item xs={8}>
-                                    <KeyboardBackspaceOutlined />  {productDetailsData.name}
-                                    <div style={{ marginTop: "25px" }}>
+                                <Grid container spacing={1}>
+                                    <Grid container item>
+                                        <KeyboardBackspaceOutlined />  {productDetailsData.name}
+                                    </Grid>
+                                    <Grid container item>
                                         {productDetailsData.description}
-                                    </div>
+                                    </Grid>
                                 </Grid>
                                 <Grid container item xs={4}>
                                     <StarRatingComponent value={averageRating} starCount={5} editing={false} />
@@ -229,7 +231,7 @@ class ProductsListing extends React.Component {
                                     </Grid>
                                 </Grid>
                             </div>
-                        </div>
+                     
                                     
                     </Col>                        
                     </Row>
