@@ -457,12 +457,38 @@ opacity: 1!important;
 }
 }
 
+.proName{
+  text-transform: uppercase;
+  font-size: 1.6rem;
+}
+
+.proDescription{
+  font-size: 1.3rem;
+  color:rgba(255, 255, 255, .6)
+}
+
+.proItems{
+
+  .title-2{
+    font-family: 'Tungsten-Medium';
+    font-size: 2.5rem;
+    letter-spacing: .3rem;
+  }
+
+}
 
 ////////////////////////////// Address section
 
 .secMinHeight{
   min-height: calc(100vh - 180px);
 }
+
+.leftSecmaxHeight{
+  max-height: calc(100vh - 240px);
+  overflow-y: auto;
+  width: 100%;
+}
+
 .productImgSection{
   position: relative;
   display: flex;
@@ -640,50 +666,27 @@ opacity: 1!important;
 .ingredientsList{
   display: flex;
   flex-direction: row;
-  padding-right: 2.5rem!important;
-  padding-left: 2.5rem!important;
 .card{
   width: 23%;
   border-radius:1.5rem;
   margin:1rem 1%;
-  align-items: center;
-  background-color: rgba(0, 191, 178, .3);
+  background-color: transparent!important;
+  align-items: center; 
   border: 0!important;
   transition: ease all .3s;
   cursor: pointer;
     .card-img{
       max-width: 14rem;
     }
-
-
-    &:nth-child(3n+1) {
-      background-color: rgba(0, 191, 178, .3);
-      &:hover{
-        background-color: rgba(0, 191, 178, 1);
-      }
-    }
-
-    &:nth-child(3n-1) {
-      background-color: rgba(0, 50, 160, .3);
-      &:hover{
-        background-color: rgba(0, 50, 160, 1);
-      }
-    }
-
-    &:nth-child(3n+0) {     
-      background-color: rgba(229, 85, 79, .3);
-      &:hover{
-        background-color: rgba(229, 85, 79, 1);
-      }
-    }
-
-    
-
-
-   
-
+}
+.ingredientLabel{
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
 }
 }
+
 
 
 

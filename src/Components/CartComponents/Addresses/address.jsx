@@ -214,87 +214,89 @@ class Address extends React.Component {
                                 <img src={proImg} className="imgProduct img-responsive"></img>
                          </div>
                         </Col>
-                        <Col lg={6} className="p-5 order-2 order-md-1">
-                        <div style={styles(this.state).addressFormHide}>                                
-                                <div className="block-title mb-4">SAVED ADDRESSES</div>
-                                <div className="d-flex flex-wrap CardsWrapper">
-                                    <AddAddressCard handleAddAddress={this.handleAddAddress} />
-                                    {addresses}
-                                </div> 
-                                <div className="text-left mt-4" >
-                                    <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleCardSelect}>
-                                        <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE & CONTINUE
-                                    </Button>
-                                </div> 
-                        </div>
-                        <div style={styles(this.state).addressFormShow}> 
-                        <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} />ADDRESS</div>
-                        
-                        <Form onSubmit= {this.onSubmit} validate={validate}
-                                render={({ handleSubmit }) => (
-                            <form onSubmit={handleSubmit}>
-                             <div className="block-title d-flex justify-content-between align-items-center mb-4">                            
-                            ADD NEW ADDRESSES
-                            <span className="d-flex align-items-center">
-                                <Field name="defaultAddress" component={SwitchInputField} label='DEFAULT ADDRESS' />
-                            </span>
-                            </div>
-                                <div className="d-flex mt-4">
-                                    <div style={{ width: '50%', marginRight: 50}}>
-                                        <Field name="firstName" component={TextInputField} placeholder='FIRST NAME'
+                        <Col lg={6} className="p-5  d-flex order-2 order-md-1">
+                            <div className="leftSecmaxHeight d-flex flex-column"> 
+                                <div style={styles(this.state).addressFormHide}>                                
+                                        <div className="block-title mb-4">SAVED ADDRESSES</div>
+                                        <div className="d-flex flex-wrap CardsWrapper">
+                                            <AddAddressCard handleAddAddress={this.handleAddAddress} />
+                                            {addresses}
+                                        </div> 
+                                        <div className="text-left mt-4" >
+                                            <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleCardSelect}>
+                                                <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE & CONTINUE
+                                            </Button>
+                                        </div> 
+                                </div>
+                                <div style={styles(this.state).addressFormShow}> 
+                            <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} />ADDRESS</div>
+                            
+                            <Form onSubmit= {this.onSubmit} validate={validate}
+                                    render={({ handleSubmit }) => (
+                                <form onSubmit={handleSubmit}>
+                                <div className="block-title d-flex justify-content-between align-items-center mb-4">                            
+                                ADD NEW ADDRESSES
+                                <span className="d-flex align-items-center">
+                                    <Field name="defaultAddress" component={SwitchInputField} label='DEFAULT ADDRESS' />
+                                </span>
+                                </div>
+                                    <div className="d-flex mt-4">
+                                        <div style={{ width: '50%', marginRight: 50}}>
+                                            <Field name="firstName" component={TextInputField} placeholder='FIRST NAME'
+                                            autoFocus={false} type='text' />
+                                        </div>
+                                        <div style={{ width: '50%'}}>
+                                            <Field name="lastName" component={TextInputField} placeholder='LAST NAME'
+                                            autoFocus={false} type='text' />
+                                        </div>
+                                    </div>
+                                    <div className="mt-4">
+                                        <Field name="address" component={TextInputField} placeholder='ADDRESS'
                                         autoFocus={false} type='text' />
                                     </div>
-                                    <div style={{ width: '50%'}}>
-                                        <Field name="lastName" component={TextInputField} placeholder='LAST NAME'
+                                    <div className="mt-4">
+                                        <Field name="address2" component={TextInputField} placeholder='ADDRESS 2'
                                         autoFocus={false} type='text' />
                                     </div>
-                                </div>
-                                <div className="mt-4">
-                                    <Field name="address" component={TextInputField} placeholder='ADDRESS'
-                                    autoFocus={false} type='text' />
-                                </div>
-                                <div className="mt-4">
-                                    <Field name="address2" component={TextInputField} placeholder='ADDRESS 2'
-                                    autoFocus={false} type='text' />
-                                </div>
-                                <div className="mt-4">
-                                    <Field name="city" component={TextInputField} placeholder='CITY'
-                                    autoFocus={false} type='text' />
-                                </div>
-                                <div className="d-flex mt-4">
-                                        {/* <Field name="state" component={TextInputField} placeholder='STATE'
+                                    <div className="mt-4">
+                                        <Field name="city" component={TextInputField} placeholder='CITY'
                                         autoFocus={false} type='text' />
-                                        <Field name="zip" component={TextInputField} placeholder='ZIP'
-                                        autoFocus={false} type='text' />         */}
-                                    <div style={{ width: '50%', marginRight: 50}}>
-                                        <Field name="state" component={RFReactSelect} placeholder='STATE'
-                                        autoFocus={false} type='text' options={options} />
                                     </div>
-                                    <div style={{ width: '50%'}}>
-                                        <Field name="zip" component={TextInputField} placeholder='ZIP'
+                                    <div className="d-flex mt-4">
+                                            {/* <Field name="state" component={TextInputField} placeholder='STATE'
+                                            autoFocus={false} type='text' />
+                                            <Field name="zip" component={TextInputField} placeholder='ZIP'
+                                            autoFocus={false} type='text' />         */}
+                                        <div style={{ width: '50%', marginRight: 50}}>
+                                            <Field name="state" component={RFReactSelect} placeholder='STATE'
+                                            autoFocus={false} type='text' options={options} />
+                                        </div>
+                                        <div style={{ width: '50%'}}>
+                                            <Field name="zip" component={TextInputField} placeholder='ZIP'
+                                            autoFocus={false} type='text' />
+                                        </div>
+                                        
+                                    </div>
+                                    <div className="mt-4">
+                                        <Field name="addressNickname" component={TextInputField} placeholder='ADDRESS NICKNAME'
+                                        autoFocus={false} type='text' />
+                                    </div>
+                                    <div className="mt-4">
+                                        <Field name="phone" component={TextInputField} placeholder='phone'
                                         autoFocus={false} type='text' />
                                     </div>
                                     
-                                </div>
-                                <div className="mt-4">
-                                    <Field name="addressNickname" component={TextInputField} placeholder='ADDRESS NICKNAME'
-                                    autoFocus={false} type='text' />
-                                </div>
-                                <div className="mt-4">
-                                    <Field name="phone" component={TextInputField} placeholder='phone'
-                                    autoFocus={false} type='text' />
-                                </div>
-                                
-                                                            
+                                                                
 
-                                <div className="text-left mt-4" >
-                                    <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" type="submit">
-                                        <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE ADDRESS
-                                    </Button>
-                                </div> 
-                            </form>)}
-                            />
-                    </div>
+                                    <div className="text-left mt-4" >
+                                        <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" type="submit">
+                                            <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE ADDRESS
+                                        </Button>
+                                    </div> 
+                                </form>)}
+                                />
+                        </div>
+                            </div>
                         </Col>
                         
                     </Row>

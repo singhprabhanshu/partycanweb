@@ -473,7 +473,9 @@ class Speed extends React.Component {
                                   <img src={proImg} className="imgProduct img-responsive"></img>
                           </div>
                      </Col>
-                    <Col lg={6}  className="p-5  order-2 order-md-1">        
+                    <Col lg={6}  className="p-5 d-flex order-2 order-md-1"> 
+
+                     <div className="leftSecmaxHeight d-flex flex-column">        
                     <div className="block-title mb-5">Delivery Options</div>
                     <div className="d-flex flex-column">
 
@@ -522,6 +524,7 @@ class Speed extends React.Component {
                           <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> CONTINUE
                       </Button>
                   </div> 
+                  </div>
         </Col>                        
       </Row>
   </Container>     
