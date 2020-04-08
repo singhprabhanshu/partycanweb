@@ -3,8 +3,9 @@ import { render } from 'react-dom'
 import Styles from './Styles'
 import { Form, Field } from 'react-final-form'
 import CardChild from './CardChild'
-import { Form as ReactStrapFrom, FormGroup, Button, Container, Row, Col } from 'reactstrap';
+import { Form as ReactStrapFrom, FormGroup, Button, Container, Row, Col, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, } from 'reactstrap';
 import proImg from '../../../assets/images/party-can.png'
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 
 import {
     formatCreditCardNumber,
@@ -13,6 +14,7 @@ import {
 } from './cardUtils'
 import { TextInputField } from "../../../Global/FormCompoents/wrapperComponent"
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -64,32 +66,41 @@ class App extends React.Component {
                 <div className="productImgSection">
                         <img src={proImg} className="imgProduct img-responsive"></img>
                  </div>
-                </Col>
-                <Col lg={6} className="p-5 order-2 order-md-1">            
-                <div className="row cardwrapper">
-                    {!this.state.addCard ?
-                        <div className="col-sm-6" onClick={this.addNewCard} style={{ height: "200px", marginTop: "10px", cursor: "pointer", background: "white", color: "red", display: "flex", justifyContent: "center", alignItems: "center" }} onClick={this.addCardFunction}>
-                            <div>
-                                ADD NEW CARD
-            </div>
-                        </div> : <span onClick={() => this.setState({ addCard: false })}>==Back Button</span>}
-                    {!this.state.addCard ?
-                        <>
+            </Col>
+                <Col lg={6} className="p-5">            
+                
+                {!this.state.addCard ?
+                 <>
+                     <React.Fragment>
+                        <div className="block-title mb-4">SAVED ADDRESSES</div>
+                        <div className="CardsWrapper d-flex align-items-center flex-wrap">                          
+                            <Card className="addnewcard" onClick={this.addNewCard} onClick={this.addCardFunction}>
+                                <CardBody className="p-3 d-flex align-items-center justify-content-center flex-column ">
+                                    <div className="mb-4"><AddCircleOutlineOutlinedIcon style={{ fontSize: 25 }} /> </div> 
+                                    <div>  ADD NEW CARD</div>                      
+                                </CardBody>                          
+                            </Card>                  
                             {
                                 this.savedCards.map((values, index) => (
-                                    <div onClick={() => this.setState({ selectedCard: index + 1 })} className="col-sm-6" style={{ marginTop: "10px" }} style={this.state.selectedCard == index + 1 ? { border: "5px solid white", marginTop: "10px" } : { marginTop: "10px" }}>
+                                    <span  className="ccCardsList"  onClick={() => this.setState({ selectedCard: index + 1 })} style={this.state.selectedCard == index + 1 ? { opacity: "1" } : { opacity: ".3" }}>
                                         <CardChild
                                             number={values.number || ''}
                                             name={values.name || ''}
                                             expiry={values.expiry || ''}
                                             cvc={values.cvc || ''}
+                                            className="ccCard"
+                                           
                                         />
-                                    </div>)
+                                    </span>)
                                 )
                             }
+                            </div>  
+                     </React.Fragment> 
+
                         </> : null}
-                </div>
+                      
                 {this.state.addCard ?
+                
                     <Form
                         onSubmit={onSubmit}
                         render={({
@@ -101,9 +112,10 @@ class App extends React.Component {
                             active
                         }) => {
                             return (
-                                <form style={{ marginTop: "10px" }} onSubmit={handleSubmit} className="container">
-                                    <div>
-                                        <div className="col-sm-4">
+                                <form style={{ marginTop: "10px" }} onSubmit={handleSubmit} className="container  px-0">
+                                    <div className="bread-crumb mb-4" onClick={() => this.setState({ addCard: false })}><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} /> Back Button</div>
+                                    <div className="block-title d-flex justify-content-between align-items-center mb-4">ADD NEW CARD</div>
+                                   <div className="mt-4 mb-5" style={{  display:'inline-flex' }}>
                                             <CardChild
                                                 number={values.number || ''}
                                                 name={values.name || ''}
@@ -111,48 +123,30 @@ class App extends React.Component {
                                                 cvc={values.cvc || ''}
                                                 focused={active}
                                             />
+                                   </div>
+                                    <ReactStrapFrom >
+                                        <div className="d-flex mt-4">
+                                            <div style={{ width: '50%', marginRight: 50}}>
+                                                <Field  name="number" component={TextInputField} placeholder="CARD NUMBER" pattern="[\d| ]{16,22}" 
+                                                autoFocus={false} type='text' format={formatCreditCardNumber} />
+                                            </div>
+                                            <div style={{ width: '50%'}}>
+                                                <Field  name="name" component={TextInputField} placeholder="NAME"
+                                                autoFocus={false} type='text' />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <ReactStrapFrom className="row">
-                                        <FormGroup className="col-sm-12 col-md-10">
-                                            <Field
-                                                style={{ color: "black !important" }}
-                                                name="number"
-                                                component={TextInputField}
-                                                type="text"
-                                                pattern="[\d| ]{16,22}"
-                                                placeholder="CARD NUMBER"
-                                                format={formatCreditCardNumber}
-                                            />
-                                        </FormGroup>
-                                        <FormGroup className="col-sm-12 col-md-10">
-                                            <Field
-                                                name="name"
-                                                component={TextInputField}
-                                                type="text"
-                                                placeholder="NAME"
-                                            />
-                                        </FormGroup>
-                                        <FormGroup className="col-md-5 col-sm-5">
-                                            <Field
-                                                name="expiry"
-                                                component={TextInputField}
-                                                type="text"
-                                                pattern="\d\d/\d\d"
-                                                placeholder="EXPIRATION DATE"
-                                                format={formatExpirationDate}
-                                            />
-                                        </FormGroup>
-                                        <FormGroup className="col-md-5">
-                                            <Field
-                                                name="cvc"
-                                                component={TextInputField}
-                                                type="text"
-                                                pattern="\d{3,4}"
-                                                placeholder="SECURITY CODE"
-                                                format={formatCVC}
-                                            />
-                                        </FormGroup>
+
+                                        <div className="d-flex mt-4">
+                                            <div style={{ width: '50%', marginRight: 50}}>
+                                                <Field  name="expiry" component={TextInputField} placeholder="EXPIRATION DATE" pattern="\d\d/\d\d" 
+                                                autoFocus={false} type='text' format={formatExpirationDate} />
+                                            </div>
+                                            <div style={{ width: '50%'}}>
+                                                <Field  name="cvc" component={TextInputField} placeholder="SECURITY CODE" pattern="\d{3,4}"
+                                                autoFocus={false} type='text' format={formatCVC} />
+                                            </div>
+                                        </div>
+                                        
                                     </ReactStrapFrom>
 
                                     <div className="text-left mt-4" >
@@ -163,7 +157,7 @@ class App extends React.Component {
                                 </form>
                             )
                         }}
-                    /> : null}
+                    /> : null}              
                 {!this.state.addCard ?
                     <div className="text-left mt-4" >
                         <Button variant="contained" onClick={this.handleContinueFromExistingCard} disabled={!this.state.selectedCard} color="primary" className="bottomActionbutton cartActionBtn" type="submit">
