@@ -176,24 +176,23 @@ class ProductsListing extends React.Component {
                     <Col lg={7} className="p-5 order-2 order-md-1">                       
                             <Grid container spacing={1}>
                                 <Grid container item xs={8}>
-                                <Grid container spacing={1}>
-                                    <Grid container item>
-                                        <KeyboardBackspaceOutlined />  {productDetailsData.name}
+                                    <Grid container spacing={1}>
+                                        <Grid container item>
+                                            <KeyboardBackspaceOutlined />  {productDetailsData.name}
+                                        </Grid>
+                                        <Grid container item>
+                                            {productDetailsData.description}
+                                        </Grid>
                                     </Grid>
-                                    <Grid container item>
-                                        {productDetailsData.description}
-                                    </Grid>
+                                    <Grid container item xs={4}>
+                                        <StarRatingComponent value={averageRating} starCount={5} editing={false} />
+                                        <span>{this.props.productDetailsData.review_count}</span>
+                                        <ExpandMoreOutlined onClick={()=>this.handleReviews()} />
+                                        {this.state.showReviews ? 
+                                        <div className="d-flex flex-column">{reviewsList}</div>
+                                        : ""}
+                                    </Grid>                                
                                 </Grid>
-                                <Grid container item xs={4}>
-                                    <StarRatingComponent value={averageRating} starCount={5} editing={false} />
-                                    <span>{this.props.productDetailsData.review_count}</span>
-                                    <ExpandMoreOutlined onClick={()=>this.handleReviews()} />
-                                    {this.state.showReviews ? 
-                                    <div className="d-flex flex-column">{reviewsList}</div>
-                                     : ""}
-                                </Grid>
-                                
-
                             </Grid>
                             <div style={{ marginTop: "25px" }}>
                                 <span>INGREDIENTS</span>
