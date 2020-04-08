@@ -573,6 +573,16 @@ opacity: 1!important;
     }
 
   } 
+
+  &.addnewcard {
+    max-width: 29rem;
+    min-height: 18rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 14.5px!important;
+  }
+
  
 
   &.userPreferenceSetting, &.userInfoSettingCards{
@@ -592,9 +602,6 @@ opacity: 1!important;
     }
   }
 
- 
-
-
   &:hover{
     color:@color-l!important;
     background-color: rgba(255, 255, 255, 1)!important;
@@ -610,6 +617,17 @@ opacity: 1!important;
       font-size: 3rem;
       letter-spacing: .2rem;
     }
+  }
+
+}
+
+.ccCardsList {
+  margin: 1rem;
+  opacity: .3;
+  transition: ease all .3s;
+  cursor: pointer;
+  &:hover{
+    opacity: 1!important;
   }
 
 }
