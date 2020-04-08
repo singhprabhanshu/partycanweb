@@ -6,7 +6,7 @@ import CardChild from './CardChild'
 import { Form as ReactStrapFrom, FormGroup, Button, Container, Row, Col, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, } from 'reactstrap';
 import proImg from '../../../assets/images/party-can.png'
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-
+import Scrollbar from "react-scrollbars-custom";
 import {
     formatCreditCardNumber,
     formatCVC,
@@ -67,8 +67,9 @@ class App extends React.Component {
                         <img src={proImg} className="imgProduct img-responsive"></img>
                  </div>
             </Col>
-                <Col lg={6} className="p-5">            
-                
+                <Col lg={7} className="p-5">            
+                <Scrollbar className="leftSecmaxHeight">
+                            <div className="pr-lg-4" >
                 {!this.state.addCard ?
                  <>
                      <React.Fragment>
@@ -165,7 +166,8 @@ class App extends React.Component {
                         </Button>
                     </div> 
                 : null}           
-          
+            </div>
+            </Scrollbar>
             </Col>
                         
                 </Row>

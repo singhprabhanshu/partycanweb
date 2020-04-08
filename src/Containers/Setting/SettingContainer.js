@@ -10,7 +10,7 @@ import SettingTabs from '../../Components/SettingComponents/SettingTabs';
 import UserSetting from '../../Components/SettingComponents/UserSetting';
 import OrderSetting from '../../Components/SettingComponents/OrderSetting';
 import LivechatSetting from '../../Components/SettingComponents/LivechatSetting';
-
+import Scrollbar from "react-scrollbars-custom";
 const styles = theme => ({
     
 });
@@ -98,11 +98,15 @@ class SettingContainer extends React.Component {
             <Container fluid={true} className="productDetails">                
                 <Row className="no-gutters justify-content-lg-between secMinHeight">
                     <Col lg={7} className="p-5" >
+                    <Scrollbar className="leftSecmaxHeight">
+                            <div className="pr-lg-4" >
                              {this.state.tabValue === 0 && 
                             <UserSetting  userInfo={this.state.userInfo} savedCards={this.state.savedCards}/> } 
                             {this.state.tabValue === 1 && 
                             <OrderSetting  ordersInfo={this.state.orders}/> }
-                            {this.state.tabValue === 2 &&  <LivechatSetting /> }    
+                            {this.state.tabValue === 2 &&  <LivechatSetting /> }   
+                        </div>
+                        </Scrollbar> 
                     </Col>
                 </Row >   
                 </Container>

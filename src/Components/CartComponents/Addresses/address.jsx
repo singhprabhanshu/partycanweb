@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Button } from 'reactstrap';
 
-
+import Scrollbar from "react-scrollbars-custom";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 // import AddressCard from './addressCard';
 import AddressCard from './addressCardNew';
@@ -215,7 +215,8 @@ class Address extends React.Component {
                          </div>
                         </Col>
                         <Col lg={6} className="p-5  d-flex order-2 order-md-1">
-                            <div className="leftSecmaxHeight d-flex flex-column"> 
+                        <Scrollbar className="leftSecmaxHeight">
+                            <div className="pr-lg-4" > 
                                 <div style={styles(this.state).addressFormHide}>                                
                                         <div className="block-title mb-4">SAVED ADDRESSES</div>
                                         <div className="d-flex flex-wrap CardsWrapper">
@@ -297,6 +298,7 @@ class Address extends React.Component {
                                 />
                         </div>
                             </div>
+                            </Scrollbar>
                         </Col>
                         
                     </Row>

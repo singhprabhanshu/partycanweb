@@ -175,7 +175,8 @@ class ProductsListing extends React.Component {
                     </Col>
 
                     <Col lg={7} className="p-5 order-2  d-flex order-md-1 ">
-                        <Scrollbar className="leftSecmaxHeight d-flex flex-column">                  
+                        <Scrollbar className="leftSecmaxHeight">
+                            <div className="pr-lg-4" >                
                             <Grid container className="mb-5" >
                                 <Grid container direction="row" className="pr-4" item xs={8}>
                                         <Grid container >
@@ -232,7 +233,7 @@ class ProductsListing extends React.Component {
                                     </Grid>
                                 </Grid>
                             </div>
-                     
+                            </div>
                             </Scrollbar>                  
                     </Col>                        
                     </Row>
