@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import KeyboardBackspaceOutlined from '@material-ui/icons/KeyboardBackspaceOutlined';
+
 import ClearOutlined from '@material-ui/icons/ClearOutlined';
 import AddOutlined from '@material-ui/icons/AddOutlined'
 import ExpandMoreOutlined from '@material-ui/icons/ExpandMoreOutlined'
@@ -13,6 +13,7 @@ import { map as _map, findIndex as _findIndex, get as _get, isEmpty as _isEmpty 
 import genericGetData from "../../Redux/Actions/genericGetData";
 import genericPostData from "../../Redux/Actions/genericPostData";
 import ShoppingBasketOutlined from "@material-ui/icons/ShoppingBasketOutlined";
+import Scrollbar from "react-scrollbars-custom";
 import {Container, Row, Col} from 'reactstrap'
 import {
     Card, CardImg, CardText, CardBody,
@@ -21,7 +22,7 @@ import {
 import Grid from '@material-ui/core/Grid';
 import StarRatingComponent from 'react-star-rating-component';
 import { ListGroup, ListGroupItem } from 'reactstrap';
-
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -142,7 +143,7 @@ class ProductsListing extends React.Component {
                 <Card>
                     <CardImg src={ingredient.image} alt="Card image cap" />
                     <CardBody>
-                        <CardTitle className=" text-white text-uppercase">{ingredient.title}</CardTitle>
+                        <CardTitle className="ingredientLabel">{ingredient.title}</CardTitle>
                     </CardBody>
                 </Card>
             )
@@ -173,29 +174,31 @@ class ProductsListing extends React.Component {
                         </div>
                     </Col>
 
-                    <Col lg={7} className="p-5 order-2 order-md-1">                       
-                            <Grid container spacing={1}>
-                                <Grid container item xs={8}>
-                                    <Grid container spacing={1}>
-                                        <Grid container item>
-                                            <KeyboardBackspaceOutlined />  {productDetailsData.name}
-                                        </Grid>
-                                        <Grid container item>
-                                            {productDetailsData.description}
-                                        </Grid>
-                                    </Grid>
-                                    <Grid container item xs={4}>
-                                        <StarRatingComponent value={averageRating} starCount={5} editing={false} />
-                                        <span>{this.props.productDetailsData.review_count}</span>
-                                        <ExpandMoreOutlined onClick={()=>this.handleReviews()} />
-                                        {this.state.showReviews ? 
-                                        <div className="d-flex flex-column">{reviewsList}</div>
-                                        : ""}
-                                    </Grid>                                
-                                </Grid>
+                    <Col lg={7} className="p-5 order-2  d-flex order-md-1 ">
+                        <Scrollbar className="leftSecmaxHeight">
+                            <div className="pr-lg-4" >                
+                            <Grid container className="mb-5" >
+                                <Grid container direction="row" className="pr-4" item xs={8}>
+                                        <Grid container >
+                                            <Grid className="proName text-uppercase mb-4 d-flex align-items-center"   container item>
+                                                <ArrowBackIcon className="mr-4" style={{fontSize:'20px', color:'rgba(255, 255, 255, .6)'}} />  {productDetailsData.name}
+                                            </Grid>
+                                            <Grid className="proDescription" container item>
+                                                {productDetailsData.description}
+                                            </Grid>
+                                        </Grid> 
+                                 </Grid>
+                                <Grid  className="prostarRatings" container item xs={4}>
+                                    <StarRatingComponent value={averageRating} starCount={5} editing={false} />
+                                    <span>{this.props.productDetailsData.review_count}</span>
+                                    <ExpandMoreOutlined onClick={()=>this.handleReviews()} />
+                                    {this.state.showReviews ? 
+                                    <div className="d-flex flex-column">{reviewsList}</div>
+                                    : ""}
+                                </Grid>  
                             </Grid>
-                            <div style={{ marginTop: "25px" }}>
-                                <span>INGREDIENTS</span>
+                            <div className="proItems d-flex flex-column mb-4">
+                                <div  className="mb-3 title-2">INGREDIENTS</div>
                                 <div className="ingredientsList">
                                     {Ingredients}
                                 </div>
@@ -230,8 +233,8 @@ class ProductsListing extends React.Component {
                                     </Grid>
                                 </Grid>
                             </div>
-                     
-                                    
+                            </div>
+                            </Scrollbar>                  
                     </Col>                        
                     </Row>
                     </Container>
