@@ -28,7 +28,7 @@ class MainLayout extends React.Component {
     return (
       <>
       <div className="mainLayout">
-       <div className="d-none d-lg-block"><HeaderBar history={this.props.history} /></div>
+       <div className="d-none d-md-block"><HeaderBar history={this.props.history} /></div>
        <div className="container-content-section">
         <React.Fragment>
           {this.props.children}
