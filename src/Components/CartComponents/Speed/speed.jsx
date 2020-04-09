@@ -21,11 +21,7 @@ import proImg from '../../../assets/images/party-can.png'
 import { Loader } from '../../../Global/UIComponents/LoaderHoc';
 import Scrollbar from "react-scrollbars-custom";
 const styles = theme => ({
-  root: {
-    // flexGrow: 1,
-    // maxWidth: 500,
-    // display: 'flex',
-    // 'align-items': 'center',
+  root: {    
     background: '#00BFB2',
     // background: 'White',
     height: '50px',
@@ -237,7 +233,7 @@ class Speed extends React.Component {
     let body = {
       api_token: "1c779ca336234ffc6a98807a6d36140e",
       cart_id:"26234",
-      address_id: "2517"
+      delivery_address_id: "2517"
     }
     this.setState({
       isLoading: true,

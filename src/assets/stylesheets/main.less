@@ -308,6 +308,8 @@ opacity: 1!important;
   min-width: auto!important;
   background-size: cover;
   cursor: pointer;
+ 
+  
 
   &.addCircleIcon{
     background-color: #00bfb3;
@@ -318,7 +320,14 @@ opacity: 1!important;
     width: 2.3rem;
     height: 2.3rem;
     cursor: pointer;
-    min-width: auto!important;   
+    min-width: auto!important;  
+
+    @media(max-width:767px){
+      width: 3.5rem;
+      height: 3.5rem;
+      line-height: 2.5rem;
+      font-size: 2.2rem;
+    } 
 
     &:hover{
       background-color: rgba(0, 191, 179, .5);
@@ -400,7 +409,17 @@ opacity: 1!important;
 
 
 ///////Product page css
+.mobile-tabs-title{
+  background-color: rgba(255, 255, 255, .1);
+  height: 8rem;
+  
 
+  .title{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+  }
+}
 .product-tabs{
   background-color: rgba(255, 255, 255, .1);
   border-bottom-left-radius: 2rem;
@@ -408,14 +427,20 @@ opacity: 1!important;
   padding-right: 1.6rem!important;
   padding-left: 1.6rem!important;
   
+  
   .MuiTab-root
   {
     min-width: 10rem!important;
     margin: 1rem;   
-    min-height: 4rem!important;;
+    min-height: 4rem!important;
+    text-transform: uppercase;
     &.Mui-selected{
       background-color: #50e2d8;
       border-radius: 4rem;     
+    }
+    @media(max-width:767px){
+      min-width: auto!important;
+      flex: 1;
     }
   }
 }
@@ -425,6 +450,10 @@ opacity: 1!important;
   flex-wrap: wrap;
   padding-right: 2.5rem!important;
   padding-left: 2.5rem!important;
+  @media(max-width:767px){
+    padding-right: 1.5rem!important;
+  padding-left: 1.5rem!important;
+  }
 
   .card{
     width: 25%;
@@ -442,11 +471,15 @@ opacity: 1!important;
       cursor: pointer;
         .card-img{
           max-width: 24rem;
-        }        
+        }  
+        
+        @media(max-width:767px){         
+          margin:2rem 1rem;
+        }
       }
 
       @media(max-width:767px){
-        width: 50%; 
+        width: 50%;        
       }
 
 
@@ -807,4 +840,17 @@ opacity: 1!important;
     font-size: 3rem;
     letter-spacing: .2rem;
   }
+}
+
+
+//mobile bottom bar
+
+.mobile-bottom-bar{
+  background-color: @color-2;
+   position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right:0;
+  height:6rem;
 }

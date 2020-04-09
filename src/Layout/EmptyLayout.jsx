@@ -28,8 +28,10 @@ class EmptyLayout extends React.Component {
     let { classes } = this.props;
     return (
       <div className="emptyLayout">
-        <div className="topHeader d-flex justify-content-center align-items-center hidden-xs">
+        <div className="d-none d-md-block">
+        <div className="topHeader d-flex justify-content-center align-items-center ">
            <Col xs={4} className="d-flex justify-content-center"><img src={Logo} className="img-responsive"></img></Col>      
+        </div>
         </div>
         <div className="container-content-section">
           {this.props.children}
