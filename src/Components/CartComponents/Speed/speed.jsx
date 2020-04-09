@@ -19,6 +19,7 @@ import { blue } from '@material-ui/core/colors';
 import {Container, Row, Col} from 'reactstrap'
 import proImg from '../../../assets/images/party-can.png'
 import { Loader } from '../../../Global/UIComponents/LoaderHoc';
+import Scrollbar from "react-scrollbars-custom";
 const styles = theme => ({
   root: {
     // flexGrow: 1,
@@ -473,8 +474,10 @@ class Speed extends React.Component {
                                   <img src={proImg} className="imgProduct img-responsive"></img>
                           </div>
                      </Col>
-                    <Col lg={6}  className="p-5  order-2 order-md-1">        
+                    <Col lg={6}  className="p-5 d-flex order-2 order-md-1">                         
                     <div className="block-title mb-5">Delivery Options</div>
+                    <Scrollbar className="leftSecmaxHeight">
+                            <div className="pr-lg-4" > 
                     <div className="d-flex flex-column">
 
                         <div className="d-flex flex-column mb-5 ">
@@ -516,12 +519,15 @@ class Speed extends React.Component {
                          </div>
                          </div>
                       : null}  
-                   </div>       
+                   </div> 
+                        </div>
+                        </Scrollbar>
                   <div className="text-left mt-4" >
                       <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleDeliverySelect}>
                           <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> CONTINUE
                       </Button>
-                  </div> 
+                
+                  </div>
         </Col>                        
       </Row>
   </Container>     

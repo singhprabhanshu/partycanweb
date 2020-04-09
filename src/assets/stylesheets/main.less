@@ -159,28 +159,7 @@ button:focus {
 .carousel.carousel-slider{
   height: 70vh;
 }
-.carousel .control-arrow:before, .carousel.carousel-slider .control-arrow:before{
-  border: 0!important;
-}
-.carousel .control-arrow, .carousel.carousel-slider .control-arrow{
-  opacity: 1!important;
-}
 
-.carousel .control-next.control-arrow:before{
-  content: 'NEXT'!important;
-  position: fixed;
-  bottom: 7.3rem;
-  left: 0;
-  right: 0;
-  width: 100%;
-  font-family: "Gibson-Regular", "sans-serif";
-  margin: 0!important;
-  font-size: 1.6rem;
-}
-
-.carousel.carousel-slider .control-arrow:hover{
-  background-color: transparent!important;
-}
 
 .carousel .slide .legend{
   left:0!important;
@@ -195,9 +174,12 @@ opacity: 1!important;
 
 .carousel .slide img{
   max-width: 40%;
+  @media (max-width: 1440px){
+    max-width: 30%;
+  } 
   @media (max-width: 991px){
     max-width: 80%;
-  } 
+  }
 }
 
 ////////////////////// Signup and login page css
@@ -457,12 +439,38 @@ opacity: 1!important;
 }
 }
 
+.proName{
+  text-transform: uppercase;
+  font-size: 1.6rem;
+}
+
+.proDescription{
+  font-size: 1.3rem;
+  color:rgba(255, 255, 255, .6)
+}
+
+.proItems{
+
+  .title-2{
+    font-family: 'Tungsten-Medium';
+    font-size: 2.5rem;
+    letter-spacing: .3rem;
+  }
+
+}
 
 ////////////////////////////// Address section
 
 .secMinHeight{
   min-height: calc(100vh - 180px);
 }
+
+.leftSecmaxHeight{
+  max-height: calc(100vh - 240px);
+  overflow-y: auto;
+  width: 100%;
+}
+
 .productImgSection{
   position: relative;
   display: flex;
@@ -573,6 +581,16 @@ opacity: 1!important;
     }
 
   } 
+
+  &.addnewcard {
+    max-width: 29rem;
+    min-height: 18rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 14.5px!important;
+  }
+
  
 
   &.userPreferenceSetting, &.userInfoSettingCards{
@@ -591,9 +609,6 @@ opacity: 1!important;
       background-color: rgba(255, 255, 255, .3)!important;
     }
   }
-
- 
-
 
   &:hover{
     color:@color-l!important;
@@ -614,6 +629,17 @@ opacity: 1!important;
 
 }
 
+.ccCardsList {
+  margin: 1rem;
+  opacity: .3;
+  transition: ease all .3s;
+  cursor: pointer;
+  &:hover{
+    opacity: 1!important;
+  }
+
+}
+
 .bread-crumb{
   font-size: 1.2rem;
   cursor: pointer;
@@ -622,50 +648,27 @@ opacity: 1!important;
 .ingredientsList{
   display: flex;
   flex-direction: row;
-  padding-right: 2.5rem!important;
-  padding-left: 2.5rem!important;
 .card{
   width: 23%;
   border-radius:1.5rem;
   margin:1rem 1%;
-  align-items: center;
-  background-color: rgba(0, 191, 178, .3);
+  background-color: transparent!important;
+  align-items: center; 
   border: 0!important;
   transition: ease all .3s;
   cursor: pointer;
     .card-img{
       max-width: 14rem;
     }
-
-
-    &:nth-child(3n+1) {
-      background-color: rgba(0, 191, 178, .3);
-      &:hover{
-        background-color: rgba(0, 191, 178, 1);
-      }
-    }
-
-    &:nth-child(3n-1) {
-      background-color: rgba(0, 50, 160, .3);
-      &:hover{
-        background-color: rgba(0, 50, 160, 1);
-      }
-    }
-
-    &:nth-child(3n+0) {     
-      background-color: rgba(229, 85, 79, .3);
-      &:hover{
-        background-color: rgba(229, 85, 79, 1);
-      }
-    }
-
-    
-
-
-   
-
+}
+.ingredientLabel{
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
 }
 }
+
 
 
 
