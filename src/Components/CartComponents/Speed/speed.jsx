@@ -236,7 +236,7 @@ class Speed extends React.Component {
     let body = {
       api_token: "1c779ca336234ffc6a98807a6d36140e",
       cart_id:"26234",
-      address_id: "2517"
+      delivery_address_id: "2517"
     }
     this.setState({
       isLoading: true,

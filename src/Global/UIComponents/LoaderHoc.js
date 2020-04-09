@@ -11,7 +11,7 @@ function WithLoading(Component) {
 
 function Loader () {
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
     <Spinner color="danger" />
     </div>
   ) 
