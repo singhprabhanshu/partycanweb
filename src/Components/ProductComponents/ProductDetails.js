@@ -195,72 +195,80 @@ class ProductDetails extends React.Component {
                     handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
                     />                
                 <Row className="no-gutters justify-content-lg-between secMinHeight">
-                    <Col lg={5} className="order-1 d-none d-lg-block order-md-2">
-                        <div className="productImgSection">
+                    <Col lg={5} className="order-1 order-md-2">
+                        <div className="productImgSection proDetailSec">
                             <img src={_get(productDetailsData, 'images[0]', "")} className="imgProduct img-responsive" alt="Smiley face" />
                         </div>
                     </Col>
 
                     <Col lg={7} className="p-5 order-2  d-flex order-md-1 ">
-                        <Scrollbar className="leftSecmaxHeight">
+                        <Scrollbar  className="leftSecmaxHeight">
                             <div className="pr-lg-4" >                
-                            <Grid container className="mb-5" >
-                                <Grid container direction="row" className="pr-4" item xs={8}>
-                                        <Grid container >
-                                            <Grid className="proName text-uppercase mb-4 d-flex align-items-center"   container item>
-                                                <ArrowBackIcon className="mr-4" style={{fontSize:'20px', color:'rgba(255, 255, 255, .6)'}} />  {productDetailsData.name}
-                                            </Grid>
-                                            <Grid className="proDescription" container item>
-                                                {productDetailsData.description}
-                                            </Grid>
-                                        </Grid> 
-                                 </Grid>
-                                <Grid  className="prostarRatings" container item xs={4}>
-                                    <StarRatingComponent value={averageRating} starCount={5} editing={false} />
-                                    <span>{this.props.productDetailsData.review_count}</span>
-                                    <ExpandMoreOutlined onClick={()=>this.handleReviews()} />
+                            <Row  className="mb-5 flex-column flex-md-row justify-content-md-between no-gutters" >
+                                <Col className="prostarRatings order-md-2">
+                                    <div className="reviewsBox d-flex align-items-center" onClick={()=>this.handleReviews()}>
+                                        <StarRatingComponent value={averageRating} starCount={5} editing={false} />
+                                        <span >{this.props.productDetailsData.review_count}</span>
+                                        <ExpandMoreOutlined  />
+                                    </div>
                                     {this.state.showReviews ? 
                                     <div className="d-flex flex-column">{reviewsList}</div>
                                     : ""}
-                                </Grid>  
-                            </Grid>
-                            { !_isEmpty(Ingredients) ? 
-                            <div className="proItems d-flex flex-column mb-4">
-                                <div  className="mb-3 title-2">INGREDIENTS</div>
-                                <div className="ingredientsList">
-                                    {Ingredients}
-                                </div>
-                            </div> : ""
-    }
+                                    </Col>  
+                               
+                                <Col className="order-md-1" >                                      
+                                    <div className="proName text-uppercase mb-4 d-flex align-items-center" >
+                                        <ArrowBackIcon className="mr-4" style={{fontSize:'20px', color:'rgba(255, 255, 255, .6)'}} />  {productDetailsData.name}
+                                    </div>
+                                    <div className="proDescription"  >
+                                        {productDetailsData.description}
+                                    </div>                                     
+                                 </Col>
+                                
+                            </Row>
+                                { !_isEmpty(Ingredients) ? 
+                                    <div className="proItems d-flex flex-column mb-4">
+                                        <div  className="mb-3 title-2">INGREDIENTS</div>
+                                        <div className="ingredientsList">
+                                            {Ingredients}
+                                        </div>
+                                    </div>
+                                : ""}
                             <div style={{ marginTop: "50px" }}>
                                 <Grid container>
-                                    <Grid container item xs={4}>
-                                        <span style={{ marginRight: "400px" }}>AMOUNT</span>
-                                        <ClearOutlined onClick={() => this.handleQuantity("less")} />
-                                        <span>{this.state.defaultQuantity}</span>
-                                        <AddOutlined onClick={() => this.handleQuantity("add")} />
+                                    <Grid container direction="column" item xs={3}>
+                                        <span className="smallTitle">AMOUNT</span>
+                                        <div className="addQty">
+                                            <span><ClearOutlined onClick={() => this.handleQuantity("less")} /></span>
+                                            <span className="qty">{this.state.defaultQuantity}</span>
+                                            <span><AddOutlined style={{fontSize:"15px"}} onClick={() => this.handleQuantity("add")} /></span>
+                                        </div>
                                     </Grid>
-                                    <Grid container item xs={4}>
-                                        <span style={{ marginRight: "400px" }}>FROM</span>
-                                        <span>${this.state.productPrice}</span>
+                                    <Grid container direction="column" item xs={3}>
+                                        <span className="smallTitle">FROM</span>
+                                        <span className="finalProprice">${this.state.productPrice}</span>
                                     </Grid>
-                                    <Grid container item xs={4}>
-                                        <span>DELIVERED COLD IN - 1 HR</span>
+                                    <Grid container direction="column"  item xs={3}>
+                                        <span className="smallTitle">DELIVERED COLD IN - 1 HR</span>
+                                        <div className="snowFlakes">
+                                            <span></span> 
+                                            <span></span> 
+                                            <span></span> 
+                                            <span></span>
+                                         </div> 
                                     </Grid>
                                 </Grid>
                             </div>
-                            <div style={{ marginTop: "50px" }}>
-                                <Grid container>
-                                    <Grid container item xs={4}>
-                                        <Button style={{ backgroundColor: '#00BFB2', height: 50, width: 250, borderRadius: 27, fontSize: 15 }}>SHARE</Button>
-                                    </Grid>
-                                    <Grid container item xs={4}>
-                                        <Button onClick={()=>this.handleAddToCart()} style={{ backgroundColor: '#00BFB2', height: 50, width: 250, borderRadius: 27, fontSize: 15 }}><ShoppingBasketOutlined /> ADD TO CART</Button>
-                                    </Grid>
-                                    <Grid container item xs={4}>
-                                        <Button style={{ backgroundColor: '#00BFB2', height: 50, width: 250, borderRadius: 27, fontSize: 15 }}><PlaceOutlined /> FIND IN STORES</Button>
-                                    </Grid>
-                                </Grid>
+                            <div className="d-flex flex-column flex-md-row" style={{ marginTop: "50px" }}>                                                                 
+                                    <Button variant="contained" color="#0032A0" className="bottomActionbutton autoWidthbtn  bg-white" type="submit">
+                                             SHARE
+                                     </Button>                    
+                                    <Button onClick={()=>this.handleAddToCart()} variant="contained"  className="bottomActionbutton  cartActionBtn mx-4" type="submit">
+                                        ADD TO CART
+                                    </Button>                    
+                                    <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)'}} variant="contained" color="#fff" className="bottomActionbutton autoWidthbtn transiBtn" type="submit">
+                                            FIND IN STORES
+                                    </Button>
                             </div>
                             </div>
                             </Scrollbar>                  
