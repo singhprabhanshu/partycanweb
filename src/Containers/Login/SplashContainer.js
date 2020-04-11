@@ -58,7 +58,7 @@ class SplashContainer extends React.Component {
         this.setState({ slideIndex :  this.state.slideIndex + 1});
     }
     redirectToNext = () => {
-        this.props.history.push('/categories');
+        this.props.history.push('/home');
     }
     handleIndicator = (event) => {
         this.setState({ slideIndex :  event});

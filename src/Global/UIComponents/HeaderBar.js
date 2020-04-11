@@ -44,9 +44,9 @@ class HeaderBar extends React.Component {
                                 <img src={Logo} className="img-responsive"></img>
                             </Col>
                             <Col xs={'auto'}>
-                                {this.props.userName && <div class="dropdown">
+                                {this.props.userName && <div className="dropdown">
                                     <AccountCircleIcon fontSize="large" onClick={this.showUserMenu}/>
-                                    {this.state.showUserMenuOption ? <div class="dropdown-content">
+                                    {this.state.showUserMenuOption ? <div className="dropdown-content">
                                         <span>Hey, {this.props.userName}</span>
                                         <span onClick={this.handleLogout}>Logout</span>
                                     </div> : null }

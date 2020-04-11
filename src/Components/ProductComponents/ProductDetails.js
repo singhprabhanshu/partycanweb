@@ -23,6 +23,10 @@ import Grid from '@material-ui/core/Grid';
 import StarRatingComponent from 'react-star-rating-component';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ProductTabs from './ProductTabs';
+// import {
+//     FacebookIcon,
+//   } from "react-share";
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -56,7 +60,7 @@ const styles = theme => ({
 
 });
 
-class ProductsListing extends React.Component {
+class ProductDetails extends React.Component {
 
     constructor(props) {
         super(props);
@@ -66,6 +70,22 @@ class ProductsListing extends React.Component {
             showReviews: false
         }
     }
+
+    componentDidMount() {
+        const categoryType = this.props.match.params.categoryType;
+        const productID = this.props.match.params.productID;
+        let index = _findIndex(this.props.categoriesList, { 'category_name': categoryType })
+        if(index == -1){
+            index=0
+        }
+        this.setState({ tabValue: index })
+    }
+
+    handleTabChange = (index) => {
+        this.setState({ tabValue: index });
+        let categoryName = _get(this.props, `categoriesList[${index}].category_name`, null)
+        this.props.history.push(`/category/${categoryName}`)
+    };
 
     fetchProductDetails = (ProductID) => {
 
@@ -110,8 +130,9 @@ class ProductsListing extends React.Component {
 
     handleAddToCart = () => {
         let reqObj = {
-            product_id: this.props.ProductID,
-            qty: this.state.defaultQuantity
+            product_id: this.props.match.params.productID,
+            qty: this.state.defaultQuantity,
+            api_token: localStorage.getItem("Token")
         };
         genericPostData({
             dispatch: this.props.dispatch,
@@ -129,6 +150,7 @@ class ProductsListing extends React.Component {
     }
 
     addToCartSuccess = () => {
+        this.props.history.push('/cart')
     }
 
     addToCartFailure = () => {
@@ -166,7 +188,11 @@ class ProductsListing extends React.Component {
         })
         return (
             <React.Fragment>
-            <Container fluid={true} className="productDetails">                
+            <Container fluid={true} className="productDetails"> 
+            <ProductTabs
+                    tabValue={this.state.tabValue}
+                    handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
+                    />                
                 <Row className="no-gutters justify-content-lg-between secMinHeight">
                     <Col lg={5} className="order-1 order-md-2">
                         <div className="productImgSection proDetailSec">
@@ -175,10 +201,10 @@ class ProductsListing extends React.Component {
                     </Col>
 
                     <Col lg={7} className="p-5 order-2  d-flex order-md-1 ">
-                        <Scrollbar  autoHeight className="leftSecmaxHeight">
+                        <Scrollbar  className="leftSecmaxHeight">
                             <div className="pr-lg-4" >                
                             <Row  className="mb-5 flex-column flex-md-row justify-content-md-between no-gutters" >
-                                 <Col className="prostarRatings order-md-2">
+                                <Col className="prostarRatings order-md-2">
                                     <div className="reviewsBox d-flex align-items-center" onClick={()=>this.handleReviews()}>
                                         <StarRatingComponent value={averageRating} starCount={5} editing={false} />
                                         <span >{this.props.productDetailsData.review_count}</span>
@@ -187,26 +213,26 @@ class ProductsListing extends React.Component {
                                     {this.state.showReviews ? 
                                     <div className="d-flex flex-column">{reviewsList}</div>
                                     : ""}
-                                </Col>  
-
-                                <Col className="order-md-1" >
-                                      
+                                    </Col>  
+                               
+                                <Col className="order-md-1" >                                      
                                     <div className="proName text-uppercase mb-4 d-flex align-items-center" >
                                         <ArrowBackIcon className="mr-4" style={{fontSize:'20px', color:'rgba(255, 255, 255, .6)'}} />  {productDetailsData.name}
                                     </div>
                                     <div className="proDescription"  >
                                         {productDetailsData.description}
-                                    </div>
-                                     
+                                    </div>                                     
                                  </Col>
-                              
+                                
                             </Row>
-                            <div className="proItems d-flex flex-column mb-4">
-                                <div  className="mb-3 title-2">INGREDIENTS</div>
-                                <div className="ingredientsList">
-                                    {Ingredients}
-                                </div>
-                            </div>
+                                { !_isEmpty(Ingredients) ? 
+                                    <div className="proItems d-flex flex-column mb-4">
+                                        <div  className="mb-3 title-2">INGREDIENTS</div>
+                                        <div className="ingredientsList">
+                                            {Ingredients}
+                                        </div>
+                                    </div>
+                                : ""}
                             <div style={{ marginTop: "50px" }}>
                                 <Grid container>
                                     <Grid container direction="column" item xs={3}>
@@ -235,13 +261,13 @@ class ProductsListing extends React.Component {
                             <div className="d-flex flex-column flex-md-row" style={{ marginTop: "50px" }}>                                                                 
                                     <Button variant="contained" color="#0032A0" className="bottomActionbutton autoWidthbtn  bg-white" type="submit">
                                              SHARE
-                                        </Button>                    
-                                        <Button onClick={()=>this.handleAddToCart()} variant="contained"  className="bottomActionbutton  cartActionBtn mx-4" type="submit">
+                                     </Button>                    
+                                    <Button onClick={()=>this.handleAddToCart()} variant="contained"  className="bottomActionbutton  cartActionBtn mx-4" type="submit">
                                         ADD TO CART
-                                        </Button>                    
-                                        <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)'}} variant="contained" color="#fff" className="bottomActionbutton autoWidthbtn transiBtn" type="submit">
-                                        FIND IN STORES
-                                        </Button>
+                                    </Button>                    
+                                    <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)'}} variant="contained" color="#fff" className="bottomActionbutton autoWidthbtn transiBtn" type="submit">
+                                            FIND IN STORES
+                                    </Button>
                             </div>
                             </div>
                             </Scrollbar>                  
@@ -256,6 +282,7 @@ class ProductsListing extends React.Component {
 
 function mapStateToProps(state) {
     let productDetailsData = _get(state, 'productDetails.lookUpData');
-    return { productDetailsData }
+    let categoriesList = _get(state,'categoriesList.lookUpData.data');
+    return { productDetailsData, categoriesList }
 }
-export default connect(mapStateToProps)(withStyles(styles)(ProductsListing));
+export default connect(mapStateToProps)(withStyles(styles)(ProductDetails));

@@ -45,7 +45,7 @@ class ProductTabs extends React.Component {
     categoriesFetchSuccess = (data) => {
         const { classes } = this.props;
         let renderTabs = []
-        data && data.map((tab,index)=>{
+        data && data.data.map((tab,index)=>{
             renderTabs.push(<Tab onClick={()=>this.props.handleTabChange(index, tab.category_id)} className={classes.tabColor} label={tab.category_name}/>)
         })
         this.setState({ renderTabs })

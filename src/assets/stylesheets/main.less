@@ -606,8 +606,7 @@ opacity: 1!important;
   .imgProduct{
     max-width: 42%;
     position: relative;
-    z-index: 1;
-    margin-top: -10vh;
+    z-index: 1;    
   }
   &.proDetailSec{
     .imgProduct{
@@ -617,12 +616,12 @@ opacity: 1!important;
   &:after{
     position: absolute;
     width: 100%;
-    top: -6rem;
+    top: 0;
     right: 0;
     bottom: 0;
     background-color: rgba(255, 255, 255, .4);
     content: "";
-    border-bottom-left-radius:40rem;
+    border-bottom-left-radius:15rem;
   }
   @media(max-width:767px){
     &:after{
@@ -909,6 +908,22 @@ opacity: 1!important;
     font-size: 3rem;
     letter-spacing: .2rem;
   }
+}
+
+.userChatcard {
+  max-width: 36rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #fff !important;
+}
+.serverChatcard {
+  max-width: 36rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #00BFB2 !important;
+  color: #fff !important;
 }
 
 
