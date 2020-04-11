@@ -10,7 +10,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 // import AddressCard from './addressCard';
 import AddressCard from './addressCardNew';
 import AddAddressCard from './addAddressCard';
-import { map as _map, findIndex as _findIndex, get as _get } from 'lodash';
+import { map as _map, findIndex as _findIndex, get as _get, isEmpty as _isEmpty } from 'lodash';
 import genericGetData from "../../../Redux/Actions/genericGetData";
 import genericPostData from '../../../Redux/Actions/genericPostData';
 import { Form, Field } from 'react-final-form';
@@ -56,21 +56,25 @@ class Address extends React.Component {
     
 
     fetchAddressModify = (data) => {
-        const addressList = _map(data, (d, index) => ({
-            type: _get(d, 'address_nickname'),
-            name: _get(d, 'name'),
-            id: _get(d, 'address_id'),
-            street_1: _get(d, 'street1'),
-            street_2: _get(d, 'street2'),
-            city: _get(d, 'city'),
-            state: _get(d, 'state'),
-            country: _get(d, 'country'),
-            zipcode: _get(d, 'zipcode'),
-            phone: _get(d, 'telephone'),
-            defaultAddress: _get(d, 'default_address'),
-            isPrimary: (_get(d, 'default_address') === "1") ? true : false,
-            address: `${_get(d, 'street1')}, ${_get(d, 'street2')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}`
-        }));
+        let addressList = [];
+        if (_get(data, 'code') === 1) {
+            addressList = _map(_get(data, 'data', []), (d, index) => ({
+                type: _get(d, 'address_nickname'),
+                name: _get(d, 'name'),
+                id: _get(d, 'address_id'),
+                street_1: _get(d, 'street1'),
+                street_2: _get(d, 'street2'),
+                city: _get(d, 'city'),
+                state: _get(d, 'state'),
+                country: _get(d, 'country'),
+                zipcode: _get(d, 'zipcode'),
+                phone: _get(d, 'telephone'),
+                defaultAddress: _get(d, 'default_address'),
+                isPrimary: (_get(d, 'default_address') === "1") ? true : false,
+                address: `${_get(d, 'street1')}, ${_get(d, 'street2')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}`
+            }));
+        }
+        
     
         const primaryAddressIndex = _findIndex(addressList, ['isPrimary', true]);
         const splicedData = (primaryAddressIndex !== -1) ? addressList.splice(primaryAddressIndex, 1) : undefined;
@@ -97,14 +101,19 @@ class Address extends React.Component {
         const userAddressFetchError=(err)=>{
             console.log(err);
         };
-        genericGetData({
+        let body = {
+            api_token: _get(this.props, 'userDetails.api_token', ''),
+            customerid: parseInt(_get(this.props, 'userDetails.customer_id', 0), 10)
+        };
+        genericPostData({
             dispatch:this.props.dispatch,
-            url:"/connect/customer/getaddresses?customerid=1080",
+            reqObj: body,
+            url:`/connect/customer/getaddresses?customerid=${_get(this.props, 'userDetails.customer_id', 0)}`,
             // url: '/card/new',
             constants:{
-            init:"USER_ADDRESS_INIT",
-            success:"USER_ADDRESS_SUCCESS",
-            error:"USER_ADDRESS_ERROR" 
+                init:"USER_ADDRESS_INIT",
+                success:"USER_ADDRESS_SUCCESS",
+                error:"USER_ADDRESS_ERROR" 
             },
             identifier:"USER_ADDRESS",
             successCb:userAddressFetchSuccess,
@@ -125,7 +134,10 @@ class Address extends React.Component {
     };
 
     componentDidMount(){
-        this.fetchAddress();
+        if (!_isEmpty(this.props.userDetails)) {
+            this.fetchAddress();
+        }
+        
         
 
         
@@ -164,7 +176,7 @@ class Address extends React.Component {
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj: body,
-            url: '/connect/customer/addaddress?customerid=1080',
+            url: `/connect/customer/addaddress?customerid=${_get(this.props, 'userDetails.customer_id', 0)}`,
             constants: {
                 init: 'POST_USER_ADDRESSES_INIT',
                 success: 'POST_USER_ADDRESSES_SUCCESS',
@@ -311,8 +323,11 @@ class Address extends React.Component {
 
 const mapStateToProps = (state) => {
     let cartFlow = _get(state, 'cartFlow.lookUpData', {});
+    let userInfo = _get(state, 'userSignInInfo.lookUpData', []);
+    let userDetails = _get(userInfo, '[0].result', {});
     return {
         cartFlow,
+        userDetails,
     };
 };
 

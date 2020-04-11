@@ -46,6 +46,7 @@ import * as serviceWorker from './serviceWorker';
 import ProductsContainer from './Containers/Products/ProductsContainer';
 import SettingContainer from './Containers/Setting/SettingContainer';
 import OrderStatusContainer from './Containers/Order/OrderStatus';
+import ProductMainSection from './Containers/Products/ProductMainSection';
 
 import socketIOClient from "socket.io-client";
 const endpoint = 'http://127.0.0.1:8000';
@@ -98,7 +99,7 @@ ReactDOM.render(
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <SnackbarProvider maxSnack={8} autoHideDuration={4000} style={{ width: '100%' }}>
           <Provider store={store}>
-            {/* <PersistGate loading={null} persistor={persistor}> */}
+            <PersistGate loading={null} persistor={persistor}>
             <Router>
               <Switch>
                 <RouteWithLayout Layout={EmptyLayout} exact path="/" Component={HoldupContainer} />
@@ -110,12 +111,13 @@ ReactDOM.render(
                 {/* <RouteWithLayout Layout={EmptyLayout} exact path="/holdup" Component={HoldupContainer} /> */}
                 {/* <RouteWithLayout Layout={MainLayout} exact path="/cart/address" Component={AddressHomeContainer} /> */}
                 <RouteWithLayout Layout={MainLayout} exact path="/categories" Component={ProductsContainer} />
+                <RouteWithLayout Layout={MainLayout} exact path="/products" Component={ProductMainSection} />
                 <RouteWithLayout Layout={MainLayout} exact path="/setting/:settingParam" Component={SettingContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/order/status" Component={OrderStatusContainer} />
 
               </Switch>
             </Router>
-            {/* </PersistGate> */}
+            </PersistGate>
           </Provider>
         </SnackbarProvider>
       </MuiPickersUtilsProvider>
