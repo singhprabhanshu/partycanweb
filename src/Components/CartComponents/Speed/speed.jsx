@@ -151,6 +151,19 @@ class Speed extends React.Component {
       } else {
         return false;
       }
+    };
+
+    const findPointerEnable = ({ data, index }) => {
+      const ship_methods = _map(_get(data, 'ship_methods', []), s => mapShipMethods({ data: s}));
+      const retailers =  mapRetailers({ data: _get(data, 'retailers', [])});
+      const cleanedShipMethods = cleanEntityData({ ship: ship_methods });
+      if (!_isEmpty(cleanedShipMethods) && index !== 2) {
+        return true;
+      } else if (!_isEmpty(retailers) && index === 2) {
+        return true;
+      } else {
+        return false;
+      }
     }
     const deliveryOptionsMetaData = {
       'Courier Delivery': '2 ~ 3 DAYS',
@@ -169,6 +182,7 @@ class Speed extends React.Component {
           retailers: mapRetailers({ data: _get(d, 'retailers')}),
           ship_methods: _map(_get(d, 'ship_methods'), s => mapShipMethods({ data: s})),
           isPrimary: _get(this.state, 'primarySelected') ?  false : findPrimarySpeed({ data: d, index}),
+          enablePointer: findPointerEnable({ data: d, index })
         })),
         
         // retailer: _map(_get(data, 'data.retailer'), (d, index) => ({
