@@ -107,7 +107,7 @@ class ProductsContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
-    let categoriesList = _get(state,'categoriesList.lookUpData');
+    let categoriesList = _get(state,'categoriesList.lookUpData.data');
     return {categoriesList}
     }
 export default connect(mapStateToProps)(withStyles(styles)(ProductsContainer));
