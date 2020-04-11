@@ -40,6 +40,7 @@ class Speed extends React.Component {
       // selectedSpeed: {},
       selectedCardColor: '#00BFB2',
       isLoading: false,
+      primarySelected: false,
     }
   }
   selection = {
@@ -133,6 +134,24 @@ class Speed extends React.Component {
       index
     }));
 
+    const findPrimarySpeed = ({ data, index }) => {
+      const ship_methods = _map(_get(data, 'ship_methods', []), s => mapShipMethods({ data: s}));
+      const retailers =  mapRetailers({ data: _get(data, 'retailers', [])});
+      const cleanedShipMethods = cleanEntityData({ ship: ship_methods });
+      if (index !== 2 && !_isEmpty(cleanedShipMethods)) {
+        this.setState({
+          primarySelected: true,
+        });
+        return true;
+      } else if ( index === 2 && !_isEmpty(retailers)) {
+        this.setState({
+          primarySelected: true,
+        });
+        return true;
+      } else {
+        return false;
+      }
+    }
     const deliveryOptionsMetaData = {
       'Courier Delivery': '2 ~ 3 DAYS',
       '1 Hour Delivery': '~ 1 HOUR',
@@ -149,7 +168,7 @@ class Speed extends React.Component {
           name: _get(d, 'name'),
           retailers: mapRetailers({ data: _get(d, 'retailers')}),
           ship_methods: _map(_get(d, 'ship_methods'), s => mapShipMethods({ data: s})),
-          isPrimary: (index === 0) ? true : false
+          isPrimary: _get(this.state, 'primarySelected') ?  false : findPrimarySpeed({ data: d, index}),
         })),
         
         // retailer: _map(_get(data, 'data.retailer'), (d, index) => ({
