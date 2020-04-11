@@ -28,6 +28,8 @@ import {
     FacebookIcon,
   } from "react-share";
 import ScrollMenu from 'react-horizontal-scrolling-menu';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -68,7 +70,8 @@ class ProductDetails extends React.Component {
         this.state = {
             defaultQuantity: 1,
             productPrice: _get(this.props, "productDetailsData.price", 0),
-            showReviews: false
+            showReviews: false,
+            slideIndex: 0
         }
     }
 
@@ -157,6 +160,10 @@ class ProductDetails extends React.Component {
     addToCartFailure = () => {
     }
 
+    handleIndicator = (event) => {
+        this.setState({ slideIndex :  event});
+    }
+
     render() {
         console.log("product details", this.props.productDetailsData)
         let Ingredients = []
@@ -187,6 +194,14 @@ class ProductDetails extends React.Component {
                 </div>
             )
         })
+        let productImages = [];
+        !_isEmpty(productDetailsData.images) && productDetailsData.images.map((image, index) => {
+            productImages.push(
+                <div className=" d-flex justify-content-between flex-column align-items-center h-100 ">
+                <img src={image} className="img-responsive" />
+                </div>
+            )
+        })
         return (
             <React.Fragment>
             <Container fluid={true} className="productDetails"> 
@@ -197,7 +212,11 @@ class ProductDetails extends React.Component {
                 <Row className="no-gutters justify-content-lg-between secMinHeight">
                     <Col lg={5} className="order-1 order-md-2">
                         <div className="productImgSection proDetailSec">
-                            <img src={_get(productDetailsData, 'images[0]', "")} className="imgProduct img-responsive" alt="Smiley face" />
+                        <Carousel showIndicators={false} >
+                            {productImages}
+                        </Carousel> 
+                         
+                            {/* <img src={_get(productDetailsData, 'images[0]', "")} className="imgProduct img-responsive" alt="Smiley face" /> */}
                         </div>
                     </Col>
 
@@ -258,6 +277,7 @@ class ProductDetails extends React.Component {
                                          </div> 
                                     </Grid>
                                 </Grid>
+                                
                             </div>
                             <div className="d-flex flex-column flex-md-row" style={{ marginTop: "50px" }}>                                                                 
                                     <Button variant="contained" color="#0032A0" className="bottomActionbutton autoWidthbtn  bg-white" type="submit">
