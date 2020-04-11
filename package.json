@@ -77,6 +77,7 @@
     "react-router-dom": "^5.1.2",
     "react-scrollbars-custom": "^4.0.21",
     "react-select": "^3.1.0",
+    "react-share": "^4.1.0",
     "react-slideshow-image": "^1.4.0",
     "react-star-rating-component": "^1.4.1",
     "reactstrap": "^8.4.1",

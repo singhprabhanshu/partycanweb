@@ -89,17 +89,6 @@ categoriesFetchError = () => {
 redirectToCategories = () => {
     this.props.history.push('/categories')
 }
-
-fetchCategoryDetails = (category) => {
-    this.setState({ showActiveCategory: <Card style={{ height: "200px" }} onClick={()=>this.redirectToCategories(category)} >
-    <div className="prodcutMinDetails">
-        <CardImg style={{ maxHeight: "15rem" }} src={category.category_image} alt="Card image cap" />
-        <CardBody>
-        <CardTitle className=" text-white text-center text-uppercase">{category.category_name}</CardTitle>
-        </CardBody>
-    </div>
-</Card> })
-}
     
 
     render() {
@@ -107,7 +96,7 @@ fetchCategoryDetails = (category) => {
         let CateggoryList = []
         !_isEmpty(categoriesList) && categoriesList.map((category, index)=>{
             CateggoryList.push(
-                <Card style={{ height: "200px" }} onClick={()=>this.fetchCategoryDetails(category)} >
+                <Card style={{ height: "200px" }} onClick={()=>this.redirectToCategories(category)} >
                     <div className="prodcutMinDetails">
                         <CardImg style={{ maxHeight: "15rem" }} src={category.category_image} alt="Card image cap" />
                         <CardBody>
