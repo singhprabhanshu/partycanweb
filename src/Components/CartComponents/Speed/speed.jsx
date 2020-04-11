@@ -57,21 +57,24 @@ class Speed extends React.Component {
   };
 
   selectRetailer ({ selectedSpeedDelivery }) {
-    let selectedRetailer = selectedSpeedDelivery &&  selectedSpeedDelivery.retailers.find(del => {
+    let selectedRetailer = selectedSpeedDelivery && selectedSpeedDelivery.retailers &&  selectedSpeedDelivery.retailers.find(del => {
       if (del.isPrimary === true) {
         return del;
       }
     });
-    this.setState({
-      // ...this.state,
-      selectedRetailer,
-      selectedRetailerId: selectedRetailer.id
-    });
+    if (!_isEmpty(selectedRetailer)) {
+      this.setState({
+        // ...this.state,
+        selectedRetailer,
+        selectedRetailerId: selectedRetailer.id
+      });
+    }
+    
     return selectedRetailer;
   };
 
   selectDeliverySpeed ({ deliveryList }) {
-    let selectedSpeedDelivery = deliveryList && deliveryList.speed.find(del => {
+    let selectedSpeedDelivery = deliveryList && deliveryList.speed && deliveryList.speed.find(del => {
       if (del.isPrimary === true) {
         return del;
       }
@@ -91,7 +94,7 @@ class Speed extends React.Component {
         return del;
       }
     });
-
+    console.log('selected shipping method', selectedShippingMethod);
     if (!_isEmpty(selectedShippingMethod)) {
       this.setState({
         // ...this.state,
@@ -235,9 +238,12 @@ class Speed extends React.Component {
     };
 
     let body = {
-      api_token: "1c779ca336234ffc6a98807a6d36140e",
-      cart_id:"26234",
-      delivery_address_id: "2517"
+      // api_token: "1c779ca336234ffc6a98807a6d36140e",
+      // cart_id:"26234",
+      // delivery_address_id: "2517"
+      api_token: _get(this.props, 'userDetails.api_token', ''),
+      cart_id: _get(this.props, 'userDetails.cart_id', '0'),
+      delivery_address_id: _get(this.props, 'cartFlow.selectedAddress', '0')
     }
     this.setState({
       isLoading: true,
@@ -254,7 +260,7 @@ class Speed extends React.Component {
       identifier: 'FETCH_DELIVERY_OPTIONS',
       successCb: deliveryOptionsFetchSuccess,
       errorCb: deliveryOptionsFetchError,
-  });
+   });
   }
 
   _changeOpacity = async (selectedId) => {
@@ -391,7 +397,7 @@ class Speed extends React.Component {
 
       );
     });
-    let retailer = this.state.selectedSpeed && this.state.selectedSpeed.retailers.map(r => {
+    let retailer = this.state.selectedSpeed && this.state.selectedSpeed.retailers && this.state.selectedSpeed.retailers.map(r => {
       return (
         <React.Fragment key={r.id}>
           <RetailerCard
@@ -557,8 +563,11 @@ class Speed extends React.Component {
 
 const mapStateToProps = (state) => {
   let cartFlow = _get(state, 'cartFlow.lookUpData', {});
+  let userInfo = _get(state, 'userSignInInfo.lookUpData', []);
+  let userDetails = _get(userInfo, '[0].result', {});
     return {
         cartFlow,
+        userDetails
     };
 };
 

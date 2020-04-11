@@ -68,9 +68,9 @@ app.post("/api/customer/register",(req,res)=>{
 })
 });
 
-app.get("/connect/customer/getaddresses",(req,res)=>{
+app.post("/connect/customer/getaddresses",(req,res)=>{
   const customerid = req.query.customerid;
-  let p1 = axios.get(`${application_bff_url}/connect/customer/getaddresses?customerid=${customerid}`);
+  let p1 = axios.post(`${application_bff_url}/connect/customer/getaddresses?customerid=${customerid}`, req.body);
   p1.then((apiRespo)=>{
    res.setHeader('Content-Type', 'application/json');
    res.send(apiRespo.data);
@@ -78,7 +78,7 @@ app.get("/connect/customer/getaddresses",(req,res)=>{
   p1.catch((err)=>{
       res.setHeader('Content-Type', 'application/json');
       res.send(err)
-})
+  })
 });
 
 app.post("/api/cart/showcart",(req,res)=>{
