@@ -99,7 +99,7 @@ ReactDOM.render(
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <SnackbarProvider maxSnack={8} autoHideDuration={4000} style={{ width: '100%' }}>
           <Provider store={store}>
-            {/* <PersistGate loading={null} persistor={persistor}> */}
+            <PersistGate loading={null} persistor={persistor}>
             <Router>
               <Switch>
                 <RouteWithLayout Layout={EmptyLayout} exact path="/" Component={HoldupContainer} />
@@ -117,7 +117,7 @@ ReactDOM.render(
 
               </Switch>
             </Router>
-            {/* </PersistGate> */}
+            </PersistGate>
           </Provider>
         </SnackbarProvider>
       </MuiPickersUtilsProvider>
