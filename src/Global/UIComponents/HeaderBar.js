@@ -36,7 +36,7 @@ class HeaderBar extends React.Component {
                         <Row className="justify-content-between align-items-center flex-grow-1">
                             <Col xs={'auto'}>
                                 <Button className="addCircleIcon icons mr-4">+</Button>
-                                <Button onClick={() => this.props.history.push("/categories")}
+                                <Button onClick={() => this.props.history.push("/home")}
                                  className="homeIcons icons mr-3"></Button>
                                 <Button className="locationIcons icons "></Button>
                             </Col>
@@ -44,9 +44,9 @@ class HeaderBar extends React.Component {
                                 <img src={Logo} className="img-responsive"></img>
                             </Col>
                             <Col xs={'auto'}>
-                                {this.props.userName && <div class="dropdown">
+                                {this.props.userName && <div className="dropdown">
                                     <AccountCircleIcon fontSize="large" onClick={this.showUserMenu}/>
-                                    {this.state.showUserMenuOption ? <div class="dropdown-content">
+                                    {this.state.showUserMenuOption ? <div className="dropdown-content">
                                         <span>Hey, {this.props.userName}</span>
                                         <span onClick={this.handleLogout}>Logout</span>
                                     </div> : null }

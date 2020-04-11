@@ -203,7 +203,7 @@ app.post("/api/cart/deleteitem",(req,res)=>{
   })
 });
 
-app.get("/categories/")
+app.get("/category/")
 
 app.post("/api/cart/updateitem",(req,res)=>{
   let p1 = axios.post(`${application_bff_url}/api/cart/updateitem`,req.body);

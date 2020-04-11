@@ -86,8 +86,8 @@ categoriesFetchError = () => {
 
 }
 
-redirectToCategories = () => {
-    this.props.history.push('/categories')
+redirectToCategories = (category) => {
+    this.props.history.push(`/category/${category.category_name}`)
 }
     
 
