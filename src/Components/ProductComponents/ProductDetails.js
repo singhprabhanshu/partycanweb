@@ -27,6 +27,7 @@ import ProductTabs from './ProductTabs';
 import {
     FacebookIcon,
   } from "react-share";
+import ScrollMenu from 'react-horizontal-scrolling-menu';
 const styles = theme => ({
     main: {
         width: 'auto',
