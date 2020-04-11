@@ -434,7 +434,7 @@ class Speed extends React.Component {
       )
     });
     let availableTime;
-    if (_get(this.state, 'selectedSpeed.name', '') === '1 Hour Delivery') {
+    if (_get(this.state, 'selectedSpeed.id', -1) === 1 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) {
         availableTime = '1 PM';
       // availableTime = moment(_get(this.state, 'selectedShippingMethod.dropoff_eta').format("H A"));   
     }
@@ -475,7 +475,7 @@ class Speed extends React.Component {
 
 
     // const { classes } = this.props;
-    console.log('checking',_get(this.state.selectedSpeed));
+    
     return (    
       <Container fluid={true}>                
       <Row className="no-gutters justify-content-lg-between secMinHeight">
@@ -508,14 +508,14 @@ class Speed extends React.Component {
                               </div>
                             : null }
 
-                      { this.selection.name === 'Courier Delivery' ?
+                      { (_get(this.state, 'selectedSpeed.id', -1) === 2 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) ?
                         <div className="d-flex flex-column mb-5 ">
                             <div className="block-sub-title ">Select Delivery Options</div>
                             <div className="d-flex flex-lg-wrap CardsWrapper">{shippingMethod}</div>
                       </div>
                       : null}
 
-                      { this.selection.name === '1 Hour Delivery' ?
+                      { (_get(this.state, 'selectedSpeed.id', -1) === 1 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) ?
                        <div className="d-flex flex-column mb-5 ">
                         <div className="block-sub-title">Select Date</div>
                         <div className="d-flex flex-lg-wrap CardsWrapper">{selectDate}</div>
