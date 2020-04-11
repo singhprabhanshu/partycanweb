@@ -47,6 +47,7 @@ import ProductsContainer from './Containers/Products/ProductsContainer';
 import SettingContainer from './Containers/Setting/SettingContainer';
 import OrderStatusContainer from './Containers/Order/OrderStatus';
 import ProductMainSection from './Containers/Products/ProductMainSection';
+import ProductDetails from './Components/ProductComponents/ProductDetails'
 
 import socketIOClient from "socket.io-client";
 const endpoint = 'http://127.0.0.1:8000';
@@ -110,8 +111,10 @@ ReactDOM.render(
                 <RouteWithLayout Layout={MainLayout} exact path="/cart/:cartflow" Component={AddressHomeContainer} />
                 {/* <RouteWithLayout Layout={EmptyLayout} exact path="/holdup" Component={HoldupContainer} /> */}
                 {/* <RouteWithLayout Layout={MainLayout} exact path="/cart/address" Component={AddressHomeContainer} /> */}
-                <RouteWithLayout Layout={MainLayout} exact path="/categories" Component={ProductsContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/products" Component={ProductMainSection} />
+                <RouteWithLayout Layout={MainLayout} exact path="/category" Component={ProductsContainer} />
+                <RouteWithLayout Layout={MainLayout} exact path="/category/:categoryType" Component={ProductsContainer} />
+                <RouteWithLayout Layout={MainLayout} exact path="/category/:categoryType/product/:productID" Component={ProductDetails} />
+                <RouteWithLayout Layout={MainLayout} exact path="/home" Component={ProductMainSection} />
                 <RouteWithLayout Layout={MainLayout} exact path="/setting/:settingParam" Component={SettingContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/order/status" Component={OrderStatusContainer} />
 

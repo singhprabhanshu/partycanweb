@@ -23,6 +23,7 @@ import Grid from '@material-ui/core/Grid';
 import StarRatingComponent from 'react-star-rating-component';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ProductTabs from './ProductTabs';
 import {
     FacebookIcon,
   } from "react-share";
@@ -59,7 +60,7 @@ const styles = theme => ({
 
 });
 
-class ProductsListing extends React.Component {
+class ProductDetails extends React.Component {
 
     constructor(props) {
         super(props);
@@ -69,6 +70,22 @@ class ProductsListing extends React.Component {
             showReviews: false
         }
     }
+
+    componentDidMount() {
+        const categoryType = this.props.match.params.categoryType;
+        const productID = this.props.match.params.productID;
+        let index = _findIndex(this.props.categoriesList, { 'category_name': categoryType })
+        if(index == -1){
+            index=0
+        }
+        this.setState({ tabValue: index })
+    }
+
+    handleTabChange = (index) => {
+        this.setState({ tabValue: index });
+        let categoryName = _get(this.props, `categoriesList[${index}].category_name`, null)
+        this.props.history.push(`/category/${categoryName}`)
+    };
 
     fetchProductDetails = (ProductID) => {
 
@@ -113,8 +130,9 @@ class ProductsListing extends React.Component {
 
     handleAddToCart = () => {
         let reqObj = {
-            product_id: this.props.ProductID,
-            qty: this.state.defaultQuantity
+            product_id: this.props.match.params.productID,
+            qty: this.state.defaultQuantity,
+            api_token: localStorage.getItem("Token")
         };
         genericPostData({
             dispatch: this.props.dispatch,
@@ -170,7 +188,11 @@ class ProductsListing extends React.Component {
         })
         return (
             <React.Fragment>
-            <Container fluid={true} className="productDetails">                
+            <Container fluid={true} className="productDetails"> 
+            <ProductTabs
+                    tabValue={this.state.tabValue}
+                    handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
+                    />                
                 <Row className="no-gutters justify-content-lg-between secMinHeight">
                     <Col lg={5} className="order-1 d-none d-lg-block order-md-2">
                         <div className="productImgSection">
@@ -252,6 +274,7 @@ class ProductsListing extends React.Component {
 
 function mapStateToProps(state) {
     let productDetailsData = _get(state, 'productDetails.lookUpData');
-    return { productDetailsData }
+    let categoriesList = _get(state,'categoriesList.lookUpData.data');
+    return { productDetailsData, categoriesList }
 }
-export default connect(mapStateToProps)(withStyles(styles)(ProductsListing));
+export default connect(mapStateToProps)(withStyles(styles)(ProductDetails));
