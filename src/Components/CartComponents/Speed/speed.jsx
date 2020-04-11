@@ -21,11 +21,7 @@ import proImg from '../../../assets/images/party-can.png'
 import { Loader } from '../../../Global/UIComponents/LoaderHoc';
 import Scrollbar from "react-scrollbars-custom";
 const styles = theme => ({
-  root: {
-    // flexGrow: 1,
-    // maxWidth: 500,
-    // display: 'flex',
-    // 'align-items': 'center',
+  root: {    
     background: '#00BFB2',
     // background: 'White',
     height: '50px',
