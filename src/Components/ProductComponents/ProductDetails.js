@@ -186,11 +186,11 @@ class ProductDetails extends React.Component {
         let reviewsList = []
         !_isEmpty(productDetailsData.reviews) && productDetailsData.reviews.map((review, index) => {
             reviewsList.push(
-                <div className="d-flex flex-column">
-                <StarRatingComponent value={Number(review.rating)} starCount={5} editing={false} />
-                <span>{review.title}</span>
-                <span>{review.detail}</span>
-                <span>~{review.nickname}</span>
+                <div className="d-flex flex-column pb-4 listedRating">
+                    <span className="d-flex"><StarRatingComponent value={Number(review.rating)} starCount={5} editing={false} /></span>
+                    <span className="title">{review.title}</span>
+                    <span className="reviewContent pb-2">{review.detail}</span>
+                    <span className="ReviewedBy ">- {review.nickname}</span>
                 </div>
             )
         })
@@ -212,7 +212,7 @@ class ProductDetails extends React.Component {
                 <Row className="no-gutters justify-content-lg-between secMinHeight">
                     <Col lg={5} className="order-1 order-md-2">
                         <div className="productImgSection proDetailSec">
-                        <Carousel showIndicators={false} >
+                        <Carousel showIndicators={false} showStatus={false} >
                             {productImages}
                         </Carousel> 
                          
@@ -224,14 +224,16 @@ class ProductDetails extends React.Component {
                         <Scrollbar  className="leftSecmaxHeight">
                             <div className="pr-lg-4" >                
                             <Row  className="mb-5 flex-column flex-md-row justify-content-md-between no-gutters" >
-                                <Col className="prostarRatings order-md-2">
-                                    <div className="reviewsBox d-flex align-items-center" onClick={()=>this.handleReviews()}>
+                                <Col className="prostarRatings order-md-2 ">
+                                    <div className="reviewsBox d-flex align-items-center mb-3" onClick={()=>this.handleReviews()}>
                                         <StarRatingComponent value={averageRating} starCount={5} editing={false} />
-                                        <span >{this.props.productDetailsData.review_count}</span>
+                                        <span style={{fontSize:'1.2rem'}} >{this.props.productDetailsData.review_count}</span>
                                         <ExpandMoreOutlined  />
                                     </div>
                                     {this.state.showReviews ? 
+                                     <Scrollbar  style={{height:150, overflowY:'auto'}}>
                                     <div className="d-flex flex-column">{reviewsList}</div>
+                                    </Scrollbar>
                                     : ""}
                                     </Col>  
                                
@@ -280,14 +282,14 @@ class ProductDetails extends React.Component {
                                 
                             </div>
                             <div className="d-flex flex-column flex-md-row" style={{ marginTop: "50px" }}>                                                                 
-                                    <Button variant="contained" color="#0032A0" className="bottomActionbutton autoWidthbtn  bg-white" type="submit">
-                                             SHARE
+                                    <Button variant="contained"  style={{ color:'#0032A0'}}  className="bottomActionbutton autoWidthbtn  bg-white" type="submit">
+                                    <span className="icons shareIcons d-inline-block mr-2"></span>SHARE
                                      </Button>                    
                                     <Button onClick={()=>this.handleAddToCart()} variant="contained"  className="bottomActionbutton  cartActionBtn mx-4" type="submit">
-                                        ADD TO CART
+                                       <span className="icons cartIcons d-inline-block mr-2"></span>ADD TO CART
                                     </Button>                    
-                                    <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)'}} variant="contained" color="#fff" className="bottomActionbutton autoWidthbtn transiBtn" type="submit">
-                                            FIND IN STORES
+                                    <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)'}} variant="contained"  className="bottomActionbutton autoWidthbtn transiBtn" type="submit">
+                                    <span className="icons locationIcons d-inline-block mr-2"></span>FIND IN STORES
                                     </Button>
                             </div>
                             </div>

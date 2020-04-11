@@ -144,37 +144,38 @@ button:focus {
 }
 
 ////////////////////// Intro carousel css
+.IntroSlider{
+  .carousel .slide, .carousel .slide .legend{
+    background-color: transparent!important;
+  }
+  .carousel.carousel-slider, .carousel, .carousel .slide, .carousel .slider, .carousel .slider-wrapper{
+    position: unset!important;
+    height: 100%;
+  }
+  .carousel .control-dots{
+    right:0;
+    padding: 0;
+  }
+  .carousel.carousel-slider{
+    height: 70vh;
+  }
+  .carousel .slide .legend{
+    left:0!important;
+    right: 0!important; 
+    margin: unset!important;
+    position: relative!important;
+    bottom:0;
+  opacity: 1!important;
+  }
 
-.carousel .slide, .carousel .slide .legend{
-  background-color: transparent!important;
-}
-.carousel.carousel-slider, .carousel, .carousel .slide, .carousel .slider, .carousel .slider-wrapper{
-  position: unset!important;
-  height: 100%;
-}
-.carousel .control-dots{
-  right:0;
-  padding: 0;
-}
-.carousel.carousel-slider{
-  height: 70vh;
-}
-.carousel .slide .legend{
-  left:0!important;
-  right: 0!important; 
-  margin: unset!important;
-  position: relative!important;
-  bottom:0;
-opacity: 1!important;
-}
-
-.carousel .slide img{
-  max-width: 40%;
-  @media (max-width: 1440px){
-    max-width: 30%;
-  } 
-  @media (max-width: 991px){
-    max-width: 80%;
+  .carousel .slide img{
+    max-width: 40%;
+    @media (max-width: 1440px){
+      max-width: 30%;
+    } 
+    @media (max-width: 991px){
+      max-width: 80%;
+    }
   }
 }
 
@@ -274,6 +275,8 @@ opacity: 1!important;
   padding: 0 !important;
   font-size: 1.5rem!important;
   border: 0!important;
+  display: flex!important;
+  align-items: center!important;
   &.autoWidthbtn{
     padding: 0 3rem!important;
     min-width: auto!important;
@@ -354,6 +357,12 @@ opacity: 1!important;
 
   &.locationIcons{
     background-image: url(../images/HOMEPAGE_STORE_LOCATOR.svg);
+  }
+
+  &.shareIcons{
+    background-image: url(../images/HOMEPAGE_ICONS_SHARE.svg);
+    width: 2.2rem;
+    height: 2.2rem;
   }
 
   &.searchIcons{
@@ -576,11 +585,53 @@ opacity: 1!important;
 .reviewsBox{
   background-color: rgba(255, 255, 255, .2);
   padding: .5rem 1rem;
+  align-items: center;
+  justify-content: space-between;
 }
 .prostarRatings{
-  max-width: 20rem!important;
+  max-width: 21rem!important;
   padding-left: 1.5rem!important;
+  .dv-star-rating-star{
+    color: rgb(255, 255, 255)!important;
+    font-size: 2rem!important;
+    margin-bottom: 0;
+    line-height: 2rem;
+    &.dv-star-rating-empty-star{
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke-width: .2px;
+      -webkit-text-stroke-color: white;
+      font-size: 1.9rem!important;
+      line-height: 1.9rem;
+      margin-top: 1px;
+    }
+  }
+  .listedRating{
+    .title{
+      font-family: 'Tungsten-Medium';
+      font-size: 2.2rem!important;
+    letter-spacing: .2rem;
+    line-height: 2.8rem;
+    }
+    .reviewContent{
+      font-size: 1.5rem;
+      line-height: 1.8rem;
+    }
+    .ReviewedBy{
+      font-size: 1.1rem;
+      color:rgba(255, 255, 255, .6)
+    }
+    .dv-star-rating-star{
+      color: @primary !important;
+      &.dv-star-rating-empty-star{
+        -webkit-text-stroke-color: @primary ;
+      }
+    }
+  }
 }
+
+
+
+
 
 ////////////////////////////// Address section
 
@@ -603,14 +654,30 @@ opacity: 1!important;
   align-items: center;
   justify-content: center;
   height: 100%;
+  z-index: 1;
   .imgProduct{
     max-width: 42%;
     position: relative;
     z-index: 1;    
   }
   &.proDetailSec{
-    .imgProduct{
-      max-width: 60%;
+    .carousel .slide, .carousel .slide .legend{
+      background-color: transparent!important;
+    }    
+    .carousel .thumb{
+    width: 6rem!important;
+    margin-bottom: 0;
+    border: 2px solid #000;
+   }
+   .carousel .thumbs-wrapper{
+     margin:1rem 0 0 2rem!important;
+   }
+    .carousel .slide img{
+      max-width: 50%;   
+      width: 100%!important;  
+    }
+    .carousel .thumb.selected, .carousel .thumb:hover{
+      border: 2px solid #fff!important;
     }
   }
   &:after{
@@ -621,9 +688,10 @@ opacity: 1!important;
     bottom: 0;
     background-color: rgba(255, 255, 255, .4);
     content: "";
-    border-bottom-left-radius:15rem;
+    border-bottom-left-radius:10rem;
+    z-index: -1;
   }
-  @media(max-width:767px){
+  @media(max-width:991px){
     &:after{
       background-color: transparent;
     }
