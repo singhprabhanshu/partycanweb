@@ -46,6 +46,7 @@ import * as serviceWorker from './serviceWorker';
 import ProductsContainer from './Containers/Products/ProductsContainer';
 import SettingContainer from './Containers/Setting/SettingContainer';
 import OrderStatusContainer from './Containers/Order/OrderStatus';
+import ProductMainSection from './Containers/Products/ProductMainSection';
 
 import socketIOClient from "socket.io-client";
 const endpoint = 'http://127.0.0.1:8000';
@@ -110,6 +111,7 @@ ReactDOM.render(
                 {/* <RouteWithLayout Layout={EmptyLayout} exact path="/holdup" Component={HoldupContainer} /> */}
                 {/* <RouteWithLayout Layout={MainLayout} exact path="/cart/address" Component={AddressHomeContainer} /> */}
                 <RouteWithLayout Layout={MainLayout} exact path="/categories" Component={ProductsContainer} />
+                <RouteWithLayout Layout={MainLayout} exact path="/products" Component={ProductMainSection} />
                 <RouteWithLayout Layout={MainLayout} exact path="/setting/:settingParam" Component={SettingContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/order/status" Component={OrderStatusContainer} />
 

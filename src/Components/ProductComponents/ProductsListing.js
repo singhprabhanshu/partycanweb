@@ -102,7 +102,7 @@ class ProductsListing extends React.Component {
 !this.state.showProductDetailsPage  ?
                 <div className="productsList">
                     {ProductList}
-                    </div> : <ProductDetails ProductID={this.state.prodId} />
+                    </div> : <ProductDetails {...this.props} ProductID={this.state.prodId} />
     }
             </React.Fragment>
         );

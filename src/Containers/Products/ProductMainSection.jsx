@@ -11,6 +11,12 @@ import ProductsListing from "../../Components/ProductComponents/ProductsListing"
 import ProductDetails from "../../Components/ProductComponents/ProductDetails"
 import genericGetData from "../../Redux/Actions/genericGetData";
 import {Container, Row, Col} from 'reactstrap'
+import { isEmpty as _isEmpty } from 'lodash';
+import proImg from '../../assets/images/party-can.png'
+import {
+    Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, Button
+} from 'reactstrap';
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -48,60 +54,71 @@ class ProductsContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tabValue: 0,
-            selectedTab: ""
+            showActiveCategory: "All"
         }
     }
 
-    componentDidMount() {
-        let categoryId = _get(this.props, "categoriesList[0].category_id", 0)
-        this.fetchProducts(categoryId)
-    }
+    componentDidMount(){
+    this.fetchTabs();
+    this.categoriesFetchSuccess();
+}
 
-    handleTabChange = (index, selectedTab) => {
-        this.setState({ selectedTab: selectedTab, tabValue: index });
-        this.fetchProducts(selectedTab);
-    };
+fetchTabs = () => {
 
-    fetchProducts = (categoryID) => {
-    
-        genericGetData({
-            dispatch:this.props.dispatch,
-            url:`/index.php/connect/index/category?catid=${categoryID}`,
-            constants:{
-            init:"PRODUCTS_LIST_INIT",
-            success:"PRODUCTS_LIST_SUCCESS",
-            error:"PRODUCTS_LIST_ERROR" 
-            },
-            identifier:"PRODUCTS_LIST",
-            successCb:this.productsListFetchSuccess,
-            errorCb:this.productsListFetchError
-        })
-    }
+    genericGetData({
+        dispatch:this.props.dispatch,
+        url:"/connect/index/categorylist",
+        constants:{
+        init:"CATEGORIES_LIST_INIT",
+        success:"CATEGORIES_LIST_SUCCESS",
+        error:"CATEGORIES_LIST_ERROR" 
+        },
+        identifier:"CATEGORIES_LIST",
+        successCb:this.categoriesFetchSuccess,
+        errorCb:this.categoriesFetchError
+    })
+}
 
-    productsListFetchSuccess = () => {
+categoriesFetchSuccess = (data) => {
+}
 
-    }
+categoriesFetchError = () => {
 
-    productsListFetchError = () => {
+}
 
-    }
+redirectToCategories = () => {
+    this.props.history.push('/categories')
+}
     
 
     render() {
-        const { classes } = this.props;
+        const { categoriesList, classes } = this.props;
+        let CateggoryList = []
+        !_isEmpty(categoriesList) && categoriesList.map((category, index)=>{
+            CateggoryList.push(
+                <Card style={{ height: "200px" }} onClick={()=>this.redirectToCategories(category)} >
+                    <div className="prodcutMinDetails">
+                        <CardImg style={{ maxHeight: "15rem" }} src={category.category_image} alt="Card image cap" />
+                        <CardBody>
+                        <CardTitle className=" text-white text-center text-uppercase">{category.category_name}</CardTitle>
+                        </CardBody>
+                    </div>
+                </Card>
+            )
+        })
         return (
             <React.Fragment>
-                <CssBaseline />   
-                <Container fluid={true}  className="">            
-                    <ProductTabs
-                    tabValue={this.state.tabValue}
-                    handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
-                    />             
-                <ProductsListing handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)} tabValue={this.state.tabValue} {...this.props} />
-                </Container>
+                <CssBaseline />
+                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                    <h1>SHOP</h1>
+                    </div>
+                <div className="productsList">
+                    {this.state.showActiveCategory}
+                    </div>
+                <div className="productsList">
+                    {CateggoryList}
+                    </div>
             </React.Fragment>
-            
         );
     }
 }

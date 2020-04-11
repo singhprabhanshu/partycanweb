@@ -23,6 +23,9 @@ import Grid from '@material-ui/core/Grid';
 import StarRatingComponent from 'react-star-rating-component';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {
+    FacebookIcon,
+  } from "react-share";
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -129,6 +132,7 @@ class ProductsListing extends React.Component {
     }
 
     addToCartSuccess = () => {
+        this.props.history.push('/cart')
     }
 
     addToCartFailure = () => {
@@ -197,12 +201,14 @@ class ProductsListing extends React.Component {
                                     : ""}
                                 </Grid>  
                             </Grid>
+                            { !_isEmpty(Ingredients) ? 
                             <div className="proItems d-flex flex-column mb-4">
                                 <div  className="mb-3 title-2">INGREDIENTS</div>
                                 <div className="ingredientsList">
                                     {Ingredients}
                                 </div>
-                            </div>
+                            </div> : ""
+    }
                             <div style={{ marginTop: "50px" }}>
                                 <Grid container>
                                     <Grid container item xs={4}>
@@ -223,7 +229,7 @@ class ProductsListing extends React.Component {
                             <div style={{ marginTop: "50px" }}>
                                 <Grid container>
                                     <Grid container item xs={4}>
-                                        <Button style={{ backgroundColor: '#00BFB2', height: 50, width: 250, borderRadius: 27, fontSize: 15 }}> SHARE</Button>
+                                        <Button style={{ backgroundColor: '#00BFB2', height: 50, width: 250, borderRadius: 27, fontSize: 15 }}>SHARE</Button>
                                     </Grid>
                                     <Grid container item xs={4}>
                                         <Button onClick={()=>this.handleAddToCart()} style={{ backgroundColor: '#00BFB2', height: 50, width: 250, borderRadius: 27, fontSize: 15 }}><ShoppingBasketOutlined /> ADD TO CART</Button>
