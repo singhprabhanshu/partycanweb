@@ -44,6 +44,7 @@ class Speed extends React.Component {
   }
   selection = {
     name: '1 Hour Delivery',
+    speed_id: 1,
     retailerCardHeight: 75,
     retailerCardWidth: 150,
     retailerNameFontSize: 12,
@@ -90,7 +91,7 @@ class Speed extends React.Component {
         return del;
       }
     });
-    console.log('selected shipping method', selectedShippingMethod);
+    
     if (!_isEmpty(selectedShippingMethod)) {
       this.setState({
         // ...this.state,
@@ -271,6 +272,7 @@ class Speed extends React.Component {
     if (_get(selectedSpeed, 'name') === '1 Hour Delivery') {
       this.selection = {
         name: '1 Hour Delivery',
+        id: 1,
         retailerCardHeight: 75,
         retailerCardWidth: 150,
         retailerNameFontSize: 12,
@@ -281,6 +283,7 @@ class Speed extends React.Component {
     } else if (_get(selectedSpeed, 'name') === 'Courier Delivery') {
       this.selection = {
         name: 'Courier Delivery',
+        id: 2,
         retailerCardHeight: 75,
         retailerCardWidth: 150,
         retailerNameFontSize: 12,
@@ -289,6 +292,7 @@ class Speed extends React.Component {
     } else if (_get(selectedSpeed, 'name') === 'Store Pickup') {
       this.selection = {
         name: 'Store Pickup',
+        id: 3,
         retailerCardHeight: 200,
         retailerCardWidth: 150,
         retailerNameFontSize: 16,
@@ -302,10 +306,13 @@ class Speed extends React.Component {
   _changeRetailerOpacity = (selectedId) => {
     
     const newSelectedRetailer = _find(_get(this.state.selectedSpeed, 'retailers', []), ['id', selectedId]);
-    this.setState({
-      selectedRetailerId: selectedId,
-      selectedRetailer: newSelectedRetailer
-    });
+    if (!_isEmpty(newSelectedRetailer)) {
+      this.setState({
+        selectedRetailerId: selectedId,
+        selectedRetailer: newSelectedRetailer
+      });
+    }
+    
   };
 
   _changeShippingMethodOpacity = (selectedId) => {
@@ -427,7 +434,7 @@ class Speed extends React.Component {
       )
     });
     let availableTime;
-    if (_get(this.state, 'selectedSpeed.name', '') === '1 Hour Delivery') {
+    if (_get(this.state, 'selectedSpeed.id', -1) === 1 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) {
         availableTime = '1 PM';
       // availableTime = moment(_get(this.state, 'selectedShippingMethod.dropoff_eta').format("H A"));   
     }
@@ -468,6 +475,7 @@ class Speed extends React.Component {
 
 
     // const { classes } = this.props;
+    
     return (    
       <Container fluid={true}>                
       <Row className="no-gutters justify-content-lg-between secMinHeight">
@@ -487,20 +495,27 @@ class Speed extends React.Component {
                           <div className="d-flex flex-lg-wrap CardsWrapper">{speed}</div>
                         </div>
                    
+                        { (!_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', [])) && ( _get(this.state, 'selectedSpeed.id', -1) === 1 || _get(this.state, 'selectedSpeed.id', -1) === 2)) ? 
+                        
+                            <div className="d-flex flex-column mb-5 ">
+                                <div className="block-sub-title">Select Retailer</div>
+                                <div className="d-flex flex-lg-wrap CardsWrapper">{retailer}</div>
+                            </div>
+                            : _get(this.state, 'selectedSpeed.id', -1) === 3 ?
+                              <div className="d-flex flex-column mb-5 ">
+                                  <div className="block-sub-title">Select Retailer</div>
+                                  <div className="d-flex flex-lg-wrap CardsWrapper">{retailer}</div>
+                              </div>
+                            : null }
 
-                       <div className="d-flex flex-column mb-5 ">
-                          <div className="block-sub-title">Select Retailer</div>
-                          <div className="d-flex flex-lg-wrap CardsWrapper">{retailer}</div>
-                      </div>
-
-                      { this.selection.name === 'Courier Delivery' ?
+                      { (_get(this.state, 'selectedSpeed.id', -1) === 2 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) ?
                         <div className="d-flex flex-column mb-5 ">
                             <div className="block-sub-title ">Select Delivery Options</div>
                             <div className="d-flex flex-lg-wrap CardsWrapper">{shippingMethod}</div>
                       </div>
                       : null}
 
-                      { this.selection.name === '1 Hour Delivery' ?
+                      { (_get(this.state, 'selectedSpeed.id', -1) === 1 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) ?
                        <div className="d-flex flex-column mb-5 ">
                         <div className="block-sub-title">Select Date</div>
                         <div className="d-flex flex-lg-wrap CardsWrapper">{selectDate}</div>
