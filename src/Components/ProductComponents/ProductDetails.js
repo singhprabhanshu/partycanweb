@@ -104,7 +104,8 @@ class ProductDetails extends React.Component {
             },
             identifier: "PRODUCT_DETAILS_LIST",
             successCb: this.productDetailsFetchSuccess,
-            errorCb: this.productDetailsFetchError
+            errorCb: this.productDetailsFetchError,
+            dontShowMessage:true
         })
     }
 
@@ -150,12 +151,34 @@ class ProductDetails extends React.Component {
             },
             identifier: "ADD_TO_CART",
             successCb: this.addToCartSuccess,
-            errorCb: this.addToCartFailure
+            errorCb: this.addToCartFailure,
+            dontShowMessage:true
+        })
+    }
+
+    fetchCartAgain = (data) => {
+        let reqObj = {
+            "api_token": localStorage.getItem("Token")
+        };
+        genericPostData({
+            dispatch: this.props.dispatch,
+            reqObj,
+            url: "/api/cart/showcart",
+            constants: {
+                init: "CART_ITEMS_INIT",
+                success: "CART_ITEMS_SUCCESS",
+                error: "CART_ITEMS_ERROR"
+            },
+            identifier: "CART_ITEMS",
+            successCb: ()=>console.log("added succesfully"),
+            errorCb: this.cartFetchError,
+            successText:"Item added to cart succesfully"
         })
     }
 
     addToCartSuccess = () => {
-        this.props.history.push('/cart')
+        this.fetchCartAgain();
+        //this.props.history.push('/cart')
     }
 
     addToCartFailure = () => {

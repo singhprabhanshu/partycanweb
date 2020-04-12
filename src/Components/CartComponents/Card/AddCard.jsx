@@ -12,13 +12,16 @@ import {
 import { logEvent, Result, ErrorResult } from './utils';
 import axios from "axios";
 import { Form as ReactStrapFrom, FormGroup, Button, Container, Row, Col, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, } from 'reactstrap';
-
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { commonActionCreater } from "../../../Redux/Actions/commonAction";
+import { connect } from "react-redux";
+import _get from "lodash/get";
 
 const ELEMENT_OPTIONS = {
     style: {
         base: {
             fontSize: '18px',
-            width:"300px",
+            width: "300px",
             color: '#424770',
             letterSpacing: '0.025em',
             '::placeholder': {
@@ -31,7 +34,7 @@ const ELEMENT_OPTIONS = {
     },
 };
 
-const AddCard = () => {
+const AddCard = (props) => {
     const elements = useElements();
     const stripe = useStripe();
     const [name, setName] = useState('');
@@ -66,7 +69,23 @@ const AddCard = () => {
             setErrorMessage(payload.error.message);
             setPaymentMethod(null);
         } else {
-            alert("token creation succeeded");
+            let cartFlow = props.cartFlow;
+            let card_token = payload.token.id;
+            let card_id =  payload.token.card.id;
+            let customer_stripe_id =  "";
+            let card_info = "";
+            let payment_method = "stripe_payments";  //check here
+            let data = {
+                ...cartFlow,
+                card_id,
+                card_token,
+                customer_stripe_id,
+                card_info,
+                payment_method
+            }
+
+            props.dispatch(commonActionCreater(data, 'CART_FLOW'));
+            props.handleContinueFromNewCard();
         }
     };
 
@@ -79,7 +98,7 @@ const AddCard = () => {
                         <label>Name</label>
                         <input
                             id="name"
-                            style={{color:"black !important"}}
+                            style={{ color: "black !important" }}
                             required
                             placeholder="Jenny Rosen"
                             value={name}
@@ -91,42 +110,42 @@ const AddCard = () => {
                 </div>
                 <div className="d-flex mt-4">
                     <div style={{ width: '50%', marginRight: 50 }}>
-                    <label htmlFor="cardNumber">Card Number</label>
-                    <CardNumberElement
-                    id="cardNumber"
-                    onBlur={logEvent('blur')}
-                    onChange={logEvent('change')}
-                    onFocus={logEvent('focus')}
-                    onReady={logEvent('ready')}
-                    options={ELEMENT_OPTIONS}
-                />
-                </div>
-                </div>
-                <div className="d-flex mt-4">
-                <div style={{ width: '50%', marginRight: 50 }}>
-                <label htmlFor="expiry">Card Expiration</label>
-                <CardExpiryElement
-                    id="expiry"
-                    onBlur={logEvent('blur')}
-                    onChange={logEvent('change')}
-                    onFocus={logEvent('focus')}
-                    onReady={logEvent('ready')}
-                    options={ELEMENT_OPTIONS}
-                />
-                </div>
+                        <label htmlFor="cardNumber">Card Number</label>
+                        <CardNumberElement
+                            id="cardNumber"
+                            onBlur={logEvent('blur')}
+                            onChange={logEvent('change')}
+                            onFocus={logEvent('focus')}
+                            onReady={logEvent('ready')}
+                            options={ELEMENT_OPTIONS}
+                        />
+                    </div>
                 </div>
                 <div className="d-flex mt-4">
-                <div style={{ width: '50%', marginRight: 50 }}>
-                <label htmlFor="cvc">CVC</label>
-                <CardCvcElement
-                    id="cvc"
-                    onBlur={logEvent('blur')}
-                    onChange={logEvent('change')}
-                    onFocus={logEvent('focus')}
-                    onReady={logEvent('ready')}
-                    options={ELEMENT_OPTIONS}
-                />
+                    <div style={{ width: '50%', marginRight: 50 }}>
+                        <label htmlFor="expiry">Card Expiration</label>
+                        <CardExpiryElement
+                            id="expiry"
+                            onBlur={logEvent('blur')}
+                            onChange={logEvent('change')}
+                            onFocus={logEvent('focus')}
+                            onReady={logEvent('ready')}
+                            options={ELEMENT_OPTIONS}
+                        />
+                    </div>
                 </div>
+                <div className="d-flex mt-4">
+                    <div style={{ width: '50%', marginRight: 50 }}>
+                        <label htmlFor="cvc">CVC</label>
+                        <CardCvcElement
+                            id="cvc"
+                            onBlur={logEvent('blur')}
+                            onChange={logEvent('change')}
+                            onFocus={logEvent('focus')}
+                            onReady={logEvent('ready')}
+                            options={ELEMENT_OPTIONS}
+                        />
+                    </div>
                 </div>
                 {/* <div className="d-flex mt-4">
                 <div style={{ width: '50%', marginRight: 50 }}>
@@ -144,12 +163,25 @@ const AddCard = () => {
                 </div> */}
                 {errorMessage && <ErrorResult>{errorMessage}</ErrorResult>}
                 {paymentMethod && <Result>Got PaymentMethod: {paymentMethod.id}</Result>}
-                <button type="submit" disabled={!stripe}>
+                <Button
+                    variant="contained"
+                    disabled={!stripe}
+                    color="primary"
+                    onClick={handleSubmit}
+                    className="bottomActionbutton cartActionBtn"
+                    >
+                    <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />
                     Save and Continue
-      </button>
+                </Button>
             </ReactStrapFrom>
         </div>
     );
 };
 
-export default AddCard
+function mapStateToProps(state) {
+    let cartFlow = _get(state, 'cartFlow.lookUpData', {});
+
+    return { cartFlow }
+}
+
+export default connect(mapStateToProps)(AddCard);
