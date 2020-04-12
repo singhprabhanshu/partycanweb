@@ -13,6 +13,7 @@ let removeCart = commonReducer("CART_ITEM_REMOVE");
 let updateCart = commonReducer("CART_ITEM_UPDATE");
 let productList = commonReducer("PRODUCTS_LIST");
 let categoriesList = commonReducer("CATEGORIES_LIST");
+let paymentMethods = commonReducer("GET_PAYMENTMETHODS")
 let lockTerminal = commonStaticReducer('LOCK_TERMINAL');
 let productDetails = commonReducer("PRODUCT_DETAILS_LIST");
 let cartFlow = commonStaticReducer('CART_FLOW');
@@ -29,7 +30,8 @@ let rootRducer = combineReducers({
     productDetails,
     cartFlow,
     removeCart,
-    updateCart
+    updateCart,
+    paymentMethods
 })
 
 export default rootRducer;

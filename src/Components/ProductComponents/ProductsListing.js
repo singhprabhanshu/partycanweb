@@ -106,7 +106,7 @@ class ProductsListing extends React.Component {
                     {ProductList}
                     </div> 
                     {/* : <ProductDetails {...this.props} ProductID={this.state.prodId} /> */}
-    }
+    
             </React.Fragment>
         );
     }

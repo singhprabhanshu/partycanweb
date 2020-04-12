@@ -10,7 +10,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import MUIButton from '@material-ui/core/Button';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import LoaderButton from '../../../Global/UIComponents/LoaderButton';
-
+import {withRouter} from "react-router-dom";
 
 class CheckOut extends React.Component {
     constructor(props) {
@@ -18,10 +18,12 @@ class CheckOut extends React.Component {
         this.state = { driverTip: { id: 0, value: 0 } }
     }
     componentDidMount() {
+        this.fetchCart(this.cartFetchSuccess);
+    };
+    fetchCart = (successCB) => {
         let reqObj = {
-            "api_token": "1c779ca336234ffc6a98807a6d36140e"
+            "api_token": localStorage.getItem("Token")
         };
-
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj,
@@ -32,10 +34,10 @@ class CheckOut extends React.Component {
                 error: "CART_ITEMS_ERROR"
             },
             identifier: "CART_ITEMS",
-            successCb: this.cartFetchSuccess,
+            successCb: successCB,
             errorCb: this.cartFetchError
         })
-    };
+    }
     cartFetchSuccess = (data) => {
         let coupon_code = _get(data, "[0].coupon_code", "");
         this.setState({ coupon_code })
@@ -48,7 +50,44 @@ class CheckOut extends React.Component {
         this.setState({ driverTip: DriverTipObj })
     }
     placeOrder = () => {
-        this.setState({ orderPlaced: true })
+        let { cartFlow, taxes, cartId } = this.props;
+        let reqObj = {
+            "api_token": localStorage.getItem("Token"),
+            "cart_id": cartId,
+            "delivery_address_id": cartFlow.selectedAddress,
+            "speed_id": cartFlow.selectedSpeedID,
+            "retialer_id": cartFlow.selectedRetailerID,
+            "ship_method_id": cartFlow.selectedShippingMethodID,
+            "delivery_date": "",
+            "ship_method": "",
+            "ship_method_amount": "",
+            "card_id": cartFlow.card_id,
+            "customer_stripe_id": cartFlow.customer_stripe_id,
+            "card_info": cartFlow.card_info,
+            "card_token": cartFlow.card_token,
+            "taxes": taxes,
+            "delivery_fee": "",
+            "delivery_tip": "", //workhere
+            "payment_method": cartFlow.payment_method
+        }
+        genericPostData({
+            dispatch: this.props.dispatch,
+            reqObj,
+            url: "/api/placeorder/placeorder",
+            identifier: "PLACE_ORDER",
+            successCb: this.placeOrderSuccess,
+            errorCb: (err) => console.log("err", err),
+            dontShowMessage: true
+        })
+    }
+    placeOrderSuccess = (data) => {
+        if (data.code == 1) {
+            this.fetchCart(() => {
+                this.setState({ order_id: data.order_id, orderPlaced: true })
+            });
+        }
+        else
+            alert("something went wrong while placing the order");
     }
     onChange = (e) => {
         this.setState({ coupon_code: e.target.value })
@@ -62,10 +101,18 @@ class CheckOut extends React.Component {
 
         let windowWidth = window.innerWidth;
         let cardWidth = windowWidth > 800 ? "60%" : "100%";
+        if (this.props.cartItems.length == 0) {
+            return (
+                <div className="NoItemCart">
+                    <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
+                    <Button onClick={() => this.props.history.push("/category")} color="primary">Start Shopping</Button>
+                </div>
+            )
+        }
         if (this.state.orderPlaced) {
             return <div className="NoItemCart"><span>Cheers!!Order Placed Succesfully</span>
                 <br />
-                <span>Your Order id is #566654</span>
+                <span>Your Order id is {this.state.order_id}</span>
                 <br />
                 <LoaderButton
                     onClick={this.trackOrder}
@@ -79,14 +126,18 @@ class CheckOut extends React.Component {
         return (
             <div className="cartContainer">
                 <div className="CartItemParent">
-                    <CartListItem cartIsFetching={(itemRemovedFetching||itemUpdatedFetching||cartIsFetching)} width={cardWidth} cartItems={this.props.cartItems} />
+                    <CartListItem
+                        dispatch={this.props.dispatch}
+                        cartIsFetching={(itemRemovedFetching || itemUpdatedFetching || cartIsFetching)}
+                        width={cardWidth}
+                        cartItems={this.props.cartItems} />
                 </div>
                 <div className="couponParent">
                     <CouponCode onChange={this.onChange} width={cardWidth} coupon_code={coupon_code} />
                 </div>
                 <div style={{ padding: "10px 20px" }}>
                     <Label>Driver Tip</Label>
-                    <br/>
+                    <br />
                     <ButtonGroup color="secondary" aria-label="outlined primary button group">
                         <MUIButton style={this.state.driverTip.id == 1 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 1, value: 10 })}>10%</MUIButton>
                         <MUIButton style={this.state.driverTip.id == 2 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 2, value: 10 })}>15%</MUIButton>
@@ -112,6 +163,7 @@ class CheckOut extends React.Component {
 }
 
 function mapStateToProps(state) {
+    let cartId = _get(state, "cart.lookUpData[0].cart_id", '');
     let cartItems = _get(state, "cart.lookUpData[0].result", []);
     let subTotal = _get(state, "cart.lookUpData[0].subtotal", 0);
     let discount = _get(state, "cart.lookUpData[0].discount", 0);
@@ -122,6 +174,7 @@ function mapStateToProps(state) {
     let cartIsFetching = _get(state, "cart.isFetching", false);
     let itemRemovedFetching = _get(state, "removeCart.isFetching");
     let itemUpdatedFetching = _get(state, "updateCart.isFetching");
+    let cartFlow = _get(state, "cartFlow.lookUpData");
     return {
         cartItems,
         subTotal,
@@ -133,8 +186,10 @@ function mapStateToProps(state) {
         coupon_code,
         cartIsFetching,
         itemRemovedFetching,
-        itemUpdatedFetching
+        itemUpdatedFetching,
+        cartFlow,
+        cartId
     }
 }
 
-export default connect(mapStateToProps, null)(CheckOut);
+export default connect(mapStateToProps, null)(withRouter(CheckOut));
