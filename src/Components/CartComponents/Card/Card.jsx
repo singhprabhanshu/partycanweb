@@ -19,7 +19,7 @@ import AddCard from "./AddCard";
 import genericPostData from "../../../Redux/Actions/genericPostData"
 import { connect } from "react-redux";
 import _get from "lodash/get";
-
+import { commonActionCreater } from "../../../Redux/Actions/commonAction";
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -55,16 +55,35 @@ class App extends React.Component {
         this.state = { addCard: false };
     }
     addCardFunction = () => {
-        debugger;
         this.setState({ addCard: true });
     }
     handleContinueFromExistingCard = () => {
+        let cartFlow = this.props.cartFlow;
+            let card_token = "";
+            let card_id =  "";
+            let customer_stripe_id =  "";
+            let card_info = "";
+            let payment_method = "stripe_payments";  //check here
+            let data = {
+                ...cartFlow,
+                card_id,
+                card_token,
+                customer_stripe_id,
+                card_info,
+                payment_method
+            }
+        this.props.dispatch(commonActionCreater(data, 'CART_FLOW'));
         this.props.handleTabOnContinue('checkout');
     }
+    handleContinueFromNewCard = ()=>{
+        this.props.handleTabOnContinue('checkout');
+
+    }
+
     componentDidMount() {
         let reqObj = {
-            api_token: "1c779ca336234ffc6a98807a6d36140e",
-            cart_id: 26239
+            api_token: localStorage.getItem("Token"),
+            cart_id: this.props.cartId
         };
 
         genericPostData({
@@ -119,7 +138,7 @@ class App extends React.Component {
 
                                         </> : null}
 
-                                    {this.state.addCard ? <AddCard /> : null}
+                                    {this.state.addCard ? <AddCard handleContinueFromNewCard={this.handleContinueFromNewCard} /> : null}
                                     {!this.state.addCard ?
                                         <div className="text-left mt-4" >
                                             <Button variant="contained" onClick={this.handleContinueFromExistingCard} disabled={!this.state.selectedCard} color="primary" className="bottomActionbutton cartActionBtn" type="submit">
@@ -141,10 +160,13 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
     let paymentMethods = _get(state, "paymentMethods.lookUpData.data", {});
+    let cartId =  _get(state, "cart.lookUpData[0].cart_id",null);
     paymentMethods = Object.keys(paymentMethods).filter(key => !isNaN(key)).map(key => paymentMethods[key]);
-
+    let cartFlow = _get(state, 'cartFlow.lookUpData', {});
     return {
-        paymentMethods
+        paymentMethods,
+        cartId,
+        cartFlow
     }
 }
 

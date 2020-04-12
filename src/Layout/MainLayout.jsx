@@ -11,8 +11,8 @@ import Footer from '../Global/UIComponents/Footer';
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe("pk_test_SW6YZMPYFLvHOGGnoROMcO7M009PYsM2fB");
 import Scrollbar from "react-scrollbars-custom";
+const stripePromise = loadStripe("pk_test_RkUSbyxxcn4xFQ0ttE6QsIDh00bGPMtJdc");
 
 const styles = theme => ({
   failure: {

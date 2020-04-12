@@ -12,7 +12,7 @@ class CartItemList extends React.Component {
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj: {
-                api_token: "1c779ca336234ffc6a98807a6d36140e",
+                api_token: localStorage.getItem("Token"),
                 cart_rid: item.cart_rid
             },
             url: "/api/cart/deleteitem",
@@ -23,7 +23,7 @@ class CartItemList extends React.Component {
     }
     fetchCartAgain = (data) => {
         let reqObj = {
-            "api_token": "1c779ca336234ffc6a98807a6d36140e"
+            "api_token": localStorage.getItem("Token")
         };
         genericPostData({
             dispatch: this.props.dispatch,
@@ -47,7 +47,7 @@ class CartItemList extends React.Component {
         }
         let newQty = qty+d;
         let reqObj = {
-            "api_token": "1c779ca336234ffc6a98807a6d36140e",
+            "api_token":localStorage.getItem("Token"),
             cart_rid: item.cart_rid,
             qty:newQty,
             product_id:item.product_id
