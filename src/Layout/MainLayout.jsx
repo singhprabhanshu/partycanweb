@@ -12,6 +12,7 @@ import Footer from '../Global/UIComponents/Footer';
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe("pk_test_SW6YZMPYFLvHOGGnoROMcO7M009PYsM2fB");
+import Scrollbar from "react-scrollbars-custom";
 
 const styles = theme => ({
   failure: {
@@ -31,7 +32,8 @@ class MainLayout extends React.Component {
     let { classes } = this.props;
     return (
       <>
-      <div className="mainLayout">
+    
+      <Scrollbar className="mainLayout">
        <div className="d-none d-md-block"><HeaderBar history={this.props.history} /></div>
        <div className="container-content-section">
        <Elements stripe={stripePromise}>{this.props.children}</Elements>
@@ -54,7 +56,7 @@ class MainLayout extends React.Component {
         </div>
         </div>
         <Footer />
-      </div>
+      </Scrollbar>
      
       </>
     );

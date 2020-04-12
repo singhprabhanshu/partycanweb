@@ -58,7 +58,7 @@ class SplashContainer extends React.Component {
         this.setState({ slideIndex :  this.state.slideIndex + 1});
     }
     redirectToNext = () => {
-        this.props.history.push('/categories');
+        this.props.history.push('/home');
     }
     handleIndicator = (event) => {
         this.setState({ slideIndex :  event});
@@ -72,7 +72,7 @@ class SplashContainer extends React.Component {
                      <CssBaseline />
                 <Container className="container-content d-flex flex-column justify-content-center">
                 <Row className="flex-grow-1">
-                      <Col className="text-center d-flex justify-content-center  align-items-center position-relative" >
+                      <Col className="text-center d-flex justify-content-center IntroSlider  align-items-center position-relative" >
                         <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} showArrows={false}
                             selectedItem= {this.state.slideIndex} onChange={this.handleIndicator}
                             >
