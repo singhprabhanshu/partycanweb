@@ -28,30 +28,9 @@ const onSubmit = async values => {
     window.alert(JSON.stringify(values, 0, 2))
 }
 
-class App extends React.Component {
+class CardComponent extends React.Component {
     constructor(props) {
         super(props)
-        this.savedCards = [{
-            "number": 4111111111111111,
-            "name": "My Visa Card",
-            "CVC": "729",
-            "expiry": "0233"
-
-        },
-        {
-            "number": 5500000000000004,
-            "name": "MY MasterCard",
-            "CVC": "729",
-            "expiry": "0233"
-
-        },
-        {
-            "number": 340000000000009,
-            "name": "American ExpressS",
-            "CVC": "729",
-            "expiry": "0233"
-
-        }]
         this.state = { addCard: false };
     }
     addCardFunction = () => {
@@ -59,11 +38,12 @@ class App extends React.Component {
     }
     handleContinueFromExistingCard = () => {
         let cartFlow = this.props.cartFlow;
+        let selectedCard = this.props.paymentMethods[this.state.selectedCard-1];
             let card_token = "";
-            let card_id =  "";
-            let customer_stripe_id =  "";
-            let card_info = "";
-            let payment_method = "stripe_payments";  //check here
+            let card_id =  selectedCard.id;
+            let customer_stripe_id =  selectedCard.customer_stripe_id;
+            let card_info = selectedCard.card_info;
+            let payment_method = this.props.payment_method;
             let data = {
                 ...cartFlow,
                 card_id,
@@ -160,14 +140,16 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
     let paymentMethods = _get(state, "paymentMethods.lookUpData.data", {});
+    let payment_method = _get(paymentMethods,"payment_method")
     let cartId =  _get(state, "cart.lookUpData[0].cart_id",null);
     paymentMethods = Object.keys(paymentMethods).filter(key => !isNaN(key)).map(key => paymentMethods[key]);
     let cartFlow = _get(state, 'cartFlow.lookUpData', {});
     return {
         paymentMethods,
         cartId,
-        cartFlow
+        cartFlow,
+        payment_method
     }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(CardComponent);

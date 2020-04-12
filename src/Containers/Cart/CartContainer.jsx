@@ -44,7 +44,7 @@ class CartContainer extends React.Component {
         this.setState({ coupon_code: e.target.value })
     }
     render() {
-        let { discount, subTotal, grandTotal, cartIsFetching,itemRemovedFetching,itemUpdatedFetching } = this.props;
+        let { discount, subTotal, grandTotal, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
         let { coupon_code } = this.state;
         let windowWidth = window.innerWidth;
         let cardWidth = windowWidth > 800 ? "60%" : "100%";
@@ -59,20 +59,23 @@ class CartContainer extends React.Component {
         return (
             <div className="cartContainer">
                 <div className="CartItemParent">
-                    <CartItemsList dispatch={this.props.dispatch} width={cardWidth} cartItems={this.props.cartItems} />
+                    <CartItemsList
+                        dispatch={this.props.dispatch}
+                        width={cardWidth}
+                        cartItems={this.props.cartItems} />
                 </div>
                 <div className="couponParent">
                     <CouponCode onChange={this.onChange} width={cardWidth} coupon_code={coupon_code} />
                 </div>
                 <div style={{ width: cardWidth }} className="PriceSummaryParent">
-                    <CartPriceSummary cartIsFetching={(itemRemovedFetching||itemUpdatedFetching||cartIsFetching)} width={cardWidth} discount={discount} subTotal={subTotal} grandTotal={grandTotal} />
+                    <CartPriceSummary cartIsFetching={(itemRemovedFetching || itemUpdatedFetching || cartIsFetching)} width={cardWidth} discount={discount} subTotal={subTotal} grandTotal={grandTotal} />
                 </div>
                 <div style={{ width: cardWidth }} className="CheckOutButtonParent">
                     <LoaderButton
-                        isFetching={itemRemovedFetching||itemUpdatedFetching||cartIsFetching}
+                        isFetching={itemRemovedFetching || itemUpdatedFetching || cartIsFetching}
                         onClick={() => this.props.history.push("/cart/address")}
                         variant="contained"
-                         color="primary"
+                        color="primary"
                         className="CheckOutButton" color="primary">CheckOut</LoaderButton>
                 </div>
             </div>
@@ -86,8 +89,8 @@ function mapStateToProps(state) {
     let discount = _get(state, "cart.lookUpData[0].discount", 0);
     let grandTotal = _get(state, "cart.lookUpData[0].grandtotal", 0);
     let cartIsFetching = _get(state, "cart.isFetching", false);
-    let itemRemovedFetching = _get(state,"removeCart.isFetching");
-    let itemUpdatedFetching = _get(state,"updateCart.isFetching");
+    let itemRemovedFetching = _get(state, "removeCart.isFetching");
+    let itemUpdatedFetching = _get(state, "updateCart.isFetching");
 
     return {
         cartItems,
