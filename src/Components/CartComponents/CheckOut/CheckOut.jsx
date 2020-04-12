@@ -11,7 +11,6 @@ import MUIButton from '@material-ui/core/Button';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import LoaderButton from '../../../Global/UIComponents/LoaderButton';
 
-
 class CheckOut extends React.Component {
     constructor(props) {
         super(props);
@@ -19,7 +18,7 @@ class CheckOut extends React.Component {
     }
     componentDidMount() {
         let reqObj = {
-            "api_token": "1c779ca336234ffc6a98807a6d36140e"
+            "api_token": localStorage.getItem("Token")
         };
 
         genericPostData({
@@ -48,7 +47,34 @@ class CheckOut extends React.Component {
         this.setState({ driverTip: DriverTipObj })
     }
     placeOrder = () => {
-        this.setState({ orderPlaced: true })
+        let {cartFlow,taxes,cartId} = this.props;
+      let reqObj =   {
+            "api_token": localStorage.getItem("Token"),
+            "cart_id": cartId,
+            "delivery_address_id": cartFlow.selectedAddress,
+            "speed_id": cartFlow.selectedSpeedID,
+            "retialer_id": cartFlow.selectedRetailerID,
+            "ship_method_id": cartFlow.selectedShippingMethodID,
+            "delivery_date": "",
+            "ship_method": "",
+            "ship_method_amount": "",
+            "card_id": "card_1GWzKDAuF57Ya9WAcpDaYCOZ",//cartFlow.card_id,
+            "customer_stripe_id": "cus_H2be2iyC19S84Q",//cartFlow.customer_stripe_id,
+            "card_info": "",//cartFlow.card_info,
+            "card_token": cartFlow.card_token,
+            "taxes": taxes,
+            "delivery_fee": "",
+            "delivery_tip": "", //workhere
+            "payment_method": cartFlow.payment_method
+          }
+          genericPostData({
+            dispatch: this.props.dispatch,
+            reqObj,
+            url: "/api/placeorder/placeorder",
+            identifier: "PLACE_ORDER",
+            successCb: ()=>this.setState({orderPlaced:true}),
+            errorCb: (err)=>console.log("err",err)
+        })
     }
     onChange = (e) => {
         this.setState({ coupon_code: e.target.value })
@@ -112,6 +138,7 @@ class CheckOut extends React.Component {
 }
 
 function mapStateToProps(state) {
+    let cartId = _get(state, "cart.lookUpData[0].cart_id", '');
     let cartItems = _get(state, "cart.lookUpData[0].result", []);
     let subTotal = _get(state, "cart.lookUpData[0].subtotal", 0);
     let discount = _get(state, "cart.lookUpData[0].discount", 0);
@@ -122,6 +149,7 @@ function mapStateToProps(state) {
     let cartIsFetching = _get(state, "cart.isFetching", false);
     let itemRemovedFetching = _get(state, "removeCart.isFetching");
     let itemUpdatedFetching = _get(state, "updateCart.isFetching");
+    let cartFlow = _get(state,"cartFlow.lookUpData")
     return {
         cartItems,
         subTotal,
@@ -133,7 +161,9 @@ function mapStateToProps(state) {
         coupon_code,
         cartIsFetching,
         itemRemovedFetching,
-        itemUpdatedFetching
+        itemUpdatedFetching,
+        cartFlow,
+        cartId
     }
 }
 

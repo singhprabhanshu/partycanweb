@@ -54,7 +54,6 @@ class ProductsContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showActiveCategory: "All"
         }
     }
 
@@ -93,9 +92,9 @@ redirectToCategories = (category) => {
 
     render() {
         const { categoriesList, classes } = this.props;
-        let CateggoryList = []
+        let CategoryList = []
         !_isEmpty(categoriesList) && categoriesList.map((category, index)=>{
-            CateggoryList.push(
+            CategoryList.push(
                 <Card style={{ height: "200px" }} onClick={()=>this.redirectToCategories(category)} >
                     <div className="prodcutMinDetails">
                         <CardImg style={{ maxHeight: "15rem" }} src={category.category_image} alt="Card image cap" />
@@ -113,10 +112,7 @@ redirectToCategories = (category) => {
                     <h1>SHOP</h1>
                     </div>
                 <div className="productsList">
-                    {this.state.showActiveCategory}
-                    </div>
-                <div className="productsList">
-                    {CateggoryList}
+                    {CategoryList}
                     </div>
             </React.Fragment>
         );

@@ -30,6 +30,7 @@ import {
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import {isMobile} from 'react-device-detect';
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -103,7 +104,8 @@ class ProductDetails extends React.Component {
             },
             identifier: "PRODUCT_DETAILS_LIST",
             successCb: this.productDetailsFetchSuccess,
-            errorCb: this.productDetailsFetchError
+            errorCb: this.productDetailsFetchError,
+            dontShowMessage:true
         })
     }
 
@@ -149,12 +151,34 @@ class ProductDetails extends React.Component {
             },
             identifier: "ADD_TO_CART",
             successCb: this.addToCartSuccess,
-            errorCb: this.addToCartFailure
+            errorCb: this.addToCartFailure,
+            dontShowMessage:true
+        })
+    }
+
+    fetchCartAgain = (data) => {
+        let reqObj = {
+            "api_token": localStorage.getItem("Token")
+        };
+        genericPostData({
+            dispatch: this.props.dispatch,
+            reqObj,
+            url: "/api/cart/showcart",
+            constants: {
+                init: "CART_ITEMS_INIT",
+                success: "CART_ITEMS_SUCCESS",
+                error: "CART_ITEMS_ERROR"
+            },
+            identifier: "CART_ITEMS",
+            successCb: ()=>console.log("added succesfully"),
+            errorCb: this.cartFetchError,
+            successText:"Item added to cart succesfully"
         })
     }
 
     addToCartSuccess = () => {
-        this.props.history.push('/cart')
+        this.fetchCartAgain();
+        //this.props.history.push('/cart')
     }
 
     addToCartFailure = () => {
@@ -162,6 +186,88 @@ class ProductDetails extends React.Component {
 
     handleIndicator = (event) => {
         this.setState({ slideIndex :  event});
+    }
+
+    renderContent = (averageRating, reviewsList, productDetailsData, Ingredients) => {
+        let commonContent = <>
+        <div className="pr-lg-4" >                
+        <Row  className="mb-5 flex-column flex-md-row justify-content-md-between no-gutters" >
+            <Col className="prostarRatings order-md-2 ">
+                <div className="reviewsBox d-flex align-items-center mb-3">
+                    <StarRatingComponent value={averageRating} starCount={5} editing={false} />
+                    <span style={{fontSize:'1.2rem'}} >{this.props.productDetailsData.review_count}</span>
+                    {!this.state.showReviews ? <ExpandMoreOutlined style={{ cursor: "pointer" }} onClick={()=>this.handleReviews()}  /> : <ClearOutlined style={{ cursor: "pointer" }} onClick={()=>this.handleReviews()} />}
+                </div>
+                {this.state.showReviews ? 
+                 <Scrollbar  style={{height:150, overflowY:'auto'}}>
+                <div className="d-flex flex-column">{reviewsList}</div>
+                </Scrollbar>
+                : ""}
+                </Col>  
+           
+            <Col className="order-md-1" >                                      
+                <div className="proName text-uppercase mb-4 d-flex align-items-center" >
+                    <ArrowBackIcon className="mr-4" style={{fontSize:'20px', color:'rgba(255, 255, 255, .6)'}} />  {_get(productDetailsData, "name", "")}
+                </div>
+                <div className="proDescription"  >
+                    {_get(productDetailsData, "description", "")}
+                </div>                                     
+             </Col>
+            
+        </Row>
+            { !_isEmpty(Ingredients) ? 
+                <div className="proItems d-flex flex-column mb-4">
+                    <div  className="mb-3 title-2">INGREDIENTS</div>
+                    <div className="ingredientsList">
+                        {Ingredients}
+                    </div>
+                </div>
+            : ""}
+        <div style={{ marginTop: "50px" }}>
+            <Grid container>
+                <Grid container direction="column" item xs={3}>
+                    <span className="smallTitle">AMOUNT</span>
+                    <div className="addQty">
+                        <span><ClearOutlined onClick={() => this.handleQuantity("less")} /></span>
+                        <span className="qty">{this.state.defaultQuantity}</span>
+                        <span><AddOutlined style={{fontSize:"15px"}} onClick={() => this.handleQuantity("add")} /></span>
+                    </div>
+                </Grid>
+                <Grid container direction="column" item xs={3}>
+                    <span className="smallTitle">FROM</span>
+                    <span className="finalProprice">${this.state.productPrice}</span>
+                </Grid>
+                <Grid container direction="column"  item xs={3}>
+                    <span className="smallTitle">DELIVERED COLD IN - 1 HR</span>
+                    <div className="snowFlakes">
+                        <span></span> 
+                        <span></span> 
+                        <span></span> 
+                        <span></span>
+                     </div> 
+                </Grid>
+            </Grid>
+            
+        </div>
+        <div className="d-flex flex-column flex-md-row" style={{ marginTop: "50px" }}>                                                                 
+                <Button variant="contained"  style={{ color:'#0032A0'}}  className="bottomActionbutton autoWidthbtn  bg-white" type="submit">
+                <span className="icons shareIcons d-inline-block mr-2"></span>SHARE
+                 </Button>                    
+                <Button onClick={()=>this.handleAddToCart()} variant="contained"  className="bottomActionbutton  cartActionBtn mx-4" type="submit">
+                   <span className="icons cartIcons d-inline-block mr-2"></span>ADD TO CART
+                </Button>                    
+                <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)'}} variant="contained"  className="bottomActionbutton autoWidthbtn transiBtn" type="submit">
+                <span className="icons locationIcons d-inline-block mr-2"></span>FIND IN STORES
+                </Button>
+        </div>
+        </div>
+        </>
+        if(isMobile){
+            return <div>{commonContent}</div>
+        }
+        else{
+        return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        }
     }
 
     render() {
@@ -205,99 +311,24 @@ class ProductDetails extends React.Component {
         return (
             <React.Fragment>
             <Container fluid={true} className="productDetails"> 
-            <ProductTabs
-                    tabValue={this.state.tabValue}
-                    handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
-                    />                
-                <Row className="no-gutters justify-content-lg-between secMinHeight">
-                    <Col lg={5} className="order-1 order-md-2">
-                        <div className="productImgSection proDetailSec">
-                        <Carousel showIndicators={false} showStatus={false} >
-                            {productImages}
-                        </Carousel> 
-                         
-                            {/* <img src={_get(productDetailsData, 'images[0]', "")} className="imgProduct img-responsive" alt="Smiley face" /> */}
-                        </div>
-                    </Col>
+        <ProductTabs
+                tabValue={this.state.tabValue}
+                handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
+                />                
+            <Row className="no-gutters justify-content-lg-between secMinHeight">
+                <Col lg={5} className="order-1 order-md-2">
+                    <div className="productImgSection proDetailSec">
+                    <Carousel showIndicators={false} showStatus={false} >
+                        {productImages}
+                    </Carousel> 
+                    </div>
+                </Col>
 
-                    <Col lg={7} className="p-5 order-2  d-flex order-md-1 ">
-                        <Scrollbar  className="leftSecmaxHeight">
-                            <div className="pr-lg-4" >                
-                            <Row  className="mb-5 flex-column flex-md-row justify-content-md-between no-gutters" >
-                                <Col className="prostarRatings order-md-2 ">
-                                    <div className="reviewsBox d-flex align-items-center mb-3" onClick={()=>this.handleReviews()}>
-                                        <StarRatingComponent value={averageRating} starCount={5} editing={false} />
-                                        <span style={{fontSize:'1.2rem'}} >{this.props.productDetailsData.review_count}</span>
-                                        <ExpandMoreOutlined  />
-                                    </div>
-                                    {this.state.showReviews ? 
-                                     <Scrollbar  style={{height:150, overflowY:'auto'}}>
-                                    <div className="d-flex flex-column">{reviewsList}</div>
-                                    </Scrollbar>
-                                    : ""}
-                                    </Col>  
-                               
-                                <Col className="order-md-1" >                                      
-                                    <div className="proName text-uppercase mb-4 d-flex align-items-center" >
-                                        <ArrowBackIcon className="mr-4" style={{fontSize:'20px', color:'rgba(255, 255, 255, .6)'}} />  {productDetailsData.name}
-                                    </div>
-                                    <div className="proDescription"  >
-                                        {productDetailsData.description}
-                                    </div>                                     
-                                 </Col>
-                                
-                            </Row>
-                                { !_isEmpty(Ingredients) ? 
-                                    <div className="proItems d-flex flex-column mb-4">
-                                        <div  className="mb-3 title-2">INGREDIENTS</div>
-                                        <div className="ingredientsList">
-                                            {Ingredients}
-                                        </div>
-                                    </div>
-                                : ""}
-                            <div style={{ marginTop: "50px" }}>
-                                <Grid container>
-                                    <Grid container direction="column" item xs={3}>
-                                        <span className="smallTitle">AMOUNT</span>
-                                        <div className="addQty">
-                                            <span><ClearOutlined onClick={() => this.handleQuantity("less")} /></span>
-                                            <span className="qty">{this.state.defaultQuantity}</span>
-                                            <span><AddOutlined style={{fontSize:"15px"}} onClick={() => this.handleQuantity("add")} /></span>
-                                        </div>
-                                    </Grid>
-                                    <Grid container direction="column" item xs={3}>
-                                        <span className="smallTitle">FROM</span>
-                                        <span className="finalProprice">${this.state.productPrice}</span>
-                                    </Grid>
-                                    <Grid container direction="column"  item xs={3}>
-                                        <span className="smallTitle">DELIVERED COLD IN - 1 HR</span>
-                                        <div className="snowFlakes">
-                                            <span></span> 
-                                            <span></span> 
-                                            <span></span> 
-                                            <span></span>
-                                         </div> 
-                                    </Grid>
-                                </Grid>
-                                
-                            </div>
-                            <div className="d-flex flex-column flex-md-row" style={{ marginTop: "50px" }}>                                                                 
-                                    <Button variant="contained"  style={{ color:'#0032A0'}}  className="bottomActionbutton autoWidthbtn  bg-white" type="submit">
-                                    <span className="icons shareIcons d-inline-block mr-2"></span>SHARE
-                                     </Button>                    
-                                    <Button onClick={()=>this.handleAddToCart()} variant="contained"  className="bottomActionbutton  cartActionBtn mx-4" type="submit">
-                                       <span className="icons cartIcons d-inline-block mr-2"></span>ADD TO CART
-                                    </Button>                    
-                                    <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)'}} variant="contained"  className="bottomActionbutton autoWidthbtn transiBtn" type="submit">
-                                    <span className="icons locationIcons d-inline-block mr-2"></span>FIND IN STORES
-                                    </Button>
-                            </div>
-                            </div>
-                            </Scrollbar>                  
-                    </Col>                        
-                    </Row>
-                    </Container>
-
+                <Col lg={7} className="p-5 order-2  d-flex order-md-1 ">
+                    {this.renderContent(averageRating, reviewsList, productDetailsData, Ingredients)}                  
+                </Col>                        
+                </Row>
+                </Container>
             </React.Fragment>
         );
     }
