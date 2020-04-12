@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import HeaderBar from '../Global/UIComponents/HeaderBar';
 import Footer from '../Global/UIComponents/Footer';
-
+import Scrollbar from "react-scrollbars-custom";
 const styles = theme => ({
   failure: {
     background: 'red',
@@ -27,8 +27,9 @@ class MainLayout extends React.Component {
     let { classes } = this.props;
     return (
       <>
-      <div className="mainLayout">
-       <div className="d-none d-lg-block"><HeaderBar history={this.props.history} /></div>
+    
+      <Scrollbar className="mainLayout">
+       <div className="d-none d-md-block"><HeaderBar history={this.props.history} /></div>
        <div className="container-content-section">
         <React.Fragment>
           {this.props.children}
@@ -52,7 +53,7 @@ class MainLayout extends React.Component {
         </div>
         </div>
         <Footer />
-      </div>
+      </Scrollbar>
      
       </>
     );

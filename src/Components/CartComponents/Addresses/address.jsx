@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Button } from 'reactstrap';
 
-
+import Scrollbar from "react-scrollbars-custom";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 // import AddressCard from './addressCard';
 import AddressCard from './addressCardNew';
 import AddAddressCard from './addAddressCard';
-import { map as _map, findIndex as _findIndex, get as _get } from 'lodash';
+import { map as _map, findIndex as _findIndex, get as _get, isEmpty as _isEmpty } from 'lodash';
 import genericGetData from "../../../Redux/Actions/genericGetData";
 import genericPostData from '../../../Redux/Actions/genericPostData';
 import { Form, Field } from 'react-final-form';
@@ -56,21 +56,25 @@ class Address extends React.Component {
     
 
     fetchAddressModify = (data) => {
-        const addressList = _map(data, (d, index) => ({
-            type: _get(d, 'address_nickname'),
-            name: _get(d, 'name'),
-            id: _get(d, 'address_id'),
-            street_1: _get(d, 'street1'),
-            street_2: _get(d, 'street2'),
-            city: _get(d, 'city'),
-            state: _get(d, 'state'),
-            country: _get(d, 'country'),
-            zipcode: _get(d, 'zipcode'),
-            phone: _get(d, 'telephone'),
-            defaultAddress: _get(d, 'default_address'),
-            isPrimary: (_get(d, 'default_address') === "1") ? true : false,
-            address: `${_get(d, 'street1')}, ${_get(d, 'street2')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}`
-        }));
+        let addressList = [];
+        if (_get(data, 'code') === 1) {
+            addressList = _map(_get(data, 'data', []), (d, index) => ({
+                type: _get(d, 'address_nickname'),
+                name: _get(d, 'name'),
+                id: _get(d, 'address_id'),
+                street_1: _get(d, 'street1'),
+                street_2: _get(d, 'street2'),
+                city: _get(d, 'city'),
+                state: _get(d, 'state'),
+                country: _get(d, 'country'),
+                zipcode: _get(d, 'zipcode'),
+                phone: _get(d, 'telephone'),
+                defaultAddress: _get(d, 'default_address'),
+                isPrimary: (_get(d, 'default_address') === "1") ? true : false,
+                address: `${_get(d, 'street1')}, ${_get(d, 'street2')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}`
+            }));
+        }
+        
     
         const primaryAddressIndex = _findIndex(addressList, ['isPrimary', true]);
         const splicedData = (primaryAddressIndex !== -1) ? addressList.splice(primaryAddressIndex, 1) : undefined;
@@ -97,14 +101,19 @@ class Address extends React.Component {
         const userAddressFetchError=(err)=>{
             console.log(err);
         };
-        genericGetData({
+        let body = {
+            api_token: _get(this.props, 'userDetails.api_token', ''),
+            customerid: parseInt(_get(this.props, 'userDetails.customer_id', 0), 10)
+        };
+        genericPostData({
             dispatch:this.props.dispatch,
-            url:"/connect/customer/getaddresses?customerid=1080",
+            reqObj: body,
+            url:`/connect/customer/getaddresses?customerid=${_get(this.props, 'userDetails.customer_id', 0)}`,
             // url: '/card/new',
             constants:{
-            init:"USER_ADDRESS_INIT",
-            success:"USER_ADDRESS_SUCCESS",
-            error:"USER_ADDRESS_ERROR" 
+                init:"USER_ADDRESS_INIT",
+                success:"USER_ADDRESS_SUCCESS",
+                error:"USER_ADDRESS_ERROR" 
             },
             identifier:"USER_ADDRESS",
             successCb:userAddressFetchSuccess,
@@ -125,7 +134,10 @@ class Address extends React.Component {
     };
 
     componentDidMount(){
-        this.fetchAddress();
+        if (!_isEmpty(this.props.userDetails)) {
+            this.fetchAddress();
+        }
+        
         
 
         
@@ -164,7 +176,7 @@ class Address extends React.Component {
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj: body,
-            url: '/connect/customer/addaddress?customerid=1080',
+            url: `/connect/customer/addaddress?customerid=${_get(this.props, 'userDetails.customer_id', 0)}`,
             constants: {
                 init: 'POST_USER_ADDRESSES_INIT',
                 success: 'POST_USER_ADDRESSES_SUCCESS',
@@ -214,87 +226,91 @@ class Address extends React.Component {
                                 <img src={proImg} className="imgProduct img-responsive"></img>
                          </div>
                         </Col>
-                        <Col lg={6} className="p-5 order-2 order-md-1">
-                        <div style={styles(this.state).addressFormHide}>                                
-                                <div className="block-title mb-4">SAVED ADDRESSES</div>
-                                <div className="d-flex flex-wrap CardsWrapper">
-                                    <AddAddressCard handleAddAddress={this.handleAddAddress} />
-                                    {addresses}
-                                </div> 
-                                <div className="text-left mt-4" >
-                                    <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleCardSelect}>
-                                        <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE & CONTINUE
-                                    </Button>
-                                </div> 
-                        </div>
-                        <div style={styles(this.state).addressFormShow}> 
-                        <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} />ADDRESS</div>
-                        
-                        <Form onSubmit= {this.onSubmit} validate={validate}
-                                render={({ handleSubmit }) => (
-                            <form onSubmit={handleSubmit}>
-                             <div className="block-title d-flex justify-content-between align-items-center mb-4">                            
-                            ADD NEW ADDRESSES
-                            <span className="d-flex align-items-center">
-                                <Field name="defaultAddress" component={SwitchInputField} label='DEFAULT ADDRESS' />
-                            </span>
-                            </div>
-                                <div className="d-flex mt-4">
-                                    <div style={{ width: '50%', marginRight: 50}}>
-                                        <Field name="firstName" component={TextInputField} placeholder='FIRST NAME'
+                        <Col lg={6} className="p-5  d-flex order-2 order-md-1">
+                        <Scrollbar className="leftSecmaxHeight">
+                            <div className="pr-lg-4" > 
+                                <div style={styles(this.state).addressFormHide}>                                
+                                        <div className="block-title mb-4">SAVED ADDRESSES</div>
+                                        <div className="d-flex flex-wrap CardsWrapper">
+                                            <AddAddressCard handleAddAddress={this.handleAddAddress} />
+                                            {addresses}
+                                        </div> 
+                                        <div className="text-left mt-4" >
+                                            <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleCardSelect}>
+                                                <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE & CONTINUE
+                                            </Button>
+                                        </div> 
+                                </div>
+                                <div style={styles(this.state).addressFormShow}> 
+                            <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} />ADDRESS</div>
+                            
+                            <Form onSubmit= {this.onSubmit} validate={validate}
+                                    render={({ handleSubmit }) => (
+                                <form onSubmit={handleSubmit}>
+                                <div className="block-title d-flex justify-content-between align-items-center mb-4">                            
+                                ADD NEW ADDRESSES
+                                <span className="d-flex align-items-center">
+                                    <Field name="defaultAddress" component={SwitchInputField} label='DEFAULT ADDRESS' />
+                                </span>
+                                </div>
+                                    <div className="d-flex mt-4">
+                                        <div style={{ width: '50%', marginRight: 50}}>
+                                            <Field name="firstName" component={TextInputField} placeholder='FIRST NAME'
+                                            autoFocus={false} type='text' />
+                                        </div>
+                                        <div style={{ width: '50%'}}>
+                                            <Field name="lastName" component={TextInputField} placeholder='LAST NAME'
+                                            autoFocus={false} type='text' />
+                                        </div>
+                                    </div>
+                                    <div className="mt-4">
+                                        <Field name="address" component={TextInputField} placeholder='ADDRESS'
                                         autoFocus={false} type='text' />
                                     </div>
-                                    <div style={{ width: '50%'}}>
-                                        <Field name="lastName" component={TextInputField} placeholder='LAST NAME'
+                                    <div className="mt-4">
+                                        <Field name="address2" component={TextInputField} placeholder='ADDRESS 2'
                                         autoFocus={false} type='text' />
                                     </div>
-                                </div>
-                                <div className="mt-4">
-                                    <Field name="address" component={TextInputField} placeholder='ADDRESS'
-                                    autoFocus={false} type='text' />
-                                </div>
-                                <div className="mt-4">
-                                    <Field name="address2" component={TextInputField} placeholder='ADDRESS 2'
-                                    autoFocus={false} type='text' />
-                                </div>
-                                <div className="mt-4">
-                                    <Field name="city" component={TextInputField} placeholder='CITY'
-                                    autoFocus={false} type='text' />
-                                </div>
-                                <div className="d-flex mt-4">
-                                        {/* <Field name="state" component={TextInputField} placeholder='STATE'
+                                    <div className="mt-4">
+                                        <Field name="city" component={TextInputField} placeholder='CITY'
                                         autoFocus={false} type='text' />
-                                        <Field name="zip" component={TextInputField} placeholder='ZIP'
-                                        autoFocus={false} type='text' />         */}
-                                    <div style={{ width: '50%', marginRight: 50}}>
-                                        <Field name="state" component={RFReactSelect} placeholder='STATE'
-                                        autoFocus={false} type='text' options={options} />
                                     </div>
-                                    <div style={{ width: '50%'}}>
-                                        <Field name="zip" component={TextInputField} placeholder='ZIP'
+                                    <div className="d-flex mt-4">
+                                            {/* <Field name="state" component={TextInputField} placeholder='STATE'
+                                            autoFocus={false} type='text' />
+                                            <Field name="zip" component={TextInputField} placeholder='ZIP'
+                                            autoFocus={false} type='text' />         */}
+                                        <div style={{ width: '50%', marginRight: 50}}>
+                                            <Field name="state" component={RFReactSelect} placeholder='STATE'
+                                            autoFocus={false} type='text' options={options} />
+                                        </div>
+                                        <div style={{ width: '50%'}}>
+                                            <Field name="zip" component={TextInputField} placeholder='ZIP'
+                                            autoFocus={false} type='text' />
+                                        </div>
+                                        
+                                    </div>
+                                    <div className="mt-4">
+                                        <Field name="addressNickname" component={TextInputField} placeholder='ADDRESS NICKNAME'
+                                        autoFocus={false} type='text' />
+                                    </div>
+                                    <div className="mt-4">
+                                        <Field name="phone" component={TextInputField} placeholder='phone'
                                         autoFocus={false} type='text' />
                                     </div>
                                     
-                                </div>
-                                <div className="mt-4">
-                                    <Field name="addressNickname" component={TextInputField} placeholder='ADDRESS NICKNAME'
-                                    autoFocus={false} type='text' />
-                                </div>
-                                <div className="mt-4">
-                                    <Field name="phone" component={TextInputField} placeholder='phone'
-                                    autoFocus={false} type='text' />
-                                </div>
-                                
-                                                            
+                                                                
 
-                                <div className="text-left mt-4" >
-                                    <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" type="submit">
-                                        <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE ADDRESS
-                                    </Button>
-                                </div> 
-                            </form>)}
-                            />
-                    </div>
+                                    <div className="text-left mt-4" >
+                                        <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" type="submit">
+                                            <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE ADDRESS
+                                        </Button>
+                                    </div> 
+                                </form>)}
+                                />
+                        </div>
+                            </div>
+                            </Scrollbar>
                         </Col>
                         
                     </Row>
@@ -307,8 +323,11 @@ class Address extends React.Component {
 
 const mapStateToProps = (state) => {
     let cartFlow = _get(state, 'cartFlow.lookUpData', {});
+    let userInfo = _get(state, 'userSignInInfo.lookUpData', []);
+    let userDetails = _get(userInfo, '[0].result', {});
     return {
         cartFlow,
+        userDetails,
     };
 };
 

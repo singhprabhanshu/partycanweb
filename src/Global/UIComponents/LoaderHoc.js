@@ -1,4 +1,6 @@
 import React from 'react';
+import { Spinner } from 'reactstrap';
+
 function WithLoading(Component) {
   return function WihLoadingComponent({ isLoading, ...props }) {
     debugger;
@@ -6,4 +8,16 @@ function WithLoading(Component) {
     return (<p>Be Hold, fetching data may take some time :)</p>);
   }
 }
-export default WithLoading;
+
+function Loader () {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    <Spinner color="danger" />
+    </div>
+  ) 
+};
+
+export {
+  WithLoading,
+  Loader,
+};

@@ -3,15 +3,9 @@ import {TextInputField, SwitchInputField} from '../../Global/FormCompoents/wrapp
 import { Button } from '@material-ui/core';
 import validate from './Validate/loginValidate';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
-import { commonActionCreater } from '../../Redux/Actions/commonAction';
 import React from 'react';
 import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import _get from 'lodash/get';
@@ -95,7 +89,7 @@ class SignIn extends React.Component {
                              isSuccess: true
                         }));
             localStorage.setItem('Token', _get(data[0], 'result.api_token',''));
-            this.props.history.push('/categories');
+            this.props.history.push('/category');
         } else {
             this.props.dispatch(showMessage({ text: message, isSuccess: false }));
         }

@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
-import {map} from 'lodash';
-import { CarouselProvider, Slider, Slide, ButtonNext, Image, DotGroup } from 'pure-react-carousel';
-import 'pure-react-carousel/dist/react-carousel.es.css';
+import {map, set} from 'lodash';
 import genericGetData from '../../Redux/Actions/genericGetData';
 import {Container, Row, Col} from 'reactstrap'
 import slide1 from '../../assets/images/HOMEPAGE1.png'
@@ -29,56 +27,55 @@ class SplashContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            imageData: []
+            imageData: [],
+            slideIndex: 0
         }
     }
 
     componentDidMount() {
-        genericGetData({
-            dispatch:this.props.dispatch,
-            url:"index.php/connect/index/banners",
-            constants:{
-            init:"SPLASH_BANNER_INIT",
-            success:"SPLASH_BANNER_SUCCESS",
-            error:"SPLASH_BANNER_ERROR" 
-            },
-            identifier:"SPLASH_BANNER",
-            successCb:this.splashBannerSuccess,
-            errorCb:this.splashBannerFetchError,
-            dontShowMessage: true
-        });
+        // genericGetData({
+        //     dispatch:this.props.dispatch,
+        //     url:"index.php/connect/index/banners",
+        //     constants:{
+        //     init:"SPLASH_BANNER_INIT",
+        //     success:"SPLASH_BANNER_SUCCESS",
+        //     error:"SPLASH_BANNER_ERROR" 
+        //     },
+        //     identifier:"SPLASH_BANNER",
+        //     successCb:this.splashBannerSuccess,
+        //     errorCb:this.splashBannerFetchError,
+        //     dontShowMessage: true
+        // });
     }
 
-    splashBannerSuccess= (data) => {
-        //this.setState({ imageData : data});
-    }
-    splashBannerFetchError = (data) => {
+    // splashBannerSuccess= (data) => {
+    //     this.setState({ imageData : data});
+    // }
+    // splashBannerFetchError = (data) => {
 
+    // }
+    handleSlideChange = () => {
+        this.setState({ slideIndex :  this.state.slideIndex + 1});
+    }
+    redirectToNext = () => {
+        this.props.history.push('/home');
+    }
+    handleIndicator = (event) => {
+        this.setState({ slideIndex :  event});
     }
 
     render() {
         const { classes } = this.props;
-        let renderImage = this.state.imageData.map((data, index)=> {
-            return ( <Slide key={index} index= {index}>
-                  <Container className="d-flex"  fluid={true}>
-                    <Row>
-                        <Col>
-                            <Image src={data.imageurl}></Image> <br/>
-                            <h4>{data.text}</h4>
-                        </Col>
-                    </Row>
-                </Container>
-            </Slide>)
-        });
-
         return ( 
             <React.Fragment>
             <Container fluid={true}  className="WhiteCurveBg">
                      <CssBaseline />
                 <Container className="container-content d-flex flex-column justify-content-center">
                 <Row className="flex-grow-1">
-                      <Col className="text-center d-flex justify-content-center  align-items-center position-relative" >
-                        <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} >
+                      <Col className="text-center d-flex justify-content-center IntroSlider  align-items-center position-relative" >
+                        <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} showArrows={false}
+                            selectedItem= {this.state.slideIndex} onChange={this.handleIndicator}
+                            >
                             <div className=" d-flex justify-content-between flex-column align-items-center h-100 ">
                             <img src={slide1} className="img-responsive" />
                                 <p className="legend">MADE WITH 100% BLUE WEBER AGAVE TEQUILA, COMBIER LIQUEUR D'ORANGE TRIPLE SEC, AND FRESH LIME JUICE. 
@@ -92,7 +89,7 @@ class SplashContainer extends React.Component {
                             <img src={slide3} className="img-responsive" />
                                 <p className="legend">Legend 3</p>
                             </div>
-                    </Carousel>  
+                        </Carousel>  
                     </Col>
                     </Row>  
                     </Container>
@@ -100,10 +97,13 @@ class SplashContainer extends React.Component {
                 <Container className="container-custom">
                     <Row>
                         <Col className="text-center" style={{height:70}} >
-                            <Button variant="text" color="secondary" className="txtButton" onClick={this.createAccount} ></Button>
+                            <Button variant="text" color="secondary" className="txtButton" 
+                                onClick={this.state.slideIndex == 2 ? this.redirectToNext: this.handleSlideChange}>
+                                         {this.state.slideIndex == 2 ? ' COOL !!' : 'NEXT' }
+                            </Button>
                         </Col>                        
                     </Row>
-                </Container>     
+                </Container>       
          </React.Fragment>
         );
     }

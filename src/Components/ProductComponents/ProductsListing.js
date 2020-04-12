@@ -73,7 +73,9 @@ class ProductsListing extends React.Component {
     }
 
     productDetailsFetchSuccess = (ProductID) => {
-        this.setState({ showProductDetailsPage: true, prodId: ProductID })
+        let categoryName = _get(this.props, `categoriesList[${this.props.tabValue}].category_name`, null)
+        this.props.history.push(`/category/${categoryName}/product/${ProductID}`)
+        // this.setState({ showProductDetailsPage: true, prodId: ProductID })
     }
 
     productDetailsFetchError = () => {
@@ -98,12 +100,13 @@ class ProductsListing extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline />
-                {
-!this.state.showProductDetailsPage  ?
+                {/* {
+!this.state.showProductDetailsPage  ? */}
                 <div className="productsList">
                     {ProductList}
-                    </div> : <ProductDetails ProductID={this.state.prodId} />
-    }
+                    </div> 
+                    {/* : <ProductDetails {...this.props} ProductID={this.state.prodId} /> */}
+    
             </React.Fragment>
         );
     }

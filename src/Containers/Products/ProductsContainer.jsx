@@ -6,11 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import ProductTabs from '../../Components/ProductComponents/ProductTabs';
-import { map as _map, findIndex as _findIndex, get as _get } from 'lodash';
+import { map as _map, findIndex as _findIndex, find as _find, get as _get } from 'lodash';
 import ProductsListing from "../../Components/ProductComponents/ProductsListing";
 import ProductDetails from "../../Components/ProductComponents/ProductDetails"
 import genericGetData from "../../Redux/Actions/genericGetData";
-import {Container, Row, Col} from 'reactstrap'
+import {Container, Row, Col} from 'reactstrap';
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -54,12 +54,25 @@ class ProductsContainer extends React.Component {
     }
 
     componentDidMount() {
-        let categoryId = _get(this.props, "categoriesList[0].category_id", 0)
-        this.fetchProducts(categoryId)
+        const categoryType = this.props.match.params.categoryType;
+        let index = _findIndex(this.props.categoriesList, { 'category_name': categoryType })
+        if(index == -1){
+            index=0
+        }
+        let category = _find(this.props.categoriesList, { 'category_name': categoryType })
+        this.setState({ tabValue: index }, ()=>{
+            this.fetchProducts(_get(category, "category_id", null));
+        })
+        // let categoryId = _get(this.props, "categoriesList[0].category_id", 0)
+        // this.fetchProducts(categoryId)
     }
 
+    // handleTabParams = (categoryType) => {
+    //    this.setState({ tabValue: categoryType })
+    // }
+
     handleTabChange = (index, selectedTab) => {
-        this.setState({ selectedTab: selectedTab, tabValue: index });
+        this.setState({ tabValue: index });
         this.fetchProducts(selectedTab);
     };
 
@@ -98,7 +111,7 @@ class ProductsContainer extends React.Component {
                     tabValue={this.state.tabValue}
                     handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
                     />             
-                <ProductsListing handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)} tabValue={this.state.tabValue} {...this.props} />
+                <ProductsListing tabValue={this.state.tabValue} {...this.props} />
                 </Container>
             </React.Fragment>
             
@@ -107,7 +120,7 @@ class ProductsContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
-    let categoriesList = _get(state,'categoriesList.lookUpData');
+    let categoriesList = _get(state,'categoriesList.lookUpData.data');
     return {categoriesList}
     }
 export default connect(mapStateToProps)(withStyles(styles)(ProductsContainer));

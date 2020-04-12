@@ -52,7 +52,7 @@ class CartContainer extends React.Component {
             return (
                 <div className="NoItemCart">
                     <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
-                    <Button onClick={() => this.props.history.push("/categories")} color="primary">Start Shopping</Button>
+                    <Button onClick={() => this.props.history.push("/category")} color="primary">Start Shopping</Button>
                 </div>
             )
         }
