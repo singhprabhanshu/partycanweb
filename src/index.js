@@ -67,7 +67,7 @@ if (process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger());
 };
 const persistConfig = {
-  key: 'POS',
+  key: 'PARTYCAN',
   storage,
   stateReconciler: hardSet,
   blacklist: ['form', 'ShowToast', 'PaymentDetails', 'RefundPaymentDetails', 'resetProduct', 'resetCategory']
@@ -87,7 +87,7 @@ else {
   store = createStore(persistedReducer, applyMiddleware(...middleware));
 }
 
-const persistor = persistStore(store);
+export const persistor = persistStore(store);
 
 
 // @todo: drive url routes from a config file for central control
