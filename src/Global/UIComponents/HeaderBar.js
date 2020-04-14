@@ -26,6 +26,7 @@ class HeaderBar extends React.Component {
     handleLogout = () => {
         this.props.dispatch(logoutActionCreator());
         this.props.history.push("");
+        window.location.reload();
 
     }
     render() {
