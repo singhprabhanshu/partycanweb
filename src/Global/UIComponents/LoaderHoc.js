@@ -10,7 +10,8 @@ function WithLoading(Component) {
 
 function Loader () {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    // <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    <div style={{ position: 'fixed', top: '50%', left: '50%'}}>
     <Spinner color="danger" />
     </div>
   ) 
