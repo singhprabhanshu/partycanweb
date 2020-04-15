@@ -39,7 +39,7 @@ const styles = (state) => ({
 });
 
 const options = _map(stateDropDown, s => cleanEntityData({
-    value: _get(s, 'abbreviation'),
+    value: _get(s, 'name'),
     label: _get(s, 'name')
 }));
 
@@ -146,7 +146,12 @@ class Address extends React.Component {
         if (!_isEmpty(this.props.userDetails)) {
             this.fetchAddress();
         }
-        
+        let data = {
+            isSpeedTab: false,
+            iscardTab: false,
+            isSummaryTab: false
+        };
+        this.props.dispatch(commonActionCreater(data,'CART_TAB_VALIDATION'));
         
 
         

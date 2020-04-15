@@ -107,6 +107,13 @@ class Speed extends React.Component {
   }
 
   componentDidMount() {
+    let cartTabValidation = this.props.cartTabValidation;
+
+    let data = {
+      ...cartTabValidation,
+      isSpeedTab: true
+  };
+  this.props.dispatch(commonActionCreater(data,'CART_TAB_VALIDATION'));
 
     const mapRetailers = ({ data }) => _map(data, (d,index) => cleanEntityData({
       id: _get(d, 'id'),
@@ -649,9 +656,11 @@ const mapStateToProps = (state) => {
   let cartFlow = _get(state, 'cartFlow.lookUpData', {});
   let userInfo = _get(state, 'userSignInInfo.lookUpData', []);
   let userDetails = _get(userInfo, '[0].result', {});
+  let cartTabValidation = _get(state, 'cartTabValidation.lookUpData', {});
     return {
         cartFlow,
-        userDetails
+        userDetails,
+        cartTabValidation
     };
 };
 

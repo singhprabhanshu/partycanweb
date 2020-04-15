@@ -12,7 +12,8 @@ import Speed from '../Components/CartComponents/Speed/speed';
 // import { map as _map, findIndex as _findIndex, get as _get } from 'lodash';
 import genericGetData from "../Redux/Actions/genericGetData";
 import CheckOut from '../Components/CartComponents/CheckOut/CheckOut';
-import {Container, Row, Col} from 'reactstrap'
+import {Container, Row, Col} from 'reactstrap';
+import { get as _get } from 'lodash';
 
 const styles = theme => ({
   
@@ -33,8 +34,18 @@ class AddressHome extends React.Component {
 
 
     handleTabChange = (event, newValue) => {
-        this.setState({ tabValue: newValue });
-        this.props.history.push(`/cart/${newValue}`);
+        let cartTabValidation = this.props.cartTabValidation;
+        if (newValue === 'speed') {
+            if(_get(cartTabValidation, 'isSpeedTab') === true) {
+                this.setState({ tabValue: newValue });
+                this.props.history.push(`/cart/${newValue}`);
+            }
+        } else {
+            this.setState({ tabValue: newValue });
+            this.props.history.push(`/cart/${newValue}`);
+        }
+        // this.setState({ tabValue: newValue });
+        // this.props.history.push(`/cart/${newValue}`);
     };
 
     handleTabOnContinue = (value) => {
@@ -98,6 +109,9 @@ class AddressHome extends React.Component {
 function mapStateToProps(state) {
     // let sessionRedirectToLogin = _get(state,'sessionRedirectToLogin.lookUpData');
     // return {sessionRedirectToLogin}
-    return {};
+    let cartTabValidation = _get(state, 'cartTabValidation.lookUpData', {});
+    return {
+        cartTabValidation,
+    };
 }
 export default connect(mapStateToProps)(withStyles(styles)(AddressHome));
