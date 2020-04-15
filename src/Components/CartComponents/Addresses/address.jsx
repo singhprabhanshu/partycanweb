@@ -23,6 +23,7 @@ import { commonActionCreater } from '../../../Redux/Actions/commonAction';
 import {Container, Row, Col} from 'reactstrap'
 import proImg from '../../../assets/images/party-can.png'
 import { stateDropDown } from '../../../assets/data/dropdown';
+import { Loader } from '../../../Global/UIComponents/LoaderHoc';
 import { cleanEntityData } from '../../../Global/helper/commonUtil';
 const styles = (state) => ({
     
@@ -50,6 +51,7 @@ class Address extends React.Component {
             userAddress: [],
             isAddressFormShown: false,
             selectedCardColor: 'green',
+            isLoading: false,
         }
     }
 
@@ -91,15 +93,22 @@ class Address extends React.Component {
         this.setState({
             selectedAddress: selectedAddress.id,
             userAddress: addressList,
+            isLoading: false,
         });
     };
 
     fetchAddress = () => {
+        this.setState({
+            isLoading: true,
+        });
         const userAddressFetchSuccess=(data)=>{
             this.fetchAddressModify(data);
         };
         const userAddressFetchError=(err)=>{
             console.log(err);
+            this.setState({
+                isLoading: false,
+            });
         };
         let body = {
             api_token: _get(this.props, 'userDetails.api_token', ''),
@@ -203,6 +212,10 @@ class Address extends React.Component {
 
     
     render() {
+        const { isLoading } = this.state;
+        if (isLoading) {
+        return <Loader />
+        }
         const { classes } = this.props;
         let addresses = this.state.userAddress.map(a => {
             return (

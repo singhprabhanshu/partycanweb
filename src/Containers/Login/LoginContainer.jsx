@@ -137,8 +137,8 @@ class SignIn extends React.Component {
                                 </Col>                        
                             </Row>
 
-                            <Row className="align-items-center">
-                                <Col className="text-center" >
+                            <Row className="justify-content-center align-items-ceenter">
+                                <Col xs={'auto'} >
                                     <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                         <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />SIGN IN</Button>
                                 </Col>                        

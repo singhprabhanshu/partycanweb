@@ -25,7 +25,6 @@ export default function RFReactSelect(props) {
       ...styles, 
       backgroundColor: 'rgba(255,255,255,0)', 
       border: state.isFocused ? 0 : 0, 
-      
       borderBottom: '1px solid white',
       boxShadow: state.isFocused ? 0 : 0, 
       borderRadius: 0,
@@ -34,6 +33,11 @@ export default function RFReactSelect(props) {
         borderBottom: '1px solid white',
       }
     
+    }),
+    option: (styles, state) => ({
+      ...styles,
+      color: 'black',
+      // backgroundColor: 'rgba(255,255,255,0)'
     }),
   }
     return (

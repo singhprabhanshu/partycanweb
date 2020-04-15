@@ -70,7 +70,7 @@ const persistConfig = {
   key: 'PARTYCAN',
   storage,
   stateReconciler: hardSet,
-  blacklist: ['form', 'ShowToast', 'PaymentDetails', 'RefundPaymentDetails', 'resetProduct', 'resetCategory']
+  blacklist: ['form', 'ShowToast']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
