@@ -39,6 +39,7 @@ export default function RFReactSelect(props) {
       color: 'black',
       // backgroundColor: 'rgba(255,255,255,0)'
     }),
+    singleValue: (styles) => ({ ...styles, color: 'white' }),
   }
     return (
       <React.Fragment>
