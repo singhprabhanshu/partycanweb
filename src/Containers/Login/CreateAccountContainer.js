@@ -135,8 +135,8 @@ class CreateAccountContainer extends React.Component {
                                     <Field name="overAge" component={SwitchInputField} label='ARE YOU OVER 21 ?' />
                                 </Col>                        
                             </Row> 
-                            <Row className="align-items-center">
-                                <Col className="text-center" >
+                            <Row className="justify-content-center align-items-ceenter">
+                                <Col xs={'auto'} >
                                     <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                         <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />CREATE ACCOUNT</Button>
                                 </Col>                        
