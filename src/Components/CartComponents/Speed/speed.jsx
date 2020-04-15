@@ -107,6 +107,13 @@ class Speed extends React.Component {
   }
 
   componentDidMount() {
+    let cartTabValidation = this.props.cartTabValidation;
+
+    let data = {
+      ...cartTabValidation,
+      isSpeedTab: true
+  };
+  this.props.dispatch(commonActionCreater(data,'CART_TAB_VALIDATION'));
 
     const mapRetailers = ({ data }) => _map(data, (d,index) => cleanEntityData({
       id: _get(d, 'id'),
@@ -269,12 +276,12 @@ class Speed extends React.Component {
     };
 
     let body = {
-      api_token: "1c779ca336234ffc6a98807a6d36140e",
-      cart_id:"26234",
-      delivery_address_id: "2517"
-      // api_token: _get(this.props, 'userDetails.api_token', ''),
-      // cart_id: _get(this.props, 'userDetails.cart_id', '0'),
-      // delivery_address_id: _get(this.props, 'cartFlow.selectedAddress', '0')
+      // api_token: "1c779ca336234ffc6a98807a6d36140e",
+      // cart_id:"26234",
+      // delivery_address_id: "2517"
+      api_token: _get(this.props, 'userDetails.api_token', ''),
+      cart_id: _get(this.props, 'userDetails.cart_id', '0'),
+      delivery_address_id: _get(this.props, 'cartFlow.selectedAddress', '0')
     }
     this.setState({
       isLoading: true,
@@ -649,9 +656,11 @@ const mapStateToProps = (state) => {
   let cartFlow = _get(state, 'cartFlow.lookUpData', {});
   let userInfo = _get(state, 'userSignInInfo.lookUpData', []);
   let userDetails = _get(userInfo, '[0].result', {});
+  let cartTabValidation = _get(state, 'cartTabValidation.lookUpData', {});
     return {
         cartFlow,
-        userDetails
+        userDetails,
+        cartTabValidation
     };
 };
 

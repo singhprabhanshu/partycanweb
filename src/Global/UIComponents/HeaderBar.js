@@ -6,6 +6,7 @@ import Logo from '../../../src/assets/images/partycan-logo.png'
 import { Container, Row, Col } from 'reactstrap';
 import _get from "lodash/get";
 import {logoutActionCreator} from '../../Redux/Actions/logoutAction';
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 const styles = theme => ({
 
 });
@@ -22,6 +23,10 @@ class HeaderBar extends React.Component {
         this.setState({
             showUserMenuOption: !this.state.showUserMenuOption
         });
+    }
+    handleSettingClick = () => {
+        this.showUserMenu();
+        this.props.history.push("/setting/user");
     }
     handleLogout = () => {
         this.props.dispatch(logoutActionCreator());
@@ -45,20 +50,21 @@ class HeaderBar extends React.Component {
                             <Col sm={4} className="d-flex justify-content-center" >
                                 <img src={Logo} className="img-responsive"></img>
                             </Col>
-                            <Col xs={'auto'}>
+                            <Col xs={'auto'} className="d-flex">
                                 <Button className="searchIcons icons"></Button>
                                 <Badge badgeContent={this.props.total_items_count} color="primary">
                                     <Button onClick={() => this.props.history.push("/cart")} className="cartIcons icons ml-3"></Button>
                                 </Badge>
-                                <Button className="settingIcons icons ml-3" onClick={this.showUserMenu}></Button>
+                                <div className="position-relative">
+                                <Button className="userIcons icons ml-3" onClick={this.showUserMenu}></Button>
                                 {this.state.showUserMenuOption ? 
-                                    <div>
-                                        <span>Hey, {this.props.userName}</span>
-                                        <span onClick={this.handleLogout}>Logout</span>
-                                        <span onClick={() => this.props.history.push("/setting/user")}>
-                                             Settings</span>
-                                    </div>
+                                    <div className="drop-option">
+                                    <span className="user">Hey , {this.props.userName ? this.props.userName : 'Guest'}</span>                                        
+                                    <span className="settings" onClick={this.handleSettingClick}>Settings</span>
+                                    {this.props.userName && <span className="logOut" onClick={this.handleLogout}>Logout</span> }
+                                </div>
                                      : null }
+                                     </div>
                             </Col>
                         </Row>
                     </Container>
