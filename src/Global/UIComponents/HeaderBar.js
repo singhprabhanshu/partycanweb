@@ -5,7 +5,7 @@ import { Button, Badge } from '@material-ui/core';
 import Logo from '../../../src/assets/images/partycan-logo.png'
 import { Container, Row, Col } from 'reactstrap';
 import _get from "lodash/get";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import {logoutActionCreator} from '../../Redux/Actions/logoutAction';
 const styles = theme => ({
 
 });
@@ -21,11 +21,13 @@ class HeaderBar extends React.Component {
     showUserMenu = () => {
         this.setState({
             showUserMenuOption: !this.state.showUserMenuOption
-        })
+        });
     }
     handleLogout = () => {
-        localStorage.clear();
+        this.props.dispatch(logoutActionCreator());
         this.props.history.push("");
+        window.location.reload();
+
     }
     render() {
         const { classes } = this.props;
@@ -44,18 +46,19 @@ class HeaderBar extends React.Component {
                                 <img src={Logo} className="img-responsive"></img>
                             </Col>
                             <Col xs={'auto'}>
-                                {this.props.userName && <div className="dropdown">
-                                    <AccountCircleIcon fontSize="large" onClick={this.showUserMenu}/>
-                                    {this.state.showUserMenuOption ? <div className="dropdown-content">
-                                        <span>Hey, {this.props.userName}</span>
-                                        <span onClick={this.handleLogout}>Logout</span>
-                                    </div> : null }
-                                </div>}
                                 <Button className="searchIcons icons"></Button>
                                 <Badge badgeContent={this.props.total_items_count} color="primary">
                                     <Button onClick={() => this.props.history.push("/cart")} className="cartIcons icons ml-3"></Button>
                                 </Badge>
-                                <Button onClick={() => this.props.history.push("/setting/user")} className="settingIcons icons ml-3"></Button>
+                                <Button className="settingIcons icons ml-3" onClick={this.showUserMenu}></Button>
+                                {this.state.showUserMenuOption ? 
+                                    <div>
+                                        <span>Hey, {this.props.userName}</span>
+                                        <span onClick={this.handleLogout}>Logout</span>
+                                        <span onClick={() => this.props.history.push("/setting/user")}>
+                                             Settings</span>
+                                    </div>
+                                     : null }
                             </Col>
                         </Row>
                     </Container>
