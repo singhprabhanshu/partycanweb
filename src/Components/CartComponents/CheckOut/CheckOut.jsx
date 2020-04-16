@@ -47,7 +47,8 @@ class CheckOut extends React.Component {
         console.log(err);
     };
     DriverTip = (DriverTipObj) => {
-        this.setState({ driverTip: DriverTipObj })
+        let driverTipAmount = (Number(this.prop.grandTotal)*(100+DriverTipObj.value)/100).toFixed(2)
+        this.setState({ driverTip: DriverTipObj,driverTipAmount })
     }
     placeOrder = () => {
         let { cartFlow, taxes, cartId } = this.props;
@@ -58,16 +59,16 @@ class CheckOut extends React.Component {
             "speed_id": cartFlow.selectedSpeedID,
             "retialer_id": cartFlow.selectedRetailerID,
             "ship_method_id": cartFlow.selectedShippingMethodID,
-            "delivery_date": "",
-            "ship_method": "",
-            "ship_method_amount": "",
+            "delivery_date": cartFlow,
+            "ship_method": cartFlow,
+            "ship_method_amount": cartFlow,
             "card_id": cartFlow.card_id,
             "customer_stripe_id": cartFlow.customer_stripe_id,
             "card_info": cartFlow.card_info,
             "card_token": cartFlow.card_token,
             "taxes": taxes,
-            "delivery_fee": "",
-            "delivery_tip": "", //workhere
+            "delivery_fee": cartFlow,
+            "delivery_tip":_get(this.state,"driverTip.driverTipAmount","0"), //workhere
             "payment_method": cartFlow.payment_method
         }
         this.setState({placeOrderLoading:true})
@@ -141,12 +142,20 @@ class CheckOut extends React.Component {
                     <Label>Driver Tip</Label>
                     <br />
                     <ButtonGroup color="secondary" aria-label="outlined primary button group">
+                    <MUIButton style={this.state.driverTip.id == 0 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 0, value: 0 })}>0%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 0.5 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 0.5, value: 5 })}>5%</MUIButton>
                         <MUIButton style={this.state.driverTip.id == 1 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 1, value: 10 })}>10%</MUIButton>
-                        <MUIButton style={this.state.driverTip.id == 2 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 2, value: 10 })}>15%</MUIButton>
-                        <MUIButton style={this.state.driverTip.id == 3 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 3, value: 10 })}>20%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 2 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 2, value: 15 })}>15%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 3 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 3, value: 20 })}>20%</MUIButton>
                     </ButtonGroup>                    </div>
                 <div style={{ width: cardWidth }} className="PriceSummaryParent">
-                    <CheckOutPriceSummary delivery_charges={delivery_charges} width={cardWidth} taxes={taxes} discount={discount} subTotal={subTotal} grandTotal={grandTotal} />
+                    <CheckOutPriceSummary 
+                    delivery_charges={delivery_charges} 
+                    width={cardWidth} taxes={taxes}
+                    discount={discount} subTotal={subTotal} 
+                    grandTotal={grandTotal}
+                    driverTip={this.state.driverTip}
+                    />
                 </div>
                 <div style={{ width: cardWidth }} className="CheckOutButtonParent">
                     <LoaderButton
