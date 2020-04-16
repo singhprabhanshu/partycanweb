@@ -70,7 +70,7 @@ class ProductDetails extends React.Component {
         super(props);
         this.state = {
             defaultQuantity: 1,
-            productPrice: _get(this.props, "productDetailsData.price", 0),
+            productPrice: "",
             showReviews: false,
             slideIndex: 0
         }
@@ -83,7 +83,7 @@ class ProductDetails extends React.Component {
         if(index == -1){
             index=0
         }
-        this.setState({ tabValue: index })
+        this.setState({ tabValue: index})
     }
 
     handleTabChange = (index) => {
@@ -235,7 +235,7 @@ class ProductDetails extends React.Component {
                 </Col>
                 <Col  className="d-flex  flex-column mb-4"  xs={6}  sm={4} xl={3}>
                     <span className="smallTitle">FROM</span>
-                    <span className="finalProprice">${this.state.productPrice}</span>
+                    <span className="finalProprice">${!_isEmpty(this.state.productPrice) ? this.state.productPrice : _get(productDetailsData, "price", "")}</span>
                 </Col>
                 <Col  className="d-flex  flex-column"  xs={12} sm={4} xl={3}>
                     <span className="smallTitle">DELIVERED COLD IN - 1 HR</span>
