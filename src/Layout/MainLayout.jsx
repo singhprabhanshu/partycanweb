@@ -11,7 +11,7 @@ import Footer from '../Global/UIComponents/Footer';
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import {isMobile} from 'react-device-detect';
+import {isMobile, isTablet} from 'react-device-detect';
 import Scrollbar from "react-scrollbars-custom";
 const stripePromise = loadStripe("pk_test_RkUSbyxxcn4xFQ0ttE6QsIDh00bGPMtJdc");
 
@@ -28,11 +28,33 @@ const styles = theme => ({
 });
 
 class MainLayout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        showUserMenuOption: false
+    }
+}
+
+  showUserMenu = () => {
+    this.setState({
+        showUserMenuOption: !this.state.showUserMenuOption
+    });
+  }
+  
+  hideUserMenu = () => {
+    if(this.state.showUserMenuOption === true) {
+      this.setState({
+        showUserMenuOption: false
+      }); 
+    }   
+  }
 
   renderContent = (classes) => {
     let commonContent =  <>
-    <div className="d-none d-md-block"><HeaderBar history={this.props.history} /></div>
-    <div className="container-content-section">
+    <div className="d-none d-md-block" onClick={this.hideUserMenu}>
+      <HeaderBar history={this.props.history} showUserMenu={this.showUserMenu}
+       showUserMenuOption={this.state.showUserMenuOption}/></div>
+    <div className="container-content-section" onClick={this.hideUserMenu}>
     <Elements stripe={stripePromise}>{this.props.children}</Elements>
      <div>{this.props.message.text && <Snackbar
        anchorOrigin={{
@@ -54,7 +76,7 @@ class MainLayout extends React.Component {
      </div>
      <Footer />
    </>
-   if(isMobile){
+   if(isMobile || isTablet){
    return <div className="mainLayout">{commonContent}</div>
    }
    else{
