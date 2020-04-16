@@ -107,6 +107,13 @@ class Speed extends React.Component {
   }
 
   componentDidMount() {
+    let cartTabValidation = this.props.cartTabValidation;
+
+    let data = {
+      ...cartTabValidation,
+      isSpeedTab: true
+  };
+  this.props.dispatch(commonActionCreater(data,'CART_TAB_VALIDATION'));
 
     const mapRetailers = ({ data }) => _map(data, (d,index) => cleanEntityData({
       id: _get(d, 'id'),
@@ -117,6 +124,7 @@ class Speed extends React.Component {
       desc: _get(d, 'desc'),
       distance: _get(d, 'distance'),
       ready_time: _get(d, 'ready_time'),
+      delivery_fee: _get(d, 'delivery_fee'),
       isPrimary: (index === 0) ? true : false,
       index
 
@@ -349,8 +357,15 @@ class Speed extends React.Component {
   };
 
   _changeShippingMethodOpacity = (selectedId) => {
+    let selectedShippingMethod = this.state.selectedRetailer && this.state.selectedSpeed && this.state.selectedSpeed.ship_methods && this.state.selectedSpeed.ship_methods[this.state.selectedRetailer.index].find(del => {
+      if (del.id === selectedId) {
+        return del;
+      }
+    });
     this.setState({
-      selectedShippingMethodId: selectedId
+      selectedShippingMethodId: selectedId,
+      selectedShippingMethod: selectedShippingMethod
+      
     })
   };
 
@@ -361,10 +376,55 @@ class Speed extends React.Component {
   };
 
   handleDeliverySelect = async () => {
+    const findShippingId = () => {
+      if (_get(this.state, 'selectedSpeedDeliveryId') === 2 || _get(this.state, 'selectedSpeedDeliveryId') === 3) {
+        return -1;
+      } else {
+        return _get(this.state, 'selectedShippingMethodId');
+      }
+    };
+    const findShippingMethod = () => {
+      if (_get(this.state, 'selectedSpeedDeliveryId') === 2) {
+        return _get(this.state, 'selectedShippingMethod.method');
+      } else {
+        return 'none';
+      }
+    }
+    const findShippingAmount = () => {
+      if (_get(this.state, 'selectedSpeedDeliveryId') === 2) {
+        return _get(this.state, 'selectedShippingMethod.amount');
+      } else if (_get(this.state, 'selectedSpeedDeliveryId') === 1) {
+        return _get(this.state, 'selectedShippingMethod.fee');
+      }
+      else {
+        return '0.00';
+      }
+    };
+
+    const findDeliveryDate = () => {
+      if (_get(this.state, 'selectedSpeedDeliveryId') === 2) {
+        let delivery_date = _get(this.state, 'selectedShippingMethod.delivery_date', '');
+        delivery_date = !_isEmpty(delivery_date) ? moment(delivery_date).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
+        return delivery_date;
+      } else if (_get(this.state, 'selectedSpeedDeliveryId') === 1) {
+        let delivery_date = _get(this.state, 'selectedShippingMethod.dropoff_eta', '');
+        delivery_date = !_isEmpty(delivery_date) ? moment(delivery_date).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
+        return delivery_date;
+      }
+      else {
+        return moment().format('YYYY-MM-DD');
+      };
+    };
+
     const deliveryOptions = cleanEntityData({
       selectedSpeedID: _get(this.state, 'selectedSpeedDeliveryId'),
       selectedRetailerID: _get(this.state, 'selectedRetailerId'),
-      selectedShippingMethodID: _get(this.state, 'selectedShippingMethodId'),
+      // selectedShippingMethodID:  _get(this.state, 'selectedSpeedDeliveryId') === 2 ? _get(this.state, 'selectedShippingMethodId') : null,
+      selectedShippingMethodID: findShippingId(),
+      selectedShippingMethod: findShippingMethod(),
+      shippingAmount: findShippingAmount(),
+      deliveryFee: _get(this.state, 'selectedRetailer.delivery_fee', '0.00'),
+      deliveryDate: findDeliveryDate()
     });
 
     let cartFlow = this.props.cartFlow;
@@ -468,8 +528,12 @@ class Speed extends React.Component {
     });
     let availableTime;
     if (_get(this.state, 'selectedSpeed.id', -1) === 1 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) {
-        availableTime = '1 PM';
-      // availableTime = moment(_get(this.state, 'selectedShippingMethod.dropoff_eta').format("H A"));   
+        // availableTime = '1 PM';
+      if (_get(this.state, 'selectedShippingMethod.dropoff_eta')) {
+        availableTime = moment(_get(this.state, 'selectedShippingMethod.dropoff_eta')).format("h A");
+        console.log('time', availableTime); 
+      }
+      
     }
 
     // let selectTime = this.state.deliveryList && this.state.deliveryList.time.map(st => {
@@ -609,9 +673,11 @@ const mapStateToProps = (state) => {
   let cartFlow = _get(state, 'cartFlow.lookUpData', {});
   let userInfo = _get(state, 'userSignInInfo.lookUpData', []);
   let userDetails = _get(userInfo, '[0].result', {});
+  let cartTabValidation = _get(state, 'cartTabValidation.lookUpData', {});
     return {
         cartFlow,
-        userDetails
+        userDetails,
+        cartTabValidation
     };
 };
 

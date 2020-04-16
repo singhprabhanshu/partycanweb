@@ -49,13 +49,15 @@ import OrderStatusContainer from './Containers/Order/OrderStatus';
 import ProductMainSection from './Containers/Products/ProductMainSection';
 import ProductDetails from './Components/ProductComponents/ProductDetails'
 
-import socketIOClient from "socket.io-client";
-const endpoint = 'http://127.0.0.1:8000';
-export const socket = socketIOClient(endpoint);
+// commented temporarly
 
-socket.on('userdetail', data => {
-  socket.emit('adduser', { data: { id: 123, username: 'prabhanshu'}});
-});
+// import socketIOClient from "socket.io-client";
+// const endpoint = 'http://127.0.0.1:8000';
+// export const socket = socketIOClient(endpoint);
+
+// socket.on('userdetail', data => {
+//   socket.emit('adduser', { data: { id: 123, username: 'prabhanshu'}});
+// });
 
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,
@@ -67,10 +69,10 @@ if (process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger());
 };
 const persistConfig = {
-  key: 'POS',
+  key: 'PARTYCAN',
   storage,
   stateReconciler: hardSet,
-  blacklist: ['form', 'ShowToast', 'PaymentDetails', 'RefundPaymentDetails', 'resetProduct', 'resetCategory']
+  blacklist: ['form', 'ShowToast']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -87,7 +89,7 @@ else {
   store = createStore(persistedReducer, applyMiddleware(...middleware));
 }
 
-const persistor = persistStore(store);
+export const persistor = persistStore(store);
 
 
 // @todo: drive url routes from a config file for central control

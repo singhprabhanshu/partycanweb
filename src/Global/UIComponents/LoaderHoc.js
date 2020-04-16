@@ -3,7 +3,6 @@ import { Spinner } from 'reactstrap';
 
 function WithLoading(Component) {
   return function WihLoadingComponent({ isLoading, ...props }) {
-    debugger;
     if (!isLoading) return (<Component {...props} />);
     return (<p>Be Hold, fetching data may take some time :)</p>);
   }
@@ -11,7 +10,8 @@ function WithLoading(Component) {
 
 function Loader () {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    // <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    <div style={{ position: 'fixed', top: '50%', left: '50%'}}>
     <Spinner color="danger" />
     </div>
   ) 

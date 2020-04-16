@@ -18,6 +18,10 @@ class CartPriceSummary extends React.Component {
                     <span></span>
                 </div>
                 <div className="PriceSummaryChild">
+                    <span>Fee Amount</span>
+                    <span>{this.props.feeAmount}</span>
+                </div>
+                <div className="PriceSummaryChild">
                     <span>TOTAL</span>
         {cartIsFetching?<span>Loading</span>:<span>{this.props.grandTotal}</span>}
                 </div>

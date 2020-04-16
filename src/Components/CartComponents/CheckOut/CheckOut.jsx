@@ -10,18 +10,20 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import MUIButton from '@material-ui/core/Button';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import LoaderButton from '../../../Global/UIComponents/LoaderButton';
-
+import {withRouter} from "react-router-dom";
 
 class CheckOut extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { driverTip: { id: 0, value: 0 } }
+        this.state = { driverTip: { id: 0, value: 0 } ,driverTipAmount:0}
     }
     componentDidMount() {
+        this.fetchCart(this.cartFetchSuccess);
+    };
+    fetchCart = (successCB) => {
         let reqObj = {
-            "api_token": "1c779ca336234ffc6a98807a6d36140e"
+            "api_token": localStorage.getItem("Token")
         };
-
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj,
@@ -32,10 +34,10 @@ class CheckOut extends React.Component {
                 error: "CART_ITEMS_ERROR"
             },
             identifier: "CART_ITEMS",
-            successCb: this.cartFetchSuccess,
+            successCb: successCB,
             errorCb: this.cartFetchError
         })
-    };
+    }
     cartFetchSuccess = (data) => {
         let coupon_code = _get(data, "[0].coupon_code", "");
         this.setState({ coupon_code })
@@ -45,10 +47,50 @@ class CheckOut extends React.Component {
         console.log(err);
     };
     DriverTip = (DriverTipObj) => {
-        this.setState({ driverTip: DriverTipObj })
+        let driverTipAmount = (Number(this.props.subTotal)*(DriverTipObj.value)/100).toFixed(2)
+        this.setState({ driverTip: DriverTipObj,driverTipAmount })
     }
     placeOrder = () => {
-        this.setState({ orderPlaced: true })
+        let { cartFlow, taxes, cartId } = this.props;
+        let reqObj = {
+            "api_token": localStorage.getItem("Token"),
+            "cart_id": cartId,
+            "delivery_address_id": cartFlow.selectedAddress,
+            "speed_id": cartFlow.selectedSpeedID,
+            "retialer_id": cartFlow.selectedRetailerID,
+            "ship_method_id": cartFlow.selectedShippingMethodID==-1?"":cartFlow.selectedShippingMethodID,
+            "delivery_date": cartFlow.deliveryDate,
+            "ship_method": cartFlow.selectedShippingMethod=="none"?"":cartFlow.selectedShippingMethod,
+            "ship_method_amount": cartFlow.shippingAmount,
+            "card_id": cartFlow.card_id,
+            "customer_stripe_id": cartFlow.customer_stripe_id,
+            "card_info": cartFlow.card_info,
+            "card_token": cartFlow.card_token,
+            "taxes": taxes,
+            "delivery_fee": cartFlow.deliveryFee,
+            "driver_tip":this.state.driverTipAmount.toString(), //workhere
+            "payment_method": cartFlow.payment_method
+        }
+        this.setState({placeOrderLoading:true})
+        genericPostData({
+            dispatch: this.props.dispatch,
+            reqObj,
+            url: "/api/placeorder/placeorder",
+            identifier: "PLACE_ORDER",
+            successCb: this.placeOrderSuccess,
+            errorCb: (err) => console.log("err", err),
+            dontShowMessage: true
+        })
+    }
+    placeOrderSuccess = (data) => {
+        if (data.code == 1) {
+            this.fetchCart(() => {
+                this.setState({placeOrderLoading:false})
+                this.setState({ order_id: data.order_id, orderPlaced: true })
+            });
+        }
+        else
+            alert("something went wrong while placing the order");
     }
     onChange = (e) => {
         this.setState({ coupon_code: e.target.value })
@@ -57,7 +99,7 @@ class CheckOut extends React.Component {
 
     }
     render() {
-        let { discount, subTotal, grandTotal, taxes, delivery_charges, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
+        let { discount, subTotal, grandTotal, taxes,feeAmount, delivery_charges, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
         let { coupon_code } = this.state;
 
         let windowWidth = window.innerWidth;
@@ -65,7 +107,7 @@ class CheckOut extends React.Component {
         if (this.state.orderPlaced) {
             return <div className="NoItemCart"><span>Cheers!!Order Placed Succesfully</span>
                 <br />
-                <span>Your Order id is #566654</span>
+                <span>Your Order id is {this.state.order_id}</span>
                 <br />
                 <LoaderButton
                     onClick={this.trackOrder}
@@ -76,30 +118,52 @@ class CheckOut extends React.Component {
                     <ArrowForwardIcon /> Track Order
               </LoaderButton>            </div>
         }
+        if (this.props.cartItems.length == 0) {
+            return (
+                <div className="NoItemCart">
+                    <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
+                    <Button onClick={() => this.props.history.push("/category")} color="primary">Start Shopping</Button>
+                </div>
+            )
+        }
         return (
             <div className="cartContainer">
                 <div className="CartItemParent">
-                    <CartListItem cartIsFetching={(itemRemovedFetching||itemUpdatedFetching||cartIsFetching)} width={cardWidth} cartItems={this.props.cartItems} />
+                    <CartListItem
+                        dispatch={this.props.dispatch}
+                        cartIsFetching={(itemRemovedFetching || itemUpdatedFetching || cartIsFetching)}
+                        width={cardWidth}
+                        cartItems={this.props.cartItems} />
                 </div>
                 <div className="couponParent">
                     <CouponCode onChange={this.onChange} width={cardWidth} coupon_code={coupon_code} />
                 </div>
                 <div style={{ padding: "10px 20px" }}>
                     <Label>Driver Tip</Label>
-                    <br/>
+                    <br />
                     <ButtonGroup color="secondary" aria-label="outlined primary button group">
+                    <MUIButton style={this.state.driverTip.id == 0 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 0, value: 0 })}>0%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 0.5 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 0.5, value: 5 })}>5%</MUIButton>
                         <MUIButton style={this.state.driverTip.id == 1 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 1, value: 10 })}>10%</MUIButton>
-                        <MUIButton style={this.state.driverTip.id == 2 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 2, value: 10 })}>15%</MUIButton>
-                        <MUIButton style={this.state.driverTip.id == 3 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 3, value: 10 })}>20%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 2 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 2, value: 15 })}>15%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 3 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 3, value: 20 })}>20%</MUIButton>
                     </ButtonGroup>                    </div>
                 <div style={{ width: cardWidth }} className="PriceSummaryParent">
-                    <CheckOutPriceSummary delivery_charges={delivery_charges} width={cardWidth} taxes={taxes} discount={discount} subTotal={subTotal} grandTotal={grandTotal} />
+                    <CheckOutPriceSummary 
+                    delivery_charges={delivery_charges} 
+                    width={cardWidth} taxes={taxes}
+                    discount={discount} subTotal={subTotal} 
+                    grandTotal={grandTotal}
+                    driverTipAmount={this.state.driverTipAmount||0}
+                    feeAmount={feeAmount}
+                    />
                 </div>
                 <div style={{ width: cardWidth }} className="CheckOutButtonParent">
                     <LoaderButton
                         onClick={this.placeOrder}
-                        color="primary"
+                        color="secondary"
                         variant="contained"
+                        isFetching={this.state.placeOrderLoading}
                         style={{ backgroundColor: '#00BFB2', height: 50, width: 250, borderRadius: 27, fontSize: 15, marginTop: "10px" }}
                         type="submit">
                         <ArrowForwardIcon /> Place Order
@@ -112,16 +176,19 @@ class CheckOut extends React.Component {
 }
 
 function mapStateToProps(state) {
+    let cartId = _get(state, "cart.lookUpData[0].cart_id", '');
     let cartItems = _get(state, "cart.lookUpData[0].result", []);
     let subTotal = _get(state, "cart.lookUpData[0].subtotal", 0);
     let discount = _get(state, "cart.lookUpData[0].discount", 0);
     let grandTotal = _get(state, "cart.lookUpData[0].grandtotal", 0);
+    let feeAmount = _get(state, "cart.lookUpData[0].fee_amount", 0);
     let taxes = _get(state, "cart.lookUpData[0].taxes", 0);
     let delivery_charges = _get(state, "cart.lookUpData[0].delivery_charges", 0)
     let coupon_code = _get(state, "cart.lookUpData[0].coupon_code", 0);
     let cartIsFetching = _get(state, "cart.isFetching", false);
     let itemRemovedFetching = _get(state, "removeCart.isFetching");
     let itemUpdatedFetching = _get(state, "updateCart.isFetching");
+    let cartFlow = _get(state, "cartFlow.lookUpData");
     return {
         cartItems,
         subTotal,
@@ -133,8 +200,11 @@ function mapStateToProps(state) {
         coupon_code,
         cartIsFetching,
         itemRemovedFetching,
-        itemUpdatedFetching
+        itemUpdatedFetching,
+        cartFlow,
+        cartId,
+        feeAmount
     }
 }
 
-export default connect(mapStateToProps, null)(CheckOut);
+export default connect(mapStateToProps, null)(withRouter(CheckOut));

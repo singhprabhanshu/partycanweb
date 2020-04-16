@@ -1,7 +1,19 @@
 import React, {Component} from 'react';
 import { Card,  CardBody, Button } from 'reactstrap';
+import { mergeClasses } from '@material-ui/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
+import LocalShippingOutlinedIcon from '@material-ui/icons/LocalShippingOutlined';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-const styles = (props) => ({  
+const styles = theme => ({  
+
+    speedCardTitle:{
+        fontSize: 18,
+        textTransform: 'uppercase',
+        color:'#0033A0',
+        fontWeight: 'bold',
+
+    }
 });
 
 class SpeedCard extends Component {
@@ -19,11 +31,13 @@ class SpeedCard extends Component {
       
   };
     render() {
+        const {classes} = this.props;
         return (
             <React.Fragment>                
                     <Card className={this._getRootCardClass({ selectedId: this.props.selectedTransportAddress, id: this.props.data.id, enablePointer: this.props.data.enablePointer})} onClick={() => this.props.changeOpactiy(this.props.data.id)} >
-                        <CardBody className="d-flex flex-column">
-                            <div style={{ fontSize: 12, marginBottom: 10 }}>
+                        <CardBody className="d-flex flex-column align-items-center">
+                        <div className="mb-4"><LocalShippingOutlinedIcon style={{ fontSize: 25 }} /> </div> 
+                            <div className={classes.speedCardTitle}>
                                 {this.props.data.description}
                             </div>
                             <div style={{ fontSize: 10, marginBottom: 10 }}>
@@ -32,6 +46,7 @@ class SpeedCard extends Component {
                             {/* <div>
                                 {this.props.data.address}
                             </div> */}
+                             <div className="mb-4"><CheckCircleIcon style={{ fontSize: 25 }} /> </div>
                         </CardBody>
                     </Card>
             </React.Fragment>
@@ -40,4 +55,4 @@ class SpeedCard extends Component {
     }
 }
 
-export default SpeedCard;
+export default (withStyles(styles)(SpeedCard));
