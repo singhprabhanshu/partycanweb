@@ -59,7 +59,7 @@ class CheckOut extends React.Component {
             "speed_id": cartFlow.selectedSpeedID,
             "retialer_id": cartFlow.selectedRetailerID,
             "ship_method_id": cartFlow.selectedShippingMethodID==-1?"":cartFlow.selectedShippingMethodID,
-            "delivery_date": "",
+            "delivery_date": cartFlow.deliveryDate,
             "ship_method": cartFlow.selectedShippingMethod=="none"?"":cartFlow.selectedShippingMethod,
             "ship_method_amount": cartFlow.shippingAmount,
             "card_id": cartFlow.card_id,
@@ -67,8 +67,8 @@ class CheckOut extends React.Component {
             "card_info": cartFlow.card_info,
             "card_token": cartFlow.card_token,
             "taxes": taxes,
-            "delivery_fee": cartFlow,
-            "delivery_tip":this.state.driverTip.toString(), //workhere
+            "delivery_fee": cartFlow.deliveryFee,
+            "driver_tip":this.state.driverTipAmount.toString(), //workhere
             "payment_method": cartFlow.payment_method
         }
         this.setState({placeOrderLoading:true})
