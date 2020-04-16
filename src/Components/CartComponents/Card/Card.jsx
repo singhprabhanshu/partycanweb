@@ -105,7 +105,7 @@ class CardComponent extends React.Component {
                                                                     issuer={values.brand}
                                                                     preview={true}
                                                                     name={values.name || ''}
-                                                                    expiry={values.card_exp_month + values.card_exp_year || ''}
+                                                                    expiry={Number(values.card_exp_month)<10?`0${values.card_exp_month}${values.card_exp_year}`:values.card_exp_month + values.card_exp_year || ''}
                                                                     cvc={values.cvc || ''}
                                                                     className="ccCard"
 
