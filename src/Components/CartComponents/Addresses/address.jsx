@@ -73,7 +73,7 @@ class Address extends React.Component {
                 phone: _get(d, 'telephone'),
                 defaultAddress: _get(d, 'default_address'),
                 isPrimary: (_get(d, 'default_address') === "1") ? true : false,
-                address: `${_get(d, 'street1')}, ${_get(d, 'street2')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}`
+                address: _get(d, 'street2') ? `${_get(d, 'street1')}, ${_get(d, 'street2')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}` : `${_get(d, 'street1')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}`
             }));
         }
         
@@ -146,7 +146,12 @@ class Address extends React.Component {
         if (!_isEmpty(this.props.userDetails)) {
             this.fetchAddress();
         }
-        
+        let data = {
+            isSpeedTab: false,
+            iscardTab: false,
+            isSummaryTab: false
+        };
+        this.props.dispatch(commonActionCreater(data,'CART_TAB_VALIDATION'));
         
 
         

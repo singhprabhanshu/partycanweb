@@ -18,6 +18,7 @@ let lockTerminal = commonStaticReducer('LOCK_TERMINAL');
 let productDetails = commonReducer("PRODUCT_DETAILS_LIST");
 let cartFlow = commonStaticReducer('CART_FLOW');
 let speed = commonReducer('FETCH_DELIVERY_OPTIONS');
+let cartTabValidation = commonStaticReducer('CART_TAB_VALIDATION');
 
 
 let rootRducer = combineReducers({
@@ -34,6 +35,7 @@ let rootRducer = combineReducers({
     updateCart,
     paymentMethods,
     speed,
+    cartTabValidation,
 })
 
 export default rootRducer;

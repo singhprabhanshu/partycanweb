@@ -107,6 +107,13 @@ class Speed extends React.Component {
   }
 
   componentDidMount() {
+    let cartTabValidation = this.props.cartTabValidation;
+
+    let data = {
+      ...cartTabValidation,
+      isSpeedTab: true
+  };
+  this.props.dispatch(commonActionCreater(data,'CART_TAB_VALIDATION'));
 
     const mapRetailers = ({ data }) => _map(data, (d,index) => cleanEntityData({
       id: _get(d, 'id'),
@@ -392,7 +399,23 @@ class Speed extends React.Component {
       else {
         return '0.00';
       }
-    }
+    };
+
+    const findDeliveryDate = () => {
+      if (_get(this.state, 'selectedSpeedDeliveryId') === 2) {
+        let delivery_date = _get(this.state, 'selectedShippingMethod.delivery_date', '');
+        delivery_date = !_isEmpty(delivery_date) ? moment(delivery_date).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
+        return delivery_date;
+      } else if (_get(this.state, 'selectedSpeedDeliveryId') === 1) {
+        let delivery_date = _get(this.state, 'selectedShippingMethod.dropoff_eta', '');
+        delivery_date = !_isEmpty(delivery_date) ? moment(delivery_date).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
+        return delivery_date;
+      }
+      else {
+        return moment().format('YYYY-MM-DD');
+      };
+    };
+
     const deliveryOptions = cleanEntityData({
       selectedSpeedID: _get(this.state, 'selectedSpeedDeliveryId'),
       selectedRetailerID: _get(this.state, 'selectedRetailerId'),
@@ -400,7 +423,8 @@ class Speed extends React.Component {
       selectedShippingMethodID: findShippingId(),
       selectedShippingMethod: findShippingMethod(),
       shippingAmount: findShippingAmount(),
-      deliveryFee: _get(this.state, 'selectedRetailer.delivery_fee', '0.00')
+      deliveryFee: _get(this.state, 'selectedRetailer.delivery_fee', '0.00'),
+      deliveryDate: findDeliveryDate()
     });
 
     let cartFlow = this.props.cartFlow;
@@ -649,9 +673,11 @@ const mapStateToProps = (state) => {
   let cartFlow = _get(state, 'cartFlow.lookUpData', {});
   let userInfo = _get(state, 'userSignInInfo.lookUpData', []);
   let userDetails = _get(userInfo, '[0].result', {});
+  let cartTabValidation = _get(state, 'cartTabValidation.lookUpData', {});
     return {
         cartFlow,
-        userDetails
+        userDetails,
+        cartTabValidation
     };
 };
 

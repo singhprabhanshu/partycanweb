@@ -49,13 +49,15 @@ import OrderStatusContainer from './Containers/Order/OrderStatus';
 import ProductMainSection from './Containers/Products/ProductMainSection';
 import ProductDetails from './Components/ProductComponents/ProductDetails'
 
-import socketIOClient from "socket.io-client";
-const endpoint = 'http://127.0.0.1:8000';
-export const socket = socketIOClient(endpoint);
+// commented temporarly
 
-socket.on('userdetail', data => {
-  socket.emit('adduser', { data: { id: 123, username: 'prabhanshu'}});
-});
+// import socketIOClient from "socket.io-client";
+// const endpoint = 'http://127.0.0.1:8000';
+// export const socket = socketIOClient(endpoint);
+
+// socket.on('userdetail', data => {
+//   socket.emit('adduser', { data: { id: 123, username: 'prabhanshu'}});
+// });
 
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,

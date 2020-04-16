@@ -280,6 +280,9 @@ button:focus {
   &.autoWidthbtn{
     padding: 0 3rem!important;
     min-width: auto!important;
+    @media (max-width:1199px){
+      padding: 0 2rem!important;
+    }
   }
   &.transiBtn{
     background-color: rgba(255, 255, 255, .1) !important;
@@ -395,10 +398,19 @@ button:focus {
 }
 
 ///////Product page css
+.productDetails{
+  @media (min-width: 992px) and (max-width: 1199px){  
+    .bottomActionbutton{
+      min-width: 19rem !important;
+    }
+    .bottomActionbutton.autoWidthbtn{
+      min-width: auto !important;
+    }
+  }
+}
 .mobile-tabs-title{
   background-color: rgba(255, 255, 255, .1);
-  height: 8rem;
-  
+  height: 8rem;  
 
   .title{
     text-align: center;
@@ -621,6 +633,10 @@ button:focus {
 .prostarRatings{
   max-width: 21rem!important;
   padding-left: 1.5rem!important;
+  @media(max-width:991px){
+    padding-left: 0px!important;
+    margin-bottom: 2rem;
+  }
   .dv-star-rating-star{
     color: rgb(255, 255, 255)!important;
     font-size: 2rem!important;
@@ -709,6 +725,21 @@ button:focus {
     .carousel .thumb.selected, .carousel .thumb:hover{
       border: 2px solid #fff!important;
     }
+    .carousel.carousel-slider{
+      overflow:unset!important;
+    }
+    .control-dots{
+      display: none;
+    }
+    @media(max-width:1024px){
+        .carousel .control-dots {
+          bottom: -60px!important;
+          display: block;
+        }
+        .control-arrow{
+          display: none;
+        }
+    }
   }
   &:after{
     position: absolute;
@@ -721,9 +752,17 @@ button:focus {
     border-bottom-left-radius:10rem;
     z-index: -1;
   }
-  @media(max-width:991px){
+
+  @media(max-width:1024px){
+    .thumbs-wrapper{
+      display: none;
+    }
+  }
+  @media(max-width:1199px){   
+    align-items: flex-start;
+    margin-bottom: 8rem;
     &:after{
-      background-color: transparent;
+     display: none;
     }
   }
 }

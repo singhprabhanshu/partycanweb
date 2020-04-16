@@ -5,7 +5,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import _get from 'lodash/get';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import HeaderBar from '../Global/UIComponents/HeaderBar';
 import Footer from '../Global/UIComponents/Footer';
 import Logo from '../assets/images/partycan-logo.png'
 import {Container, Row, Col} from 'reactstrap'

@@ -44,7 +44,7 @@ class CartContainer extends React.Component {
         this.setState({ coupon_code: e.target.value })
     }
     render() {
-        let { discount, subTotal, grandTotal, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
+        let { discount, subTotal, grandTotal,feeAmount, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
         let { coupon_code } = this.state;
         let windowWidth = window.innerWidth;
         let cardWidth = windowWidth > 800 ? "60%" : "100%";
@@ -68,7 +68,14 @@ class CartContainer extends React.Component {
                     <CouponCode onChange={this.onChange} width={cardWidth} coupon_code={coupon_code} />
                 </div>
                 <div style={{ width: cardWidth }} className="PriceSummaryParent">
-                    <CartPriceSummary cartIsFetching={(itemRemovedFetching || itemUpdatedFetching || cartIsFetching)} width={cardWidth} discount={discount} subTotal={subTotal} grandTotal={grandTotal} />
+                    <CartPriceSummary 
+                    cartIsFetching={(itemRemovedFetching || itemUpdatedFetching || cartIsFetching)} 
+                    width={cardWidth}
+                     discount={discount}
+                      subTotal={subTotal} 
+                      grandTotal={grandTotal}
+                      feeAmount={feeAmount}
+                      />
                 </div>
                 <div style={{ width: cardWidth }} className="CheckOutButtonParent">
                     <LoaderButton
@@ -91,6 +98,7 @@ function mapStateToProps(state) {
     let cartIsFetching = _get(state, "cart.isFetching", false);
     let itemRemovedFetching = _get(state, "removeCart.isFetching");
     let itemUpdatedFetching = _get(state, "updateCart.isFetching");
+    let feeAmount = _get(state, "cart.lookUpData[0].fee_amount", 0);
 
     return {
         cartItems,
@@ -99,7 +107,8 @@ function mapStateToProps(state) {
         grandTotal,
         cartIsFetching,
         itemRemovedFetching,
-        itemUpdatedFetching
+        itemUpdatedFetching,
+        feeAmount
     }
 }
 

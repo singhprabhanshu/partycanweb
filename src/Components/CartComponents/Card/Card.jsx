@@ -89,7 +89,7 @@ class CardComponent extends React.Component {
                                     {!this.state.addCard ?
                                         <>
                                             <React.Fragment>
-                                                <div className="block-title mb-4">SAVED ADDRESSES</div>
+                                                <div className="block-title mb-4">SAVED CARDS</div>
                                                 <div className="CardsWrapper d-flex align-items-center flex-wrap">
                                                     <Card className="addnewcard" onClick={this.addNewCard} onClick={this.addCardFunction}>
                                                         <CardBody className="p-3 d-flex align-items-center justify-content-center flex-column ">

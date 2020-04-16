@@ -20,9 +20,10 @@ class HeaderBar extends React.Component {
     }
 
     showUserMenu = () => {
-        this.setState({
-            showUserMenuOption: !this.state.showUserMenuOption
-        });
+        this.props.showUserMenu();
+    }
+    handleSettingClick = () => {
+        this.props.history.push("/setting/user");
     }
     handleLogout = () => {
         this.props.dispatch(logoutActionCreator());
@@ -53,11 +54,11 @@ class HeaderBar extends React.Component {
                                 </Badge>
                                 <div className="position-relative">
                                 <Button className="userIcons icons ml-3" onClick={this.showUserMenu}></Button>
-                                {this.state.showUserMenuOption ? 
+                                {this.props.showUserMenuOption ? 
                                     <div className="drop-option">
-                                    <span className="user">Hey, {this.props.userName}</span>                                        
-                                    <span className="settings" onClick={() => this.props.history.push("/setting/user")}>Settings</span>
-                                    <span className="logOut" onClick={this.handleLogout}>Logout</span>
+                                    <span className="user">Hey , {this.props.userName ? this.props.userName : 'Guest'}</span>                                        
+                                    <span className="settings" onClick={() =>this.handleSettingClick()}>Settings</span>
+                                    {this.props.userName && <span className="logOut" onClick={()=>this.handleLogout()}>Logout</span> }
                                 </div>
                                      : null }
                                      </div>

@@ -23,7 +23,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import socketIOClient from "socket.io-client";
 
-import { socket } from '../../index';
+// import { socket } from '../../index';
 
 const useStyles = (theme) => ({
     root: {
@@ -100,13 +100,14 @@ class OrderStatus extends React.Component {
 
       // socket work
 
-      // const endpoint = 'http://127.0.0.1:8000';
-      // const socket = socketIOClient(endpoint);
-      socket.on("orderStatus", data => {
-        console.log(JSON.stringify(data));
-        this.setState({ activeStep: _get(data, 'status') });
-        socket.disconnect();
-      });
+
+      // commented temporarly
+      // socket.on("orderStatus", data => {
+      //   console.log(JSON.stringify(data));
+      //   this.setState({ activeStep: _get(data, 'status') });
+      //   socket.disconnect();
+      // });
+      // ends here
 
       // socket.on('userdetail', data => {
       //   socket.emit('adduser', { data: { id: 123, username: 'prabhanshu'}});
