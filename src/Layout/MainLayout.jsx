@@ -28,11 +28,33 @@ const styles = theme => ({
 });
 
 class MainLayout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        showUserMenuOption: false
+    }
+}
+
+  showUserMenu = () => {
+    this.setState({
+        showUserMenuOption: !this.state.showUserMenuOption
+    });
+  }
+  
+  hideUserMenu = () => {
+    if(this.state.showUserMenuOption === true) {
+      this.setState({
+        showUserMenuOption: false
+      }); 
+    }   
+  }
 
   renderContent = (classes) => {
     let commonContent =  <>
-    <div className="d-none d-md-block"><HeaderBar history={this.props.history} /></div>
-    <div className="container-content-section">
+    <div className="d-none d-md-block" onClick={this.hideUserMenu}>
+      <HeaderBar history={this.props.history} showUserMenu={this.showUserMenu}
+       showUserMenuOption={this.state.showUserMenuOption}/></div>
+    <div className="container-content-section" onClick={this.hideUserMenu}>
     <Elements stripe={stripePromise}>{this.props.children}</Elements>
      <div>{this.props.message.text && <Snackbar
        anchorOrigin={{
