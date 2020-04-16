@@ -70,6 +70,7 @@ class CheckOut extends React.Component {
             "delivery_tip": "", //workhere
             "payment_method": cartFlow.payment_method
         }
+        this.setState({placeOrderLoading:true})
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj,
@@ -83,6 +84,7 @@ class CheckOut extends React.Component {
     placeOrderSuccess = (data) => {
         if (data.code == 1) {
             this.fetchCart(() => {
+                this.setState({placeOrderLoading:false})
                 this.setState({ order_id: data.order_id, orderPlaced: true })
             });
         }
@@ -101,14 +103,6 @@ class CheckOut extends React.Component {
 
         let windowWidth = window.innerWidth;
         let cardWidth = windowWidth > 800 ? "60%" : "100%";
-        if (this.props.cartItems.length == 0) {
-            return (
-                <div className="NoItemCart">
-                    <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
-                    <Button onClick={() => this.props.history.push("/category")} color="primary">Start Shopping</Button>
-                </div>
-            )
-        }
         if (this.state.orderPlaced) {
             return <div className="NoItemCart"><span>Cheers!!Order Placed Succesfully</span>
                 <br />
@@ -122,6 +116,14 @@ class CheckOut extends React.Component {
                     type="submit">
                     <ArrowForwardIcon /> Track Order
               </LoaderButton>            </div>
+        }
+        if (this.props.cartItems.length == 0) {
+            return (
+                <div className="NoItemCart">
+                    <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
+                    <Button onClick={() => this.props.history.push("/category")} color="primary">Start Shopping</Button>
+                </div>
+            )
         }
         return (
             <div className="cartContainer">
@@ -149,8 +151,9 @@ class CheckOut extends React.Component {
                 <div style={{ width: cardWidth }} className="CheckOutButtonParent">
                     <LoaderButton
                         onClick={this.placeOrder}
-                        color="primary"
+                        color="secondary"
                         variant="contained"
+                        isFetching={this.state.placeOrderLoading}
                         style={{ backgroundColor: '#00BFB2', height: 50, width: 250, borderRadius: 27, fontSize: 15, marginTop: "10px" }}
                         type="submit">
                         <ArrowForwardIcon /> Place Order
