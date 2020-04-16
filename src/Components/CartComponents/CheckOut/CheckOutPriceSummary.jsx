@@ -1,5 +1,4 @@
 import React from "react";
-import _get from "lodash";
 
 class CartPriceSummary extends React.Component {
     constructor(props) {
@@ -7,7 +6,6 @@ class CartPriceSummary extends React.Component {
         this.state = {}
     }
     render() {
-        let driverTipAmount = _get(this.props,"driverTip.driverTipAmount",0)
         return (
             <>
                 <div className="PriceSummaryChild">
@@ -16,15 +14,19 @@ class CartPriceSummary extends React.Component {
                 </div>
                 <div className="PriceSummaryChild">
                     <span>DRIVER TIP</span>
-                    <span></span>
+                  <span>{this.props.driverTipAmount}</span>
                 </div>
                 <div className="PriceSummaryChild">
                     <span>DELIVERY</span>
                     <span>{this.props.delivery_charges}</span>
                 </div>
                 <div className="PriceSummaryChild">
+                    <span>Fee Amount</span>
+                    <span>{this.props.feeAmount}</span>
+                </div>
+                <div className="PriceSummaryChild">
                     <span>TOTAL</span>
-                    <span>{ (this.props.grandTotal+Number(driverTipAmount)).toFixed(2)}</span>
+                    <span>{(Number(this.props.grandTotal)+Number(this.props.driverTipAmount)).toFixed(2)}</span>
                 </div>
             </>
         )

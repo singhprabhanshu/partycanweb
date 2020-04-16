@@ -6,7 +6,7 @@ import _ from "lodash";
 class CartItemList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {cartItems:[]}
+        this.state = {cartItems:[]};
     }
     handleCartRemoveItem = (item) => {
         genericPostData({
@@ -55,6 +55,11 @@ class CartItemList extends React.Component {
         this.state.cartItems[index].qty = newQty;
         this.state.cartItems[index].row_total =  (parseFloat(this.state.cartItems[index].product_price)*parseInt(newQty)).toFixed(2);
         this.setState({cartItems:this.state.cartItems})
+        
+        if(newQty==0){
+            this.handleCartRemoveItem(item);
+            return;
+        }
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj,

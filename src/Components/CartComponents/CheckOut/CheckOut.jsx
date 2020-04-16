@@ -15,7 +15,7 @@ import {withRouter} from "react-router-dom";
 class CheckOut extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { driverTip: { id: 0, value: 0 } }
+        this.state = { driverTip: { id: 0, value: 0 } ,driverTipAmount:0}
     }
     componentDidMount() {
         this.fetchCart(this.cartFetchSuccess);
@@ -47,7 +47,7 @@ class CheckOut extends React.Component {
         console.log(err);
     };
     DriverTip = (DriverTipObj) => {
-        let driverTipAmount = (Number(this.prop.grandTotal)*(100+DriverTipObj.value)/100).toFixed(2)
+        let driverTipAmount = (Number(this.props.subTotal)*(DriverTipObj.value)/100).toFixed(2)
         this.setState({ driverTip: DriverTipObj,driverTipAmount })
     }
     placeOrder = () => {
@@ -58,17 +58,17 @@ class CheckOut extends React.Component {
             "delivery_address_id": cartFlow.selectedAddress,
             "speed_id": cartFlow.selectedSpeedID,
             "retialer_id": cartFlow.selectedRetailerID,
-            "ship_method_id": cartFlow.selectedShippingMethodID,
-            "delivery_date": cartFlow,
-            "ship_method": cartFlow,
-            "ship_method_amount": cartFlow,
+            "ship_method_id": cartFlow.selectedShippingMethodID==-1?"":cartFlow.selectedShippingMethodID,
+            "delivery_date": "",
+            "ship_method": cartFlow.selectedShippingMethod=="none"?"":cartFlow.selectedShippingMethod,
+            "ship_method_amount": cartFlow.shippingAmount,
             "card_id": cartFlow.card_id,
             "customer_stripe_id": cartFlow.customer_stripe_id,
             "card_info": cartFlow.card_info,
             "card_token": cartFlow.card_token,
             "taxes": taxes,
             "delivery_fee": cartFlow,
-            "delivery_tip":_get(this.state,"driverTip.driverTipAmount","0"), //workhere
+            "delivery_tip":this.state.driverTip.toString(), //workhere
             "payment_method": cartFlow.payment_method
         }
         this.setState({placeOrderLoading:true})
@@ -99,7 +99,7 @@ class CheckOut extends React.Component {
 
     }
     render() {
-        let { discount, subTotal, grandTotal, taxes, delivery_charges, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
+        let { discount, subTotal, grandTotal, taxes,feeAmount, delivery_charges, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
         let { coupon_code } = this.state;
 
         let windowWidth = window.innerWidth;
@@ -154,7 +154,8 @@ class CheckOut extends React.Component {
                     width={cardWidth} taxes={taxes}
                     discount={discount} subTotal={subTotal} 
                     grandTotal={grandTotal}
-                    driverTip={this.state.driverTip}
+                    driverTipAmount={this.state.driverTipAmount||0}
+                    feeAmount={feeAmount}
                     />
                 </div>
                 <div style={{ width: cardWidth }} className="CheckOutButtonParent">
@@ -180,6 +181,7 @@ function mapStateToProps(state) {
     let subTotal = _get(state, "cart.lookUpData[0].subtotal", 0);
     let discount = _get(state, "cart.lookUpData[0].discount", 0);
     let grandTotal = _get(state, "cart.lookUpData[0].grandtotal", 0);
+    let feeAmount = _get(state, "cart.lookUpData[0].fee_amount", 0);
     let taxes = _get(state, "cart.lookUpData[0].taxes", 0);
     let delivery_charges = _get(state, "cart.lookUpData[0].delivery_charges", 0)
     let coupon_code = _get(state, "cart.lookUpData[0].coupon_code", 0);
@@ -200,7 +202,8 @@ function mapStateToProps(state) {
         itemRemovedFetching,
         itemUpdatedFetching,
         cartFlow,
-        cartId
+        cartId,
+        feeAmount
     }
 }
 
