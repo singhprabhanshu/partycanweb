@@ -30,7 +30,7 @@ import {
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import {isMobile} from 'react-device-detect';
+import {isMobile, isTablet} from 'react-device-detect';
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -199,7 +199,7 @@ class ProductDetails extends React.Component {
                     {!this.state.showReviews ? <ExpandMoreOutlined style={{ cursor: "pointer" }} onClick={()=>this.handleReviews()}  /> : <ClearOutlined style={{ cursor: "pointer" }} onClick={()=>this.handleReviews()} />}
                 </div>
                 {this.state.showReviews ? 
-                 <Scrollbar  style={{height:150, overflowY:'auto'}}>
+                 <Scrollbar  style={{maxHeight:150, overflowY:'auto'}}>
                 <div className="d-flex flex-column">{reviewsList}</div>
                 </Scrollbar>
                 : ""}
@@ -207,7 +207,7 @@ class ProductDetails extends React.Component {
            
             <Col className="order-md-1" >                                      
                 <div className="proName text-uppercase mb-4 d-flex align-items-center" >
-                    <ArrowBackIcon className="mr-4" style={{fontSize:'20px', color:'rgba(255, 255, 255, .6)'}} />  {_get(productDetailsData, "name", "")}
+                    <ArrowBackIcon className="mr-4 d-none d-lg-block" style={{fontSize:'20px', color:'rgba(255, 255, 255, .6)'}} />  {_get(productDetailsData, "name", "")}
                 </div>
                 <div className="proDescription"  >
                     {_get(productDetailsData, "description", "")}
@@ -224,20 +224,20 @@ class ProductDetails extends React.Component {
                 </div>
             : ""}
         <div style={{ marginTop: "50px" }}>
-            <Grid container>
-                <Grid container direction="column" item xs={3}>
+            <Row>
+                <Col  className="d-flex flex-column mb-5" xs={6} sm={4} xl={3}>
                     <span className="smallTitle">AMOUNT</span>
                     <div className="addQty">
                         <span><ClearOutlined onClick={() => this.handleQuantity("less")} /></span>
                         <span className="qty">{this.state.defaultQuantity}</span>
                         <span><AddOutlined style={{fontSize:"15px"}} onClick={() => this.handleQuantity("add")} /></span>
                     </div>
-                </Grid>
-                <Grid container direction="column" item xs={3}>
+                </Col>
+                <Col  className="d-flex  flex-column mb-4"  xs={6}  sm={4} xl={3}>
                     <span className="smallTitle">FROM</span>
                     <span className="finalProprice">${this.state.productPrice}</span>
-                </Grid>
-                <Grid container direction="column"  item xs={3}>
+                </Col>
+                <Col  className="d-flex  flex-column"  xs={12} sm={4} xl={3}>
                     <span className="smallTitle">DELIVERED COLD IN - 1 HR</span>
                     <div className="snowFlakes">
                         <span></span> 
@@ -245,24 +245,24 @@ class ProductDetails extends React.Component {
                         <span></span> 
                         <span></span>
                      </div> 
-                </Grid>
-            </Grid>
+                </Col>
+            </Row>
             
         </div>
-        <div className="d-flex flex-column flex-md-row" style={{ marginTop: "50px" }}>                                                                 
-                <Button variant="contained"  style={{ color:'#0032A0'}}  className="bottomActionbutton autoWidthbtn  bg-white" type="submit">
+        <div className="d-flex flex-wrap justify-content-between justify-content-md-start flex-md-row" style={{ marginTop: "50px" }}>                                                                 
+                <Button variant="contained"  style={{ color:'#0032A0'}}  className="bottomActionbutton autoWidthbtn col-4 col-md-auto order-2 order-md-1 bg-white" type="submit">
                 <span className="icons shareIcons d-inline-block mr-2"></span>SHARE
                  </Button>                    
-                <Button onClick={()=>this.handleAddToCart()} variant="contained"  className="bottomActionbutton  cartActionBtn mx-4" type="submit">
+                <Button onClick={()=>this.handleAddToCart()} variant="contained"  className="bottomActionbutton order-1 col-12 col-md-auto order-md-2 cartActionBtn mx-md-4" type="submit">
                    <span className="icons cartIcons d-inline-block mr-2"></span>ADD TO CART
                 </Button>                    
-                <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)'}} variant="contained"  className="bottomActionbutton autoWidthbtn transiBtn" type="submit">
+                <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)'}} variant="contained"  className="bottomActionbutton order-3 col-7 col-md-auto order-md-3 autoWidthbtn transiBtn" type="submit">
                 <span className="icons locationIcons d-inline-block mr-2"></span>FIND IN STORES
                 </Button>
         </div>
         </div>
         </>
-        if(isMobile){
+        if(isMobile || isTablet){
             return <div>{commonContent}</div>
         }
         else{
@@ -316,15 +316,15 @@ class ProductDetails extends React.Component {
                 handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
                 />                
             <Row className="no-gutters justify-content-lg-between secMinHeight">
-                <Col lg={5} className="order-1 order-md-2">
+                <Col xs={12} lg={5} className="order-1 order-lg-2">
                     <div className="productImgSection proDetailSec">
-                    <Carousel showIndicators={false} showStatus={false} >
+                    <Carousel  showStatus={false} >
                         {productImages}
                     </Carousel> 
                     </div>
                 </Col>
 
-                <Col lg={7} className="p-5 order-2  d-flex order-md-1 ">
+                <Col xs={12} lg={7} className="p-xl-5 p-4 order-2  d-flex order-lg-1 ">
                     {this.renderContent(averageRating, reviewsList, productDetailsData, Ingredients)}                  
                 </Col>                        
                 </Row>

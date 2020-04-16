@@ -11,7 +11,7 @@ import Footer from '../Global/UIComponents/Footer';
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import {isMobile} from 'react-device-detect';
+import {isMobile, isTablet} from 'react-device-detect';
 import Scrollbar from "react-scrollbars-custom";
 const stripePromise = loadStripe("pk_test_RkUSbyxxcn4xFQ0ttE6QsIDh00bGPMtJdc");
 
@@ -54,7 +54,7 @@ class MainLayout extends React.Component {
      </div>
      <Footer />
    </>
-   if(isMobile){
+   if(isMobile || isTablet){
    return <div className="mainLayout">{commonContent}</div>
    }
    else{
