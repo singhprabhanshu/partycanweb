@@ -11,6 +11,7 @@ import ProductsListing from "../../Components/ProductComponents/ProductsListing"
 import ProductDetails from "../../Components/ProductComponents/ProductDetails"
 import genericGetData from "../../Redux/Actions/genericGetData";
 import {Container, Row, Col} from 'reactstrap';
+import { Loader } from '../../Global/UIComponents/LoaderHoc';
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -49,7 +50,8 @@ class ProductsContainer extends React.Component {
         super(props);
         this.state = {
             tabValue: 0,
-            selectedTab: ""
+            selectedTab: "",
+            isLoading: true
         }
     }
 
@@ -72,7 +74,7 @@ class ProductsContainer extends React.Component {
     // }
 
     handleTabChange = (index, selectedTab) => {
-        this.setState({ tabValue: index });
+        this.setState({ tabValue: index, isLoading: true });
         this.fetchProducts(selectedTab);
     };
 
@@ -93,7 +95,7 @@ class ProductsContainer extends React.Component {
     }
 
     productsListFetchSuccess = () => {
-
+        this.setState({ isLoading: false })
     }
 
     productsListFetchError = () => {
@@ -103,15 +105,18 @@ class ProductsContainer extends React.Component {
 
     render() {
         const { classes } = this.props;
+        const { isLoading } = this.state;
         return (
             <React.Fragment>
                 <CssBaseline />   
-                <Container fluid={true}  className="">            
-                    <ProductTabs
+                <Container fluid={true}  className="">  
+                <ProductTabs
                     tabValue={this.state.tabValue}
                     handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
-                    />             
-                <ProductsListing tabValue={this.state.tabValue} {...this.props} />
+                    /> 
+                {isLoading ?  
+                    <Loader /> :
+                <ProductsListing tabValue={this.state.tabValue} {...this.props} /> }
                 </Container>
             </React.Fragment>
             
