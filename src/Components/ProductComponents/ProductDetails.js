@@ -233,11 +233,11 @@ class ProductDetails extends React.Component {
                         <span><AddOutlined style={{fontSize:"15px"}} onClick={() => this.handleQuantity("add")} /></span>
                     </div>
                 </Col>
-                <Col  className="d-flex  flex-column mb-4"  xs={6}  sm={4} xl={3}>
+                <Col  className="d-flex  flex-column mb-4"  xs={6}  sm={4} xl={4}>
                     <span className="smallTitle">FROM</span>
                     <span className="finalProprice">${!_isEmpty(this.state.productPrice) ? this.state.productPrice : _get(productDetailsData, "price", "")}</span>
                 </Col>
-                <Col  className="d-flex  flex-column"  xs={12} sm={4} xl={3}>
+                <Col  className="d-flex  flex-column"  xs={12} sm={4} xl={4}>
                     <span className="smallTitle">DELIVERED COLD IN - 1 HR</span>
                     <div className="snowFlakes">
                         <span></span> 

@@ -156,10 +156,10 @@ class CheckOut extends React.Component {
             <React.Fragment>
              <Container fluid={true}>            
                  <Row className="no-gutters justify-content-lg-between secMinHeight">                   
-                    <Col lg={6}  className="p-xl-5 p-4 d-flex flex-column">
-                        <div className="mb-4"><span>Cheers!!Order Placed Succesfully</span>                           
-                            <span>Your Order id is {this.state.order_id}</span>
-                            <div className="text-left mt-4" >
+                    <Col lg={6}  className="p-xl-5 p-4 d-flex flex-column align-items-center justify-content-center">
+                            <span>Cheers!!Order Placed Succesfully</span>                           
+                            <span className="mt-4">Your Order id is <b>{this.state.order_id}</b></span>
+                            <div className="mt-4" >
                                 <LoaderButton
                                     onClick={this.trackOrder}
                                     color="primary"
@@ -167,8 +167,7 @@ class CheckOut extends React.Component {
                                     type="submit">
                                     <ArrowForwardIcon /> Track Order
                                 </LoaderButton>   
-                            </div>         
-                        </div>
+                            </div> 
                      </Col>
                      <Col lg={5} className="d-none d-lg-block">
                         <div className="productImgSection">
@@ -187,7 +186,7 @@ class CheckOut extends React.Component {
                     <Row className="no-gutters secMinHeightwt">
                         <Col xs={12}  className="d-flex flex-column justify-content-center align-items-center">                           
                                 <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
-                                <div className="text-left mt-4" >
+                                <div className="mt-4" >
                                 <Button  variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={() => this.props.history.push("/category")}>
                                     Start Shopping
                                 </Button>
@@ -206,7 +205,7 @@ class CheckOut extends React.Component {
                     <Col xs={12} lg={7} className="p-xl-5 p-4 flex-column d-flex">
                         <div className="block-title mb-5">Order Summary</div>
                         {this.renderContent()}                  
-                        <div className="text-left mt-4" >
+                        <div className="mt-4" >
                             <LoaderButton  isFetching={this.state.placeOrderLoading} variant="contained" color="primary" className="bottomActionbutton cartActionBtn" type="submit"  onClick={this.placeOrder}>
                                 <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> PLACE ORDER
                             </LoaderButton>                
