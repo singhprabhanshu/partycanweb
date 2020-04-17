@@ -19,8 +19,8 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-
-
+import Scrollbar from "react-scrollbars-custom";
+import {isMobile, isTablet} from 'react-device-detect';
 import socketIOClient from "socket.io-client";
 
 // import { socket } from '../../index';
@@ -140,49 +140,36 @@ class OrderStatus extends React.Component {
     //     console.log(err);
     // };
     
+    renderContent = (addresses) => {
+      let commonContent = <>
+       </>
+      if(isMobile || isTablet){
+          return <div>{commonContent}</div>
+      }
+      else{
+      return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+      }
+    }
+
+
     render() {
         const { classes } = this.props;
         const steps = this.getSteps();
         const finalSteps = steps.map((label, index) => (
             <Step key={label} >
               <StepLabel icon={ index + 2 }><span style={{ color: 'white'}}>{label}</span></StepLabel>
-              {/* <StepContent >
-                <Typography style={{ color: 'white'}}>{this.getStepContent(index)}</Typography>
-                <div className={classes.actionsContainer}>
-                  <div>
-                    <Button
-                      disabled={this.state.activeStep === 0}
-                      onClick={() => this.handleBack(this.state.activeStep)}
-                      className={classes.button}
-                    >
-                      Back
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => this.handleNext(this.state.activeStep)}
-                      className={classes.button}
-                    >
-                      {this.state.activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                    </Button>
-                  </div>
-                </div>
-              </StepContent> */}
-            </Step>
+             </Step>
           ))
         return (
             <React.Fragment>
-
                 <div>
                     working
                 </div>
-
                 <div className={classes.root}>
                     <Stepper activeStep={this.state.activeStep} orientation="vertical" style={{ backgroundColor: 'rgba(255,255,255,0)'}} connector={false}>
                         {finalSteps}
                     </Stepper>
                 </div>
-
             </React.Fragment>
             
         )

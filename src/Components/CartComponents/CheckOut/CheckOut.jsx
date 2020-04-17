@@ -11,7 +11,10 @@ import MUIButton from '@material-ui/core/Button';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import LoaderButton from '../../../Global/UIComponents/LoaderButton';
 import {withRouter} from "react-router-dom";
-
+import {isMobile, isTablet} from 'react-device-detect';
+import Scrollbar from "react-scrollbars-custom";
+import {Container, Row, Col} from 'reactstrap'
+import proImg from '../../../assets/images/party-can.png'
 class CheckOut extends React.Component {
     constructor(props) {
         super(props);
@@ -98,42 +101,16 @@ class CheckOut extends React.Component {
     trackOrder = () => {
 
     }
-    render() {
-        let { discount, subTotal, grandTotal, taxes,feeAmount, delivery_charges, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
-        let { coupon_code } = this.state;
 
-        let windowWidth = window.innerWidth;
-        let cardWidth = windowWidth > 800 ? "60%" : "100%";
-        if (this.state.orderPlaced) {
-            return <div className="NoItemCart"><span>Cheers!!Order Placed Succesfully</span>
-                <br />
-                <span>Your Order id is {this.state.order_id}</span>
-                <br />
-                <LoaderButton
-                    onClick={this.trackOrder}
-                    color="primary"
-                    variant="contained"
-                    style={{ backgroundColor: '#00BFB2', height: 50, width: 250, borderRadius: 27, fontSize: 15, marginTop: "10px" }}
-                    type="submit">
-                    <ArrowForwardIcon /> Track Order
-              </LoaderButton>            </div>
-        }
-        if (this.props.cartItems.length == 0) {
-            return (
-                <div className="NoItemCart">
-                    <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
-                    <Button onClick={() => this.props.history.push("/category")} color="primary">Start Shopping</Button>
-                </div>
-            )
-        }
-        return (
-            <div className="cartContainer">
+    renderContent = (itemRemovedFetching,itemUpdatedFetching,cartIsFetching,cardWidth,coupon_code,delivery_charges,taxes,discount,subTotal,grandTotal,feeAmount) => {
+        let commonContent = <>
+        <div className="cartContainer">
                 <div className="CartItemParent">
                     <CartListItem
-                        dispatch={this.props.dispatch}
-                        cartIsFetching={(itemRemovedFetching || itemUpdatedFetching || cartIsFetching)}
-                        width={cardWidth}
-                        cartItems={this.props.cartItems} />
+                    dispatch={this.props.dispatch}
+                    cartIsFetching={(itemRemovedFetching || itemUpdatedFetching || cartIsFetching)}
+                    width={cardWidth}
+                    cartItems={this.props.cartItems} />
                 </div>
                 <div className="couponParent">
                     <CouponCode onChange={this.onChange} width={cardWidth} coupon_code={coupon_code} />
@@ -157,20 +134,92 @@ class CheckOut extends React.Component {
                     driverTipAmount={this.state.driverTipAmount||0}
                     feeAmount={feeAmount}
                     />
-                </div>
-                <div style={{ width: cardWidth }} className="CheckOutButtonParent">
-                    <LoaderButton
-                        onClick={this.placeOrder}
-                        color="secondary"
-                        variant="contained"
-                        isFetching={this.state.placeOrderLoading}
-                        style={{ backgroundColor: '#00BFB2', height: 50, width: 250, borderRadius: 27, fontSize: 15, marginTop: "10px" }}
-                        type="submit">
-                        <ArrowForwardIcon /> Place Order
-              </LoaderButton>
-                    {/* <Button onClick={() => this.props.history.push("/cart/address")} className="CheckOutButton" color="primary">Place Order</Button> */}
-                </div>
+                </div>               
             </div>
+         </>
+        if(isMobile || isTablet){
+            return <div>{commonContent}</div>
+        }
+        else{
+        return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        }
+      }
+
+    render() {
+        let { discount, subTotal, grandTotal, taxes,feeAmount, delivery_charges, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
+        let { coupon_code } = this.state;
+
+        let windowWidth = window.innerWidth;
+        let cardWidth = windowWidth > 800 ? "60%" : "100%";
+        if (this.state.orderPlaced) {
+            return (
+            <React.Fragment>
+             <Container fluid={true}>            
+                 <Row className="no-gutters justify-content-lg-between secMinHeight">                   
+                    <Col lg={6}  className="p-xl-5 p-4 d-flex flex-column">
+                        <div className="mb-4"><span>Cheers!!Order Placed Succesfully</span>                           
+                            <span>Your Order id is {this.state.order_id}</span>
+                            <div className="text-left mt-4" >
+                                <LoaderButton
+                                    onClick={this.trackOrder}
+                                    color="primary"
+                                    variant="contained"                               
+                                    type="submit">
+                                    <ArrowForwardIcon /> Track Order
+                                </LoaderButton>   
+                            </div>         
+                        </div>
+                     </Col>
+                     <Col lg={5} className="d-none d-lg-block">
+                        <div className="productImgSection">
+                                <img src={proImg} className="imgProduct img-responsive"></img>
+                        </div>
+                     </Col>
+                </Row>
+                </Container>
+            </React.Fragment>  
+            )        
+        }
+        if (this.props.cartItems.length == 0) {
+            return (
+                <React.Fragment>
+                <Container fluid={true}>            
+                    <Row className="no-gutters secMinHeightwt">
+                        <Col xs={12}  className="d-flex flex-column justify-content-center align-items-center">                           
+                                <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
+                                <div className="text-left mt-4" >
+                                <Button  variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={() => this.props.history.push("/category")}>
+                                    Start Shopping
+                                </Button>
+                                </div>
+                            </Col>
+                    </Row>
+                </Container>
+            </React.Fragment>          
+                
+            )
+        }
+        return (
+            <React.Fragment>
+            <Container fluid={true}>            
+                <Row className="no-gutters justify-content-lg-between secMinHeight">
+                    <Col xs={12} lg={7} className="p-xl-5 p-4 flex-column d-flex">
+                        <div className="block-title mb-5">Order Summary</div>
+                        {this.renderContent()}                  
+                        <div className="text-left mt-4" >
+                            <LoaderButton  isFetching={this.state.placeOrderLoading} variant="contained" color="primary" className="bottomActionbutton cartActionBtn" type="submit"  onClick={this.placeOrder}>
+                                <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> PLACE ORDER
+                            </LoaderButton>                
+                        </div>
+                    </Col>       
+                    <Col  lg={5} className="d-none d-lg-block">
+                        <div className="productImgSection proDetailSec">
+                                <img src={proImg} className="imgProduct img-responsive"></img>
+                        </div>
+                    </Col>                                
+                    </Row>
+                </Container>
+            </React.Fragment>            
         )
     }
 }
