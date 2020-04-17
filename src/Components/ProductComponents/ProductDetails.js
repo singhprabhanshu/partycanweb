@@ -215,6 +215,16 @@ class ProductDetails extends React.Component {
              </Col>
             
         </Row>
+
+        { !_isEmpty(Ingredients) ? 
+                <div className="proItems d-flex flex-column mb-4">
+                    <div  className="mb-3 title-2">INGREDIENTS</div>
+                    <div className="ingredientsList">
+                        {Ingredients}
+                    </div>
+                </div>
+            : ""}
+
           
         <div style={{ marginTop: "50px" }}>
             <Row>
