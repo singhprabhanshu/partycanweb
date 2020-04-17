@@ -62,7 +62,7 @@ class ProductTabs extends React.Component {
             <React.Fragment>
                     <div className="mobile-tabs-title d-block d-md-none">
                     <Container fluid={true}  className="d-flex align-items-center h-100 justify-content-center">   
-                        <Row className=" align-items-center flex-grow-1 pt-4 px-3">
+                        <Row className=" align-items-center flex-grow-1 pt-4 no-gutters px-3">
                         <Col xs={'auto'}  className=""> 
                             <KeyboardBackspaceIcon style={{fontSize:'3rem'}}/>
                         </Col>

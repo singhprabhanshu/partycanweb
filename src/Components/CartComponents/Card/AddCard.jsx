@@ -69,10 +69,11 @@ const AddCard = (props) => {
             setErrorMessage(payload.error.message);
             setPaymentMethod(null);
         } else {
+            let paymentMethods = props.paymentMethods;
             let cartFlow = props.cartFlow;
             let card_token = payload.token.id;
             let card_id =  payload.token.card.id;
-            let customer_stripe_id =  "";
+            let customer_stripe_id =  paymentMethods&&Array.isArray(paymentMethods)&&paymentMethods.length>0?paymentMethods[0].customer_stripe_id:"";
             let card_info = "";
             let payment_method = "stripe_payments";  //check here
             let data = {
@@ -179,9 +180,12 @@ const AddCard = (props) => {
 };
 
 function mapStateToProps(state) {
+    let paymentMethods = _get(state, "paymentMethods.lookUpData.data", {});
+    paymentMethods = Object.keys(paymentMethods).filter(key => !isNaN(key)).map(key => paymentMethods[key]);
+
     let cartFlow = _get(state, 'cartFlow.lookUpData', {});
 
-    return { cartFlow }
+    return { cartFlow,paymentMethods }
 }
 
 export default connect(mapStateToProps)(AddCard);

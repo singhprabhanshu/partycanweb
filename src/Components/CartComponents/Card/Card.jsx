@@ -89,7 +89,7 @@ class CardComponent extends React.Component {
                                     {!this.state.addCard ?
                                         <>
                                             <React.Fragment>
-                                                <div className="block-title mb-4">SAVED ADDRESSES</div>
+                                                <div className="block-title mb-4">SAVED CARDS</div>
                                                 <div className="CardsWrapper d-flex align-items-center flex-wrap">
                                                     <Card className="addnewcard" onClick={this.addNewCard} onClick={this.addCardFunction}>
                                                         <CardBody className="p-3 d-flex align-items-center justify-content-center flex-column ">
@@ -105,7 +105,7 @@ class CardComponent extends React.Component {
                                                                     issuer={values.brand}
                                                                     preview={true}
                                                                     name={values.name || ''}
-                                                                    expiry={values.card_exp_month + values.card_exp_year || ''}
+                                                                    expiry={Number(values.card_exp_month)<10?`0${values.card_exp_month}${values.card_exp_year}`:values.card_exp_month + values.card_exp_year || ''}
                                                                     cvc={values.cvc || ''}
                                                                     className="ccCard"
 
