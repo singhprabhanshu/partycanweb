@@ -50,14 +50,14 @@ class CartContainer extends React.Component {
 
     renderContent = (cardWidth,coupon_code,itemRemovedFetching,itemUpdatedFetching,cartIsFetching,discount,subTotal,grandTotal,feeAmount  ) => {
         let commonContent = <>
-        <div className="cartContainer">
+        <div className="cartContainer pr-lg-4">
                 <div className="CartItemParent">
                     <CartItemsList
                         dispatch={this.props.dispatch}
                         width={cardWidth}
                         cartItems={this.props.cartItems} />
                 </div>
-                <div className="couponParent">
+                <div className="couponParent mt-5">
                     <CouponCode onChange={this.onChange} width={cardWidth} coupon_code={coupon_code} />
                 </div>
                 <div style={{ width: cardWidth }} className="PriceSummaryParent">
@@ -76,7 +76,7 @@ class CartContainer extends React.Component {
             return <div>{commonContent}</div>
         }
         else{
-        return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
         }
       }
 

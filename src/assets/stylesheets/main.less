@@ -976,18 +976,14 @@ button:focus {
 
 
 ////////////////////// Cart page css
-
-
+.PriceSummaryParent .PriceSummaryChild:last-child span{font-size: 22px;}
+.cartContainer .CartItemParent .remove-cart-icon{font-size: 1.3rem!important;}
 .cartContainer .CartItemParent .cartItemChild{flex: 1;}
-.cartContainer { 
-  width: 100%;
-  color: white;
-
+.cartContainer { width: 100%; color: white;
   .CartItemParent {
     .CarItemMain {
       display: flex;
-      flex-direction: row;
-      align-items: flex-start;
+      flex-direction: row;      
       flex: 1;
     }
     .cartItemChild {
@@ -995,8 +991,7 @@ button:focus {
       justify-content: space-between;
       background: #6EA2C2;
       border-radius: 5px;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      margin: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);     
       min-height: 50px;
       padding: 20px;      
       align-items: center;
@@ -1011,9 +1006,15 @@ button:focus {
     }
   }
   .couponParent {
-    width: 100%;
-    padding: 10px 20px;
+    width: 100%;   
   }
+  .couponParent .form-control{
+    background: #41388b;
+    border: 0;
+    height: calc(1.5em + 2.85rem + 2px);
+    border-radius: 8px;
+  }
+  ::-webkit-input-placeholder {color: #fff;}
   
   .PriceSummaryParent {
     padding: 10px 20px;
