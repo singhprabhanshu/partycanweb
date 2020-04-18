@@ -183,7 +183,7 @@ class CheckOut extends React.Component {
             return (
                 <React.Fragment>
                 <Container fluid={true}>            
-                    <Row className="no-gutters secMinHeightwt">
+                    <Row className="no-gutters secMinHeight">
                         <Col xs={12}  className="d-flex flex-column justify-content-center align-items-center">                           
                                 <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
                                 <div className="mt-4" >
