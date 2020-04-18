@@ -89,9 +89,6 @@ class MainLayout extends React.Component {
     return (
       <>
       {this.renderContent(classes)}
-    
-     
-     
       </>
     );
   }

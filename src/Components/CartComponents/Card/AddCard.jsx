@@ -16,7 +16,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { commonActionCreater } from "../../../Redux/Actions/commonAction";
 import { connect } from "react-redux";
 import _get from "lodash/get";
-
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 const ELEMENT_OPTIONS = {
     style: {
         base: {
@@ -69,10 +69,11 @@ const AddCard = (props) => {
             setErrorMessage(payload.error.message);
             setPaymentMethod(null);
         } else {
+            let paymentMethods = props.paymentMethods;
             let cartFlow = props.cartFlow;
             let card_token = payload.token.id;
             let card_id =  payload.token.card.id;
-            let customer_stripe_id =  "";
+            let customer_stripe_id =  paymentMethods&&Array.isArray(paymentMethods)&&paymentMethods.length>0?paymentMethods[0].customer_stripe_id:"";
             let card_info = "";
             let payment_method = "stripe_payments";  //check here
             let data = {
@@ -90,8 +91,10 @@ const AddCard = (props) => {
     };
 
     return (
+        <React.Fragment>
+        <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} />Cards</div>
+        <div className="block-title mb-5">Add New Card</div>
         <div className="StripeCard">
-
             <ReactStrapFrom onSubmit={handleSubmit}>
                 <div className="d-flex mt-4">
                     <div style={{ width: '50%', marginRight: 50 }}>
@@ -175,13 +178,17 @@ const AddCard = (props) => {
                 </Button>
             </ReactStrapFrom>
         </div>
+        </React.Fragment>
     );
 };
 
 function mapStateToProps(state) {
+    let paymentMethods = _get(state, "paymentMethods.lookUpData.data", {});
+    paymentMethods = Object.keys(paymentMethods).filter(key => !isNaN(key)).map(key => paymentMethods[key]);
+
     let cartFlow = _get(state, 'cartFlow.lookUpData', {});
 
-    return { cartFlow }
+    return { cartFlow,paymentMethods }
 }
 
 export default connect(mapStateToProps)(AddCard);

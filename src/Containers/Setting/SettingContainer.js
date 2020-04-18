@@ -11,6 +11,7 @@ import UserSetting from '../../Components/SettingComponents/UserSetting';
 import OrderSetting from '../../Components/SettingComponents/OrderSetting';
 import LivechatSetting from '../../Components/SettingComponents/LivechatSetting';
 import Scrollbar from "react-scrollbars-custom";
+import {isMobile, isTablet} from 'react-device-detect';
 const styles = theme => ({
     
 });
@@ -83,30 +84,39 @@ class SettingContainer extends React.Component {
         return tabValue === 0 ? 'user' : tabValue === 1 ? 'order' : tabValue === 2 ? 'chat' : null
     }
 
+
+    renderContent = (addresses) => {
+        let commonContent = <>
+         <div className="pr-lg-4" >
+                {this.state.tabValue === 0 && 
+            <UserSetting  userInfo={this.state.userInfo} savedCards={this.state.savedCards}/> } 
+            {this.state.tabValue === 1 && 
+            <OrderSetting  ordersInfo={this.state.orders}/> }
+            {this.state.tabValue === 2 &&  <LivechatSetting /> }   
+        </div>
+         </>
+        if(isMobile || isTablet){
+            return <div>{commonContent}</div>
+        }
+        else{
+        return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        }
+      }
+
     render() {
         const { classes } = this.props;
         return (
             <React.Fragment>
-                <CssBaseline />   
-                <Container fluid={true}  className="">            
+                <CssBaseline />  
+                <Container fluid={true} >    
                     <SettingTabs
                         tabValue={this.state.tabValue}
                         handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
                     /> 
-                </Container>
-                 
-            <Container fluid={true} className="productDetails">                
+                       
                 <Row className="no-gutters justify-content-lg-between secMinHeight">
-                    <Col lg={7} className="p-5" >
-                    <Scrollbar className="leftSecmaxHeight">
-                            <div className="pr-lg-4" >
-                             {this.state.tabValue === 0 && 
-                            <UserSetting  userInfo={this.state.userInfo} savedCards={this.state.savedCards}/> } 
-                            {this.state.tabValue === 1 && 
-                            <OrderSetting  ordersInfo={this.state.orders}/> }
-                            {this.state.tabValue === 2 &&  <LivechatSetting /> }   
-                        </div>
-                        </Scrollbar> 
+                    <Col xs={12} lg={7} className="p-xl-5 p-4" >
+                    {this.renderContent()}  
                     </Col>
                 </Row >   
                 </Container>

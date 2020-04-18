@@ -31,6 +31,7 @@ import ScrollMenu from 'react-horizontal-scrolling-menu';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import {isMobile, isTablet} from 'react-device-detect';
+import { Loader } from '../../Global/UIComponents/LoaderHoc';
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -72,13 +73,27 @@ class ProductDetails extends React.Component {
             defaultQuantity: 1,
             productPrice: "",
             showReviews: false,
-            slideIndex: 0
+            slideIndex: 0,
+            isLoading: true
         }
     }
 
     componentDidMount() {
-        const categoryType = this.props.match.params.categoryType;
         const productID = this.props.match.params.productID;
+        genericGetData({
+            dispatch:this.props.dispatch,
+            url:`/index.php/connect/index/product?prodid=${productID}`,
+            constants:{
+            init:"PRODUCT_DETAILS_LIST_INIT",
+            success:"PRODUCT_DETAILS_LIST_SUCCESS",
+            error:"PRODUCT_DETAILS_LIST_ERROR" 
+            },
+            identifier:"PRODUCT_DETAILS_LIST",
+            successCb:this.productDetailsFetchSuccess,
+            errorCb:this.productDetailsFetchError
+        })
+        const categoryType = this.props.match.params.categoryType;
+        
         let index = _findIndex(this.props.categoriesList, { 'category_name': categoryType })
         if(index == -1){
             index=0
@@ -86,36 +101,16 @@ class ProductDetails extends React.Component {
         this.setState({ tabValue: index})
     }
 
+    productDetailsFetchSuccess = (data) => {
+
+        this.setState({ isLoading: false })
+    }
+
     handleTabChange = (index) => {
         this.setState({ tabValue: index });
         let categoryName = _get(this.props, `categoriesList[${index}].category_name`, null)
         this.props.history.push(`/category/${categoryName}`)
     };
-
-    fetchProductDetails = (ProductID) => {
-
-        genericGetData({
-            dispatch: this.props.dispatch,
-            url: `/index.php/connect/index/product?prodid=${ProductID}`,
-            constants: {
-                init: "PRODUCT_DETAILS_LIST_INIT",
-                success: "PRODUCT_DETAILS_LIST_SUCCESS",
-                error: "PRODUCT_DETAILS_LIST_ERROR"
-            },
-            identifier: "PRODUCT_DETAILS_LIST",
-            successCb: this.productDetailsFetchSuccess,
-            errorCb: this.productDetailsFetchError,
-            dontShowMessage:true
-        })
-    }
-
-    productDetailsFetchSuccess = () => {
-
-    }
-
-    productDetailsFetchError = () => {
-
-    }
 
     handleQuantity = (value) => {
         let quantity = this.state.defaultQuantity;
@@ -188,6 +183,11 @@ class ProductDetails extends React.Component {
         this.setState({ slideIndex :  event});
     }
 
+    handleBackAction = () => {
+        let categoryName = _get(this.props, `categoriesList[${this.state.tabValue}].category_name`, null)
+        this.props.history.push(`/category/${categoryName}`)
+    }
+
     renderContent = (averageRating, reviewsList, productDetailsData, Ingredients) => {
         let commonContent = <>
         <div className="pr-lg-4" >                
@@ -207,7 +207,7 @@ class ProductDetails extends React.Component {
            
             <Col className="order-md-1" >                                      
                 <div className="proName text-uppercase mb-4 d-flex align-items-center" >
-                    <ArrowBackIcon className="mr-4 d-none d-lg-block" style={{fontSize:'20px', color:'rgba(255, 255, 255, .6)'}} />  {_get(productDetailsData, "name", "")}
+                    <ArrowBackIcon onClick={this.handleBackAction} className="mr-4 d-none d-lg-block" style={{fontSize:'20px', color:'rgba(255, 255, 255, .6)'}} />  {_get(productDetailsData, "name", "")}
                 </div>
                 <div className="proDescription"  >
                     {_get(productDetailsData, "description", "")}
@@ -233,11 +233,11 @@ class ProductDetails extends React.Component {
                         <span><AddOutlined style={{fontSize:"15px"}} onClick={() => this.handleQuantity("add")} /></span>
                     </div>
                 </Col>
-                <Col  className="d-flex  flex-column mb-4"  xs={6}  sm={4} xl={3}>
+                <Col  className="d-flex  flex-column mb-4"  xs={6}  sm={4} xl={4}>
                     <span className="smallTitle">FROM</span>
                     <span className="finalProprice">${!_isEmpty(this.state.productPrice) ? this.state.productPrice : _get(productDetailsData, "price", "")}</span>
                 </Col>
-                <Col  className="d-flex  flex-column"  xs={12} sm={4} xl={3}>
+                <Col  className="d-flex  flex-column"  xs={12} sm={4} xl={4}>
                     <span className="smallTitle">DELIVERED COLD IN - 1 HR</span>
                     <div className="snowFlakes">
                         <span></span> 
@@ -271,6 +271,7 @@ class ProductDetails extends React.Component {
     }
 
     render() {
+        const { isLoading } = this.state;
         console.log("product details", this.props.productDetailsData)
         let Ingredients = []
         const { productDetailsData } = this.props;
@@ -309,12 +310,14 @@ class ProductDetails extends React.Component {
             )
         })
         return (
+            
             <React.Fragment>
             <Container fluid={true} className="productDetails"> 
-        <ProductTabs
+                <ProductTabs
                 tabValue={this.state.tabValue}
                 handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
-                />                
+                />       
+                {isLoading ? <Loader /> :       
             <Row className="no-gutters justify-content-lg-between secMinHeight">
                 <Col xs={12} lg={5} className="order-1 order-lg-2">
                     <div className="productImgSection proDetailSec">
@@ -327,7 +330,7 @@ class ProductDetails extends React.Component {
                 <Col xs={12} lg={7} className="p-xl-5 p-4 order-2  d-flex order-lg-1 ">
                     {this.renderContent(averageRating, reviewsList, productDetailsData, Ingredients)}                  
                 </Col>                        
-                </Row>
+                </Row>}
                 </Container>
             </React.Fragment>
         );
