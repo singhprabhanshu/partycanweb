@@ -2,6 +2,9 @@ import React from "react";
 import genericPostData from "../../Redux/Actions/genericPostData";
 import { connect } from "react-redux";
 import _ from "lodash";
+import {Container, Row, Col} from 'reactstrap'
+import proImg from '../../assets/images/party-can.png';
+
 
 class CartItemList extends React.Component {
     constructor(props) {
@@ -72,10 +75,21 @@ class CartItemList extends React.Component {
     CartItemsRenderer = () => {
         return this.state.cartItems.map((item, key) => {
             return (
+                <React.Fragment>
+                <Container fluid={true}>                
+                    <Row className="no-gutters justify-content-lg-between secMinHeight">
+                    <Col lg={5} className="order-1 d-none d-lg-block order-md-2">
+                        <div className="productImgSection">
+                                <img src={proImg} className="imgProduct img-responsive"></img>
+                         </div>
+                        </Col>
+                        <Col lg={6} className="p-5  d-flex order-2 order-md-1">
                 <div key={key} className="CarItemMain">
-                    <div style={{ width: this.props.width }} className="cartItemChild">
+                    <div className="cartItemChild">
+                        <div className="d-flex justify-content-lg-between align-items-center ">
                         <img height={50} width={50} src={item.image} alt="Product Image" />
                         <div>{item.name}</div>
+                        </div>
                         <div>
                             <i onClick={()=>this.updateQty(item,-1,key)}  style={{cursor:"pointer"}} class="fa fa-minus-circle cart-minus-icon" aria-hidden="true"></i>
                              <span>{`   ${item.qty}   `}</span>
@@ -92,6 +106,11 @@ class CartItemList extends React.Component {
                     </div>
                     </div>
                 </div>
+                 </Col>
+                </Row>
+                </Container>
+               
+            </React.Fragment>
             )
         })
     }

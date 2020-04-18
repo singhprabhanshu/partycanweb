@@ -947,36 +947,45 @@ button:focus {
 }
 
 .css-1wa3eu0-placeholder{
-  color: rgba(255, 255, 255, 0.8) !important;
+  color: rgba(255, 255, 255, 0.4) !important
 }
-.css-1gtu0rj-indicatorContainer{
-  padding: 0px!important;
 
-}
-.css-tlfecz-indicatorContainer{
+.css-tlfecz-indicatorContainer, .css-1gtu0rj-indicatorContainer{
   padding: 4px!important;
   color: rgba(255, 255, 255, 0.8) !important;
 }
+.css-g1d714-ValueContainer{
+  padding: 0px!important;
+}
 
-.css-j9ijlg-control{
-  min-height: auto!important;
+.css-j9ijlg-control, .css-1nom80r-control{
+  min-height: 28px!important;
+}
+.css-1gtu0rj-indicatorContainer:hover{
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.cartContainer .CartItemParent .cartItemChild {
+  background: #5f9dc6!important;
+  border-radius: 8px!important;
+  box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.2)!important;
 }
 
 
 ////////////////////// Cart page css
 
 
-
-.cartContainer {
-  margin-top: 40px;
+.cartContainer .CartItemParent .cartItemChild{flex: 1;}
+.cartContainer { 
   width: 100%;
   color: white;
 
   .CartItemParent {
     .CarItemMain {
       display: flex;
-      align-items: center;
-      padding: 10px;
+      flex-direction: row;
+      align-items: flex-start;
+      flex: 1;
     }
     .cartItemChild {
       display: flex;
@@ -986,10 +995,10 @@ button:focus {
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       margin: 10px;
       min-height: 50px;
-      padding: 20px;
-      /* justify-content: center; */
+      padding: 20px;      
       align-items: center;
     }
+    
     .remove-cart-icon {
       font-size: 0.8rem;
       display: flex;
@@ -1002,6 +1011,7 @@ button:focus {
     width: 100%;
     padding: 10px 20px;
   }
+  
   .PriceSummaryParent {
     padding: 10px 20px;
     .PriceSummaryChild {
