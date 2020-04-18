@@ -2,6 +2,11 @@ import React from "react";
 import genericPostData from "../../Redux/Actions/genericPostData";
 import { connect } from "react-redux";
 import _ from "lodash";
+import {Container, Row, Col} from 'reactstrap'
+import proImg from '../../assets/images/party-can.png';
+import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
+
+
 
 class CartItemList extends React.Component {
     constructor(props) {
@@ -72,26 +77,32 @@ class CartItemList extends React.Component {
     CartItemsRenderer = () => {
         return this.state.cartItems.map((item, key) => {
             return (
-                <div key={key} className="CarItemMain">
-                    <div style={{ width: this.props.width }} className="cartItemChild">
-                        <img height={50} width={50} src={item.image} alt="Product Image" />
-                        <div>{item.name}</div>
-                        <div>
-                            <i onClick={()=>this.updateQty(item,-1,key)}  style={{cursor:"pointer"}} class="fa fa-minus-circle cart-minus-icon" aria-hidden="true"></i>
-                             <span>{`   ${item.qty}   `}</span>
-                              <i onClick={()=>this.updateQty(item,+1,key)} style={{cursor:"pointer"}} class="fa fa-plus-circle" aria-hidden="true"></i>
-                        </div>
-                        {this.props.cartIsFetching?<span>Loading</span>:<span>{item.row_total}</span>}
-                    </div>
-                    <div className="remove-cart-icon" onClick={() => this.handleCartRemoveItem(item)}>
-                        <span>
-                            <i className="fa fa-times" aria-hidden="true"></i>
-                        </span>
-                        <div>
-                            Remove
-                    </div>
-                    </div>
-                </div>
+                <React.Fragment>
+                <Container fluid={true}>                
+                    <Row className="no-gutters">
+                        <Col className="d-flex order-2 order-md-1 align-self-start">
+                            <div key={key} className="CarItemMain align-items-center justify-content-between no-gutters row" >
+                                <div className="col-11 cartItemChild">
+                                    <div className="d-flex justify-content-lg-between align-items-center ">
+                                    <img height={50} width={50} src={item.image} alt="Product Image" />
+                                    <div>{item.name}</div>
+                                    </div>
+                                    <div>
+                                        <i onClick={()=>this.updateQty(item,-1,key)}  style={{cursor:"pointer"}} class="fa fa-minus-circle cart-minus-icon" aria-hidden="true"></i>
+                                        <span>{`   ${item.qty}   `}</span>
+                                        <i onClick={()=>this.updateQty(item,+1,key)} style={{cursor:"pointer"}} class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    </div>
+                                    {this.props.cartIsFetching?<span>Loading</span>:<span>{item.row_total}</span>}
+                                </div>
+                                <div className="col-auto ml-3 remove-cart-icon" onClick={() => this.handleCartRemoveItem(item)}>
+                                    <div className="mb-2"><CloseOutlinedIcon style={{ fontSize: 25 }} /> </div> 
+                                    <div>Remove</div>
+                                </div>
+                            </div>
+                 </Col>
+                </Row>
+                </Container>               
+            </React.Fragment>
             )
         })
     }

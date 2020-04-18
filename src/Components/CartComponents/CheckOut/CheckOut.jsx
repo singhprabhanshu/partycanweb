@@ -112,7 +112,7 @@ class CheckOut extends React.Component {
                     width={cardWidth}
                     cartItems={this.props.cartItems} />
                 </div>
-                <div className="couponParent">
+                <div className="couponParent mt-5">
                     <CouponCode onChange={this.onChange} width={cardWidth} coupon_code={coupon_code} />
                 </div>
                 <div style={{ padding: "10px 20px" }}>
