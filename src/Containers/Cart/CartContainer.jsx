@@ -89,13 +89,13 @@ class CartContainer extends React.Component {
             return (
                 <Container fluid={true} > 
                     <Row className="no-gutters  secMinHeightwt">
-                        <Col xs={12}  className="d-flex flex-column justify-content-center align-items-center">                           
+                        <Col xs={12}  className="d-flex p-xl-5 p-4 flex-column justify-content-center align-items-center">                           
                                 <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
-                                <div className="text-left mt-4" >
-                                    <Button  variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={() => this.props.history.push("/category")}>
+                               
+                                    <Button  variant="contained" color="primary" className="mt-4 bottomActionbutton cartActionBtn" onClick={() => this.props.history.push("/category")}>
                                        Start Shopping
                                     </Button>                
-                                </div> 
+                               
                         </Col>                        
                     </Row>
                 </Container>
