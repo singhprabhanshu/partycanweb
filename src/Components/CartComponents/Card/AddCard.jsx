@@ -16,7 +16,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { commonActionCreater } from "../../../Redux/Actions/commonAction";
 import { connect } from "react-redux";
 import _get from "lodash/get";
-
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 const ELEMENT_OPTIONS = {
     style: {
         base: {
@@ -91,8 +91,10 @@ const AddCard = (props) => {
     };
 
     return (
+        <React.Fragment>
+        <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} />Cards</div>
+        <div className="block-title mb-5">Add New Card</div>
         <div className="StripeCard">
-
             <ReactStrapFrom onSubmit={handleSubmit}>
                 <div className="d-flex mt-4">
                     <div style={{ width: '50%', marginRight: 50 }}>
@@ -176,6 +178,7 @@ const AddCard = (props) => {
                 </Button>
             </ReactStrapFrom>
         </div>
+        </React.Fragment>
     );
 };
 

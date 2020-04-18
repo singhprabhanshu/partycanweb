@@ -20,6 +20,7 @@ import {Container, Row, Col} from 'reactstrap'
 import proImg from '../../../assets/images/party-can.png'
 import { Loader } from '../../../Global/UIComponents/LoaderHoc';
 import Scrollbar from "react-scrollbars-custom";
+import {isMobile, isTablet} from 'react-device-detect';
 const styles = theme => ({
   root: {    
     background: '#00BFB2',
@@ -471,6 +472,68 @@ class Speed extends React.Component {
     // this.props.navigation.navigate('Card', {isPaymentCard: true});
   }
 
+  renderContent = (speed,retailer,shippingMethod,selectDate,availableTime) => {
+    let commonContent = <>
+    <div className="pr-lg-4" > 
+                    <div className="d-flex flex-column">
+
+                        <div className="d-flex flex-column mb-5 ">
+                          <div className="block-sub-title">Select Speed</div>
+                          <div className="d-flex flex-lg-wrap CardsWrapper">{speed}</div>
+                        </div>
+                   
+                        { (!_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', [])) && ( _get(this.state, 'selectedSpeed.id', -1) === 1 || _get(this.state, 'selectedSpeed.id', -1) === 2)) ? 
+                        
+                            <div className="d-flex flex-column mb-5 ">
+                                <div className="block-sub-title">Select Retailer</div>
+                                <div className="d-flex flex-lg-wrap CardsWrapper">{retailer}</div>
+                            </div>
+                            : _get(this.state, 'selectedSpeed.id', -1) === 3 ?
+                              <div className="d-flex flex-column mb-5 ">
+                                  <div className="block-sub-title">Select Retailer</div>
+                                  <div className="d-flex flex-lg-wrap CardsWrapper">{retailer}</div>
+                              </div>
+                            : null }
+
+                      { (_get(this.state, 'selectedSpeed.id', -1) === 2 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) ?
+                        <div className="d-flex flex-column mb-5 ">
+                            <div className="block-sub-title ">Select Delivery Options</div>
+                            <div className="d-flex flex-lg-wrap CardsWrapper">{shippingMethod}</div>
+                      </div>
+                      : null}
+
+                      { (_get(this.state, 'selectedSpeed.id', -1) === 1 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) ?
+                       <div className="d-flex flex-column mb-5 ">
+                        <div className="block-sub-title">Select Date</div>
+                        <div className="d-flex flex-lg-wrap CardsWrapper">{selectDate}</div>
+                       </div>
+                      : null}
+
+                      {  (!_isEmpty(availableTime)) ?
+                         <div className="d-flex flex-column mb-5 ">
+                          <div className="block-sub-title">Select Time</div>
+                          <div className="d-flex flex-lg-wrap CardsWrapper">
+                            <TimeCard
+                              availableTime={availableTime}
+                              fee={_get(this.state, 'selectedShippingMethod.fee', '')}
+                              // changeTimeOpacity={this._changeTimeOpacity}
+                              selectedTime={this.state.selectedTime}
+                              selectedCardColor={this.state.selectedCardColor}
+                            />
+                         </div>
+                         </div>
+                      : null}  
+                   </div> 
+                        </div>
+     </>
+    if(isMobile || isTablet){
+        return <div>{commonContent}</div>
+    }
+    else{
+    return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+    }
+  }
+
   render() {
     // loader
     const { isLoading } = this.state;
@@ -581,68 +644,16 @@ class Speed extends React.Component {
                                   <img src={proImg} className="imgProduct img-responsive"></img>
                           </div>
                      </Col>
-                    <Col lg={6}  className="p-5 d-flex order-2 flex-column order-md-1">                         
+                    <Col lg={6}  className="p-xl-5 p-4 order-2 d-flex flex-column order-md-1">
+                                           
                     <div className="block-title mb-5">Delivery Options</div>
-                    <Scrollbar className="leftSecmaxHeight">
-                            <div className="pr-lg-4" > 
-                    <div className="d-flex flex-column">
-
-                        <div className="d-flex flex-column mb-5 ">
-                          <div className="block-sub-title">Select Speed</div>
-                          <div className="d-flex flex-lg-wrap CardsWrapper">{speed}</div>
-                        </div>
-                   
-                        { (!_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', [])) && ( _get(this.state, 'selectedSpeed.id', -1) === 1 || _get(this.state, 'selectedSpeed.id', -1) === 2)) ? 
-                        
-                            <div className="d-flex flex-column mb-5 ">
-                                <div className="block-sub-title">Select Retailer</div>
-                                <div className="d-flex flex-lg-wrap CardsWrapper">{retailer}</div>
-                            </div>
-                            : _get(this.state, 'selectedSpeed.id', -1) === 3 ?
-                              <div className="d-flex flex-column mb-5 ">
-                                  <div className="block-sub-title">Select Retailer</div>
-                                  <div className="d-flex flex-lg-wrap CardsWrapper">{retailer}</div>
-                              </div>
-                            : null }
-
-                      { (_get(this.state, 'selectedSpeed.id', -1) === 2 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) ?
-                        <div className="d-flex flex-column mb-5 ">
-                            <div className="block-sub-title ">Select Delivery Options</div>
-                            <div className="d-flex flex-lg-wrap CardsWrapper">{shippingMethod}</div>
-                      </div>
-                      : null}
-
-                      { (_get(this.state, 'selectedSpeed.id', -1) === 1 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) ?
-                       <div className="d-flex flex-column mb-5 ">
-                        <div className="block-sub-title">Select Date</div>
-                        <div className="d-flex flex-lg-wrap CardsWrapper">{selectDate}</div>
-                       </div>
-                      : null}
-
-                      {  (!_isEmpty(availableTime)) ?
-                         <div className="d-flex flex-column mb-5 ">
-                          <div className="block-sub-title">Select Time</div>
-                          <div className="d-flex flex-lg-wrap CardsWrapper">
-                            <TimeCard
-                              availableTime={availableTime}
-                              fee={_get(this.state, 'selectedShippingMethod.fee', '')}
-                              // changeTimeOpacity={this._changeTimeOpacity}
-                              selectedTime={this.state.selectedTime}
-                              selectedCardColor={this.state.selectedCardColor}
-                            />
-                         </div>
-                         </div>
-                      : null}  
-                   </div> 
-                        </div>
-                        </Scrollbar>
-                  <div className="text-left mt-4" >
-                      <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleDeliverySelect}>
-                          <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> CONTINUE
-                      </Button>
-                
-                  </div>
-        </Col>                        
+                    {this.renderContent()}                       
+                    <div className="text-left mt-4" >
+                        <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleDeliverySelect}>
+                            <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> CONTINUE
+                        </Button>                
+                    </div>
+              </Col>                        
       </Row>
   </Container>     
     );
