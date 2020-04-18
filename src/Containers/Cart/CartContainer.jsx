@@ -50,14 +50,14 @@ class CartContainer extends React.Component {
 
     renderContent = (cardWidth,coupon_code,itemRemovedFetching,itemUpdatedFetching,cartIsFetching,discount,subTotal,grandTotal,feeAmount  ) => {
         let commonContent = <>
-        <div className="cartContainer">
+        <div className="cartContainer pr-lg-4">
                 <div className="CartItemParent">
                     <CartItemsList
                         dispatch={this.props.dispatch}
                         width={cardWidth}
                         cartItems={this.props.cartItems} />
                 </div>
-                <div className="couponParent">
+                <div className="couponParent mt-5">
                     <CouponCode onChange={this.onChange} width={cardWidth} coupon_code={coupon_code} />
                 </div>
                 <div style={{ width: cardWidth }} className="PriceSummaryParent">
@@ -76,7 +76,7 @@ class CartContainer extends React.Component {
             return <div>{commonContent}</div>
         }
         else{
-        return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
         }
       }
 
@@ -89,13 +89,13 @@ class CartContainer extends React.Component {
             return (
                 <Container fluid={true} > 
                     <Row className="no-gutters  secMinHeightwt">
-                        <Col xs={12}  className="d-flex flex-column justify-content-center align-items-center">                           
+                        <Col xs={12}  className="d-flex p-xl-5 p-4 flex-column justify-content-center align-items-center">                           
                                 <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
-                                <div className="text-left mt-4" >
-                                    <Button  variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={() => this.props.history.push("/category")}>
+                               
+                                    <Button  variant="contained" color="primary" className="mt-4 bottomActionbutton cartActionBtn" onClick={() => this.props.history.push("/category")}>
                                        Start Shopping
                                     </Button>                
-                                </div> 
+                               
                         </Col>                        
                     </Row>
                 </Container>
