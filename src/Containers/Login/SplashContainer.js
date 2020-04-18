@@ -66,8 +66,8 @@ class SplashContainer extends React.Component {
     render() {
         const { classes } = this.props;
 
-        let renderSlide = this.state.imageData.map((subdata) => {
-            return(<React.Fragment>
+        let renderSlide = this.state.imageData.map((subdata,index) => {
+            return(<React.Fragment key={index}>
                 <div className=" d-flex justify-content-between flex-column align-items-center h-100 ">
                   <img src={subdata.imageurl} className="img-responsive" />
                     <p className="legend">{subdata.text}</p>

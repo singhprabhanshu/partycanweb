@@ -1,5 +1,7 @@
 import React from 'react';
 import { Spinner } from 'reactstrap';
+import { css } from "@emotion/core";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const WithLoading = (WrappedComponent) => {
     return class Enhancer extends WrappedComponent {
@@ -7,7 +9,6 @@ const WithLoading = (WrappedComponent) => {
             if (this.props.isLoading) {
                 return Loader();
             }
-            // return <WrappedComponent {...this.props}/>;
             return super.render();
         }
 
@@ -17,9 +18,17 @@ const WithLoading = (WrappedComponent) => {
 function Loader () {
   return (
     // <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-    <div style={{ position: 'fixed', top: '50%', left: '50%'}}>
-    <Spinner color="danger" />
-    </div>
+    // <div style={{ position: 'fixed', top: '50%', left: '50%'}}>
+    // <Spinner color="danger" />
+    // </div>
+    <div className="loader-wrapper">
+        <ScaleLoader
+          size={100}
+          margin={2}
+          color="#dc3545"
+          loading={true}
+        />
+      </div>
   ) 
 };
 

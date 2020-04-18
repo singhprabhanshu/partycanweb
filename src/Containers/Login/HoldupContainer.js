@@ -11,6 +11,9 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import genericGetData from '../../Redux/Actions/genericGetData';
 import showMessage from '../../Redux/Actions/toastAction';
+import WithLoading from '../../Global/UIComponents/LoaderHoc';
+import _get from 'lodash/get';
+
 const styles = theme => ({
     main: {
     }
@@ -44,13 +47,11 @@ class HoldupContainer extends React.Component {
             } else {
                this.props.dispatch(
                    showMessage({ text: 'This is not valid Zipcode. Please try another zipcode.',
-                                isSuccess: false
-                             }));
+                                isSuccess: false }));
             }
       }
-      zipcodeLocatorFetchError = (data) => {
+      zipcodeLocatorFetchError = (data) => { }
 
-      }
       useLocation = () => {
         navigator.geolocation.getCurrentPosition(
             (position) => {console.log(position);
@@ -120,9 +121,10 @@ class HoldupContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  
+    let isLoading = _get(state, 'zipCodeLocator.isFetching')
     return {
+        isLoading
     };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(HoldupContainer));
+export default connect(mapStateToProps)(withStyles(styles)(WithLoading(HoldupContainer)));
