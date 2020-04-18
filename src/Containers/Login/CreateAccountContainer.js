@@ -3,25 +3,17 @@ import {TextInputField, SwitchInputField} from '../../Global/FormCompoents/wrapp
 import { Button } from '@material-ui/core';
 import validate from './Validate/createAccountValidate';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
-import { commonActionCreater } from '../../Redux/Actions/commonAction';
 import React from 'react';
 import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import _get from 'lodash/get';
-import LoginComponent from '../../Components/LoginComponents/login';
 import genericPostData from '../../Redux/Actions/genericPostData';
 import showMessage from '../../Redux/Actions/toastAction';
 import {Container, Row, Col} from 'reactstrap'
-
+import { Loader } from '../../Global/UIComponents/LoaderHoc';
 const styles = theme => ({
-   
 });
 
 class CreateAccountContainer extends React.Component {
@@ -29,18 +21,12 @@ class CreateAccountContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // currentStep: 1
+            isLoading: false
         }
     }
 
-    componentDidMount(){
-        // if(this.props.sessionRedirectToLogin){
-        //     this.setState({currentStep:3});
-        //     this.props.dispatch(commonActionCreater(false,'SESSION_START_REDIRECT_TO_LOGIN'));
-        // }
-    }
-
     onSubmit  = async values => {
+        this.setState({isLoading: true});
         genericPostData({
             dispatch:this.props.dispatch,
             reqObj: {email: values.email,
@@ -58,32 +44,36 @@ class CreateAccountContainer extends React.Component {
             identifier:"USER_REGISTER",
             successCb:this.userRegisterSuccess,
             errorCb:this.userRegisterError,
-            dontShowMessage: true })
-      }
+            dontShowMessage: true });
+    }
+      
     userRegisterSuccess= (data) => {
+        this.setState({isLoading: false});
         const code = _get(data[0],'code');
         const message = _get(data[0],'message');
             if (code === 1) {
               this.props.dispatch(showMessage({ text: message, isSuccess: true }));
-                this.props.history.push('/signIn');
+                this.signIn();
             } else if (code === 2) {
                 this.props.dispatch(showMessage({ text: message, isSuccess: false }));
             } else {
                 this.props.dispatch(showMessage({ text: message, isSuccess: false }));
             }
-
-        }
+    }
     userRegisterError = (data) => {
-
-        }
-        signIn = () => {    
+        this.setState({isLoading: false});  
+        this.props.dispatch(showMessage({ text: 'Something Went wrong', isSuccess: false }));
+    }
+        
+    signIn = () => {    
             this.props.history.push('/signIn');
-          }
+    }
     
     render() {
         const { classes } = this.props;
         return (
             <React.Fragment>
+                {this.state.isLoading && <Loader /> }
                 <Container fluid={true}  className="WhiteCurveBg">
                      <CssBaseline />
                 <Container className="container-custom d-flex flex-column justify-content-center">
@@ -163,7 +153,6 @@ CreateAccountContainer.propTypes = {
 
 
 function mapStateToProps(state) {
-let sessionRedirectToLogin = _get(state,'sessionRedirectToLogin.lookUpData');
-return {sessionRedirectToLogin}
+    return {}
 }
 export default connect(mapStateToProps)(withStyles(styles)(CreateAccountContainer));

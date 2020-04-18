@@ -14,13 +14,10 @@ import slide3 from '../../assets/images/HOMEPAGE3.png'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import ReactDOM from "react-dom";
+import { Loader } from '../../Global/UIComponents/LoaderHoc';
 
-const styles = theme => ({
-   
+const styles = theme => ({   
 });
-
-
-  
 
 class SplashContainer extends React.Component {
 
@@ -28,11 +25,13 @@ class SplashContainer extends React.Component {
         super(props);
         this.state = {
             imageData: [],
-            slideIndex: 0
+            slideIndex: 0,
+            isLoading : false
         }
     }
 
     componentDidMount() {
+        this.setState({ isLoading: true});
         genericGetData({
             dispatch:this.props.dispatch,
             url:"index.php/connect/index/banners",
@@ -49,10 +48,10 @@ class SplashContainer extends React.Component {
     }
 
     splashBannerSuccess= (data) => {
-        this.setState({ imageData : data});
+        this.setState({ imageData : data, isLoading: false});
     }
     splashBannerFetchError = (data) => {
-
+        this.setState({ isLoading: false});
     }
     handleSlideChange = () => {
         this.setState({ slideIndex :  this.state.slideIndex + 1});
@@ -77,6 +76,7 @@ class SplashContainer extends React.Component {
         })
         return ( 
             <React.Fragment>
+             {this.state.isLoading && <Loader /> }
             {this.state.imageData.length > 0 && <Container fluid={true}  className="WhiteCurveBg">
                      <CssBaseline />
                 <Container className="container-content d-flex flex-column justify-content-center">

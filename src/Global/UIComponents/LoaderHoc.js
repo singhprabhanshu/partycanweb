@@ -1,12 +1,18 @@
 import React from 'react';
 import { Spinner } from 'reactstrap';
 
-function WithLoading(Component) {
-  return function WihLoadingComponent({ isLoading, ...props }) {
-    if (!isLoading) return (<Component {...props} />);
-    return (<p>Be Hold, fetching data may take some time :)</p>);
-  }
-}
+const WithLoading = (WrappedComponent) => {
+    return class Enhancer extends WrappedComponent {
+        render() {
+            if (this.props.isLoading) {
+                return Loader();
+            }
+            // return <WrappedComponent {...this.props}/>;
+            return super.render();
+        }
+
+    };
+};
 
 function Loader () {
   return (
@@ -21,3 +27,5 @@ export {
   WithLoading,
   Loader,
 };
+
+export default WithLoading;

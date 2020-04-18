@@ -12,7 +12,9 @@ import _get from 'lodash/get';
 import LoginComponent from '../../Components/LoginComponents/login';
 import genericPostData from '../../Redux/Actions/genericPostData';
 import showMessage from '../../Redux/Actions/toastAction';
-import {Container, Row, Col} from 'reactstrap'
+import {Container, Row, Col} from 'reactstrap';
+import WithLoading from '../../Global/UIComponents/LoaderHoc';
+
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -59,10 +61,7 @@ class SignIn extends React.Component {
     }
 
     componentDidMount(){
-        // if(this.props.sessionRedirectToLogin){
-        //     this.setState({currentStep:3});
-        //     this.props.dispatch(commonActionCreater(false,'SESSION_START_REDIRECT_TO_LOGIN'));
-        // }
+        
     }
 
     onSubmit  = async values => {
@@ -166,7 +165,7 @@ SignIn.propTypes = {
 
 
 function mapStateToProps(state) {
-let sessionRedirectToLogin = _get(state,'sessionRedirectToLogin.lookUpData');
-return {sessionRedirectToLogin}
+let isLoading = _get(state, 'userSignInInfo.isFetching')
+return {isLoading}
 }
-export default connect(mapStateToProps)(withStyles(styles)(SignIn));
+export default connect(mapStateToProps)(withStyles(styles)(WithLoading(SignIn)));
