@@ -9,7 +9,7 @@ class CouponCode extends React.Component {
     render() {
         return (
            <div className="d-flex no-gutters">
-               <Col xs={11}>
+               <Col xs={12} lg={11}>
                 <Form >
                     <FormGroup>
                         <Input onChange={(e)=>this.props.onChange(e)} value={this.props.coupon_code} type="email" name="email" id="exampleEmail" placeholder="Coupon Code" />

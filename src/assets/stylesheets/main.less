@@ -285,7 +285,7 @@ button:focus {
     }
   }
   @media (max-width:575px){
-    min-width: 80%!important;
+    min-width: 100%!important;
   }
   &.transiBtn{
     background-color: rgba(255, 255, 255, .1) !important;
@@ -995,8 +995,7 @@ button:focus {
       background: #6EA2C2;
       border-radius: 5px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);     
-      min-height: 50px;
-      padding: 20px;      
+      min-height: 50px;          
       align-items: center;
     }
     
@@ -1009,7 +1008,8 @@ button:focus {
     }
   }
   .couponParent {
-    width: 100%;   
+    width: 100%;  
+    margin-top: 60px;
   }
   .couponParent .form-control{
     background: #41388b;
@@ -1020,7 +1020,7 @@ button:focus {
   ::-webkit-input-placeholder {color: #fff;}
   
   .PriceSummaryParent {
-    padding: 10px 20px;
+    padding: 10px 0px;
     .PriceSummaryChild {
       display: flex;
       justify-content: space-between;
@@ -1038,6 +1038,16 @@ button:focus {
     
   }
 }
+.additems{
+  display: flex;
+    width: 40%;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 15px;
+}
+.cartItemPrice{
+  margin-left: 15px;
+}
 
 .NoItemCart{
   display: flex;
@@ -1045,6 +1055,31 @@ button:focus {
   align-items: center;
   flex-direction: column;
   height: 50vh;
+}
+@media(min-width:992px) {
+  .cart-pro-img{
+     max-width: 55%;
+}
+
+}
+@media(max-width:575px){
+  .cartItemChild
+  {
+    .addQty{
+      justify-content: flex-start!important;
+      margin: 10px 0;
+  }
+  .additems{
+    flex-direction: column;
+      margin-left: 0;
+      align-items: flex-start;
+      width: 60%;
+  }
+  .cartItemPrice{
+    margin-left: 0;
+  }
+
+}
 }
 
 /////////////// Setting page Design
