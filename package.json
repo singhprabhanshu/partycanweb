@@ -179,9 +179,8 @@
     ]
   },
   "babel": {
-    "presets": [
-      "react-app"
-    ]
+    "presets": ["react-app","@babel/preset-react", "@babel/preset-env"],
+    "plugins": ["emotion"]
   },
   "devDependencies": {
     "body-parser": "^1.19.0",
