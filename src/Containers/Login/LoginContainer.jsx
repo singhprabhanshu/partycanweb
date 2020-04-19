@@ -137,7 +137,7 @@ class SignIn extends React.Component {
                             </Row>
 
                             <Row className="justify-content-center align-items-ceenter">
-                                <Col xs={'auto'} >
+                                <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                     <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                         <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />SIGN IN</Button>
                                 </Col>                        
@@ -149,7 +149,7 @@ class SignIn extends React.Component {
                 </Container>
                         <Container className="container-custom">
                             <Row>
-                                <Col className="text-center" >
+                                <Col  className="text-center" >
                                     <Button variant="text" color="secondary" className="txtButton" onClick={this.createAccount} >CREATE ACCOUNT</Button>
                                 </Col>                        
                             </Row>

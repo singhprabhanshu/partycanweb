@@ -99,7 +99,7 @@ class HoldupContainer extends React.Component {
                                 </Col>                        
                             </Row> 
                             <Row className="justify-content-center align-items-ceenter">
-                                <Col xs={'auto'} >
+                            <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                     <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                         <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> LET'S PARTY</Button>
                                 </Col>                        
