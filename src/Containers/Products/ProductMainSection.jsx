@@ -68,7 +68,8 @@ redirectToCategories = (category) => {
                 <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
                     <h1>SHOP</h1>
                     </div>
-                {this.props.categoriesList.length > 0 && <div className="productsList">
+                {this.props.categoriesList && this.props.categoriesList.length > 0 && 
+                <div className="productsList">
                     {CategoryList}
                 </div> }
             </React.Fragment>

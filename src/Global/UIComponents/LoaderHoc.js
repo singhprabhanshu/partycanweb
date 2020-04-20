@@ -1,6 +1,4 @@
 import React from 'react';
-import { Spinner } from 'reactstrap';
-import { css } from "@emotion/core";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
 const WithLoading = (WrappedComponent) => {
@@ -17,10 +15,6 @@ const WithLoading = (WrappedComponent) => {
 
 function Loader () {
   return (
-    // <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-    // <div style={{ position: 'fixed', top: '50%', left: '50%'}}>
-    // <Spinner color="danger" />
-    // </div>
     <div className="loader-wrapper">
         <ScaleLoader
           size={100}

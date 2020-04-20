@@ -243,6 +243,18 @@ app.post("/api/placeorder/placeorder",(req,res)=>{
   })
 })
 
+app.post("/api/account/mydashboard",(req,res)=>{
+  let p1 = axios.post(`${application_bff_url}/api/account/mydashboard`, req.body);
+  p1.then((apiRespo)=>{
+   res.setHeader('Content-Type', 'application/json');
+   res.send(apiRespo.data);
+  })
+  p1.catch((err)=>{
+      res.setHeader('Content-Type', 'application/json');
+      res.send(err)
+  })
+});
+
 app.listen(3001, () =>
   console.log('Express server is running on localhost:3001')
 );
