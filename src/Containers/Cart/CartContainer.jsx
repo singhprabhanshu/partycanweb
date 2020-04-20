@@ -7,7 +7,11 @@ import genericPostData from "../../Redux/Actions/genericPostData";
 import _get from "lodash/get";
 import { Button } from 'reactstrap';
 import LoaderButton from '../../Global/UIComponents/LoaderButton';
-
+import {isMobile, isTablet} from 'react-device-detect';
+import Scrollbar from "react-scrollbars-custom";
+import proImg from '../../assets/images/party-can.png'
+import {Container, Row, Col} from 'reactstrap'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 class CartContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -43,22 +47,11 @@ class CartContainer extends React.Component {
     onChange = (e) => {
         this.setState({ coupon_code: e.target.value })
     }
-    render() {
-        let { discount, subTotal, grandTotal, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
-        let { coupon_code } = this.state;
-        let windowWidth = window.innerWidth;
-        let cardWidth = windowWidth > 800 ? "60%" : "100%";
-        if (this.props.cartItems.length == 0) {
-            return (
-                <div className="NoItemCart">
-                    <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
-                    <Button onClick={() => this.props.history.push("/category")} color="primary">Start Shopping</Button>
-                </div>
-            )
-        }
-        return (
-            <div className="cartContainer">
-                <div className="CartItemParent">
+
+    renderContent = (cardWidth,coupon_code,itemRemovedFetching,itemUpdatedFetching,cartIsFetching,discount,subTotal,grandTotal,feeAmount  ) => {
+        let commonContent = <>
+        <div className="cartContainer pr-lg-4">
+                <div className="CartItemParent mb-3">
                     <CartItemsList
                         dispatch={this.props.dispatch}
                         width={cardWidth}
@@ -68,18 +61,85 @@ class CartContainer extends React.Component {
                     <CouponCode onChange={this.onChange} width={cardWidth} coupon_code={coupon_code} />
                 </div>
                 <div style={{ width: cardWidth }} className="PriceSummaryParent">
-                    <CartPriceSummary cartIsFetching={(itemRemovedFetching || itemUpdatedFetching || cartIsFetching)} width={cardWidth} discount={discount} subTotal={subTotal} grandTotal={grandTotal} />
-                </div>
-                <div style={{ width: cardWidth }} className="CheckOutButtonParent">
-                    <LoaderButton
-                        isFetching={itemRemovedFetching || itemUpdatedFetching || cartIsFetching}
-                        onClick={() => this.props.history.push("/cart/address")}
-                        variant="contained"
-                        color="primary"
-                        className="CheckOutButton" color="primary">CheckOut</LoaderButton>
-                </div>
+                    <CartPriceSummary 
+                    cartIsFetching={(itemRemovedFetching || itemUpdatedFetching || cartIsFetching)} 
+                    width={cardWidth}
+                     discount={discount}
+                      subTotal={subTotal} 
+                      grandTotal={grandTotal}
+                      feeAmount={feeAmount}
+                      />
+                </div>                
             </div>
-        )
+         </>
+        if(isMobile || isTablet){
+            return <div>{commonContent}</div>
+        }
+        else{
+        return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        }
+      }
+
+    render() {
+        let { discount, subTotal, grandTotal,feeAmount, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
+        let { coupon_code } = this.state;
+        let windowWidth = window.innerWidth;
+        let cardWidth = windowWidth > 800 ? "60%" : "100%";
+        if (this.props.cartItems.length == 0) {
+            return (
+                <Container fluid={true} > 
+                    <Row className="no-gutters  secMinHeightwt">
+                        <Col xs={12}  className="d-flex p-xl-5 p-4 flex-column justify-content-center align-items-center">                           
+                                <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
+                               
+                                    <Button  variant="contained" color="primary" className="mt-4 bottomActionbutton cartActionBtn" onClick={() => this.props.history.push("/category")}>
+                                       Start Shopping
+                                    </Button>                
+                               
+                        </Col>                        
+                    </Row>
+                </Container>
+            )
+        }
+        return (
+            <React.Fragment>
+            <Container fluid={true} >                    
+                <Row className="no-gutters justify-content-lg-between secMinHeightwt">
+                    <Col xs={12} lg={7} className="p-xl-5 p-4 d-flex flex-column">
+                    <div className="block-title mb-5">CART</div>
+                        {this.renderContent()}  
+                        <div className="text-left mt-4" >
+                        <LoaderButton  isFetching={itemRemovedFetching || itemUpdatedFetching || cartIsFetching} variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={() => this.props.history.push("/cart/address")}>
+                            <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> CHECKOUT
+                        </LoaderButton>                
+                    </div>  
+                    </Col>     
+                    <Col xs={12} lg={5} className="d-none d-lg-block" >
+                        <div className="productImgSection proDetailSec">
+                            <img src={proImg} className="imgProduct img-responsive"></img>
+                        </div>
+                    </Col>                                    
+                    </Row>
+                </Container>
+            </React.Fragment>
+            )
+       
+       
+        
+
+
+
+
+
+
+
+
+
+
+
+      
+        
+       
     }
 }
 
@@ -91,6 +151,7 @@ function mapStateToProps(state) {
     let cartIsFetching = _get(state, "cart.isFetching", false);
     let itemRemovedFetching = _get(state, "removeCart.isFetching");
     let itemUpdatedFetching = _get(state, "updateCart.isFetching");
+    let feeAmount = _get(state, "cart.lookUpData[0].fee_amount", 0);
 
     return {
         cartItems,
@@ -99,7 +160,8 @@ function mapStateToProps(state) {
         grandTotal,
         cartIsFetching,
         itemRemovedFetching,
-        itemUpdatedFetching
+        itemUpdatedFetching,
+        feeAmount
     }
 }
 

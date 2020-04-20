@@ -284,6 +284,9 @@ button:focus {
       padding: 0 2rem!important;
     }
   }
+  @media (max-width:575px){
+    min-width: 100%!important;
+  }
   &.transiBtn{
     background-color: rgba(255, 255, 255, .1) !important;
     color: #fff!important;
@@ -684,6 +687,9 @@ button:focus {
 .secMinHeight{
   min-height: calc(100vh - 180px);
 }
+.secMinHeightwt{
+  min-height: calc(100vh - 120px);
+}
 
 .leftSecmaxHeight{
   max-height: calc(100vh - 240px);
@@ -946,36 +952,53 @@ button:focus {
 }
 }
 
+.css-1wa3eu0-placeholder{
+  color: rgba(255, 255, 255, 0.4) !important
+}
 
+.css-tlfecz-indicatorContainer, .css-1gtu0rj-indicatorContainer{
+  padding: 4px!important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+.css-g1d714-ValueContainer{
+  padding: 0px!important;
+}
+
+.css-j9ijlg-control, .css-1nom80r-control{
+  min-height: 28px!important;
+}
+.css-1gtu0rj-indicatorContainer:hover{
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.cartContainer .CartItemParent .cartItemChild {
+  background: #5f9dc6!important;
+  border-radius: 8px!important;
+  box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.2)!important;
+}
 
 
 ////////////////////// Cart page css
-
-
-
-.cartContainer {
-  margin-top: 40px;
-  width: 100%;
-  color: white;
-
+.PriceSummaryParent .PriceSummaryChild:last-child span{font-size: 22px;}
+.cartContainer .CartItemParent .remove-cart-icon{font-size: 1.3rem!important;}
+.cartContainer .CartItemParent .cartItemChild{flex: 1;}
+.cartContainer { width: 100%; color: white;
   .CartItemParent {
     .CarItemMain {
       display: flex;
-      align-items: center;
-      padding: 10px;
+      flex-direction: row;      
+      flex: 1;
     }
     .cartItemChild {
       display: flex;
       justify-content: space-between;
       background: #6EA2C2;
       border-radius: 5px;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      margin: 10px;
-      min-height: 50px;
-      padding: 20px;
-      /* justify-content: center; */
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);     
+      min-height: 50px;          
       align-items: center;
     }
+    
     .remove-cart-icon {
       font-size: 0.8rem;
       display: flex;
@@ -985,11 +1008,19 @@ button:focus {
     }
   }
   .couponParent {
-    width: 100%;
-    padding: 10px 20px;
+    width: 100%;  
+    margin-top: 60px;
   }
+  .couponParent .form-control{
+    background: #41388b;
+    border: 0;
+    height: calc(1.5em + 2.85rem + 2px);
+    border-radius: 8px;
+  }
+  ::-webkit-input-placeholder {color: #fff;}
+  
   .PriceSummaryParent {
-    padding: 10px 20px;
+    padding: 10px 0px;
     .PriceSummaryChild {
       display: flex;
       justify-content: space-between;
@@ -1007,6 +1038,16 @@ button:focus {
     
   }
 }
+.additems{
+  display: flex;
+    width: 40%;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 15px;
+}
+.cartItemPrice{
+  margin-left: 15px;
+}
 
 .NoItemCart{
   display: flex;
@@ -1014,6 +1055,31 @@ button:focus {
   align-items: center;
   flex-direction: column;
   height: 50vh;
+}
+@media(min-width:992px) {
+  .cart-pro-img{
+     max-width: 55%;
+}
+
+}
+@media(max-width:575px){
+  .cartItemChild
+  {
+    .addQty{
+      justify-content: flex-start!important;
+      margin: 10px 0;
+  }
+  .additems{
+    flex-direction: column;
+      margin-left: 0;
+      align-items: flex-start;
+      width: 60%;
+  }
+  .cartItemPrice{
+    margin-left: 0;
+  }
+
+}
 }
 
 /////////////// Setting page Design
@@ -1207,4 +1273,14 @@ More info: https://stripe.com/docs/stripe-js/reference#element-options
 .StripeElementFpx {
   padding: 0;
 }
+}
+
+
+
+.loader-wrapper{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -3px;
+  margin-left: -25px;
 }

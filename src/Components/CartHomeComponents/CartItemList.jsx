@@ -2,11 +2,18 @@ import React from "react";
 import genericPostData from "../../Redux/Actions/genericPostData";
 import { connect } from "react-redux";
 import _ from "lodash";
+import {Container, Row, Col} from 'reactstrap'
+import proImg from '../../assets/images/party-can.png';
+import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
+import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
+import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
+
+
 
 class CartItemList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {cartItems:[]}
+        this.state = {cartItems:[]};
     }
     handleCartRemoveItem = (item) => {
         genericPostData({
@@ -55,6 +62,11 @@ class CartItemList extends React.Component {
         this.state.cartItems[index].qty = newQty;
         this.state.cartItems[index].row_total =  (parseFloat(this.state.cartItems[index].product_price)*parseInt(newQty)).toFixed(2);
         this.setState({cartItems:this.state.cartItems})
+        
+        if(newQty==0){
+            this.handleCartRemoveItem(item);
+            return;
+        }
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj,
@@ -67,26 +79,39 @@ class CartItemList extends React.Component {
     CartItemsRenderer = () => {
         return this.state.cartItems.map((item, key) => {
             return (
-                <div key={key} className="CarItemMain">
-                    <div style={{ width: this.props.width }} className="cartItemChild">
-                        <img height={50} width={50} src={item.image} alt="Product Image" />
-                        <div>{item.name}</div>
-                        <div>
-                            <i onClick={()=>this.updateQty(item,-1,key)}  style={{cursor:"pointer"}} class="fa fa-minus-circle cart-minus-icon" aria-hidden="true"></i>
-                             <span>{`   ${item.qty}   `}</span>
-                              <i onClick={()=>this.updateQty(item,+1,key)} style={{cursor:"pointer"}} class="fa fa-plus-circle" aria-hidden="true"></i>
-                        </div>
-                        {this.props.cartIsFetching?<span>Loading</span>:<span>{item.row_total}</span>}
-                    </div>
-                    <div className="remove-cart-icon" onClick={() => this.handleCartRemoveItem(item)}>
-                        <span>
-                            <i className="fa fa-times" aria-hidden="true"></i>
-                        </span>
-                        <div>
-                            Remove
-                    </div>
-                    </div>
-                </div>
+                <React.Fragment>
+                <Container fluid={true}>                
+                    <Row className="no-gutters">
+                        <Col className="d-flex order-2 order-md-1 align-self-start">
+                            <div key={key} className="CarItemMain align-items-center justify-content-between no-gutters row" >
+                                <div className="col-md-11 col-12 p-4 p-xl-5 cartItemChild">
+                                    <div className="d-flex align-items-center cart-pro-img ">
+                                        <img height={50} width={50} src={item.image} alt="Product Image" />
+                                        <div className="d-none d-sm-block">{item.name}</div>
+                                    </div>
+                                    <div className="additems">
+                                    <div className="d-block d-sm-none itemName">{item.name}</div>
+                                    <div className="d-flex align-items-center justify-content-between addQty ">
+                                       <span onClick={()=>this.updateQty(item,-1,key)}  style={{cursor:"pointer"}}><RemoveOutlinedIcon style={{ fontSize: 15 }} /></span>
+                                        <span class="Qty">{`   ${item.qty}   `}</span>
+                                        <span onClick={()=>this.updateQty(item,+1,key)} style={{cursor:"pointer"}} ><AddOutlinedIcon style={{ fontSize: 15 }} /></span>
+                                    </div>
+                                    {this.props.cartIsFetching?<span>Loading</span>:<span className="cartItemPrice">{item.row_total}</span>}
+                                    </div>
+                                    <div className="col-auto ml-3 d-block d-sm-none remove-cart-icon" onClick={() => this.handleCartRemoveItem(item)}>
+                                        <div className="mb-2"><CloseOutlinedIcon style={{ fontSize: 25 }} /> </div> 
+                                    </div>
+
+                                </div>
+                                <div className="col-auto ml-3 text-center d-none d-sm-block remove-cart-icon" onClick={() => this.handleCartRemoveItem(item)}>
+                                    <div className="mb-2"><CloseOutlinedIcon style={{ fontSize: 25 }} /> </div> 
+                                    <div>Remove</div>
+                                </div>
+                            </div>
+                 </Col>
+                </Row>
+                </Container>               
+            </React.Fragment>
             )
         })
     }

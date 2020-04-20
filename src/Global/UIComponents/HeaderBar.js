@@ -31,6 +31,10 @@ class HeaderBar extends React.Component {
         window.location.reload();
 
     }
+
+    handleSearchAction = () => {
+        this.props.history.push('/search')
+    }
     render() {
         const { classes } = this.props;
         return (
@@ -48,7 +52,7 @@ class HeaderBar extends React.Component {
                                 <img src={Logo} className="img-responsive"></img>
                             </Col>
                             <Col xs={'auto'} className="d-flex">
-                                <Button className="searchIcons icons"></Button>
+                                <Button onClick={this.handleSearchAction} className="searchIcons icons"></Button>
                                 <Badge badgeContent={this.props.total_items_count} color="primary">
                                     <Button onClick={() => this.props.history.push("/cart")} className="cartIcons icons ml-3"></Button>
                                 </Badge>

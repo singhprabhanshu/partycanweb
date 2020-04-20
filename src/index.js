@@ -49,6 +49,7 @@ import OrderStatusContainer from './Containers/Order/OrderStatus';
 import ProductMainSection from './Containers/Products/ProductMainSection';
 import ProductDetails from './Components/ProductComponents/ProductDetails';
 import PartyLocatorContainer from './Containers/PartyLocator/PartyLocatorContainer';
+import SearchProductsContainer from './Containers/Products/SearchProductsContainer';
 
 // commented temporarly
 
@@ -121,6 +122,7 @@ ReactDOM.render(
                 <RouteWithLayout Layout={MainLayout} exact path="/setting/:settingParam" Component={SettingContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/order/status" Component={OrderStatusContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/party/locator" Component={PartyLocatorContainer} />
+                <RouteWithLayout Layout={MainLayout} exact path="/search" Component={SearchProductsContainer} />
 
               </Switch>
             </Router>

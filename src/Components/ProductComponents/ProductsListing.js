@@ -57,25 +57,11 @@ class ProductsListing extends React.Component {
     }
 
     fetchProductDetails = (ProductID) => {
-    
-        genericGetData({
-            dispatch:this.props.dispatch,
-            url:`/index.php/connect/index/product?prodid=${ProductID}`,
-            constants:{
-            init:"PRODUCT_DETAILS_LIST_INIT",
-            success:"PRODUCT_DETAILS_LIST_SUCCESS",
-            error:"PRODUCT_DETAILS_LIST_ERROR" 
-            },
-            identifier:"PRODUCT_DETAILS_LIST",
-            successCb:this.productDetailsFetchSuccess(ProductID),
-            errorCb:this.productDetailsFetchError
-        })
-    }
-
-    productDetailsFetchSuccess = (ProductID) => {
         let categoryName = _get(this.props, `categoriesList[${this.props.tabValue}].category_name`, null)
         this.props.history.push(`/category/${categoryName}/product/${ProductID}`)
-        // this.setState({ showProductDetailsPage: true, prodId: ProductID })
+    }
+
+    productDetailsFetchSuccess = () => {
     }
 
     productDetailsFetchError = () => {

@@ -12,7 +12,9 @@ import _get from 'lodash/get';
 import LoginComponent from '../../Components/LoginComponents/login';
 import genericPostData from '../../Redux/Actions/genericPostData';
 import showMessage from '../../Redux/Actions/toastAction';
-import {Container, Row, Col} from 'reactstrap'
+import {Container, Row, Col} from 'reactstrap';
+import WithLoading from '../../Global/UIComponents/LoaderHoc';
+
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -59,10 +61,7 @@ class SignIn extends React.Component {
     }
 
     componentDidMount(){
-        // if(this.props.sessionRedirectToLogin){
-        //     this.setState({currentStep:3});
-        //     this.props.dispatch(commonActionCreater(false,'SESSION_START_REDIRECT_TO_LOGIN'));
-        // }
+        
     }
 
     onSubmit  = async values => {
@@ -89,7 +88,7 @@ class SignIn extends React.Component {
                              isSuccess: true
                         }));
             localStorage.setItem('Token', _get(data[0], 'result.api_token',''));
-            this.props.history.push('/category');
+            this.props.history.push('/home');
         } else {
             this.props.dispatch(showMessage({ text: message, isSuccess: false }));
         }
@@ -138,7 +137,7 @@ class SignIn extends React.Component {
                             </Row>
 
                             <Row className="justify-content-center align-items-ceenter">
-                                <Col xs={'auto'} >
+                                <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                     <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                         <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />SIGN IN</Button>
                                 </Col>                        
@@ -150,7 +149,7 @@ class SignIn extends React.Component {
                 </Container>
                         <Container className="container-custom">
                             <Row>
-                                <Col className="text-center" >
+                                <Col  className="text-center" >
                                     <Button variant="text" color="secondary" className="txtButton" onClick={this.createAccount} >CREATE ACCOUNT</Button>
                                 </Col>                        
                             </Row>
@@ -166,7 +165,7 @@ SignIn.propTypes = {
 
 
 function mapStateToProps(state) {
-let sessionRedirectToLogin = _get(state,'sessionRedirectToLogin.lookUpData');
-return {sessionRedirectToLogin}
+let isLoading = _get(state, 'userSignInInfo.isFetching')
+return {isLoading}
 }
-export default connect(mapStateToProps)(withStyles(styles)(SignIn));
+export default connect(mapStateToProps)(withStyles(styles)(WithLoading(SignIn)));
