@@ -6,21 +6,60 @@ import { SwitchInputField} from '../../Global/FormCompoents/wrapperComponent';
 import { Form, Field } from 'react-final-form';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import WithLoading from '../../Global/UIComponents/LoaderHoc';
-import {get as _get } from 'lodash';
+import {get as _get , isEmpty as _isEmpty} from 'lodash';
 import Switch from '@material-ui/core/Switch';
+import genericPostData from "../../Redux/Actions/genericPostData";
+import UserInfo from './UserInfo';
 
 class UserSetting extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            notification: false,
-            newsLetter: false
+            userSettingData: {},
+            newsLetter: false,
+            notification: false
         }
-      } 
+    }
+     
+    componentDidMount() {
+        this.getSettingData();
+    }
     
-    onSubmit = () => {
+    getSettingData = () => {
+        let reqData = {api_token: localStorage.getItem("Token")};
+        genericPostData({
+            dispatch: this.props.dispatch,
+            reqObj: reqData,
+            url: `api/account/mydashboard`,
+            constants: {
+                init: "GET_SETTING_DATA_INIT",
+                success: "GET_SETTING_DATA_SUCCESS",
+                error: "GET_SETTING_DATA_ERROR"
+            },
+            identifier: "GET_SETTING_DATA",
+            successCb: this.settingDataSuccess,
+            errorCb: this.settingDataFailure,
+            dontShowMessage:true
+        })
+    }
+
+    settingDataSuccess = (apiData) => {
+        if(apiData.code === 1) {
+            this.setState({
+                userSettingData: apiData.data,
+                newsLetter: apiData.data.newsletter_subscription === 1 ? true : false,
+                notification: apiData.data.notification === 1 ? true : false
+            })
+        }
+    }
+
+    settingDataFailure = () => {
 
     }
+
+    handleSwitchChange = (event) => {
+        this.setState({ [event.target.name]: event.target.checked });
+    };
       
     getFormatExpireMonth = (month) => {
         return month < 10 ? '0' + month : month;
@@ -35,7 +74,7 @@ class UserSetting extends React.Component {
     }
 
     render() {
-        let renderCardInfo = _get(this.props,'userInfo.list_cards',[]).map((data, index)=> {
+        let renderCardInfo = _get(this.state,'userSettingData.list_cards',[]).map((data, index)=> {
             return (<React.Fragment key={data+index}>
                 <div className=" d-flex flex-column flex-wrap" 
                     style={{color: '#00BFB2', fontSize: '1.5rem', fontWeight: 'bold'}}>
@@ -56,48 +95,7 @@ class UserSetting extends React.Component {
 
     return (
         <React.Fragment>
-            <div className="block-sub-title">YOUR INFORMATION</div>    
-            <div className="row CardsWrapper">               
-                <Card className="userInfoSettingCards  mb-5 ">
-                    <CardBody className="p-3 d-flex flex-column  w-100">
-                        {this.props.userInfo && <React.Fragment>
-                            <div className="pb-4"> 
-                               <div className=" d-flex flex-column flex-wrap">
-                                 FULL NAME
-                                </div>
-                                <div style={{color: '#00BFB2', fontSize: '1.5rem'}}>
-                                    {this.props.userInfo.name}
-                                </div>
-                            </div>
-                            <div className="pb-4">
-                                <div className=" d-flex flex-column flex-wrap">
-                                    PRIMARY ADDRESS
-                                </div>
-                                <div style={{color: '#00BFB2', fontSize: '1.5rem'}}>
-                                    {this.props.userInfo.address}
-                                </div>
-                            </div>
-                            <div className="pb-4">
-                                <div className=" d-flex flex-column flex-wrap">
-                                    EMAIL
-                                </div>
-                                <div style={{color: '#00BFB2', fontSize: '1.5rem'}}>
-                                    {this.props.userInfo.email}
-                                </div>
-                            </div>
-                            <div className="pb-4">
-                                <div className=" d-flex flex-column flex-wrap">
-                                    PASSWORD
-                                </div>
-                                <div style={{color: '#00BFB2', fontSize: '1.5rem'}}>
-                                    **********
-                                </div>
-                            </div>
-                        </React.Fragment>}                
-                    </CardBody>
-                </Card>
-            </div>
-
+            {this.state.userSettingData && <UserInfo userInfo={this.state.userSettingData} />}
             <div className="block-sub-title">YOUR PREFRENCES</div> 
             <div className="row CardsWrapper">              
                 <Card className="userPreferenceSetting  mb-5 ">
@@ -105,8 +103,8 @@ class UserSetting extends React.Component {
                       <div className=" d-flex flex-row flex-wrap justify-content-between align-items-center">
                           <label>NOTIFICATION</label>
                             <Switch
-                                checked={this.props.notification}
-                                onChange={(event)=> this.props.handleChange(event)}
+                                checked={this.state.notification}
+                                onChange={this.handleSwitchChange}
                                 name="notification"
                                 inputProps={{ 'aria-label': 'secondary checkbox' }}
                             />
@@ -114,8 +112,8 @@ class UserSetting extends React.Component {
                         <div className=" d-flex flex-row flex-wrap justify-content-between align-items-center">
                             <label>NEWSLETTER</label>
                             <Switch
-                                checked={this.props.newsLetter}
-                                onChange={(event) =>this.props.handleChange(event)}
+                                checked={this.state.newsLetter}
+                                onChange={this.handleSwitchChange}
                                 name="newsLetter"
                                 inputProps={{ 'aria-label': 'secondary checkbox' }}
                             />
@@ -127,7 +125,7 @@ class UserSetting extends React.Component {
             <div className="row CardsWrapper  mb-5 ">
                 <Card className="paymentcard active">
                     <CardBody className="p-3 d-flex flex-column  w-100">
-                         {this.props.userInfo && this.props.userInfo.list_cards && renderCardInfo}                                   
+                         {this.state.userSettingData && this.state.userSettingData.list_cards && renderCardInfo}                                   
                     </CardBody>
                 </Card>
                 <Card className="paymentcard">
