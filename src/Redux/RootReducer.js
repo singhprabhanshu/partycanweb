@@ -19,7 +19,7 @@ let productDetails = commonReducer("PRODUCT_DETAILS_LIST");
 let cartFlow = commonStaticReducer('CART_FLOW');
 let speed = commonReducer('FETCH_DELIVERY_OPTIONS');
 let cartTabValidation = commonStaticReducer('CART_TAB_VALIDATION');
-
+let userSettings = commonReducer("GET_SETTING_DATA");
 
 let rootRducer = combineReducers({
     zipCodeLocator,
@@ -36,6 +36,7 @@ let rootRducer = combineReducers({
     paymentMethods,
     speed,
     cartTabValidation,
+    userSettings
 })
 
 export default rootRducer;

@@ -12,9 +12,7 @@ import OrderSetting from '../../Components/SettingComponents/OrderSetting';
 import LivechatSetting from '../../Components/SettingComponents/LivechatSetting';
 import Scrollbar from "react-scrollbars-custom";
 import {isMobile, isTablet} from 'react-device-detect';
-const styles = theme => ({
-    
-});
+import genericPostData from "../../Redux/Actions/genericPostData";
 
 class SettingContainer extends React.Component {
 
@@ -23,17 +21,7 @@ class SettingContainer extends React.Component {
         this.state = {
             tabValue: 0,
             selectedTab: "",
-            userInfo: [{'value': 'AMAN KHANDELWAL', 'label': 'FULL NAME'},
-            {'label': 'PRIMARY ADDRESS','value': '1765 N Eston Avenue'},
-            {'label': 'EMAIL', 'value': 'partyCan@gmail.com'},
-            {'label': 'PASSWORD','value': '********'}],
-            savedCards : [{
-                "cardType": 'DEBIT',
-                "number": 1111,
-                "name": "PARTY CAN",
-                "CVC": "729",
-                "expiry": "02/22"
-            }],
+    
             orders: [{
                 orderNumber: 12224,
                 items: [{
@@ -64,13 +52,17 @@ class SettingContainer extends React.Component {
                 delivery: 4.99,
                 total: 47.99,
                 shipped: true
-            }]
+            }],
+
+            userSettingData: {},
+            newsLetter: false,
+            notification: false
         }
     }
 
     componentDidMount() {
-      const settingParam =  this.props.match.params.settingParam;
-
+        this.getSettingData();
+        const settingParam =  this.props.match.params.settingParam; 
         this.setState({ tabValue : settingParam === 'user' ? 0 :
         settingParam === 'order' ? 1 : settingParam === 'chat' ? 2 : null})
     }
@@ -84,14 +76,53 @@ class SettingContainer extends React.Component {
         return tabValue === 0 ? 'user' : tabValue === 1 ? 'order' : tabValue === 2 ? 'chat' : null
     }
 
+    getSettingData = () => {
+        let reqData = {api_token: localStorage.getItem("Token")};
+        genericPostData({
+            dispatch: this.props.dispatch,
+            reqObj: reqData,
+            url: `api/account/mydashboard`,
+            constants: {
+                init: "GET_SETTING_DATA_INIT",
+                success: "GET_SETTING_DATA_SUCCESS",
+                error: "GET_SETTING_DATA_ERROR"
+            },
+            identifier: "GET_SETTING_DATA",
+            successCb: this.settingDataSuccess,
+            errorCb: this.settingDataFailure,
+            dontShowMessage:true
+        })
+    }
+
+    settingDataSuccess = (apiData) => {
+        if(apiData.code === 1) {
+            this.setState({
+                userSettingData: apiData.data,
+                newsLetter: apiData.data.newsletter_subscription === 1 ? true : false,
+                notification: apiData.data.notification === 1 ? true : false
+            })
+        }
+    }
+
+    settingDataFailure = () => {
+
+    }
+
+    handleSwitchChange = (event) => {
+        this.setState({ [event.target.name]: event.target.checked });
+    };
 
     renderContent = (addresses) => {
         let commonContent = <>
          <div className="pr-lg-4" >
-                {this.state.tabValue === 0 && 
-            <UserSetting  userInfo={this.state.userInfo} savedCards={this.state.savedCards}/> } 
+            {this.state.tabValue === 0 && 
+                <UserSetting  userInfo={this.state.userSettingData} 
+                    newsLetter= {this.newsLetter}
+                    handleChange= {(event) =>this.handleSwitchChange(event)}
+                />
+            } 
             {this.state.tabValue === 1 && 
-            <OrderSetting  ordersInfo={this.state.orders}/> }
+                <OrderSetting  ordersInfo={this.state.orders}/> }
             {this.state.tabValue === 2 &&  <LivechatSetting /> }   
         </div>
          </>
@@ -127,7 +158,6 @@ class SettingContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
-
     return {}
 }
-export default connect(mapStateToProps)(withStyles(styles)(SettingContainer));
+export default connect(mapStateToProps)(SettingContainer);
