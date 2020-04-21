@@ -86,10 +86,12 @@ class OrderSetting extends React.Component {
                                     {renderItems(data.items)}
                                 </div>
                                 <div className="row">
-                                    <span style={{color: 'cadetblue', fontSize: '1.5rem'}}>
-                                        DELIVERY {data.delivery_fee}</span>
-                                    <span style={{color: 'cadetblue', fontSize: '1.5rem'}}>
-                                        TAX {data.tax}</span>
+                                    { data.delivery_fee && <span style={{color: 'cadetblue', fontSize: '1.5rem'}}>
+                                        DELIVERY {data.delivery_fee}</span> 
+                                    }
+                                    { data.tax && <span style={{color: 'cadetblue', fontSize: '1.5rem'}}>
+                                        TAX {data.tax}</span> 
+                                    }
                                 </div>
                                 <div className="row" style={{color: '#00BFB2', fontSize: '1.5rem'}}>
                                         <span>{data.status}</span>
