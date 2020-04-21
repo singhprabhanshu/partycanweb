@@ -647,7 +647,7 @@ class Speed extends React.Component {
                     <Col lg={6}  className="p-xl-5 p-4 order-2 d-flex flex-column order-md-1">
                                            
                     <div className="block-title mb-5">Delivery Options</div>
-                    {this.renderContent()}                       
+                    {this.renderContent(speed,retailer,shippingMethod,selectDate,availableTime)}                       
                     <div className="text-left mt-4" >
                         <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleDeliverySelect}>
                             <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> CONTINUE

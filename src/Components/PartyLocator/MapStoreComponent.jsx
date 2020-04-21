@@ -35,7 +35,7 @@ class MapStoreComponent extends React.Component {
         .fill()
         .map((item, i) => {
           return (
-            <Card  style={{ marginRight: 10 }}>
+            <Card  style={{ marginRight: 10, cursor: 'pointer' }} onClick={() => this.handleSotreOnClick(i)}>
               <CardImg top width="100%" src={hotelImage} alt="Hotel Image" />
                     <CardBody style={{ color: 'black'}}>
                         <div >
@@ -50,7 +50,13 @@ class MapStoreComponent extends React.Component {
         })
     }
      
-     
+    
+    handleSotreOnClick = (id) => {
+      console.log(id);
+      this.setState({
+        selectedStoreId: id
+      })
+    };
       handleOnSlideChange = (event) => {
         const { itemsInSlide, item } = event
         this.setState({ itemsInSlide, currentIndex: item })
