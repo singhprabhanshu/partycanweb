@@ -193,36 +193,6 @@ class Speed extends React.Component {
           isPrimary: _get(this.state, 'primarySelected') ?  false : findPrimarySpeed({ data: d, index}),
           enablePointer: findPointerEnable({ data: d, index })
         })),
-        
-        // retailer: _map(_get(data, 'data.retailer'), (d, index) => ({
-        //   id: _get(d, 'id'),
-        //   description: _get(d, 'description'),
-        //   name: _get(d, 'name'),
-        //   address: _get(d, 'address'),
-        //   price: _get(d, 'price'),
-        //   delivery_rate: _get(d, 'delivery_rate'),
-        //   distance: _get(d, 'distance'),
-        //   isPrimary: (index === 0) ? true : false
-        // })),
-        // date: _map(_get(data, 'data.date'), (d, index) => ({
-        //   id: _get(d, 'id'),
-        //   date: _get(d, 'date'),
-        //   description: _get(d, 'description'),
-        //   isPrimary: (index === 0) ? true : false
-        // })),
-        // time: _map(_get(data, 'data.time'), (d, index) => ({
-        //   id: _get(d, 'id'),
-        //   time: _get(d, 'time'),
-        //   description: _get(d, 'description'),
-        //   isPrimary: (index === 0) ? true : false
-        // })),
-        // shipping_method: _map(_get(data, 'data.shipping_method'), (d, index) => ({
-        //   id: _get(d, 'id'),
-        //   name: _get(d, 'name'),
-        //   rate: _get(d, 'rate'),
-        //   description: _get(d, 'description'),
-        //   isPrimary: (index === 0) ? true : false
-        // }))
       };
 
       
@@ -235,35 +205,12 @@ class Speed extends React.Component {
       const selectedSpeed = this.selectDeliverySpeed({ deliveryList });
       
       const selectedRetailer = this.selectRetailer({ selectedSpeedDelivery: selectedSpeed });
-      // console.log(selectedRetailer, 'retailer selected');
-      // let selectedDate = this.deliveryList && this.deliveryList.date.find(del => {
-      //   if (del.isPrimary === true) {
-      //     return del;
-      //   }
-      // });
-
-      // let selectedTime = this.deliveryList && this.deliveryList.time.find(del => {
-      //   if (del.isPrimary === true) {
-      //     return del;
-      //   }
-      // });
-      // debugger;
+      
       this.selectShipping({ selectedRetailer, selectedSpeedDelivery: selectedSpeed});
       this.setState({
         isLoading: false
       });
-      // this.setState({
-      //   ...this.state,
-      //   deliveryList: deliveryList,
-      //   // selectedSpeed: selectedSpeedDelivery,
-      //   // selectedRetailer: selectedRetailer,
-      //   // selectedShippingMethod: selectedShippingMethod,
-      //   // selectedSpeedDeliveryId: selectedSpeedDelivery.id,
-      //   // selectedRetailerId: selectedRetailer.id,
-      //   // selectedShippingMethodId: selectedShippingMethod.id,
-      //   // selectedDate: selectedDate.id,
-      //   // selectedTime: selectedTime.id
-      // });
+      
 
     };
 
@@ -307,6 +254,7 @@ class Speed extends React.Component {
     this.setState({
       selectedSpeedDeliveryId: selectedId,
       selectedSpeed: selectedSpeed,
+      primarySelected: true
     });
     const selectedRetailer = this.selectRetailer({ selectedSpeedDelivery: selectedSpeed });
     this.selectShipping({ selectedRetailer: selectedRetailer, selectedSpeedDelivery: selectedSpeed});
@@ -635,7 +583,7 @@ class Speed extends React.Component {
 
 
     // const { classes } = this.props;
-    
+    const buttonDisable = !_get(this.state, 'primarySelected');
     return (    
       <Container fluid={true}>                
       <Row className="no-gutters justify-content-lg-between secMinHeight">
@@ -649,7 +597,7 @@ class Speed extends React.Component {
                     <div className="block-title mb-5">Delivery Options</div>
                     {this.renderContent(speed,retailer,shippingMethod,selectDate,availableTime)}                       
                     <div className="text-left mt-4" >
-                        <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleDeliverySelect}>
+                        <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleDeliverySelect} disabled={buttonDisable}>
                             <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> CONTINUE
                         </Button>                
                     </div>
