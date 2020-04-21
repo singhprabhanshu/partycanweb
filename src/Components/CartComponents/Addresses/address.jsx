@@ -338,7 +338,7 @@ class Address extends React.Component {
                          </div>
                         </Col>
                         <Col lg={6} className="p-xl-5 p-4 d-flex flex-column order-2 order-md-1">
-                             {this.renderContent()}
+                             {this.renderContent(addresses)}
                         </Col>
                         
                     </Row>
