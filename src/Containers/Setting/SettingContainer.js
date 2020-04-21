@@ -19,43 +19,7 @@ class SettingContainer extends React.Component {
         super(props);
         this.state = {
             tabValue: 0,
-            selectedTab: "",
-    
-            orders: [{
-                orderNumber: 12224,
-                items: [{
-                    name: 'Triple Spice Magr',
-                    quatity: '1 CAN',
-                    price: 29.99
-                },
-                {
-                    name: "I'm Cold Sweater",
-                    quatity: '1',
-                    price: 36.99
-                }],
-                delivery: 4.99,
-                total: 47.99,
-                shipped: true
-            },{
-                orderNumber: 70224,
-                items: [{
-                    name: 'Beach Towel',
-                    quatity: '1 CAN',
-                    price: 29.99
-                },
-                {
-                    name: "I'm Cold Marg",
-                    quatity: '1',
-                    price: 36.99
-                }],
-                delivery: 4.99,
-                total: 47.99,
-                shipped: true
-            }],
-
-            userSettingData: {},
-            newsLetter: false,
-            notification: false
+            selectedTab: ""
         }
     }
 
@@ -78,10 +42,10 @@ class SettingContainer extends React.Component {
         let commonContent = <>
          <div className="pr-lg-4" >
             {this.state.tabValue === 0 && 
-                <UserSetting />
+                <UserSetting  tabValue = {this.state.tabValue}/>
             } 
             {this.state.tabValue === 1 && 
-                <OrderSetting  ordersInfo={this.state.orders}/> }
+                <OrderSetting  tabValue = {this.state.tabValue}/> }
             {this.state.tabValue === 2 &&  <LivechatSetting /> }   
         </div>
          </>

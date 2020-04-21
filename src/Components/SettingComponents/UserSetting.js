@@ -1,9 +1,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
-import { SwitchInputField} from '../../Global/FormCompoents/wrapperComponent';
-import { Form, Field } from 'react-final-form';
+import { Card, CardBody} from 'reactstrap';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import WithLoading from '../../Global/UIComponents/LoaderHoc';
 import {get as _get , isEmpty as _isEmpty} from 'lodash';
@@ -22,7 +20,9 @@ class UserSetting extends React.Component {
     }
      
     componentDidMount() {
-        this.getSettingData();
+        if(this.props.tabValue === 0) {
+            this.getSettingData();
+        }
     }
     
     getSettingData = () => {
