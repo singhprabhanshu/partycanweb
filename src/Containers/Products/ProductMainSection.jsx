@@ -88,6 +88,10 @@ categoriesFetchError = () => {
 redirectToCategories = (category) => {
     this.props.history.push(`/category/${category.category_name}`)
 }
+
+redirectToCansPage = () => {
+    this.props.history.push('/category/Cans')
+}
     
 
     render() {
@@ -108,8 +112,10 @@ redirectToCategories = (category) => {
         return (
             <React.Fragment>
                 <CssBaseline />
-                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                    <h1>SHOP</h1>
+                <div style={{ borderBottomLeftRadius: "50px", borderBottomRightRadius: "50px", height: "350px", background: "white", display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                    <div><h1 style={{ marginRight: "-80px", color: "black" }}>SHOP</h1></div>
+                    <div onClick={this.redirectToCansPage} style={{ marginTop: "45px" }}><img src={proImg} alt="Smiley face" height="250" width="100"></img></div>
+                    
                     </div>
                 <div className="productsList">
                     {CategoryList}
