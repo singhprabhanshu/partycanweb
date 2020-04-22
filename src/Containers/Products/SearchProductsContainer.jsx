@@ -58,13 +58,13 @@ class SearchProductsContainer extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline />   
-                <Container fluid={true}  className="">
+                <Container fluid={true}  className="search-panel">
                 <div>
-      <InputGroup>
+      <InputGroup>       
+        <Input style={{ height: "50px" }} placeholder="SEARCH PRODUCTS" />
         <InputGroupAddon addonType="prepend">
           <InputGroupText  style={{ width: "50px", height: "50px" }}><SearchOutlined style={{ width: "3em", height: "3em" }} /></InputGroupText>
         </InputGroupAddon>
-        <Input style={{ background: "#0033A0", height: "50px" }} placeholder="SEARCH PRODUCTS" />
       </InputGroup>
       </div>
                 </Container>
