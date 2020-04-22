@@ -6,6 +6,7 @@ import { map as _map, findIndex as _findIndex, find as _find, get as _get } from
 import {Container, Row, Col} from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 import SearchOutlined from '@material-ui/icons/SearchOutlined'
+import genericPostData from "../../Redux/Actions/genericPostData";
 
 const styles = theme => ({
     main: {
@@ -53,6 +54,31 @@ class SearchProductsContainer extends React.Component {
     componentDidMount() {
     }    
 
+    handleSearchProducts = (e) => {
+        let searchRequest = _get(e, "target.value", "");
+        genericPostData({
+            dispatch:this.props.dispatch,
+            reqObj: { q: searchRequest },
+            url:`/index.php/connect/index/search?q=${searchRequest}`,
+            constants:{
+            init:"SEARCH_PRODUCTS_LIST_INIT",
+            success:"SEARCH_PRODUCTS_LIST_SUCCESS",
+            error:"SEARCH_PRODUCTS_LIST_ERROR" 
+            },
+            identifier:"SEARCH_PRODUCTS_LIST",
+            successCb:this.searchProductsFetchSuccess,
+            errorCb:this.searchProductsFetchError
+        })
+    }
+
+    searchProductsFetchSuccess = () => {
+
+    }
+
+    searchProductsFetchError = () => {
+
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -64,7 +90,7 @@ class SearchProductsContainer extends React.Component {
         <InputGroupAddon addonType="prepend">
           <InputGroupText  style={{ width: "50px", height: "50px" }}><SearchOutlined style={{ width: "3em", height: "3em" }} /></InputGroupText>
         </InputGroupAddon>
-        <Input style={{ background: "#0033A0", height: "50px" }} placeholder="SEARCH PRODUCTS" />
+        <Input onChange={(e)=>this.handleSearchProducts(e)} style={{ background: "#0033A0", height: "50px" }} placeholder="SEARCH PRODUCTS" />
       </InputGroup>
       </div>
                 </Container>
