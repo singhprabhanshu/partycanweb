@@ -92,9 +92,10 @@ class Address extends React.Component {
         })
     
         this.setState({
-            selectedAddress: selectedAddress.id,
+            selectedAddress: _get(selectedAddress, 'id'),
             userAddress: addressList,
             isLoading: false,
+            isAddressSelected: _isEmpty(selectedAddress) ? false : true
         });
     };
 
@@ -133,7 +134,8 @@ class Address extends React.Component {
 
     handleCardClick = (selectedId) => {
         this.setState({
-            selectedAddress: selectedId
+            selectedAddress: selectedId,
+            isAddressSelected: true
           });
     };
 
@@ -215,6 +217,12 @@ class Address extends React.Component {
         this.props.handleTabOnContinue('speed');
     }
 
+    handleGoBack = () => {
+        this.setState({
+            isAddressFormShown: this.state.isAddressFormShown ? false : true
+        });
+    }
+
     renderContent = (addresses) => {
         let commonContent = <>
             <div className="pr-lg-4" > 
@@ -225,13 +233,13 @@ class Address extends React.Component {
                         {addresses}
                     </div> 
                     <div className="text-left mt-4" >
-                        <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleCardSelect}>
+                        <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" disabled={!_get(this.state, 'isAddressSelected', false)} onClick={this.handleCardSelect}>
                             <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE & CONTINUE
                         </Button>
                     </div> 
                 </div>
                 <div style={styles(this.state).addressFormShow}> 
-                        <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} />ADDRESS</div>
+                        <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} onClick={this.handleGoBack} />ADDRESS</div>
                         <Form onSubmit= {this.onSubmit} validate={validate}
                                 render={({ handleSubmit }) => (
                             <form onSubmit={handleSubmit}>

@@ -7,6 +7,7 @@ import genericGetData from "../../Redux/Actions/genericGetData";
 import { isEmpty as _isEmpty } from 'lodash';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 import WithLoading from '../../Global/UIComponents/LoaderHoc';
+import proImg from '../../assets/images/party-can.png';
 
 const styles = theme => ({
 });
@@ -45,6 +46,10 @@ categoriesFetchError = () => { }
 redirectToCategories = (category) => {
     this.props.history.push(`/category/${category.category_name}`)
 }
+
+redirectToCansPage = () => {
+    this.props.history.push('/category/Cans')
+}
     
 
     render() {
@@ -65,8 +70,10 @@ redirectToCategories = (category) => {
         return (
             <React.Fragment>
                 <CssBaseline />
-                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                    <h1>SHOP</h1>
+                <div style={{ borderBottomLeftRadius: "50px", borderBottomRightRadius: "50px", height: "350px", background: "white", display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                    <div><h1 style={{ marginRight: "-80px", color: "black" }}>SHOP</h1></div>
+                    <div onClick={this.redirectToCansPage} style={{ marginTop: "45px" }}><img src={proImg} alt="Smiley face" height="250" width="100"></img></div>
+                    
                     </div>
                 {this.props.categoriesList && this.props.categoriesList.length > 0 && 
                 <div className="productsList">

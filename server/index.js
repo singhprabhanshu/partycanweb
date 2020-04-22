@@ -255,6 +255,32 @@ app.post("/api/account/mydashboard",(req,res)=>{
   })
 });
 
+app.post("/api/account/myorders",(req,res)=>{
+  let p1 = axios.post(`${application_bff_url}/api/account/myorders`, req.body);
+  p1.then((apiRespo)=>{
+   res.setHeader('Content-Type', 'application/json');
+   res.send(apiRespo.data);
+  })
+  p1.catch((err)=>{
+      res.setHeader('Content-Type', 'application/json');
+      res.send(err)
+  })
+});
+
+app.post("/index.php/connect/index/search",(req,res)=>{
+  const searchRequest = req.query.searchRequest;
+  let p1 = axios.post(`${application_bff_url}/index.php/connect/index/search?q=${searchRequest}`, {});
+  p1.then((apiRespo)=>{
+    res.setHeader('Content-Type', 'application/json');
+    res.send(apiRespo.data);
+   })
+   p1.catch((err)=>{
+       res.setHeader('Content-Type', 'application/json');
+       res.send(err)
+ 
+   })
+})
+
 app.listen(3001, () =>
   console.log('Express server is running on localhost:3001')
 );
