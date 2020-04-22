@@ -215,8 +215,7 @@ class ProductDetails extends React.Component {
              </Col>
             
         </Row>
-
-        { !_isEmpty(Ingredients) ? 
+            { !_isEmpty(Ingredients) ? 
                 <div className="proItems d-flex flex-column mb-4">
                     <div  className="mb-3 title-2">INGREDIENTS</div>
                     <div className="ingredientsList">
@@ -224,8 +223,6 @@ class ProductDetails extends React.Component {
                     </div>
                 </div>
             : ""}
-
-          
         <div style={{ marginTop: "50px" }}>
             <Row>
                 <Col  className="d-flex flex-column mb-5" xs={6} sm={4} xl={3}>
@@ -236,11 +233,11 @@ class ProductDetails extends React.Component {
                         <span><AddOutlined style={{fontSize:"15px"}} onClick={() => this.handleQuantity("add")} /></span>
                     </div>
                 </Col>
-                <Col  className="d-flex  flex-column mb-4"  xs={6}  sm={4} xl={3}>
+                <Col  className="d-flex  flex-column mb-4"  xs={6}  sm={4} xl={4}>
                     <span className="smallTitle">FROM</span>
                     <span className="finalProprice">${!_isEmpty(this.state.productPrice) ? this.state.productPrice : _get(productDetailsData, "price", "")}</span>
                 </Col>
-                <Col  className="d-flex  flex-column"  xs={12} sm={4} xl={3}>
+                <Col  className="d-flex  flex-column"  xs={12} sm={4} xl={4}>
                     <span className="smallTitle">DELIVERED COLD IN - 1 HR</span>
                     <div className="snowFlakes">
                         <span></span> 
@@ -316,7 +313,7 @@ class ProductDetails extends React.Component {
             
             <React.Fragment>
             <Container fluid={true} className="productDetails"> 
-        <ProductTabs
+                <ProductTabs
                 tabValue={this.state.tabValue}
                 handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
                 />       
