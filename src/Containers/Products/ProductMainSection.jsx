@@ -56,23 +56,24 @@ redirectToCansPage = () => {
         const { categoriesList, classes } = this.props;
         let CategoryList = []
         !_isEmpty(categoriesList) && categoriesList.map((category, index)=>{
-            CategoryList.push(
-                <Card style={{ height: "200px" }} onClick={()=>this.redirectToCategories(category)} >
-                    <div className="prodcutMinDetails">
-                        <CardImg style={{ maxHeight: "15rem" }} src={category.category_image} alt="Card image cap" />
-                        <CardBody>
-                        <CardTitle className=" text-white text-center text-uppercase">{category.category_name}</CardTitle>
-                        </CardBody>
-                    </div>
+            CategoryList.push(        
+
+                <Card onClick={()=>this.redirectToCategories(category)}>
+                <div className="prodcutMinDetails">
+                    <CardImg src={category.category_image} alt="Card image cap" />
+                    <CardBody>
+                    <CardTitle className=" text-white text-center text-uppercase">{category.category_name}</CardTitle>
+                    </CardBody>
+                </div>
                 </Card>
             )
         })
         return (
             <React.Fragment>
                 <CssBaseline />
-                <div style={{ borderBottomLeftRadius: "50px", borderBottomRightRadius: "50px", height: "350px", background: "white", display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                    <div><h1 style={{ marginRight: "-80px", color: "black" }}>SHOP</h1></div>
-                    <div onClick={this.redirectToCansPage} style={{ marginTop: "45px" }}><img src={proImg} alt="Smiley face" height="250" width="100"></img></div>
+                <div style={{height: "350px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                    <div class="block-title p-5">SHOP</div>
+                    <div onClick={this.redirectToCansPage} className="d-flex justify-content-center mt-4 mb-4"><img src={proImg} alt="Smiley face" height="250" width="100"></img></div>
                     
                     </div>
                 {this.props.categoriesList && this.props.categoriesList.length > 0 && 
