@@ -20,7 +20,7 @@ import genericPostData from "../../../Redux/Actions/genericPostData"
 import { connect } from "react-redux";
 import _get from "lodash/get";
 import { commonActionCreater } from "../../../Redux/Actions/commonAction";
-
+import {isMobile, isTablet} from 'react-device-detect';
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const onSubmit = async values => {
@@ -73,23 +73,13 @@ class CardComponent extends React.Component {
             identifier: "GET_PAYMENTMETHODS"
         })
     }
-    render() {
-        return (
-            <React.Fragment>
-                <Container fluid={true}>
-                    <Row className="no-gutters justify-content-lg-between secMinHeight">
-                        <Col lg={5} className="order-1 d-none d-lg-block order-md-2">
-                            <div className="productImgSection">
-                                <img src={proImg} className="imgProduct img-responsive"></img>
-                            </div>
-                        </Col>
-                        <Col lg={7} className="p-5">
-                            <Scrollbar className="leftSecmaxHeight">
-                                <div className="pr-lg-4" >
+    renderContent = (addresses) => {
+        let commonContent = <>
+        <div className="pr-lg-4" >
                                     {!this.state.addCard ?
                                         <>
                                             <React.Fragment>
-                                                <div className="block-title mb-4">SAVED CARDS</div>
+                                               
                                                 <div className="CardsWrapper d-flex align-items-center flex-wrap">
                                                     <Card className="addnewcard" onClick={this.addNewCard} onClick={this.addCardFunction}>
                                                         <CardBody className="p-3 d-flex align-items-center justify-content-center flex-column ">
@@ -105,7 +95,7 @@ class CardComponent extends React.Component {
                                                                     issuer={values.brand}
                                                                     preview={true}
                                                                     name={values.name || ''}
-                                                                    expiry={values.card_exp_month + values.card_exp_year || ''}
+                                                                    expiry={Number(values.card_exp_month)<10?`0${values.card_exp_month}${values.card_exp_year}`:values.card_exp_month + values.card_exp_year || ''}
                                                                     cvc={values.cvc || ''}
                                                                     className="ccCard"
 
@@ -119,15 +109,37 @@ class CardComponent extends React.Component {
                                         </> : null}
 
                                     {this.state.addCard ? <AddCard handleContinueFromNewCard={this.handleContinueFromNewCard} /> : null}
-                                    {!this.state.addCard ?
-                                        <div className="text-left mt-4" >
-                                            <Button variant="contained" onClick={this.handleContinueFromExistingCard} disabled={!this.state.selectedCard} color="primary" className="bottomActionbutton cartActionBtn" type="submit">
-                                                <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> Continue
-                        </Button>
-                                        </div>
-                                        : null}
+                                    
                                 </div>
-                            </Scrollbar>
+         </>
+        if(isMobile || isTablet){
+            return <div>{commonContent}</div>
+        }
+        else{
+        return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        }
+      }
+
+    render() {
+        return (
+            <React.Fragment>
+                <Container fluid={true}>
+                    <Row className="no-gutters justify-content-lg-between secMinHeight">
+                        <Col lg={5} className="order-1 d-none d-lg-block order-md-2">
+                            <div className="productImgSection">
+                                <img src={proImg} className="imgProduct img-responsive"></img>
+                            </div>
+                        </Col>
+                        <Col lg={7} className="p-xl-5 p-4 flex-column d-flex">
+                            <div className="block-title mb-4">SAVED CARDS</div>
+                             {this.renderContent()}    
+                            {!this.state.addCard ?
+                                    <div className="text-left mt-4" >
+                                        <Button variant="contained" onClick={this.handleContinueFromExistingCard} disabled={!this.state.selectedCard} color="primary" className="bottomActionbutton cartActionBtn" type="submit">
+                                            <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> Continue
+                                        </Button>
+                                    </div>
+                            : null}                        
                         </Col>
 
                     </Row>
