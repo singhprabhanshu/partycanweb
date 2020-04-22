@@ -7,6 +7,7 @@ import genericGetData from "../../Redux/Actions/genericGetData";
 import { isEmpty as _isEmpty } from 'lodash';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 import WithLoading from '../../Global/UIComponents/LoaderHoc';
+import proImg from '../../assets/images/party-can.png';
 
 const styles = theme => ({
 });
