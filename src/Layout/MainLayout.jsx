@@ -74,7 +74,7 @@ class MainLayout extends React.Component {
      />}
      </div>
      </div>
-     <Footer />
+     <Footer  />
    </>
    if(isMobile || isTablet){
    return <div className="mainLayout">{commonContent}</div>
