@@ -32,6 +32,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import {isMobile, isTablet} from 'react-device-detect';
 import { Loader } from '../../Global/UIComponents/LoaderHoc';
+import AliceCarousel from 'react-alice-carousel'
+import 'react-alice-carousel/lib/alice-carousel.css'
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -74,7 +76,8 @@ class ProductDetails extends React.Component {
             productPrice: "",
             showReviews: false,
             slideIndex: 0,
-            isLoading: true
+            isLoading: true,
+            responsive: { 0: { items: 5 } }
         }
     }
 
@@ -151,6 +154,12 @@ class ProductDetails extends React.Component {
         })
     }
 
+    thumbItem = (item, i) => (
+        <span key={item} onClick={() => this.Carousel.slideTo(i)}>
+          *{' '} 
+        </span>
+      )
+
     fetchCartAgain = (data) => {
         let reqObj = {
             "api_token": localStorage.getItem("Token")
@@ -218,9 +227,15 @@ class ProductDetails extends React.Component {
             { !_isEmpty(Ingredients) ? 
                 <div className="proItems d-flex flex-column mb-4">
                     <div  className="mb-3 title-2">INGREDIENTS</div>
-                    <div className="ingredientsList">
-                        {Ingredients}
-                    </div>
+                    
+                    {/* <div className="ingredientsList">
+                    <AliceCarousel
+                        items={Ingredients}
+                        responsive={this.state.responsive}
+                        buttonsDisabled={true}
+                    />
+                    </div> */}
+                    
                 </div>
             : ""}
         <div style={{ marginTop: "50px" }}>
@@ -275,16 +290,12 @@ class ProductDetails extends React.Component {
         console.log("product details", this.props.productDetailsData)
         let Ingredients = []
         const { productDetailsData } = this.props;
-        !_isEmpty(productDetailsData.ingredients) && productDetailsData.ingredients.map((ingredient, index) => {
-            Ingredients.push(
-                <Card>
-                    <CardImg src={ingredient.image} alt="Card image cap" />
-                    <CardBody>
-                        <CardTitle className="ingredientLabel">{ingredient.title}</CardTitle>
-                    </CardBody>
-                </Card>
-            )
-        })
+        Ingredients =  !_isEmpty(productDetailsData.ingredients) && productDetailsData.ingredients.map((ingredient, index) => <Card>
+        <CardImg src={ingredient.image} alt="Card image cap" />
+        <CardBody>
+            <CardTitle className="ingredientLabel">{ingredient.title}</CardTitle>
+        </CardBody>
+        </Card>)
         let totalRating = 0;
         !_isEmpty(productDetailsData.reviews) && productDetailsData.reviews.map((review, index) => {
             totalRating += Number(review.rating)
