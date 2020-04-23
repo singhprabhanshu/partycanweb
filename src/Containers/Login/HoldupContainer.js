@@ -29,7 +29,7 @@ class HoldupContainer extends React.Component {
     onSubmit  = async values => {
         genericGetData({
             dispatch:this.props.dispatch,
-            url:`index.php/connect/index/getlocation?zipcode=${values.zipcode}`,
+            url:`/connect/index/getlocation?zipcode=${values.zipcode}`,
             constants:{
             init:"ZIPCODE_LOCATOR_INIT",
             success:"ZIPCODE_LOCATOR_SUCCESS",
