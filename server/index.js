@@ -12,8 +12,8 @@ app.use(cors());
 
 const application_bff_url = "https://uat.drinkpartycan.com";
 
-app.get("/index.php/connect/index/banners",(req,res)=>{
-  let p1 = axios.get(`${application_bff_url}/index.php/connect/index/banners`);
+app.get("/connect/index/banners",(req,res)=>{
+  let p1 = axios.get(`${application_bff_url}/connect/index/banners`);
   p1.then((apiRespo)=>{
    res.setHeader('Content-Type', 'application/json');
    res.send(apiRespo.data);
@@ -24,9 +24,9 @@ app.get("/index.php/connect/index/banners",(req,res)=>{
 })
 });
 
-app.get("/index.php/connect/index/getlocation",(req,res)=>{
+app.get("/connect/index/getlocation",(req,res)=>{
   const zipcode = req.query.zipcode;
-  let p1 = axios.get(`${application_bff_url}/index.php/connect/index/getlocation?zipcode=${zipcode}`);
+  let p1 = axios.get(`${application_bff_url}/connect/index/getlocation?zipcode=${zipcode}`);
   p1.then((apiRespo)=>{
    res.setHeader('Content-Type', 'application/json');
    res.send(apiRespo.data);
@@ -135,9 +135,9 @@ app.get("/connect/index/categorylist",(req,res)=>{
 
 })
 
-app.get("/index.php/connect/index/category",(req,res)=>{
+app.get("/connect/index/category",(req,res)=>{
   const categoryID = req.query.catid;
-  let p1 = axios.get(`${application_bff_url}/index.php/connect/index/category?catid=${categoryID}`);
+  let p1 = axios.get(`${application_bff_url}/connect/index/category?catid=${categoryID}`);
   p1.then((apiRespo)=>{
     res.setHeader('Content-Type', 'application/json');
     res.send(apiRespo.data);
@@ -149,9 +149,9 @@ app.get("/index.php/connect/index/category",(req,res)=>{
    })
 })
 
-app.get("/index.php/connect/index/product",(req,res)=>{
+app.get("/connect/index/product",(req,res)=>{
   const ProductID = req.query.prodid;
-  let p1 = axios.get(`${application_bff_url}/index.php/connect/index/product?prodid=${ProductID}`);
+  let p1 = axios.get(`${application_bff_url}/connect/index/product?prodid=${ProductID}`);
   p1.then((apiRespo)=>{
     res.setHeader('Content-Type', 'application/json');
     res.send(apiRespo.data);
@@ -267,9 +267,9 @@ app.post("/api/account/myorders",(req,res)=>{
   })
 });
 
-app.post("/index.php/connect/index/search",(req,res)=>{
+app.post("/connect/index/search",(req,res)=>{
   const searchRequest = req.query.searchRequest;
-  let p1 = axios.post(`${application_bff_url}/index.php/connect/index/search?q=${searchRequest}`, {});
+  let p1 = axios.post(`${application_bff_url}/connect/index/search?q=${searchRequest}`, {});
   p1.then((apiRespo)=>{
     res.setHeader('Content-Type', 'application/json');
     res.send(apiRespo.data);

@@ -82,22 +82,33 @@ class OrderSetting extends React.Component {
                             </div>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                                <div className="row" style={{width: '550px'}}>
-                                    {renderItems(data.items)}
+                                <div className = "row">
+                                    <div className="col-md-12">
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                {renderItems(data.items)}
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                            <span style={{color: 'cadetblue', fontSize: '1.5rem'}}>
+                                                DELIVERY {data.delivery_fee}
+                                            </span> 
+                                            <span style={{color: 'cadetblue', fontSize: '1.5rem'}}>
+                                                TAX {data.tax}
+                                            </span>
+                                            </div> 
+                                        </div>
+                                        <div className="row" style={{color: '#00BFB2', fontSize: '1.5rem'}}>
+                                            <div className="col-md-12">
+                                                <span>{data.status}</span>
+                                                <span style={{color: 'cadetblue'}}>TOTAL</span>
+                                                <span style={{ color: 'blue'}}>{data.grand_total}</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="row">
-                                    { data.delivery_fee && <span style={{color: 'cadetblue', fontSize: '1.5rem'}}>
-                                        DELIVERY {data.delivery_fee}</span> 
-                                    }
-                                    { data.tax && <span style={{color: 'cadetblue', fontSize: '1.5rem'}}>
-                                        TAX {data.tax}</span> 
-                                    }
-                                </div>
-                                <div className="row" style={{color: '#00BFB2', fontSize: '1.5rem'}}>
-                                        <span>{data.status}</span>
-                                        <span style={{color: 'cadetblue'}}>TOTAL</span>
-                                        <span style={{ color: 'blue'}}>{data.grand_total}</span>
-                                </div>
+                                
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
             </React.Fragment> )
