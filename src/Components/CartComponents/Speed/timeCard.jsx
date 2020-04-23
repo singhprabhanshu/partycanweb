@@ -15,8 +15,8 @@ class TimeCard extends Component {
     render() {
         return (
             <React.Fragment>              
-                    <Card>
-                        <CardBody className="cardStyles timeCards active" >                            
+                    <Card className="dateTimerCardscontainer">
+                        <CardBody className="cardStyles dateTimerCards active" >                            
                             <div style={{ fontSize: 15  }}>
                                 {this.props.availableTime}
                             </div>

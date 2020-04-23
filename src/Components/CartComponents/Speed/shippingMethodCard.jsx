@@ -13,15 +13,15 @@ class ShippingMethodCard extends Component {
 
     _getRootCardClass = ({ selectedId, id }) => {
         if (id === selectedId) {
-            return "cardStyles deliveryCards active";
+            return "cardStyles shippingCards active";
         }
-        return "cardStyles deliveryCards";
+        return "cardStyles shippingCards";
         
     };
     render() {
         return (
             <React.Fragment>                
-                    <Card>
+                    <Card className="shippingCardscontainer">
                         <CardBody className={this._getRootCardClass({ selectedId: this.props.selectedShippingMethod, id: this.props.data.id})}  onClick={() => this.props.changeShippingMethodOpacity(this.props.data.id)}>
                             <div style={{ fontSize: 8, marginBottom: 10 }}>
                                 {this.props.data.method}
