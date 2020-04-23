@@ -798,78 +798,72 @@ button:focus {
   // overflow: auto;
   margin: 0 -1rem;
 
-.card{
-  background-color: rgba(255, 255, 255, .3)!important;
-  width: 100%;  
-  border-radius: .5rem!important;
-  color:#fff!important;
-  transition: ease all .3s;
-  padding: 1.5rem;
-  margin: 1rem;
+.card{  
+  width: 50%;    
+  color:#fff!important;  
+  padding: 1rem;
+  background-color: transparent!important;
   cursor: pointer;
+  border: 0!important;
 
-  &.addressCards{
-    max-width: 47%;
-    min-height: 15rem;
+  .cardStyles{
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, .3)!important;
+    transition: ease all .3s;
+    border-radius: .5rem!important;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+ 
+  &.addressCards{   
+    min-height: 15rem;   
+    justify-content: flex-start;   
+  }
+
+  &.addAddressCards{   
+    min-height: 15rem;
+  }
+
+  &.addnewcard {   
+    min-height: 18rem;
+    border-radius: 14.5px!important;
   }
 
   &.speedCards{
     max-width: 20rem;
-    min-height: 8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: 8rem;   
+  }
+
+  &.timeCards{
+    max-width: 20rem;
+    min-height: 8rem;  
   }
 
   &.deliveryCards{
     max-width: 15rem;
-    min-height: 8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: 8rem;   
   }
 
   &.retailerCards{
     max-width: 15rem;
-    min-height: 8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: 8rem;   
   }
 
   &.dateTimerCards{
     max-width: 10rem;
-    min-height: 7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: 7rem;   
   }
 
   &.paymentcard {      
     max-width: 25rem;
-    min-height: 15rem;
-    display: flex;
-    align-items: center;
+    min-height: 15rem;  
     justify-content: flex-start;
     @media(max-width:992px){
       max-width: 100%;
     }
 
   } 
-
-  &.addnewcard {
-    max-width: 29rem;
-    min-height: 18rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    border-radius: 14.5px!important;
-  }
-
- 
 
   &.userPreferenceSetting, &.userInfoSettingCards{
     max-width: 25rem;
@@ -909,7 +903,7 @@ button:focus {
       letter-spacing: .2rem;
     }
   }
-
+ }
 }
 
 .ccCardsList {

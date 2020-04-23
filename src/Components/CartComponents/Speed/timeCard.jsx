@@ -3,23 +3,7 @@ import { Card,  CardBody, Button } from 'reactstrap';
 
 
 const styles = (props) => ({
-    root: {
-        height: 50,
-        width: 100,
-        // marginTop: 10,
-        marginRight: "20px",
-        // marginLeft: '20px',
-        // marginBottom: '20px',
-        borderRadius: 10,
-        backgroundColor: 'rgba(255,255,255,1)',
-        color: props.selectedCardColor,
-    },
-    cardBody: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+   
 });
 
 
@@ -27,14 +11,12 @@ class TimeCard extends Component {
   constructor(props){
     super(props);
   } 
-    _getRootCardClass = () => 'active';
+    // _getRootCardClass = () => 'active';
     render() {
         return (
-            <React.Fragment>
-                {/* <a style={{ cursor: 'pointer' }} onClick={() => this.props.changeTimeOpacity(this.props.data.id)} > */}
-                    <Card style={styles(this.props).root} className={this._getRootCardClass()}>
-                        <CardBody style={styles(this.props).cardBody} >
-                            
+            <React.Fragment>              
+                    <Card>
+                        <CardBody className="cardStyles timeCards active" >                            
                             <div style={{ fontSize: 15  }}>
                                 {this.props.availableTime}
                             </div>
@@ -43,7 +25,7 @@ class TimeCard extends Component {
                             </div>
                         </CardBody>
                     </Card>
-                {/* </a> */}
+               
             </React.Fragment>
         
         );

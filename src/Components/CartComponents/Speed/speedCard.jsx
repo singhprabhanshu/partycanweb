@@ -22,11 +22,11 @@ class SpeedCard extends Component {
   } 
   _getRootCardClass = ({ selectedId, id, enablePointer }) => {
       if (id === selectedId) {
-          return "speedCards active";
+          return "cardStyles speedCards active";
       } else if (enablePointer) {
-        return "speedCards";
+        return "cardStyles speedCards";
       } else {
-        return "speedCards disable";
+        return "cardStyles speedCards disable";
       }
       
   };
@@ -34,8 +34,8 @@ class SpeedCard extends Component {
         const {classes} = this.props;
         return (
             <React.Fragment>                
-                    <Card className={this._getRootCardClass({ selectedId: this.props.selectedTransportAddress, id: this.props.data.id, enablePointer: this.props.data.enablePointer})} onClick={() => this.props.changeOpactiy(this.props.data.id)} >
-                        <CardBody className="d-flex flex-column align-items-center">
+                    <Card >
+                        <CardBody className={this._getRootCardClass({ selectedId: this.props.selectedTransportAddress, id: this.props.data.id, enablePointer: this.props.data.enablePointer})} onClick={() => this.props.changeOpactiy(this.props.data.id)} >
                         <div className="mb-4"><LocalShippingOutlinedIcon style={{ fontSize: 25, opacity:0.6 }} /> </div> 
                             <div className={classes.speedCardTitle}>
                                 {this.props.data.description}
