@@ -5,7 +5,7 @@ import showMessage from './toastAction';
 
 function genericPostData({ dispatch, reqObj, url, constants, identifier, successText, successCb, successTimeOutCb, errorCb, errorTimeOutCb, dontShowMessage }) {
     
-    
+    const modifiedUrl = url.slice(0,1) === '/' ? url : `/${url}`;
     if(!constants){
         constants = {
             init:`${identifier}_INIT`,
@@ -14,7 +14,7 @@ function genericPostData({ dispatch, reqObj, url, constants, identifier, success
         }
     }
     let p1 =  dispatch(
-        postData(`${APPLICATION_BFF_URL}${url}`, reqObj, identifier, constants)
+        postData(`${APPLICATION_BFF_URL}${modifiedUrl}`, reqObj, identifier, constants)
     )
     p1.then((data) => {
         if (!dontShowMessage) {
