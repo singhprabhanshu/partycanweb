@@ -5,8 +5,9 @@ import { APPLICATION_BFF_URL } from '../urlConstants'
 import showMessage from './toastAction';
 
 const genericGetData = ({ dispatch,url, constants, identifier, successText, successCb, successTimeOutCb, errorCb, errorTimeOutCb, dontShowMessage }) => {
+    const modifiedUrl = url.slice(0,1) === '/' ? url : `/${url}`;
     let p1 =  dispatch(
-        getData(`${APPLICATION_BFF_URL}${url}`,identifier,constants)
+        getData(`${APPLICATION_BFF_URL}${modifiedUrl}`,identifier,constants)
     )
     p1.then((data) => {
         if (!dontShowMessage) {
