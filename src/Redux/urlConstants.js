@@ -7,7 +7,7 @@ let APPLICATION_BFF_URL, APP_QUICKBOOK_KEY, APP_DUNS_NO_KEY,
 console.log("ENV ++", process.env);
 
 if (process.env.NODE_ENV !== 'production') {
-    APPLICATION_BFF_URL = ""; //"https://devcreliasmb.allonblock.com";
+    APPLICATION_BFF_URL = "https://uat.drinkpartycan.com"; //"https://devcreliasmb.allonblock.com";
     APP_QUICKBOOK_KEY = 'quickBook';
     APP_DUNS_NO_KEY = 'DUNSNumber';
     APP_QUICKBOOK_CLIENT_ID = "L0OFwSJQITuLU2dWoJfmOalAC694VXbMOR6KfkQyXUXRHQesfp";
@@ -17,7 +17,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 else {
 
-    APPLICATION_BFF_URL = process.env.APPLICATION_BFF_URL;
+    // APPLICATION_BFF_URL = process.env.APPLICATION_BFF_URL;
+    APPLICATION_BFF_URL = "https://uat.drinkpartycan.com";
     // APP_QUICKBOOK_KEY = 'quickBook';
     // APP_DUNS_NO_KEY = 'DUNSNumber';
 

@@ -228,13 +228,13 @@ class ProductDetails extends React.Component {
                 <div className="proItems d-flex flex-column mb-4">
                     <div  className="mb-3 title-2">INGREDIENTS</div>
                     
-                    <div className="ingredientsList">
+                    {/* <div className="ingredientsList">
                     <AliceCarousel
                         items={Ingredients}
                         responsive={this.state.responsive}
                         buttonsDisabled={true}
                     />
-                    </div>
+                    </div> */}
                     
                 </div>
             : ""}

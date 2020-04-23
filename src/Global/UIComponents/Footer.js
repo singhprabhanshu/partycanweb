@@ -24,7 +24,7 @@ class Footer extends React.Component {
                 </Container>
                 <div className="mobile-bottom-bar d-block d-md-none">
                 <Container fluid={true}  className="d-flex align-items-center h-100 justify-content-center">   
-                        <Row className="justify-content-between align-items-center flex-grow-1">
+                        <Row className="justify-content-between align-items-center flex-grow-1 no-gutters">
                             <Col  className="justify-content-around align-items-center d-flex">                                
                                 <Button onClick={() => this.props.history.push("/home")} className="homeIcons icons"></Button>
                                 <Button className="locationIcons icons "></Button>                            
@@ -32,7 +32,17 @@ class Footer extends React.Component {
                                 <Badge badgeContent={this.props.total_items_count} color="primary">
                                     <Button onClick={() => this.props.history.push("/cart")} className="cartIcons icons"></Button>
                                 </Badge>
-                                <Button onClick={() => this.props.history.push("/setting/user")} className="settingIcons icons"></Button>
+                                <div className="position-relative">
+                                <Button className="userIcons icons" onClick={this.showUserMenu}></Button>
+                                {this.props.showUserMenuOption ? 
+                                    <div className="drop-option">
+                                    <span className="user">Hey, {this.props.userName ? this.props.userName : 'Guest'}</span>                                        
+                                    <span className="settings" onClick={() =>this.handleSettingClick()}>Settings</span>
+                                    {this.props.userName && <span className="logOut" onClick={()=>this.handleLogout()}>Logout</span> }
+                                     </div>
+                                     : null }
+                                </div>
+                               
                             </Col>
                         </Row>
                         </Container>

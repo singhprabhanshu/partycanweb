@@ -36,7 +36,7 @@ class SpeedCard extends Component {
             <React.Fragment>                
                     <Card className={this._getRootCardClass({ selectedId: this.props.selectedTransportAddress, id: this.props.data.id, enablePointer: this.props.data.enablePointer})} onClick={() => this.props.changeOpactiy(this.props.data.id)} >
                         <CardBody className="d-flex flex-column align-items-center">
-                        <div className="mb-4"><LocalShippingOutlinedIcon style={{ fontSize: 25 }} /> </div> 
+                        <div className="mb-4"><LocalShippingOutlinedIcon style={{ fontSize: 25, opacity:0.6 }} /> </div> 
                             <div className={classes.speedCardTitle}>
                                 {this.props.data.description}
                             </div>

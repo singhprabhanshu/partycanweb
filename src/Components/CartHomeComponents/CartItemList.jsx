@@ -80,11 +80,11 @@ class CartItemList extends React.Component {
         return this.state.cartItems.map((item, key) => {
             return (
                 <React.Fragment>
-                <Container fluid={true}>                
-                    <Row className="no-gutters">
+                         
+                    <Row className="no-gutters mb-4">
                         <Col className="d-flex order-2 order-md-1 align-self-start">
                             <div key={key} className="CarItemMain align-items-center justify-content-between no-gutters row" >
-                                <div className="col-md-11 col-12 p-4 p-xl-5 cartItemChild">
+                                <div className="col-md-11 col-12 p-3 p-xl-3 cartItemChild">
                                     <div className="d-flex align-items-center cart-pro-img ">
                                         <img height={50} width={50} src={item.image} alt="Product Image" />
                                         <div className="d-none d-sm-block">{item.name}</div>
@@ -110,7 +110,7 @@ class CartItemList extends React.Component {
                             </div>
                  </Col>
                 </Row>
-                </Container>               
+                           
             </React.Fragment>
             )
         })

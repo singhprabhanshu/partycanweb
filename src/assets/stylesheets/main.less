@@ -809,7 +809,7 @@ button:focus {
   cursor: pointer;
 
   &.addressCards{
-    max-width: 25rem;
+    max-width: 47%;
     min-height: 15rem;
     display: flex;
     align-items: center;
@@ -1139,12 +1139,25 @@ button:focus {
 
 .mobile-bottom-bar{
   background-color: @color-2;
-   position: fixed;
+   position: sticky;
+   position: -webkit-sticky;
   width: 100%;
   bottom: 0;
   left: 0;
   right:0;
   height:6rem;
+}
+
+///////////////////////////////Search page css
+.container-content-section .search-panel
+  {    
+   width: 50%;
+  @media (max-width: 767px){
+    width: 90%;
+  }
+  .searchItembar{
+
+  }
 }
 
 .StripeCard{
