@@ -61,7 +61,7 @@ class ProductTabs extends React.Component {
         const { selectedTab } = this.state; 
         const selectedCategory = categoriesList ?  categoriesList[this.props.tabValue] : undefined;
         const headerTitle = _get(selectedCategory, 'category_name', '');
-        
+        // console.log('header title');
         return (
             <React.Fragment>
                     <div className="mobile-tabs-title d-block d-md-none">
