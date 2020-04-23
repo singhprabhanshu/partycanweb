@@ -59,7 +59,7 @@ class SearchProductsContainer extends React.Component {
         genericPostData({
             dispatch:this.props.dispatch,
             reqObj: { q: searchRequest },
-            url:`/index.php/connect/index/search?q=${searchRequest}`,
+            url:`/connect/index/search?q=${searchRequest}`,
             constants:{
             init:"SEARCH_PRODUCTS_LIST_INIT",
             success:"SEARCH_PRODUCTS_LIST_SUCCESS",
