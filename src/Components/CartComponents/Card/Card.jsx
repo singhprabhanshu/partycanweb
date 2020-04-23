@@ -81,8 +81,8 @@ class CardComponent extends React.Component {
                                             <React.Fragment>
                                                
                                                 <div className="CardsWrapper d-flex align-items-center flex-wrap">
-                                                    <Card className="addnewcard" onClick={this.addNewCard} onClick={this.addCardFunction}>
-                                                        <CardBody className="p-3 d-flex align-items-center justify-content-center flex-column ">
+                                                    <Card  onClick={this.addNewCard} onClick={this.addCardFunction}>
+                                                        <CardBody className="cardStyles addnewcard">
                                                             <div className="mb-4"><AddCircleOutlineOutlinedIcon style={{ fontSize: 25 }} /> </div>
                                                             <div>  ADD NEW CARD</div>
                                                         </CardBody>
@@ -130,7 +130,7 @@ class CardComponent extends React.Component {
                                 <img src={proImg} className="imgProduct img-responsive"></img>
                             </div>
                         </Col>
-                        <Col lg={7} className="p-xl-5 p-4 flex-column d-flex">
+                        <Col lg={6} className="p-xl-5 p-4 flex-column d-flex">
                             <div className="block-title mb-4">SAVED CARDS</div>
                              {this.renderContent()}    
                             {!this.state.addCard ?
