@@ -3,23 +3,7 @@ import { Card,  CardBody, Button } from 'reactstrap';
 
 
 const styles = (props) => ({
-    root: {
-        height: 50,
-        width: 100,
-        // marginTop: 10,
-        marginRight: "20px",
-        // marginLeft: '20px',
-        // marginBottom: '20px',
-        borderRadius: 10,
-        backgroundColor: (props.data.id === props.selectedShippingMethod) ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.38)',
-        color: (props.data.id === props.selectedShippingMethod) ? props.selectedCardColor: 'white',
-    },
-    cardBody: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+   
 });
 
 
@@ -29,29 +13,23 @@ class DateCard extends Component {
   } 
     _getRootCardClass = ({ selectedId, id }) => {
         if (id === selectedId) {
-            return "active";
+            return "cardStyles dateTimerCards active";
         }
+      else {
+        return "cardStyles dateTimerCards";
+      }
         
     };
     render() {
         return (
-            <React.Fragment>
-                <a style={{ cursor: 'pointer' }} onClick={() => this.props.changeShippingMethodOpacity(this.props.data.id)} >
-                    <Card style={styles(this.props).root} className={this._getRootCardClass({ selectedId: this.props.selectedShippingMethod, id: this.props.data.id })}>
-                        <CardBody style={styles(this.props).cardBody}>
-                            
+            <React.Fragment>              
+                    <Card className="dateTimerCardscontainer" onClick={() => this.props.changeShippingMethodOpacity(this.props.data.id)}  >
+                        <CardBody className={this._getRootCardClass({ selectedId: this.props.selectedShippingMethod, id: this.props.data.id })}>
                             <div style={{ fontSize: 15 }}>
                                 {this.props.date}
-                            </div>
-                            {/* <div style={{ fontSize: 8, marginBottom: 10 }}>
-                                ${this.props.data.fee}
-                            </div> */}
-                            {/* <div>
-                                {this.props.data.address}
-                            </div> */}
+                            </div>                           
                         </CardBody>
                     </Card>
-                </a>
             </React.Fragment>
         
         );

@@ -97,10 +97,10 @@ class UserSetting extends React.Component {
         <React.Fragment>
             {this.state.userSettingData && <UserInfo userInfo={this.state.userSettingData} />}
             <div className="block-sub-title">YOUR PREFRENCES</div> 
-            <div className="row CardsWrapper">              
-                <Card className="userPreferenceSetting  mb-5 ">
-                   <CardBody className="p-3 d-flex flex-column w-100">
-                      <div className=" d-flex flex-row flex-wrap justify-content-between align-items-center">
+            <div className="CardsWrapper">              
+                <Card className=" mb-5 ">
+                   <CardBody className="cardStyles userPreferenceSetting">
+                      <div className=" d-flex  w-100 justify-content-between align-items-center">
                           <label>NOTIFICATION</label>
                             <Switch
                                 checked={this.state.notification}
@@ -109,7 +109,7 @@ class UserSetting extends React.Component {
                                 inputProps={{ 'aria-label': 'secondary checkbox' }}
                             />
                         </div>
-                        <div className=" d-flex flex-row flex-wrap justify-content-between align-items-center">
+                        <div className=" d-flex  w-100 justify-content-between align-items-center">
                             <label>NEWSLETTER</label>
                             <Switch
                                 checked={this.state.newsLetter}
@@ -122,14 +122,14 @@ class UserSetting extends React.Component {
                 </Card>
             </div>
             <div className="block-sub-title">PAYMENT METHOD</div>               
-            <div className="row CardsWrapper  mb-5 ">
-                <Card className="paymentcard active">
-                    <CardBody className="p-3 d-flex flex-column  w-100">
+            <div className="d-flex CardsWrapper flex-wrap  mb-5 ">
+                <Card className="">
+                    <CardBody className="cardStyles paymentcard align-items-start active w-100">
                          {this.state.userSettingData && this.state.userSettingData.list_cards && renderCardInfo}                                   
                     </CardBody>
                 </Card>
-                <Card className="paymentcard">
-                    <CardBody className="p-3 d-flex align-items-center justify-content-center flex-column usercardadd">
+                <Card className="">
+                    <CardBody className="cardStyles paymentcard">
                         <div className="mb-4"><AddCircleOutlineOutlinedIcon style={{ fontSize: 25 }} /> </div> 
                         <div>ADD CARD</div>                      
                     </CardBody>                          

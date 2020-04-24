@@ -82,7 +82,7 @@ class ProductsContainer extends React.Component {
     
         genericGetData({
             dispatch:this.props.dispatch,
-            url:`/index.php/connect/index/category?catid=${categoryID}`,
+            url:`/connect/index/category?catid=${categoryID}`,
             constants:{
             init:"PRODUCTS_LIST_INIT",
             success:"PRODUCTS_LIST_SUCCESS",
