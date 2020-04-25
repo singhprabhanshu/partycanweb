@@ -128,7 +128,8 @@ class Address extends React.Component {
             },
             identifier:"USER_ADDRESS",
             successCb:userAddressFetchSuccess,
-            errorCb:userAddressFetchError
+            errorCb:userAddressFetchError,
+            dontShowMessage: true
         });
     };
 
@@ -202,6 +203,7 @@ class Address extends React.Component {
             identifier: 'POST_USER_ADDRESSES',
             successCb: this.addUserAddressSuccess,
             errorCb: this.addUserAddressError,
+            dontShowMessage: true
         });
             
           

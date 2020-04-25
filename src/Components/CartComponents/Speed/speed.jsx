@@ -248,6 +248,7 @@ class Speed extends React.Component {
       identifier: 'FETCH_DELIVERY_OPTIONS',
       successCb: deliveryOptionsFetchSuccess,
       errorCb: deliveryOptionsFetchError,
+      dontShowMessage: true
    });
   }
 
