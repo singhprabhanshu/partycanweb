@@ -46,7 +46,7 @@ class SettingContainer extends React.Component {
             } 
             {this.state.tabValue === 1 && 
                 <OrderSetting  tabValue = {this.state.tabValue}/> }
-            {this.state.tabValue === 2 &&  <LivechatSetting /> }   
+            {/* {this.state.tabValue === 2 &&  <LivechatSetting /> }    */}
         </div>
          </>
         if(isMobile || isTablet){
