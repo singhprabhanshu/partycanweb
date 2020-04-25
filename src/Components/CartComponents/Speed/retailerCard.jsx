@@ -21,7 +21,7 @@ class RetailerCard extends Component {
     render() {
         return (
             <React.Fragment>                
-                    <Card >
+                    <Card className="retailerCardscontainer">
                         <CardBody className={this._getRootCardClass({ selectedId: this.props.selectedRetailer, id: this.props.data.id})}  onClick={() => this.props.changeRetailerOpacity(this.props.data.id)}>
                             <div style={{ fontSize: 8, marginBottom: 10 }}>
                                 {this.props.data.name}

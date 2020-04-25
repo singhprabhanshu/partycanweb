@@ -23,7 +23,7 @@ class DateCard extends Component {
     render() {
         return (
             <React.Fragment>              
-                    <Card onClick={() => this.props.changeShippingMethodOpacity(this.props.data.id)}  >
+                    <Card className="dateTimerCardscontainer" onClick={() => this.props.changeShippingMethodOpacity(this.props.data.id)}  >
                         <CardBody className={this._getRootCardClass({ selectedId: this.props.selectedShippingMethod, id: this.props.data.id })}>
                             <div style={{ fontSize: 15 }}>
                                 {this.props.date}

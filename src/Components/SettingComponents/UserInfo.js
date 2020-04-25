@@ -13,9 +13,9 @@ export default class UserInfo extends Component {
     return(
         <React.Fragment>
             <div className="block-sub-title">YOUR INFORMATION</div>    
-                <div className="row CardsWrapper">               
-                    <Card className="userInfoSettingCards  mb-5 ">
-                        <CardBody className="p-3 d-flex flex-column  w-100">
+                <div className="CardsWrapper">               
+                    <Card className=" mb-5 ">
+                        <CardBody className="cardStyles userInfoSettingCards align-items-start flex-wrap">
                             {this.props.userInfo && <React.Fragment>
                                 <div className="pb-4"> 
                                 <div className=" d-flex flex-column flex-wrap">
