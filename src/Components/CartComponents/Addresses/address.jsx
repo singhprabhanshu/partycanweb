@@ -337,21 +337,22 @@ class Address extends React.Component {
                          </div>
                         </Col>
                         <Col lg={6} className="p-xl-5 p-4 d-flex flex-column order-2 order-md-1">
-                        <div className="block-title mb-5">Address</div>
-                        <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} onClick={this.handleGoBack} />ADDRESS</div>
-                        <div className="block-title mb-5">ADD NEW ADDRESSES</div>
+                        {!this.state.isAddressFormShown ? <div className="block-title mb-5">Address</div> : <div>
+                            <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} onClick={this.handleGoBack} />ADDRESS</div>
+                            <div className="block-title mb-5">ADD NEW ADDRESSES</div> 
+                            </div>}
                              {this.renderContent(addresses)}
 
-                             <div className="text-left mt-4" >
+                             {!this.state.isAddressFormShown ? <div className="text-left mt-4" >
                                 <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" disabled={!_get(this.state, 'isAddressSelected', false)} onClick={this.handleCardSelect}>
                                     <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE & CONTINUE
                                 </Button>
-                            </div> 
+                            </div> :
                             <div className="text-left mt-4" >
                                     <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" type="submit">
                                         <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE ADDRESS
                                     </Button>
-                             </div> 
+                            </div> }
                         </Col>
                         
                     </Row>
