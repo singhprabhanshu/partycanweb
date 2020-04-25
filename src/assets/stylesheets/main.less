@@ -105,6 +105,7 @@ button:focus {
 .img-responsive{
   width: auto!important;
   max-width: 100%;
+  height: auto;
 }
 
 
@@ -202,8 +203,12 @@ button:focus {
   background-color: rgba(255, 255, 255, .1);
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
-  display: flex;
-  flex: 1;
+  display: flex; 
+  min-height: calc( 100vh - 190px);
+  @media (max-width:767px){
+    min-height: calc( 100vh - 120px);
+  }
+
 }
 
 
@@ -258,7 +263,12 @@ button:focus {
   font-family: 'Tungsten-Bold';
   font-size: 5.5rem;
   letter-spacing: .5rem;
+  @media (max-width:575px){
+    font-size: 4.3rem;
+  }
 }
+
+
 
 .bottomActionbutton {
   font-family: 'Gibson-Regular', sans-serif !important;
@@ -686,6 +696,7 @@ button:focus {
 
 .secMinHeight{
   min-height: calc(100vh - 180px);
+  
 }
 .secMinHeightwt{
   min-height: calc(100vh - 120px);
@@ -705,13 +716,20 @@ button:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+  max-height: calc(100vh - 180px);
   height: 100%;
   z-index: 1;
   .imgProduct{
-    max-width: 42%;
-    position: relative;
-    z-index: 1;    
+    width: auto!important;
+     max-width: 100%;
+     height: 100%;  
+     @media(max-width:1024px){
+      height: auto; 
+    }
   }
+
+ 
+  
   &.proDetailSec{
     .carousel .slide, .carousel .slide .legend{
       background-color: transparent!important;
