@@ -455,7 +455,7 @@ button:focus {
   flex-direction: column;
   padding: 1.5rem;
   border-radius: 5px;
-  z-index: 1;
+  z-index: 3;
 
   &:before{
     content: "";
@@ -785,12 +785,9 @@ button:focus {
   font-size: 1.1rem!important;
 }
 
-
 .cartActionBtn{
   background-color: @color-l!important;
 }
-
-
 
 .block-title{
   font-size: 1.8rem; 
@@ -803,122 +800,133 @@ button:focus {
 }
 
 .CardsWrapper{
-  // max-height: calc(100vh - 280px);
-  // overflow: auto;
   margin: 0 -1rem;
 
-.card{
-  background-color: rgba(255, 255, 255, .3)!important;
-  width: 100%;  
-  border-radius: .5rem!important;
-  color:#fff!important;
-  transition: ease all .3s;
-  padding: 1.5rem;
-  margin: 1rem;
-  cursor: pointer;
-
-  &.addressCards{
-    max-width: 47%;
-    min-height: 15rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.speedCards{
-    max-width: 20rem;
-    min-height: 8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.deliveryCards{
-    max-width: 15rem;
-    min-height: 8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.retailerCards{
-    max-width: 15rem;
-    min-height: 8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.dateTimerCards{
-    max-width: 10rem;
-    min-height: 7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.paymentcard {      
-    max-width: 25rem;
-    min-height: 15rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    @media(max-width:992px){
-      max-width: 100%;
+  .card{  
+    width: 50%;    
+    color:#fff!important;  
+    padding: 1rem;
+    background-color: transparent!important;   
+    border: 0!important;
+  
+    &.speedCardscontainer{
+      width: 33%;  
+    }
+    &.shippingCardscontainer{
+      width: 25%;  
+    }
+    &.retailerCardscontainer{
+      width: 25%;  
+    }
+    &.dateTimerCardscontainer{
+      width: 20%;  
     }
 
-  } 
-
-  &.addnewcard {
-    max-width: 29rem;
-    min-height: 18rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    border-radius: 14.5px!important;
-  }
-
- 
-
-  &.userPreferenceSetting, &.userInfoSettingCards{
-    max-width: 25rem;
-    min-height: 10rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
-    @media(max-width:992px){
-      max-width: 100%;
-    }
-
-    &:hover{
-      color:@color-l!important;
+    .cardStyles{
+      padding: 1.5rem;
       background-color: rgba(255, 255, 255, .3)!important;
+      transition: ease all .3s;
+      border-radius: .5rem!important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      cursor: pointer;
+
+      &.speedCards{
+        max-width: 20rem;
+        min-height: 8rem;  
+        opacity: .6; 
+      }
+    
+      &.timeCards{
+        max-width: 20rem;
+        min-height: 8rem; 
+        opacity: .6;  
+      }
+    
+      &.shippingCards{
+        max-width: 15rem;
+        min-height: 8rem;   
+        opacity: .6; 
+      }
+    
+      &.retailerCards{
+        max-width: 15rem;
+        min-height: 8rem;  
+        opacity: .6;  
+      }
+    
+      &.dateTimerCards{
+        max-width: 10rem;
+        min-height: 7rem; 
+        opacity: .6;   
+      }
+  
+      &.addressCards{   
+        min-height: 15rem;   
+        justify-content: flex-start!important;
+        align-items:flex-start!important; 
+      }
+
+      &.addAddressCards{   
+        min-height: 15rem;    
+      }
+
+      &.addnewcard {   
+        min-height: 18rem;
+        border-radius: 14.5px!important;   
+      }  
+
+      &.paymentcard {      
+        max-width: 25rem;
+        min-height: 15rem;        
+        @media(max-width:992px){
+          max-width: 100%;
+        }
+      } 
+
+      &.userPreferenceSetting, &.userInfoSettingCards{
+        max-width: 25rem;
+        min-height: 10rem;   
+        justify-content: flex-start;
+        @media(max-width:992px){
+          max-width: 100%;
+        }
+        &:hover{
+          color:@color-l!important;
+          background-color: rgba(255, 255, 255, .3)!important;
+        }
+      }  
+
+    &.active{
+      color:@color-l!important;
+      background-color: rgba(255, 255, 255, 1)!important;
+      opacity: 1; 
     }
-  }
-
-  &:hover{
-    color:@color-l!important;
-    background-color: rgba(255, 255, 255, 1)!important;
-  }
-
-  &.active{
-    color:@color-l!important;
-    background-color: rgba(255, 255, 255, 1)!important;
-  }
-
-  &.disable{
-    cursor: not-allowed;
-    pointer-events: none;
-  }
 
     .title{
       font-family: 'Tungsten-Bold';
       font-size: 3rem;
       letter-spacing: .2rem;
-    }
-  }
+    }   
 
+  }
+    &:hover .cardStyles{
+      color:@color-l!important;
+      background-color: rgba(255, 255, 255, 1)!important;
+      opacity: 1; 
+    }
+
+    &:hover .cardStyles.disable{
+      color:#fff!important;
+      background-color: rgba(255, 255, 255, .3)!important;
+      opacity: .6; 
+      cursor: not-allowed;
+      pointer-events: none;  
+    }
+   
+  }
 }
 
 .ccCardsList {
