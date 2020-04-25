@@ -8,6 +8,7 @@ import {get as _get , isEmpty as _isEmpty} from 'lodash';
 import Switch from '@material-ui/core/Switch';
 import genericPostData from "../../Redux/Actions/genericPostData";
 import UserInfo from './UserInfo';
+import AddCard from "../../Components/CartComponents/Card/AddCard";
 
 class UserSetting extends React.Component {
     constructor(props){
@@ -15,7 +16,8 @@ class UserSetting extends React.Component {
         this.state = {
             userSettingData: {},
             newsLetter: false,
-            notification: false
+            notification: false,
+            addCard: false
         }
     }
      
@@ -73,6 +75,10 @@ class UserSetting extends React.Component {
         return brand.toUpperCase();
     }
 
+    addCardFunction = () => {
+        this.setState({ addCard: true });
+    }
+
     render() {
         let renderCardInfo = _get(this.state,'userSettingData.list_cards',[]).map((data, index)=> {
             return (<React.Fragment key={data+index}>
@@ -95,6 +101,7 @@ class UserSetting extends React.Component {
 
     return (
         <React.Fragment>
+        {!this.state.addCard && <React.Fragment>
             {this.state.userSettingData && <UserInfo userInfo={this.state.userSettingData} />}
             <div className="block-sub-title">YOUR PREFRENCES</div> 
             <div className="CardsWrapper">              
@@ -128,15 +135,18 @@ class UserSetting extends React.Component {
                          {this.state.userSettingData && this.state.userSettingData.list_cards && renderCardInfo}                                   
                     </CardBody>
                 </Card>
-                <Card className="">
+                <Card className="" onClick={this.addCardFunction}>
                     <CardBody className="cardStyles paymentcard">
                         <div className="mb-4"><AddCircleOutlineOutlinedIcon style={{ fontSize: 25 }} /> </div> 
                         <div>ADD CARD</div>                      
                     </CardBody>                          
                 </Card>                          
             </div>
+        </React.Fragment>}
+        <React.Fragment>
+            {this.state.addCard ? <AddCard handleContinueFromNewCard={this.handleContinueFromNewCard} /> : null}
         </React.Fragment>
-        );
+        </React.Fragment>);
     }
 }
 

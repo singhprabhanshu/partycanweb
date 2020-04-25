@@ -25,6 +25,12 @@ class HeaderBar extends React.Component {
     handleSettingClick = () => {
         this.props.history.push("/setting/user");
     }
+    handleSignInClick = () => {
+        this.props.history.push("/signIn");
+    }
+    handleCreateAccountClick = () => {
+        this.props.history.push("/createAccount");
+    }
     handleLogout = () => {
         this.props.dispatch(logoutActionCreator());
         this.props.history.push("");
@@ -60,12 +66,18 @@ class HeaderBar extends React.Component {
                                 <Button className="userIcons icons ml-3" onClick={this.showUserMenu}></Button>
                                 {this.props.showUserMenuOption ? 
                                     <div className="drop-option">
-                                    <span className="user">Hey , {this.props.userName ? this.props.userName : 'Guest'}</span>                                        
-                                    <span className="settings" onClick={() =>this.handleSettingClick()}>Settings</span>
-                                    {this.props.userName && <span className="logOut" onClick={()=>this.handleLogout()}>Logout</span> }
+                                        <span className="user">Hey , {this.props.userName ? this.props.userName : 'Guest'}</span>                                        
+                                        <span className="settings" onClick={() =>this.handleSettingClick()}>Settings</span>
+                                        {!this.props.userName && 
+                                        <span className="settings" onClick={() =>this.handleSignInClick()}>Sign In</span>}
+                                        {!this.props.userName && 
+                                        <span className="settings" onClick={() =>this.handleCreateAccountClick()}>Create Account</span>}
+                                        {this.props.userName && 
+                                        <span className="logOut" onClick={()=>this.handleLogout()}>Logout</span> }
+                                    </div>
+                                     : null 
+                                }
                                 </div>
-                                     : null }
-                                     </div>
                             </Col>
                         </Row>
                     </Container>

@@ -27,8 +27,22 @@ class CartTabs extends React.Component {
     handleChange = (event, newValue) => {
         this.setState({ value: newValue });
       };
+    handleHeaderTitle = ({ tabValue }) => {
+      switch ( tabValue ) {
+        case "address":
+          return "address";
+        case "speed":
+          return "Delivery Options";
+        case "card":
+          return "Card";
+        case "checkout":
+          return "Summary";
+
+      }
+    }
     render() {
         const { classes } = this.props;
+        const headerTitle = this.props.tabValue ? this.handleHeaderTitle({ tabValue: this.props.tabValue }) : '';
         return (
           <Container fluid={true}> 
            <div className="mobile-tabs-title d-block d-md-none">
@@ -38,7 +52,7 @@ class CartTabs extends React.Component {
                             <KeyboardBackspaceIcon style={{fontSize:'3rem'}}/>
                         </Col>
                         <Col  className="title"> 
-                                 Party Cans
+                                 {headerTitle}
                         </Col>
                         <Col xs={'auto'}  className=""> 
                             <SearchIcon style={{fontSize:'3rem'}}/>

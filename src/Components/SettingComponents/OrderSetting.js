@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import genericPostData from "../../Redux/Actions/genericPostData";
 import {get as _get , isEmpty as _isEmpty} from 'lodash';
 import WithLoading from '../../Global/UIComponents/LoaderHoc';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 class OrderSetting extends React.Component {
     constructor(props){
@@ -56,14 +57,16 @@ class OrderSetting extends React.Component {
     render() {
         let renderItems= (items) => items && items.map((item,index)=> {
             return(<React.Fragment  key={index}>
-                        <div className=" d-flex flex-column flex-wrap" 
-                        style={{fontSize: '1.5rem', marginLeft: '18px'}}>
-                            <div>
-                                <span style={{ color: 'blue'}}>{item.product_name}</span>
-                                <span style={{color: 'cadetblue', marginLeft: '55px'}}>{item.product_qty}</span>
-                                <span style={{ color: 'blue', marginLeft: '153px'}}>{item.product_price}</span>
-                            </div>
-                        </div><br/>
+                        <div className=" d-flex flex-wrap justify-content-between" style={{fontSize: '1.8rem',}}>
+                            <div style={{ color: '#0033a0', fontWeight: 'bold',}} >
+                                {item.product_name}
+                                </div>
+                                <div className="pricingWrapper">
+                                <span style={{color: '#a6bcd0', fontSize: '1.3rem'}} className="w40 text-right">{item.product_qty}CAN</span>
+                                <span style={{ color: '#0033a0', }}>{item.product_price}</span>
+                                </div>
+                            
+                        </div>
             </React.Fragment>)
         })
 
@@ -72,38 +75,49 @@ class OrderSetting extends React.Component {
                         <ExpansionPanel 
                             defaultExpanded={index === 0 ? true : false}>
                             <ExpansionPanelSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                            >
-                            <div className="d-flex flex-wrap title" style={{color: '#00BFB2', fontSize: '2.5rem'}}>
+                            expandIcon={<ExpandMoreIcon />}                            
+                            aria-controls="panel1a-content" id="panel1a-header">
+                            <div className="d-flex flex-wrap title" style={{color: '#00BFB2', fontSize: '1.8rem'}}>
                                             ORDER #{data.entity_id}
                             </div>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                                <div className = "row">
-                                    <div className="col-md-12">
-                                        <div className="row">
-                                            <div className="col-md-12">
+                                <div className = "row w-100">
+                                    <div className="col-md-12">                                      
+                                            <div>
                                                 {renderItems(data.items)}
                                             </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-md-12">
-                                            <span style={{color: 'cadetblue', fontSize: '1.5rem'}}>
-                                                DELIVERY {data.delivery_fee}
-                                            </span> 
-                                            <span style={{color: 'cadetblue', fontSize: '1.5rem'}}>
-                                                TAX {data.tax}
+                                      
+                                        <div className="row pt-4 d-flex flex-wrap align-items-center">
+                                            <div className="col-md-12 d-flex justify-content-between align-items-center">
+                                        <div>
+                                                <span className="orderStatusText" style={{color: '#00BFB2', fontSize: '1.6rem', fontWeight:'bold',}}>{data.status}</span>                                               
+                                            </div>
+                                            <div className="pricingWrapper flex-column">
+                                            <div className="d-flex justify-content-between w-100" >
+
+                                                 <span style={{color: '#a6bcd0', fontSize: '1.5rem'}} className="w40 text-right">
+                                                DELIVERY </span> <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.delivery_fee}</span>
+                                            
+                                            </div>
+
+                                            <div className="d-flex justify-content-between w-100" >
+                                          
+                                            <span style={{color: '#a6bcd0', fontSize: '1.5rem'}} className="w40 text-right"> 
+                                                TAX 
                                             </span>
+                                            <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.tax}</span>
+                                            
+                                            </div>
+                                            
+                                            <div className="d-flex justify-content-between w-100" style={{ color: '#0033a0', fontWeight: 'bold',}} >
+                                           
+                                            <span className="w40 text-right" >TOTAL</span>
+                                                <span className="ml-2" style={{ color: '#0033a0', fontWeight: 'bold',}} >{data.grand_total}</span>
+                                              
+                                                </div>
+                                                
                                             </div> 
-                                        </div>
-                                        <div className="row" style={{color: '#00BFB2', fontSize: '1.5rem'}}>
-                                            <div className="col-md-12">
-                                                <span>{data.status}</span>
-                                                <span style={{color: 'cadetblue'}}>TOTAL</span>
-                                                <span style={{ color: 'blue'}}>{data.grand_total}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +130,7 @@ class OrderSetting extends React.Component {
 
         return (
             <React.Fragment>
-                <h5 style={{marginLeft: '21px', marginTop: '13px'}}>YOUR ORDERS</h5>               
+                <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} />YOUR ORDERS</div> 
                     {this.state.orderData && renderOrder}
             </React.Fragment>
           );

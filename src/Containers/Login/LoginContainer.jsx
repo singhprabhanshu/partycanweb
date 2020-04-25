@@ -83,10 +83,6 @@ class SignIn extends React.Component {
         const code = _get(data[0],'code');
         const message = _get(data[0],'message');
           if(code === 1 && message === 'success') {
-            this.props.dispatch(
-                showMessage({ text: 'Signin Successfully',
-                             isSuccess: true
-                        }));
             localStorage.setItem('Token', _get(data[0], 'result.api_token',''));
             this.props.history.push('/home');
         } else {
