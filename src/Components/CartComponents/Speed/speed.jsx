@@ -112,7 +112,9 @@ class Speed extends React.Component {
 
     let data = {
       ...cartTabValidation,
-      isSpeedTab: true
+      isSpeedTab: true,
+      isCardTab: false,
+      isSummaryTab: false
   };
   this.props.dispatch(commonActionCreater(data,'CART_TAB_VALIDATION'));
 
