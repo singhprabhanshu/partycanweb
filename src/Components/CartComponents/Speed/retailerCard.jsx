@@ -23,17 +23,17 @@ class RetailerCard extends Component {
             <React.Fragment>                
                     <Card className="retailerCardscontainer">
                         <CardBody className={this._getRootCardClass({ selectedId: this.props.selectedRetailer, id: this.props.data.id})}  onClick={() => this.props.changeRetailerOpacity(this.props.data.id)}>
-                            <div style={{ fontSize: 8, marginBottom: 10 }}>
+                            <div style={{ marginBottom: 10 }} className="retailerTitle">
                                 {this.props.data.name}
+                            </div>                           
+                            <div className="pb-2" style={{color:'#a6bcd0', textAlign:'center', fontSize:'1.7rem'}}>
+                                {this.props.selection.name === 'Store Pickup' ? <span style={{ fontSize:this.props.selection.retailerAddressFontSize}}> {this.props.data.address}</span> : null}
                             </div>
-                            <div style={{ fontSize: 15, marginBottom: 10 }}>
+                            <div className="pb-4" style={{color:'#a6bcd0', textAlign:'center', fontSize:'1.5rem', fontWeight:'bold'}}>
+                                {this.props.selection.name === 'Store Pickup' ? <span style={{ fontSize:this.props.selection.retailerDistanceFontSize}}> {this.props.data.distance}</span> : null}
+                            </div>
+                            <div  style={{ fontSize: '2.9rem', fontFamily: 'Tungsten-Semibold', letterSpacing: '5.5px', }}>
                                 ${this.props.data.product_total}
-                            </div>
-                            <div>
-                                {this.props.selection.name === 'Store Pickup' ? <p style={{ fontSize:this.props.selection.retailerAddressFontSize}}> {this.props.data.address}</p> : null}
-                            </div>
-                            <div>
-                                {this.props.selection.name === 'Store Pickup' ? <p style={{ fontSize:this.props.selection.retailerDistanceFontSize}}> {this.props.data.distance}</p> : null}
                             </div>
                         </CardBody>
                     </Card>

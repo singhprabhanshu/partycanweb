@@ -13,8 +13,10 @@ import LoaderButton from '../../../Global/UIComponents/LoaderButton';
 import {withRouter} from "react-router-dom";
 import {isMobile, isTablet} from 'react-device-detect';
 import Scrollbar from "react-scrollbars-custom";
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import {Container, Row, Col} from 'reactstrap'
 import proImg from '../../../assets/images/party-can.png'
+import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 class CheckOut extends React.Component {
     constructor(props) {
         super(props);
@@ -115,7 +117,7 @@ class CheckOut extends React.Component {
                 <div className="couponParent mt-5">
                     <CouponCode onChange={this.onChange} width={cardWidth} coupon_code={coupon_code} />
                 </div>
-                <div style={{ padding: "10px 20px" }}>
+                <div style={{ padding: "10px 0px" }}>
                     <Label>Driver Tip</Label>
                     <br />
                     <ButtonGroup color="secondary" aria-label="outlined primary button group">
@@ -125,7 +127,7 @@ class CheckOut extends React.Component {
                         <MUIButton style={this.state.driverTip.id == 2 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 2, value: 15 })}>15%</MUIButton>
                         <MUIButton style={this.state.driverTip.id == 3 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 3, value: 20 })}>20%</MUIButton>
                     </ButtonGroup>                    </div>
-                <div style={{ width: cardWidth }} className="PriceSummaryParent">
+                <div style={{ width: cardWidth, }} className="PriceSummaryParent">
                     <CheckOutPriceSummary 
                     delivery_charges={delivery_charges} 
                     width={cardWidth} taxes={taxes}
@@ -156,16 +158,16 @@ class CheckOut extends React.Component {
             <React.Fragment>
              <Container fluid={true}>            
                  <Row className="no-gutters justify-content-lg-between secMinHeight">                   
-                    <Col lg={6}  className="p-xl-5 p-4 d-flex flex-column align-items-center justify-content-center">
-                            <span>Cheers!!Order Placed Succesfully</span>                           
-                            <span className="mt-4">Your Order id is <b>{this.state.order_id}</b></span>
-                            <div className="mt-4" >
+                    <Col lg={6}  className="p-xl-5 p-4 d-flex flex-column align-items-center justify-content-center orderPlaced">
+                            <span>Order Placed.</span>                           
+                            <span className="mt-0">Your Order id is <b class="orderNumber">#{this.state.order_id}</b></span>
+                            <div className="mt-5" >
                                 <LoaderButton
                                     onClick={this.trackOrder}
                                     color="primary"
                                     variant="contained"                               
-                                    type="submit">
-                                    <ArrowForwardIcon /> Track Order
+                                    type="submit" className="bottomActionbutton autoWidthbtn transiBtn btn btn-secondary">
+                                    <LocationOnOutlinedIcon className="mr-3"/> Track Your Order
                                 </LoaderButton>   
                             </div> 
                      </Col>
@@ -177,8 +179,10 @@ class CheckOut extends React.Component {
                 </Row>
                 </Container>
             </React.Fragment>  
-            )        
+            ) 
+              
         }
+      
         if (this.props.cartItems.length == 0) {
             return (
                 <React.Fragment>
@@ -221,7 +225,9 @@ class CheckOut extends React.Component {
             </React.Fragment>            
         )
     }
+    
 }
+
 
 function mapStateToProps(state) {
     let cartId = _get(state, "cart.lookUpData[0].cart_id", '');
