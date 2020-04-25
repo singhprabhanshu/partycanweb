@@ -40,7 +40,18 @@ class AddressHome extends React.Component {
                 this.setState({ tabValue: newValue });
                 this.props.history.push(`/cart/${newValue}`);
             }
-        } else {
+        } else if (newValue === 'card') {
+            if(_get(cartTabValidation, 'isCardTab') === true) {
+                this.setState({ tabValue: newValue });
+                this.props.history.push(`/cart/${newValue}`);
+            }
+        } else if (newValue === 'checkout') {
+            if(_get(cartTabValidation, 'isSummaryTab') === true) {
+                this.setState({ tabValue: newValue });
+                this.props.history.push(`/cart/${newValue}`);
+            }
+        }
+        else {
             this.setState({ tabValue: newValue });
             this.props.history.push(`/cart/${newValue}`);
         }

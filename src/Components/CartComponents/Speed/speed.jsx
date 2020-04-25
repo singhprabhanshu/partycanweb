@@ -112,7 +112,9 @@ class Speed extends React.Component {
 
     let data = {
       ...cartTabValidation,
-      isSpeedTab: true
+      isSpeedTab: true,
+      isCardTab: false,
+      isSummaryTab: false
   };
   this.props.dispatch(commonActionCreater(data,'CART_TAB_VALIDATION'));
 
@@ -246,6 +248,7 @@ class Speed extends React.Component {
       identifier: 'FETCH_DELIVERY_OPTIONS',
       successCb: deliveryOptionsFetchSuccess,
       errorCb: deliveryOptionsFetchError,
+      dontShowMessage: true
    });
   }
 
