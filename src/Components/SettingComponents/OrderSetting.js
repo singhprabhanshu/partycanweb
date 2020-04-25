@@ -78,7 +78,7 @@ class OrderSetting extends React.Component {
                             expandIcon={<ExpandMoreIcon />}                            
                             aria-controls="panel1a-content" id="panel1a-header">
                             <div className="d-flex flex-wrap title" style={{color: '#00BFB2', fontSize: '1.8rem'}}>
-                                            ORDER #{data.entity_id}
+                                            ORDER #{data.increment_id }
                             </div>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
