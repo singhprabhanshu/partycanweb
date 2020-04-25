@@ -61,6 +61,17 @@ class CardComponent extends React.Component {
     }
 
     componentDidMount() {
+        // cart tab validation
+        let cartTabValidation = this.props.cartTabValidation;
+
+        let data = {
+            ...cartTabValidation,
+            isCardTab: true,
+            isSummaryTab: false
+        };
+        this.props.dispatch(commonActionCreater(data,'CART_TAB_VALIDATION'));
+
+        // cart tab validation end
         let reqObj = {
             api_token: localStorage.getItem("Token"),
             cart_id: this.props.cartId
@@ -130,7 +141,7 @@ class CardComponent extends React.Component {
                                 <img src={proImg} className="imgProduct img-responsive"></img>
                             </div>
                         </Col>
-                        <Col lg={6} className="p-xl-5 p-4 flex-column d-flex">
+                        <Col lg={6} className="p-xl-5 p-md-4 py-4 flex-column d-flex">
                             <div className="block-title mb-4">SAVED CARDS</div>
                              {this.renderContent()}    
                             {!this.state.addCard ?
@@ -151,6 +162,7 @@ class CardComponent extends React.Component {
 }
 
 function mapStateToProps(state) {
+    let cartTabValidation = _get(state, 'cartTabValidation.lookUpData', {});
     let paymentMethods = _get(state, "paymentMethods.lookUpData.data", {});
     let payment_method = _get(paymentMethods,"payment_method")
     let cartId =  _get(state, "cart.lookUpData[0].cart_id",null);
@@ -160,7 +172,8 @@ function mapStateToProps(state) {
         paymentMethods,
         cartId,
         cartFlow,
-        payment_method
+        payment_method,
+        cartTabValidation
     }
 }
 

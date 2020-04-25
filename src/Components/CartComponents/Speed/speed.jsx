@@ -112,7 +112,9 @@ class Speed extends React.Component {
 
     let data = {
       ...cartTabValidation,
-      isSpeedTab: true
+      isSpeedTab: true,
+      isCardTab: false,
+      isSummaryTab: false
   };
   this.props.dispatch(commonActionCreater(data,'CART_TAB_VALIDATION'));
 
@@ -246,6 +248,7 @@ class Speed extends React.Component {
       identifier: 'FETCH_DELIVERY_OPTIONS',
       successCb: deliveryOptionsFetchSuccess,
       errorCb: deliveryOptionsFetchError,
+      dontShowMessage: true
    });
   }
 
@@ -592,7 +595,7 @@ class Speed extends React.Component {
                                   <img src={proImg} className="imgProduct img-responsive"></img>
                           </div>
                      </Col>
-                    <Col lg={6}  className="p-xl-5 p-4 order-2 d-flex flex-column order-md-1">                                           
+                    <Col lg={6}  className="p-xl-5 p-md-4 py-4 order-2 d-flex flex-column order-md-1">                                           
                     <div className="block-title mb-5">Delivery Options</div>
                     {this.renderContent(speed,retailer,shippingMethod,selectDate,availableTime)}                       
                     <div className="text-left mt-4" >

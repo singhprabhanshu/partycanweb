@@ -52,7 +52,7 @@ class CreateAccountContainer extends React.Component {
         const code = _get(data[0],'code');
         const message = _get(data[0],'message');
             if (code === 1) {
-              this.props.dispatch(showMessage({ text: message, isSuccess: true }));
+            //   this.props.dispatch(showMessage({ text: message, isSuccess: true }));
                 this.signIn();
             } else if (code === 2) {
                 this.props.dispatch(showMessage({ text: message, isSuccess: false }));
@@ -74,43 +74,43 @@ class CreateAccountContainer extends React.Component {
         return (
             <React.Fragment>
                 {this.state.isLoading && <Loader /> }
-                <Container fluid={true}  className="WhiteCurveBg">
+                <div className="WhiteCurveBg">
                      <CssBaseline />
                 <Container className="container-custom d-flex flex-column justify-content-center">
-                    <Row className="align-items-center" style={{flex:2, maxHeight:150}}>
+                    <Row className="align-items-center mb-5" style={{flex:2, maxHeight:130, minHeight:130}}>
                         <Col  className="text-center" >
-                        <h4 className="holduptext">CREATE ACCOUNT</h4>
+                            <h4 className="holduptext">CREATE ACCOUNT</h4>
                         </Col>                        
                     </Row>
                         <Form onSubmit= {this.onSubmit} validate={validate}
                             render={({ handleSubmit }) => (
-                                <form className="d-flex flex-column justify-content-around mb-4" style={{flex:3, maxHeight:550, minHeight:370}} onSubmit={handleSubmit}>
+                                <form className="d-flex flex-column justify-content-around mb-4 "  onSubmit={handleSubmit}>
                           <Row>
-                                <Col className="text-center" >
+                                <Col className="text-center mb-5" >
                                 <Field name="first_name" component={TextInputField} placeholder='FIRST NAME'
                                 autoFocus={false} type='text' />
                               </Col>                        
                             </Row>
                             <Row>
-                                <Col className="text-center" >
+                                <Col className="text-center mb-5" >
                                 <Field name="last_name" component={TextInputField} placeholder='LAST NAME'
                                 autoFocus={false} type='text' />
                                </Col>                        
                             </Row>
                             <Row>
-                                <Col className="text-center" >
+                                <Col className="text-center mb-5" >
                                 <Field name="email" component={TextInputField} placeholder='EMAIL'
                                 autoFocus={false} type='text' />
                               </Col>                        
                             </Row>
                             <Row>
-                                <Col className="text-center" >
+                                <Col className="text-center mb-5" >
                                 <Field name="password" component={TextInputField} placeholder='PASSWORD'
                                 autoFocus={false} type='password' />
                                </Col>                        
                             </Row>
                             <Row>
-                                <Col className="text-center" >
+                                <Col className="text-center mb-5" >
                                 <Field name="confirm_password" component={TextInputField} placeholder=' CONFIRM PASSWORD'
                                 autoFocus={false} type='password' />
                                </Col>                        
@@ -134,7 +134,7 @@ class CreateAccountContainer extends React.Component {
                          </form>)}
                         />
                           </Container>
-                </Container>
+                </div>
                         <Container className="container-custom">
                             <Row>
                                 <Col className="text-center" >
