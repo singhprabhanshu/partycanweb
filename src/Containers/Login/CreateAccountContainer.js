@@ -74,7 +74,7 @@ class CreateAccountContainer extends React.Component {
         return (
             <React.Fragment>
                 {this.state.isLoading && <Loader /> }
-                <Container fluid={true}  className="WhiteCurveBg">
+                <div className="WhiteCurveBg">
                      <CssBaseline />
                 <Container className="container-custom d-flex flex-column justify-content-center">
                     <Row className="align-items-center mb-5" style={{flex:2, maxHeight:130, minHeight:130}}>
@@ -134,7 +134,7 @@ class CreateAccountContainer extends React.Component {
                          </form>)}
                         />
                           </Container>
-                </Container>
+                </div>
                         <Container className="container-custom">
                             <Row>
                                 <Col className="text-center" >

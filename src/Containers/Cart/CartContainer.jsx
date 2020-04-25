@@ -89,7 +89,7 @@ class CartContainer extends React.Component {
             return (
                 <Container fluid={true} > 
                     <Row className="no-gutters  secMinHeightwt">
-                        <Col xs={12}  className="d-flex p-xl-5 p-4 flex-column justify-content-center align-items-center">                           
+                        <Col xs={12}  className="d-flex p-xl-5 p-md-4 py-4 flex-column justify-content-center align-items-center">                           
                                 <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
                                
                                     <Button  variant="contained" color="primary" className="mt-4 bottomActionbutton cartActionBtn" onClick={() => this.props.history.push("/category")}>
@@ -105,7 +105,7 @@ class CartContainer extends React.Component {
             <React.Fragment>
             <Container fluid={true} >                    
                 <Row className="no-gutters justify-content-lg-between secMinHeightwt">
-                    <Col xs={12} lg={7} className="p-xl-5 p-4 d-flex flex-column">
+                    <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 d-flex flex-column">
                     <div className="block-title mb-5">CART</div>
                         {this.renderContent()}  
                         <div className="text-left mt-4" >
@@ -115,8 +115,8 @@ class CartContainer extends React.Component {
                     </div>  
                     </Col>     
                     <Col xs={12} lg={5} className="d-none d-lg-block" >
-                        <div className="productImgSection proDetailSec">
-                            <img src={proImg} className="imgProduct img-responsive"></img>
+                        <div className="productImgSection ImgSectionwt">
+                            <img src={proImg} className="imgProduct"></img>
                         </div>
                     </Col>                                    
                     </Row>

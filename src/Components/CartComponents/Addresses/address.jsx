@@ -336,7 +336,7 @@ class Address extends React.Component {
                                 <img src={proImg} className="imgProduct img-responsive"></img>
                          </div>
                         </Col>
-                        <Col lg={6} className="p-xl-5 p-4 d-flex flex-column order-2 order-md-1">
+                        <Col lg={6} className="p-xl-5 p-md-4 py-4 d-flex flex-column order-2 order-md-1">
                         {!this.state.isAddressFormShown ? <div className="block-title mb-5">Address</div> : <div>
                             <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} onClick={this.handleGoBack} />ADDRESS</div>
                             <div className="block-title mb-5">ADD NEW ADDRESSES</div> 

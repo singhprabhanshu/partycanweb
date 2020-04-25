@@ -46,7 +46,7 @@ class HeaderBar extends React.Component {
         return (
             <React.Fragment>
                 <Container fluid={true} className="topHeader d-flex align-items-center">
-                    <Container className="container-content">
+                    <Container className="container-content-header">
                         <Row className="justify-content-between align-items-center flex-grow-1">
                             <Col xs={'auto'}>
                                 <Button className="addCircleIcon icons mr-4">+</Button>

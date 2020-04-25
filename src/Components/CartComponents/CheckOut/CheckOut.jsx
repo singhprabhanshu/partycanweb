@@ -156,7 +156,7 @@ class CheckOut extends React.Component {
             <React.Fragment>
              <Container fluid={true}>            
                  <Row className="no-gutters justify-content-lg-between secMinHeight">                   
-                    <Col lg={6}  className="p-xl-5 p-4 d-flex flex-column align-items-center justify-content-center">
+                    <Col lg={6}  className="p-xl-5 p-md-4 py-4 d-flex flex-column align-items-center justify-content-center">
                             <span>Cheers!!Order Placed Succesfully</span>                           
                             <span className="mt-4">Your Order id is <b>{this.state.order_id}</b></span>
                             <div className="mt-4" >
@@ -184,7 +184,7 @@ class CheckOut extends React.Component {
                 <React.Fragment>
                 <Container fluid={true}>            
                     <Row className="no-gutters secMinHeight">
-                        <Col xs={12}  className="d-flex flex-column p-xl-5 p-4 justify-content-center align-items-center">                           
+                        <Col xs={12}  className="d-flex flex-column p-xl-5 p-md-4 py-4 justify-content-center align-items-center">                           
                                 <div>Hey fill me, i am Empty <i class="fa fa-frown-o" aria-hidden="true"></i></div>
                                
                                 <Button  variant="contained" color="primary" className="mt-4 bottomActionbutton cartActionBtn" onClick={() => this.props.history.push("/category")}>
@@ -202,7 +202,7 @@ class CheckOut extends React.Component {
             <React.Fragment>
             <Container fluid={true}>            
                 <Row className="no-gutters justify-content-lg-between secMinHeight">
-                    <Col xs={12} lg={7} className="p-xl-5 p-4 flex-column d-flex">
+                    <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 flex-column d-flex">
                         <div className="block-title mb-5">Order Summary</div>
                         {this.renderContent()}                  
                         <div className="mt-4" >

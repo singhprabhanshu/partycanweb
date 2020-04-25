@@ -130,7 +130,7 @@ class CardComponent extends React.Component {
                                 <img src={proImg} className="imgProduct img-responsive"></img>
                             </div>
                         </Col>
-                        <Col lg={6} className="p-xl-5 p-4 flex-column d-flex">
+                        <Col lg={6} className="p-xl-5 p-md-4 py-4 flex-column d-flex">
                             <div className="block-title mb-4">SAVED CARDS</div>
                              {this.renderContent()}    
                             {!this.state.addCard ?

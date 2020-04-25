@@ -127,6 +127,9 @@ button:focus {
   @media (max-width: 991px){
     min-height: calc( 100vh - 5rem);
   } 
+  @media (max-width: 767px){
+    padding:0 7%;
+  } 
 }
 
 .container-fluid{
@@ -134,14 +137,14 @@ button:focus {
   padding-left: 0 !important;  
 }
 
-.container-content {
-    display: flex;
-    max-width: 192rem!important;
-    padding-right: 2.5rem!important;
-    padding-left: 2.5rem!important;
-    @media (max-width: 1366px){
-     
-    } 
+.container-content-header {
+  display: flex;
+  max-width: 192rem!important;
+  padding-right: 2.5rem!important;
+  padding-left: 2.5rem!important;
+  @media (max-width: 1366px){
+   
+  } 
 }
 
 ////////////////////// Intro carousel css
@@ -166,7 +169,7 @@ button:focus {
     margin: unset!important;
     position: relative!important;
     bottom:0;
-  opacity: 1!important;
+    opacity: 1!important;
   }
 
   .carousel .slide img{
@@ -207,6 +210,7 @@ button:focus {
   min-height: calc( 100vh - 190px);
   @media (max-width:767px){
     min-height: calc( 100vh - 120px);
+    margin: 0 -7%;
   }
 
 }
@@ -424,6 +428,9 @@ button:focus {
 .mobile-tabs-title{
   background-color: rgba(255, 255, 255, .1);
   height: 8rem;  
+  @media(max-width:767px){
+    margin:0 -7%;
+   }
 
   .title{
     text-align: center;
@@ -437,8 +444,11 @@ button:focus {
   border-bottom-right-radius: 2rem;
   padding-right: 1.6rem!important;
   padding-left: 1.6rem!important;
-  
-  
+    @media(max-width:767px){
+    margin:0 -7%;
+    padding-right:0!important;
+    padding-left: 0!important;
+    }  
   .MuiTab-root
   {
     min-width: 10rem!important;
@@ -452,6 +462,7 @@ button:focus {
     @media(max-width:767px){
       min-width: auto!important;
       flex: 1;
+      font-size: 1.3rem;
     }
   }
 }
@@ -525,11 +536,12 @@ button:focus {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-right: 2.5rem!important;
-  padding-left: 2.5rem!important;
+  padding-right: 1rem!important;
+  padding-left: 1rem!important;
   @media(max-width:767px){
-    padding-right: 1.5rem!important;
-  padding-left: 1.5rem!important;
+    padding-right:0!important;
+     padding-left:0!important;
+     margin: 0 -5%;
   }
 
   .card{
@@ -735,9 +747,7 @@ button:focus {
      @media(max-width:1024px){
       height: auto; 
     }
-  }
-
- 
+  } 
   
   &.proDetailSec{
     .carousel .slide, .carousel .slide .legend{
@@ -799,6 +809,12 @@ button:focus {
     }
   }
 }
+
+.ImgSectionwt { 
+  max-height: calc(100vh - 120px);  
+}
+
+
 .fs-11{
   font-size: 1.1rem!important;
 }
@@ -826,18 +842,33 @@ button:focus {
     padding: 1rem;
     background-color: transparent!important;   
     border: 0!important;
+    @media(max-width:767px){
+      width: 100%;    
+    }
   
     &.speedCardscontainer{
       width: 33%;  
+      @media(max-width:767px){
+        width: 50%;    
+      }
     }
     &.shippingCardscontainer{
-      width: 25%;  
+      width: 25%; 
+      @media(max-width:767px){
+        width: 50%;    
+      } 
     }
     &.retailerCardscontainer{
-      width: 25%;  
+      width: 25%; 
+      @media(max-width:767px){
+        width: 50%;    
+      }  
     }
     &.dateTimerCardscontainer{
-      width: 20%;  
+      width: 20%; 
+      @media(max-width:767px){
+        width: 33%;    
+      }  
     }
 
     .cardStyles{

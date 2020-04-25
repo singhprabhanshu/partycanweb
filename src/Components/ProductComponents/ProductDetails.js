@@ -341,7 +341,7 @@ class ProductDetails extends React.Component {
                     </div>
                 </Col>
 
-                <Col xs={12} lg={7} className="p-xl-5 p-4 order-2  d-flex order-lg-1 ">
+                <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 order-2  d-flex order-lg-1 ">
                     {this.renderContent(averageRating, reviewsList, productDetailsData, Ingredients)}                  
                 </Col>                        
                 </Row>}

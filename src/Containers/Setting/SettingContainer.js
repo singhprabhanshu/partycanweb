@@ -74,7 +74,7 @@ class SettingContainer extends React.Component {
                     {this.props.userName ? this.renderContent() : 
                     <Container fluid={true} > 
                     <Row className="no-gutters  secMinHeightwt">
-                        <Col xs={12}  className="d-flex p-xl-5 p-4 flex-column justify-content-center align-items-center">                           
+                        <Col xs={12}  className="d-flex p-xl-5 p-md-4 py-4 flex-column justify-content-center align-items-center">                           
                             <div>Hey you are not SignIn for this feature. Please Sign In 
                                 <i class="fa fa-frown-o" aria-hidden="true"></i></div>
                             <Button  variant="contained" color="primary" className="mt-4 bottomActionbutton cartActionBtn"
