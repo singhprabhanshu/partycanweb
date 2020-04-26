@@ -55,9 +55,9 @@ class MainLayout extends React.Component {
       case "/splash":
         return "";
       case "/cart/:cartflow":
-        return "";
+        return <Footer isLoginAndSignupScreen={true} {...this.props} />;
       default:
-        return <Footer {...this.props} />;
+        return <Footer isLoginAndSignupScreen={false} {...this.props} />;
     }
   }
 
