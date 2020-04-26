@@ -33,7 +33,8 @@ import { Carousel } from 'react-responsive-carousel';
 import {isMobile, isTablet} from 'react-device-detect';
 import { Loader } from '../../Global/UIComponents/LoaderHoc';
 import AliceCarousel from 'react-alice-carousel'
-import 'react-alice-carousel/lib/alice-carousel.css'
+import 'react-alice-carousel/lib/alice-carousel.css';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -138,6 +139,7 @@ class ProductDetails extends React.Component {
             qty: this.state.defaultQuantity,
             api_token: localStorage.getItem("Token")
         };
+        this.setState({addToCartLoading:true});
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj: reqObj,
@@ -160,32 +162,15 @@ class ProductDetails extends React.Component {
         </span>
       )
 
-    fetchCartAgain = (data) => {
-        let reqObj = {
-            "api_token": localStorage.getItem("Token")
-        };
-        genericPostData({
-            dispatch: this.props.dispatch,
-            reqObj,
-            url: "/api/cart/showcart",
-            constants: {
-                init: "CART_ITEMS_INIT",
-                success: "CART_ITEMS_SUCCESS",
-                error: "CART_ITEMS_ERROR"
-            },
-            identifier: "CART_ITEMS",
-            successCb: ()=>console.log("added succesfully"),
-            errorCb: this.cartFetchError,
-            successText:"Item added to cart succesfully"
-        })
-    }
-
-    addToCartSuccess = () => {
-        this.fetchCartAgain();
-        //this.props.history.push('/cart')
+    addToCartSuccess = (data) => {
+        console.log(data);
+        this.setState({addToCartLoading:false})
+        localStorage.setItem("cart_id",data[0].cart_id);
+        this.props.history.push('/cart')
     }
 
     addToCartFailure = () => {
+        this.setState({addToCartLoading:false})
     }
 
     handleIndicator = (event) => {
@@ -268,8 +253,8 @@ class ProductDetails extends React.Component {
                 <Button variant="contained"  style={{ color:'#0032A0'}}  className="bottomActionbutton autoWidthbtn col-4 col-md-auto order-2 order-md-1 bg-white" type="submit">
                 <span className="icons shareIcons d-inline-block mr-2"></span>SHARE
                  </Button>                    
-                <Button onClick={()=>this.handleAddToCart()} variant="contained"  className="bottomActionbutton order-1 col-12 col-md-auto order-md-2 cartActionBtn mx-md-4" type="submit">
-                   <span className="icons cartIcons d-inline-block mr-2"></span>ADD TO CART
+                <Button  disabled = {this.props.addToCartLoading} onClick={()=>this.handleAddToCart()} variant="contained"  className="bottomActionbutton order-1 col-12 col-md-auto order-md-2 cartActionBtn mx-md-4" type="submit">
+                {this.state.addToCartLoading ? <CircularProgress size={24} /> :<><span className="icons cartIcons d-inline-block mr-2"></span>ADD TO CART</>}
                 </Button>                    
                 <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)'}} variant="contained"  className="bottomActionbutton order-3 col-7 col-md-auto order-md-3 autoWidthbtn transiBtn" type="submit">
                 <span className="icons locationIcons d-inline-block mr-2"></span>FIND IN STORES

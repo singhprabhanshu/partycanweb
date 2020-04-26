@@ -14,6 +14,9 @@ import genericPostData from '../../Redux/Actions/genericPostData';
 import showMessage from '../../Redux/Actions/toastAction';
 import {Container, Row, Col} from 'reactstrap';
 import WithLoading from '../../Global/UIComponents/LoaderHoc';
+import { commonActionCreater } from "../../Redux/Actions/commonAction";
+
+
 
 const styles = theme => ({
     main: {
@@ -81,8 +84,11 @@ class SignIn extends React.Component {
       }
       userSigninSuccess= (data) => {
         const code = _get(data[0],'code');
+        const total_items_count = _get(data[0],'result.total_product_in_cart',0);
         const message = _get(data[0],'message');
           if(code === 1 && message === 'success') {
+            let cartObj= [{total_items_count}];
+            this.props.dispatch(commonActionCreater(cartObj,'CART_ITEMS_SUCCESS'));
             this.props.dispatch(
                 showMessage({ text: 'Signin Successfully',
                              isSuccess: true

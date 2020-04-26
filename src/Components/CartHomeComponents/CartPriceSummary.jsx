@@ -6,24 +6,24 @@ class CartPriceSummary extends React.Component {
         this.state = {}
     }
     render() {
-       let  {cartIsFetching} = this.props;
+        let { cartIsFetching, discount, subTotal, taxes, grandTotal } = this.props;
         return (
             <>
-                <div className="PriceSummaryChild pb-2">
+                <div className="PriceSummaryChild">
+                    <span>SUBTOTAL</span>
+                    {cartIsFetching ? <span>Loading..</span> :<span>{subTotal}</span>}
+                </div>
+                <div className="PriceSummaryChild">
                     <span>TAXES</span>
-                    <span></span>
+                    {cartIsFetching ? <span>Loading..</span> :<span>{taxes}</span>}
                 </div>
-                <div className="PriceSummaryChild pb-2">
-                    <span>DELIVERY</span>
-                    <span></span>
+                <div className="PriceSummaryChild">
+                    <span>DISCOUNT</span>
+                    {cartIsFetching ? <span>Loading..</span> :<span>{discount}</span>}
                 </div>
-                <div className="PriceSummaryChild pb-2">
-                    <span>Fee Amount</span>
-                    <span>{this.props.feeAmount}</span>
-                </div>
-                <div className="PriceSummaryChild pb-2">
+                <div className="PriceSummaryChild">
                     <span>TOTAL</span>
-        {cartIsFetching?<span>Loading</span>:<span>{this.props.grandTotal}</span>}
+                    {cartIsFetching ? <span>Loading..</span> : <span>{grandTotal}</span>}
                 </div>
             </>
         )

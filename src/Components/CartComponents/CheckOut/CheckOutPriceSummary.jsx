@@ -6,27 +6,29 @@ class CartPriceSummary extends React.Component {
         this.state = {}
     }
     render() {
+        let { cartIsFetching } = this.props;
+        let grandTotal = this.props.grandTotal.split(",").join("");
         return (
             <>
                 <div className="PriceSummaryChild">
                     <span>TAXES</span>
-        <span>{this.props.taxes}</span>
+                    {cartIsFetching ? <span>Loading..</span> : <span>{this.props.taxes}</span>}
                 </div>
                 <div className="PriceSummaryChild">
                     <span>DRIVER TIP</span>
-                  <span>{this.props.driverTipAmount}</span>
+                    {cartIsFetching ? <span>Loading..</span> : <span>{this.props.driverTipAmount}</span>}
                 </div>
                 <div className="PriceSummaryChild">
                     <span>DELIVERY</span>
-                    <span>{this.props.delivery_charges}</span>
+                    {cartIsFetching ? <span>Loading..</span> : <span>{this.props.delivery_charges}</span>}
                 </div>
                 <div className="PriceSummaryChild">
-                    <span>Fee Amount</span>
-                    <span>{this.props.feeAmount}</span>
+                    <span>Discount</span>
+                    {cartIsFetching ? <span>Loading..</span> : <span>{this.props.discount}</span>}
                 </div>
                 <div className="PriceSummaryChild">
                     <span>TOTAL</span>
-                    <span>{(Number(this.props.grandTotal)+Number(this.props.driverTipAmount)).toFixed(2)}</span>
+                    {cartIsFetching ? <span>Loading..</span> : <span>{(Number(grandTotal) + Number(this.props.driverTipAmount)).toFixed(2)}</span>}
                 </div>
             </>
         )
