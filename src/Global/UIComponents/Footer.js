@@ -14,10 +14,10 @@ class Footer extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, isLoginAndSignupScreen } = this.props;
         return (
             <React.Fragment>
-                <Container fluid={true}  className="footerLayout d-flex align-items-center">                   
+                <Container fluid={true}  className="footerLayout d-flex align-items-center">              
                 <Container className="container-content-header justify-content-center">
                         <Row>
                             <Col className="d-flex flex-column">
@@ -27,6 +27,7 @@ class Footer extends React.Component {
                         </Row>
                     </Container>
                 </Container>
+                { isLoginAndSignupScreen ? "" :
              <div className="mobile-bottom-bar d-block d-md-none">
                 <Container fluid={true}  className="d-flex align-items-center h-100 justify-content-center">   
                         <Row className="justify-content-between align-items-center flex-grow-1 no-gutters">
@@ -52,6 +53,7 @@ class Footer extends React.Component {
                         </Row>
                         </Container>
                     </div> 
+                }
             </React.Fragment>
           );
      }
