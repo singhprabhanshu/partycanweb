@@ -17,8 +17,8 @@ class SettingTabs extends React.Component {
             selectedTab: "",
             renderTabs: [],
             tabData: [ { tabName : 'user', icon: <PersonOutlineIcon style={{ fontSize: 25 }}/>, label: 'User'},
-                        { tabName : 'orders', icon: <ArtTrackIcon style={{ fontSize: 25 }}/>, label: 'Orders'},
-                        { tabName : 'chat', icon: <TextsmsIcon style={{ fontSize: 25 }}/>, label: 'Live Chat'}
+                        { tabName : 'orders', icon: <ArtTrackIcon style={{ fontSize: 25 }}/>, label: 'Orders'}
+                        // { tabName : 'chat', icon: <TextsmsIcon style={{ fontSize: 25 }}/>, label: 'Live Chat'}
                     ]
         }
       }

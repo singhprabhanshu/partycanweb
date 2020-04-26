@@ -27,7 +27,7 @@ class CartContainer extends React.Component {
     cartFetchError = (err) => {
         console.log(err);  //TODO: ERROR CASE NEED TO BE HANDLED 
     };
-  
+
     renderContent = () => {
         let { discount, subTotal, grandTotal, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
         let { coupon_code } = this.state;
@@ -45,7 +45,7 @@ class CartContainer extends React.Component {
                     <CouponCode
                         dispatch={this.props.dispatch}
                         onChange={this.onChangeCouponCode}
-                        applyCouponLoading = {(applyCouponLoading)=>this.setState({applyCouponLoading})}
+                        applyCouponLoading={(applyCouponLoading) => this.setState({ applyCouponLoading })}
                         //width={cardWidth}
                         coupon_code={coupon_code} />
                 </div>
@@ -75,13 +75,12 @@ class CartContainer extends React.Component {
         //     return <Loader />
         // }
         let noCartItem = this.props.cartItems.length == 0 && !this.props.cartIsFetching;
-
-        let {cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
+        let { cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
         return (
             <React.Fragment>
                 <Container fluid={true} >
-                    <Row style={noCartItem?{display:"none"}:null} className="no-gutters justify-content-lg-between secMinHeightwt">
-                        <Col xs={12} lg={7} className="p-xl-5 p-4 d-flex flex-column">
+                    <Row style={noCartItem ? { display: "none" } : null} className="no-gutters justify-content-lg-between secMinHeightwt">
+                        <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 d-flex flex-column">
                             <div className="block-title mb-5" style={{}}>CART</div>
                             {this.renderContent()}
                             <div className="text-left mt-4" >
@@ -96,12 +95,12 @@ class CartContainer extends React.Component {
                             </div>
                         </Col>
                         <Col xs={12} lg={5} className="d-none d-lg-block" >
-                            <div className="productImgSection proDetailSec">
-                                <img src={proImg} className="imgProduct img-responsive"></img>
+                            <div className="productImgSection ImgSectionwt">
+                                <img src={proImg} className="imgProduct"></img>
                             </div>
                         </Col>
                     </Row>
-                    {noCartItem&&<CartEmptyComponent/>}
+                    {noCartItem && <CartEmptyComponent />}
                 </Container>
             </React.Fragment>
         )

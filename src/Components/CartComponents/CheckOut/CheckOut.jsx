@@ -17,7 +17,8 @@ import { Container, Row, Col } from 'reactstrap'
 import proImg from '../../../assets/images/party-can.png'
 import { createReqObjForCart } from "../../../Global/helper/commonUtil";
 import CartEmptyComponent from "../../CartHomeComponents/CartEmptyComponent";
-
+import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 class CheckOut extends React.Component {
     constructor(props) {
@@ -128,7 +129,7 @@ class CheckOut extends React.Component {
                 <div className="couponParent mt-5">
                     <CouponCode dispatch={this.props.dispatch} onChange={this.onChange} coupon_code={coupon_code} />
                 </div>
-                <div style={{ padding: "10px 20px" }}>
+                <div style={{ padding: "10px 0px" }}>
                     <Label>Driver Tip</Label>
                     <br />
                     <ButtonGroup color="secondary" aria-label="outlined primary button group">
@@ -162,21 +163,22 @@ class CheckOut extends React.Component {
     render() {
         if (this.state.orderPlaced) {
             return (
-                <React.Fragment>
-                    <Container fluid={true}>
-                        <Row className="no-gutters justify-content-lg-between secMinHeight">
-                            <Col lg={6} className="p-xl-5 p-4 d-flex flex-column align-items-center justify-content-center">
-                                <span>Cheers!!Order Placed Succesfully</span>
-                                <span className="mt-4">Your Order id is <b>{this.state.order_id}</b></span>
-                                <div className="mt-4" >
-                                    <LoaderButton
-                                        onClick={this.trackOrder}
-                                        color="primary"
-                                        variant="contained"
-                                        type="submit">
-                                        <ArrowForwardIcon /> Track Order
-                                </LoaderButton>
-                                </div>
+<React.Fragment>
+<Container fluid={true}>            
+    <Row className="no-gutters justify-content-lg-between secMinHeight">  
+    <Col lg={6}  className="p-xl-5 p-md-4 py-4 d-flex flex-column align-items-center justify-content-center orderPlaced">                 
+               <span>Order Placed.</span>                           
+               <span className="mt-0">Your Order id is <b class="orderNumber">#{this.state.order_id}</b></span>
+               <div className="mt-5" >
+       
+                   <LoaderButton
+                       onClick={this.trackOrder}
+                       color="primary"
+                       variant="contained"                               
+                       type="submit" className="bottomActionbutton autoWidthbtn transiBtn btn btn-secondary">
+                       <LocationOnOutlinedIcon className="mr-3"/> Track Your Order
+                   </LoaderButton>   
+               </div> 
                             </Col>
                             <Col lg={5} className="d-none d-lg-block">
                                 <div className="productImgSection">
@@ -225,7 +227,9 @@ class CheckOut extends React.Component {
             </React.Fragment>
         )
     }
+    
 }
+
 
 function mapStateToProps(state) {
     let cartId = _get(state, "cart.lookUpData[0].cart_id", '');
