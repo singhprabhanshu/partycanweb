@@ -88,20 +88,22 @@ class ProductDetails extends React.Component {
             responsive: {
                 superLargeDesktop: {
                   // the naming can be any, depends on you.
-                  breakpoint: { max: 4000, min: 3000 },
-                  items: 3
+                  breakpoint: { max: 4000, min: 1200 },
+                  items: 5
                 },
                 desktop: {
-                  breakpoint: { max: 3000, min: 1024 },
-                  items: 3
+                  breakpoint: { max: 1199, min: 768 },
+                  items: 4
                 },
                 tablet: {
-                  breakpoint: { max: 1024, min: 464 },
-                  items: 3
+                  breakpoint: { max: 767, min: 464 },
+                  items: 3,
+                  slidesToSlide: 3
                 },
                 mobile: {
-                  breakpoint: { max: 464, min: 0 },
-                  items: 3
+                  breakpoint: { max: 575, min: 320 },
+                  items: 2,
+                  slidesToSlide: 2
                 }
               }
         }
@@ -237,11 +239,11 @@ class ProductDetails extends React.Component {
 
                 </Row>
                 {!_isEmpty(Ingredients) ?
-                    <div className="proItems d-flex flex-column mb-4">
+                    <div className="proItems d-flex flex-column mb-md-4 mb-8" >
                         <div className="mb-3 title-2">INGREDIENTS</div>
 
                         <div>
-                            <Carousel responsive={this.state.responsive}>
+                            <Carousel responsive={this.state.responsive} showDots={true} itemClass="px-4">
                                {Ingredients}
                             </Carousel>
                     {/* <AliceCarousel mouseTrackingEnabled
@@ -296,7 +298,7 @@ class ProductDetails extends React.Component {
             </div>
         </>
         if (isMobile || isTablet) {
-            return <div>{commonContent}</div>
+            return <div style={{overflow:'hidden'}}>{commonContent}</div>
         }
         else {
             return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
@@ -309,8 +311,8 @@ class ProductDetails extends React.Component {
         let Ingredients = []
         const { productDetailsData } = this.props;
         Ingredients = !_isEmpty(productDetailsData.ingredients) && productDetailsData.ingredients.map((ingredient, index) =>
-            <div>
-                <img src={ingredient.image} alt="Card image cap" />
+            <div className="d-flex flex-column justify-content-center align-items-center">
+                <img src={ingredient.image} alt="Card image cap" className="img-fluid" />
                 <div className="ingredientLabel">{ingredient.title}</div>
             </div>)
         let totalRating = 0;

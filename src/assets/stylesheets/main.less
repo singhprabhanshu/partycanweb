@@ -297,6 +297,10 @@ button:focus {
     @media (max-width:1199px){
       padding: 0 2rem!important;
     }
+    @media (max-width:400px){
+      font-size: 1.2rem!important;
+      padding: 0 1rem!important;
+    }
   }
   @media (max-width:575px){
     min-width: 100%!important;
@@ -613,7 +617,25 @@ button:focus {
     font-size: 2.5rem;
     letter-spacing: .3rem;
   }
-
+  .react-multi-carousel-dot-list{
+    display: none;
+  }
+  
+  @media(max-width:767px){
+    .react-multiple-carousel__arrow{
+      display: none;
+    }
+    .react-multi-carousel-list{
+      overflow: unset!important;
+    }
+    .react-multi-carousel-dot-list{
+      display: flex;
+      bottom: -3rem;
+    }
+    &.mb-8{
+      margin-bottom: 8rem;
+    }
+  }
 }
 
 .snowFlakes{
@@ -701,6 +723,13 @@ button:focus {
   }
 }
 
+.ingredientLabel{
+  font-size: 1.0rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
 /////////////////////////your order
 .MuiExpansionPanelSummary-root{padding: 0!important;}
 .MuiExpansionPanelDetails-root{padding: 8px 0px!important;}
@@ -736,6 +765,7 @@ span.MuiButton-label {
   max-height: calc(100vh - 240px);
   overflow-y: auto;
   width: 100%;
+  
   @media(max-width:767px){
     max-height:unset!important;
   }
@@ -755,6 +785,7 @@ span.MuiButton-label {
      height: 100%;  
      @media(max-width:1024px){
       height: auto; 
+      max-width: 80%;
     }
   } 
   
@@ -816,6 +847,12 @@ span.MuiButton-label {
     &:after{
      display: none;
     }
+  }
+
+  @media(max-width:767px){   
+  
+    margin-bottom: 4rem;
+   
   }
 }
 
@@ -1135,10 +1172,15 @@ span.MuiButton-label {
 }
 @media(min-width:992px) {
   .cart-pro-img{
-     max-width: 55%;
+     max-width: 55%;    
+  }
+}
+@media(max-width:767px) {
+  .cart-pro-img{
+    margin-right: 2rem;
+  }
 }
 
-}
 @media(max-width:575px){
   .cartItemChild
   {
