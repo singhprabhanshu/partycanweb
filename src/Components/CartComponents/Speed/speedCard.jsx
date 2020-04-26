@@ -8,7 +8,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 const styles = theme => ({  
 
     speedCardTitle:{
-        fontSize: 18,
+        fontSize: 15,
         textTransform: 'uppercase',
         color:'#0033A0',
         fontWeight: 'bold',
@@ -22,11 +22,11 @@ class SpeedCard extends Component {
   } 
   _getRootCardClass = ({ selectedId, id, enablePointer }) => {
       if (id === selectedId) {
-          return "speedCards active";
+          return "cardStyles speedCards active";
       } else if (enablePointer) {
-        return "speedCards";
+        return "cardStyles speedCards";
       } else {
-        return "speedCards disable";
+        return "cardStyles speedCards disable";
       }
       
   };
@@ -34,9 +34,9 @@ class SpeedCard extends Component {
         const {classes} = this.props;
         return (
             <React.Fragment>                
-                    <Card className={this._getRootCardClass({ selectedId: this.props.selectedTransportAddress, id: this.props.data.id, enablePointer: this.props.data.enablePointer})} onClick={() => this.props.changeOpactiy(this.props.data.id)} >
-                        <CardBody className="d-flex flex-column align-items-center">
-                        <div className="mb-4"><LocalShippingOutlinedIcon style={{ fontSize: 25, opacity:0.6 }} /> </div> 
+                    <Card className="speedCardscontainer" >
+                        <CardBody className={this._getRootCardClass({ selectedId: this.props.selectedTransportAddress, id: this.props.data.id, enablePointer: this.props.data.enablePointer})} onClick={() => this.props.changeOpactiy(this.props.data.id)} >
+                        <div className="mb-4"><LocalShippingOutlinedIcon style={{ fontSize: 25 }} /> </div> 
                             <div className={classes.speedCardTitle}>
                                 {this.props.data.description}
                             </div>
@@ -46,7 +46,7 @@ class SpeedCard extends Component {
                             {/* <div>
                                 {this.props.data.address}
                             </div> */}
-                             <div className="mb-4"><CheckCircleIcon style={{ fontSize: 25 }} /> </div>
+                             <div className="mt-4"><CheckCircleIcon style={{ fontSize: 25 }} /> </div>
                         </CardBody>
                     </Card>
             </React.Fragment>

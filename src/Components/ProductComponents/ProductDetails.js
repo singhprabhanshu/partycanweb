@@ -34,6 +34,7 @@ import {isMobile, isTablet} from 'react-device-detect';
 import { Loader } from '../../Global/UIComponents/LoaderHoc';
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
+import proImg from '../../assets/images/party-can-product.png'
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -228,13 +229,14 @@ class ProductDetails extends React.Component {
                 <div className="proItems d-flex flex-column mb-4">
                     <div  className="mb-3 title-2">INGREDIENTS</div>
                     
-                    {/* <div className="ingredientsList">
+                    <div className="ingredientsList">
                     <AliceCarousel
                         items={Ingredients}
                         responsive={this.state.responsive}
                         buttonsDisabled={true}
                     />
-                    </div> */}
+                    </div>
+                   
                     
                 </div>
             : ""}
@@ -332,13 +334,14 @@ class ProductDetails extends React.Component {
             <Row className="no-gutters justify-content-lg-between secMinHeight">
                 <Col xs={12} lg={5} className="order-1 order-lg-2">
                     <div className="productImgSection proDetailSec">
-                    <Carousel  showStatus={false} >
+                    {/* <Carousel  showStatus={false} >
                         {productImages}
-                    </Carousel> 
+                    </Carousel>  */}
+                          <img src={proImg} className="imgProduct"></img>
                     </div>
                 </Col>
 
-                <Col xs={12} lg={7} className="p-xl-5 p-4 order-2  d-flex order-lg-1 ">
+                <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 order-2  d-flex order-lg-1 ">
                     {this.renderContent(averageRating, reviewsList, productDetailsData, Ingredients)}                  
                 </Col>                        
                 </Row>}

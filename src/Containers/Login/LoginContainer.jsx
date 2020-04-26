@@ -83,10 +83,6 @@ class SignIn extends React.Component {
         const code = _get(data[0],'code');
         const message = _get(data[0],'message');
           if(code === 1 && message === 'success') {
-            this.props.dispatch(
-                showMessage({ text: 'Signin Successfully',
-                             isSuccess: true
-                        }));
             localStorage.setItem('Token', _get(data[0], 'result.api_token',''));
             this.props.history.push('/home');
         } else {
@@ -104,10 +100,10 @@ class SignIn extends React.Component {
         const { classes } = this.props;
         return (
             <React.Fragment>
-                <Container fluid={true}  className="WhiteCurveBg">
+                <div className="WhiteCurveBg">
                      <CssBaseline />
                 <Container className="container-custom d-flex flex-column justify-content-center">
-                    <Row className="align-items-center" style={{flex:2, maxHeight:200}}>
+                    <Row className="align-items-center  mb-5" style={{flex:2,  maxHeight:130, minHeight:130}}>
                         <Col  className="text-center" >
                         <h4 className="holduptext">SIGN IN</h4>
                         </Col>                        
@@ -116,15 +112,15 @@ class SignIn extends React.Component {
                   
                         <Form  onSubmit= {this.onSubmit} validate={validate}
                             render={({ handleSubmit }) => (
-                        <form className="d-flex flex-column justify-content-around mb-4" style={{flex:3, maxHeight:350}} onSubmit={handleSubmit}>
+                        <form className="d-flex flex-column justify-content-around mb-4"  onSubmit={handleSubmit}>
                             <Row>
-                                <Col className="text-center" >
+                                <Col className="text-center mb-5" >
                                 <Field name="email" component={TextInputField} placeholder='EMAIL'
                                 autoFocus={false} type='text' />
                                 </Col>                        
                             </Row>
                             <Row>
-                                <Col className="text-center" >
+                                <Col className="text-center mb-5" >
                                 <Field name="password" component={TextInputField} placeholder='PASSWORD'
                                 autoFocus={false} type='password' />
                                 </Col>                        
@@ -146,7 +142,7 @@ class SignIn extends React.Component {
                          </form>)}
                         />
                      </Container>
-                </Container>
+                </div>
                         <Container className="container-custom">
                             <Row>
                                 <Col  className="text-center" >

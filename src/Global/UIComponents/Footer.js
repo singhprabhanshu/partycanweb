@@ -18,7 +18,7 @@ class Footer extends React.Component {
         return (
             <React.Fragment>
                 <Container fluid={true}  className="footerLayout d-flex align-items-center">                   
-                <Container className="container-content justify-content-center">
+                <Container className="container-content-header justify-content-center">
                         <Row>
                             <Col className="d-flex flex-column">
                                 <span className="pb-2">&copy; to PartyCan</span>                     
@@ -27,7 +27,7 @@ class Footer extends React.Component {
                         </Row>
                     </Container>
                 </Container>
-                <div className="mobile-bottom-bar d-block d-md-none">
+             <div className="mobile-bottom-bar d-block d-md-none">
                 <Container fluid={true}  className="d-flex align-items-center h-100 justify-content-center">   
                         <Row className="justify-content-between align-items-center flex-grow-1 no-gutters">
                             <Col  className="justify-content-around align-items-center d-flex">                                
@@ -51,7 +51,7 @@ class Footer extends React.Component {
                             </Col>
                         </Row>
                         </Container>
-                    </div>
+                    </div> 
             </React.Fragment>
           );
      }

@@ -77,9 +77,9 @@ class SplashContainer extends React.Component {
         return ( 
             <React.Fragment>
              {this.state.isLoading && <Loader /> }
-            {this.state.imageData.length > 0 && <Container fluid={true}  className="WhiteCurveBg">
+            {this.state.imageData.length > 0 && <div className="WhiteCurveBg">
                      <CssBaseline />
-                <Container className="container-content d-flex flex-column justify-content-center">
+                <Container className="d-flex flex-column justify-content-center">
                 <Row className="flex-grow-1">
                       <Col className="text-center d-flex justify-content-center IntroSlider  align-items-center position-relative" >
                         <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} showArrows={false}
@@ -103,7 +103,7 @@ class SplashContainer extends React.Component {
                     </Col>
                     </Row>  
                     </Container>
-                </Container>}
+                </div>}
                 {this.state.imageData.length > 0 && <Container className="container-custom">
                     <Row>
                         <Col className="text-center" style={{height:70}} >

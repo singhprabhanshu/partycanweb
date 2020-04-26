@@ -12,6 +12,7 @@ import OrderSetting from '../../Components/SettingComponents/OrderSetting';
 import LivechatSetting from '../../Components/SettingComponents/LivechatSetting';
 import Scrollbar from "react-scrollbars-custom";
 import {isMobile, isTablet} from 'react-device-detect';
+import { Button } from 'reactstrap';
 
 class SettingContainer extends React.Component {
 
@@ -46,7 +47,7 @@ class SettingContainer extends React.Component {
             } 
             {this.state.tabValue === 1 && 
                 <OrderSetting  tabValue = {this.state.tabValue}/> }
-            {this.state.tabValue === 2 &&  <LivechatSetting /> }   
+            {/* {this.state.tabValue === 2 &&  <LivechatSetting /> }    */}
         </div>
          </>
         if(isMobile || isTablet){
@@ -70,7 +71,19 @@ class SettingContainer extends React.Component {
                        
                 <Row className="no-gutters justify-content-lg-between secMinHeight">
                     <Col xs={12} lg={7} className="p-xl-5 p-4" >
-                    {this.renderContent()}  
+                    {this.props.userName ? this.renderContent() : 
+                    <Container fluid={true} > 
+                    <Row className="no-gutters  secMinHeightwt">
+                        <Col xs={12}  className="d-flex p-xl-5 p-md-4 py-4 flex-column justify-content-center align-items-center">                           
+                            <div>Hey you are not SignIn for this feature. Please Sign In 
+                                <i class="fa fa-frown-o" aria-hidden="true"></i></div>
+                            <Button  variant="contained" color="primary" className="mt-4 bottomActionbutton cartActionBtn"
+                                onClick={() => this.props.history.push("/signIn")}>SignIn
+                            </Button>    
+                        </Col>                        
+                    </Row>
+                </Container>
+                    }
                     </Col>
                 </Row >   
                 </Container>
@@ -81,6 +94,7 @@ class SettingContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return {}
+    let userName = _get(state,"userSignInInfo.lookUpData[0].result.cust_name",''); 
+    return {userName}
 }
 export default connect(mapStateToProps)(SettingContainer);

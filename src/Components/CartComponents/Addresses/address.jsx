@@ -128,7 +128,8 @@ class Address extends React.Component {
             },
             identifier:"USER_ADDRESS",
             successCb:userAddressFetchSuccess,
-            errorCb:userAddressFetchError
+            errorCb:userAddressFetchError,
+            dontShowMessage: true
         });
     };
 
@@ -202,6 +203,7 @@ class Address extends React.Component {
             identifier: 'POST_USER_ADDRESSES',
             successCb: this.addUserAddressSuccess,
             errorCb: this.addUserAddressError,
+            dontShowMessage: true
         });
             
           
@@ -227,27 +229,22 @@ class Address extends React.Component {
         let commonContent = <>
             <div className="pr-lg-4" > 
                 <div style={styles(this.state).addressFormHide}> 
-                     <div className="block-title mb-5">Address</div>
+                   
                     <div className="d-flex flex-wrap CardsWrapper">                   
                         <AddAddressCard handleAddAddress={this.handleAddAddress} />
                         {addresses}
                     </div> 
-                    <div className="text-left mt-4" >
-                        <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" disabled={!_get(this.state, 'isAddressSelected', false)} onClick={this.handleCardSelect}>
-                            <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE & CONTINUE
-                        </Button>
-                    </div> 
+                   
                 </div>
                 <div style={styles(this.state).addressFormShow}> 
-                        <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} onClick={this.handleGoBack} />ADDRESS</div>
+                        
                         <Form onSubmit= {this.onSubmit} validate={validate}
                                 render={({ handleSubmit }) => (
                             <form onSubmit={handleSubmit}>
-                            <div className="block-title d-flex justify-content-between align-items-center mb-4">                            
-                            ADD NEW ADDRESSES
-                            <span className="d-flex align-items-center">
-                                <Field name="defaultAddress" component={SwitchInputField} label='DEFAULT ADDRESS' />
-                            </span>
+                            <div className="block-title d-flex justify-content-between align-items-center mb-4"> 
+                                <span className="d-flex align-items-center">
+                                    <Field name="defaultAddress" component={SwitchInputField} label='DEFAULT ADDRESS' />
+                                </span>
                             </div>
                                 <div className="d-flex mt-4">
                                     <div style={{ width: '50%', marginRight: 50}}>
@@ -294,11 +291,7 @@ class Address extends React.Component {
                                     <Field name="phone" component={TextInputField} placeholder='phone'
                                     autoFocus={false} type='text' />
                                 </div> 
-                                <div className="text-left mt-4" >
-                                    <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" type="submit">
-                                        <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE ADDRESS
-                                    </Button>
-                                </div> 
+                              
                             </form>)}
                             />
                     </div>
@@ -345,8 +338,23 @@ class Address extends React.Component {
                                 <img src={proImg} className="imgProduct img-responsive"></img>
                          </div>
                         </Col>
-                        <Col lg={6} className="p-xl-5 p-4 d-flex flex-column order-2 order-md-1">
+                        <Col lg={6} className="p-xl-5 p-md-4 py-4 d-flex flex-column order-2 order-md-1">
+                        {!this.state.isAddressFormShown ? <div className="block-title mb-5">Address</div> : <div>
+                            <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} onClick={this.handleGoBack} />ADDRESS</div>
+                            <div className="block-title mb-5">ADD NEW ADDRESSES</div> 
+                            </div>}
                              {this.renderContent(addresses)}
+
+                             {!this.state.isAddressFormShown ? <div className="text-left mt-4" >
+                                <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" disabled={!_get(this.state, 'isAddressSelected', false)} onClick={this.handleCardSelect}>
+                                    <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE & CONTINUE
+                                </Button>
+                            </div> :
+                            <div className="text-left mt-4" >
+                                    <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" type="submit">
+                                        <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE ADDRESS
+                                    </Button>
+                            </div> }
                         </Col>
                         
                     </Row>
