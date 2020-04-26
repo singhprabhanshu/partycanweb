@@ -35,7 +35,7 @@ class EmptyLayout extends React.Component {
         <div className="container-content-section">
           {this.props.children}
         </div>
-        <Footer />
+        {/* <Footer {...this.props} /> */}
         <div>{this.props.message.text && <Snackbar
           anchorOrigin={{
             vertical: 'bottom',

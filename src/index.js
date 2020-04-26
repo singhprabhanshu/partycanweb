@@ -108,8 +108,8 @@ ReactDOM.render(
             <Router>
               <Switch>
                 <RouteWithLayout Layout={EmptyLayout} exact path="/" Component={HoldupContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/signIn" Component={LoginContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/createAccount" Component={CreateAccountContainer} />
+                <RouteWithLayout Layout={EmptyLayout} exact path="/signIn" Component={LoginContainer} />
+                <RouteWithLayout Layout={EmptyLayout} exact path="/createAccount" Component={CreateAccountContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/splash" Component={SplashContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/cart" Component={CartContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/cart/:cartflow" Component={AddressHomeContainer} />

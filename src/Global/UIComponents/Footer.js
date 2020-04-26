@@ -8,6 +8,11 @@ const styles = theme => ({
 });
 
 class Footer extends React.Component { 
+
+    showUserMenu = () => {
+        this.props.history.push('/setting/user')
+    }
+
     render() {
         const { classes } = this.props;
         return (

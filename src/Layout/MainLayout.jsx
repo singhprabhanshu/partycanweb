@@ -49,6 +49,18 @@ class MainLayout extends React.Component {
     }   
   }
 
+  handleRoute() {
+    let currentRoute = this.props.match.path;
+    switch (currentRoute) {
+      case "/splash":
+        return "";
+      case "/cart/:cartflow":
+        return "";
+      default:
+        return <Footer {...this.props} />;
+    }
+  }
+
   renderContent = (classes) => {
     let commonContent =  <>
     <div className="d-none d-md-block" onClick={this.hideUserMenu}>
@@ -74,7 +86,10 @@ class MainLayout extends React.Component {
      />}
      </div>
      </div>
-     <Footer  />
+     {
+     this.handleRoute()
+  }
+     
    </>
    if(isMobile || isTablet){
    return <div className="mainLayout">{commonContent}</div>
