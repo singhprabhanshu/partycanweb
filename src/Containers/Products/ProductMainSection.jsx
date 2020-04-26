@@ -35,7 +35,8 @@ fetchTabs = () => {
         },
         identifier:"CATEGORIES_LIST",
         successCb:this.categoriesFetchSuccess,
-        errorCb:this.categoriesFetchError
+        errorCb:this.categoriesFetchError,
+        dontShowMessage: true
     })
 }
 

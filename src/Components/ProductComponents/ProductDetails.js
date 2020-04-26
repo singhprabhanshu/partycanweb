@@ -119,7 +119,8 @@ class ProductDetails extends React.Component {
             },
             identifier: "PRODUCT_DETAILS_LIST",
             successCb: this.productDetailsFetchSuccess,
-            errorCb: this.productDetailsFetchError
+            errorCb: this.productDetailsFetchError,
+            dontShowMessage: true
         })
         const categoryType = this.props.match.params.categoryType;
 
@@ -178,7 +179,7 @@ class ProductDetails extends React.Component {
             identifier: "ADD_TO_CART",
             successCb: this.addToCartSuccess,
             errorCb: this.addToCartFailure,
-            dontShowMessage: true
+            dontShowMessage: true,
         })
     }
 
