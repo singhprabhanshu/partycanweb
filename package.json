@@ -77,6 +77,7 @@
     "react-dom": "^16.13.1",
     "react-final-form": "^6.3.5",
     "react-horizontal-scrolling-menu": "^0.7.7",
+    "react-multi-carousel": "^2.5.5",
     "react-rating": "^2.0.5",
     "react-redux": "^7.2.0",
     "react-responsive-carousel": "^3.1.51",
