@@ -12,6 +12,22 @@ const cleanEntityData = (data) => {
     return cleanData;
 }
 
+const createReqObjForCart = ()=>{
+    let reqObj = {}
+    if(localStorage.getItem("Token"))
+    reqObj = {
+        "api_token": localStorage.getItem("Token")
+    };
+    else{
+        reqObj = {
+            "cart_id":localStorage.getItem("cart_id")
+        };
+    }
+    return reqObj;
+}
+
+
 export {
-    cleanEntityData
+    cleanEntityData,
+    createReqObjForCart
 }

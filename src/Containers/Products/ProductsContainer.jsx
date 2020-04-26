@@ -90,7 +90,8 @@ class ProductsContainer extends React.Component {
             },
             identifier:"PRODUCTS_LIST",
             successCb:this.productsListFetchSuccess,
-            errorCb:this.productsListFetchError
+            errorCb:this.productsListFetchError,
+            dontShowMessage: true
         })
     }
 
