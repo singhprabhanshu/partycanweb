@@ -14,7 +14,7 @@ import genericGetData from "../../Redux/Actions/genericGetData";
 import genericPostData from "../../Redux/Actions/genericPostData";
 import ShoppingBasketOutlined from "@material-ui/icons/ShoppingBasketOutlined";
 import Scrollbar from "react-scrollbars-custom";
-import {Container, Row, Col} from 'reactstrap'
+import { Container, Row, Col } from 'reactstrap'
 import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
@@ -26,16 +26,18 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ProductTabs from './ProductTabs';
 import {
     FacebookIcon,
-  } from "react-share";
+} from "react-share";
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
-import {isMobile, isTablet} from 'react-device-detect';
+// import { Carousel } from 'react-responsive-carousel';
+import { isMobile, isTablet } from 'react-device-detect';
 import { Loader } from '../../Global/UIComponents/LoaderHoc';
-import AliceCarousel from 'react-alice-carousel'
-import 'react-alice-carousel/lib/alice-carousel.css';
+// import AliceCarousel from 'react-alice-carousel'
+// import 'react-alice-carousel/lib/alice-carousel.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import proImg from '../../assets/images/party-can-product.png'
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -79,31 +81,53 @@ class ProductDetails extends React.Component {
             showReviews: false,
             slideIndex: 0,
             isLoading: true,
-            responsive: { 0: { items: 5 } }
+            // responsive: {
+            //     0: { items: 3 },
+
+            // }
+            responsive: {
+                superLargeDesktop: {
+                  // the naming can be any, depends on you.
+                  breakpoint: { max: 4000, min: 3000 },
+                  items: 3
+                },
+                desktop: {
+                  breakpoint: { max: 3000, min: 1024 },
+                  items: 3
+                },
+                tablet: {
+                  breakpoint: { max: 1024, min: 464 },
+                  items: 3
+                },
+                mobile: {
+                  breakpoint: { max: 464, min: 0 },
+                  items: 3
+                }
+              }
         }
     }
 
     componentDidMount() {
         const productID = this.props.match.params.productID;
         genericGetData({
-            dispatch:this.props.dispatch,
-            url:`/connect/index/product?prodid=${productID}`,
-            constants:{
-            init:"PRODUCT_DETAILS_LIST_INIT",
-            success:"PRODUCT_DETAILS_LIST_SUCCESS",
-            error:"PRODUCT_DETAILS_LIST_ERROR" 
+            dispatch: this.props.dispatch,
+            url: `/connect/index/product?prodid=${productID}`,
+            constants: {
+                init: "PRODUCT_DETAILS_LIST_INIT",
+                success: "PRODUCT_DETAILS_LIST_SUCCESS",
+                error: "PRODUCT_DETAILS_LIST_ERROR"
             },
-            identifier:"PRODUCT_DETAILS_LIST",
-            successCb:this.productDetailsFetchSuccess,
-            errorCb:this.productDetailsFetchError
+            identifier: "PRODUCT_DETAILS_LIST",
+            successCb: this.productDetailsFetchSuccess,
+            errorCb: this.productDetailsFetchError
         })
         const categoryType = this.props.match.params.categoryType;
-        
+
         let index = _findIndex(this.props.categoriesList, { 'category_name': categoryType })
-        if(index == -1){
-            index=0
+        if (index == -1) {
+            index = 0
         }
-        this.setState({ tabValue: index})
+        this.setState({ tabValue: index })
     }
 
     productDetailsFetchSuccess = (data) => {
@@ -131,7 +155,7 @@ class ProductDetails extends React.Component {
     }
 
     handleReviews = () => {
-        this.setState({ showReviews : !this.state.showReviews })
+        this.setState({ showReviews: !this.state.showReviews })
     }
 
     handleAddToCart = () => {
@@ -153,15 +177,15 @@ class ProductDetails extends React.Component {
             identifier: "ADD_TO_CART",
             successCb: this.addToCartSuccess,
             errorCb: this.addToCartFailure,
-            dontShowMessage:true
+            dontShowMessage: true
         })
     }
 
     thumbItem = (item, i) => (
         <span key={item} onClick={() => this.Carousel.slideTo(i)}>
-          *{' '} 
+            *{' '}
         </span>
-      )
+    )
 
     addToCartSuccess = (data) => {
         console.log(data);
@@ -175,7 +199,7 @@ class ProductDetails extends React.Component {
     }
 
     handleIndicator = (event) => {
-        this.setState({ slideIndex :  event});
+        this.setState({ slideIndex: event });
     }
 
     handleBackAction = () => {
@@ -185,90 +209,95 @@ class ProductDetails extends React.Component {
 
     renderContent = (averageRating, reviewsList, productDetailsData, Ingredients) => {
         let commonContent = <>
-        <div className="pr-lg-4" >                
-        <Row  className="mb-5 flex-column flex-md-row justify-content-md-between no-gutters" >
-            <Col className="prostarRatings order-md-2 ">
-                <div className="reviewsBox d-flex align-items-center mb-3">
-                    <StarRatingComponent value={averageRating} starCount={5} editing={false} />
-                    <span style={{fontSize:'1.2rem'}} >{this.props.productDetailsData.review_count}</span>
-                    {!this.state.showReviews ? <ExpandMoreOutlined style={{ cursor: "pointer" }} onClick={()=>this.handleReviews()}  /> : <ClearOutlined style={{ cursor: "pointer" }} onClick={()=>this.handleReviews()} />}
-                </div>
-                {this.state.showReviews ? 
-                 <Scrollbar  style={{maxHeight:150, overflowY:'auto'}}>
-                <div className="d-flex flex-column">{reviewsList}</div>
-                </Scrollbar>
-                : ""}
-                </Col>  
-           
-            <Col className="order-md-1" >                                      
-                <div className="proName text-uppercase mb-4 d-flex align-items-center" >
-                    <ArrowBackIcon onClick={this.handleBackAction} className="mr-4 d-none d-lg-block" style={{fontSize:'20px', color:'rgba(255, 255, 255, .6)'}} />  {_get(productDetailsData, "name", "")}
-                </div>
-                <div className="proDescription"  >
-                    {_get(productDetailsData, "description", "")}
-                </div>                                     
-             </Col>
-            
-        </Row>
-            { !_isEmpty(Ingredients) ? 
-                <div className="proItems d-flex flex-column mb-4">
-                    <div  className="mb-3 title-2">INGREDIENTS</div>
-                    
-                    <div className="ingredientsList">
-                    <AliceCarousel
-                        items={Ingredients}
-                        responsive={this.state.responsive}
-                        buttonsDisabled={true}
-                    />
+            <div className="pr-lg-4" >
+                <Row className="mb-5 flex-column flex-md-row justify-content-md-between no-gutters" >
+                    <Col className="prostarRatings order-md-2 ">
+                        <div className="reviewsBox d-flex align-items-center mb-3">
+                            <StarRatingComponent value={averageRating} starCount={5} editing={false} />
+                            <span style={{ fontSize: '1.2rem' }} >{this.props.productDetailsData.review_count}</span>
+                            {!this.state.showReviews ? <ExpandMoreOutlined style={{ cursor: "pointer" }} onClick={() => this.handleReviews()} /> : <ClearOutlined style={{ cursor: "pointer" }} onClick={() => this.handleReviews()} />}
+                        </div>
+                        {this.state.showReviews ?
+                            <Scrollbar style={{ maxHeight: 150, overflowY: 'auto' }}>
+                                <div className="d-flex flex-column">{reviewsList}</div>
+                            </Scrollbar>
+                            : ""}
+                    </Col>
+
+                    <Col className="order-md-1" >
+                        <div className="proName text-uppercase mb-4 d-flex align-items-center" >
+                            <ArrowBackIcon onClick={this.handleBackAction} className="mr-4 d-none d-lg-block" style={{ fontSize: '20px', color: 'rgba(255, 255, 255, .6)' }} />  {_get(productDetailsData, "name", "")}
+                        </div>
+                        <div className="proDescription"  >
+                            {_get(productDetailsData, "description", "")}
+                        </div>
+                    </Col>
+
+                </Row>
+                {!_isEmpty(Ingredients) ?
+                    <div className="proItems d-flex flex-column mb-4">
+                        <div className="mb-3 title-2">INGREDIENTS</div>
+
+                        <div>
+                            <Carousel responsive={this.state.responsive}>
+                               {Ingredients}
+                            </Carousel>
+                    {/* <AliceCarousel mouseTrackingEnabled
+                                items={Ingredients}
+                                responsive={this.state.responsive}
+                                buttonsDisabled={false}
+                                dotsDisabled={true}
+                                infinite={false}
+                            /> */}
+                        </div>
+
+
                     </div>
-                   
-                    
+                    : ""}
+                <div style={{ marginTop: "50px" }}>
+                    <Row>
+                        <Col className="d-flex flex-column mb-5" xs={6} sm={4} xl={3}>
+                            <span className="smallTitle">AMOUNT</span>
+                            <div className="addQty">
+                                <span><ClearOutlined onClick={() => this.handleQuantity("less")} /></span>
+                                <span className="qty">{this.state.defaultQuantity}</span>
+                                <span><AddOutlined style={{ fontSize: "15px" }} onClick={() => this.handleQuantity("add")} /></span>
+                            </div>
+                        </Col>
+                        <Col className="d-flex  flex-column mb-4" xs={6} sm={4} xl={4}>
+                            <span className="smallTitle">FROM</span>
+                            <span className="finalProprice">${!_isEmpty(this.state.productPrice) ? this.state.productPrice : _get(productDetailsData, "price", "")}</span>
+                        </Col>
+                        <Col className="d-flex  flex-column" xs={12} sm={4} xl={4}>
+                            <span className="smallTitle">DELIVERED COLD IN - 1 HR</span>
+                            <div className="snowFlakes">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </Col>
+                    </Row>
+
                 </div>
-            : ""}
-        <div style={{ marginTop: "50px" }}>
-            <Row>
-                <Col  className="d-flex flex-column mb-5" xs={6} sm={4} xl={3}>
-                    <span className="smallTitle">AMOUNT</span>
-                    <div className="addQty">
-                        <span><ClearOutlined onClick={() => this.handleQuantity("less")} /></span>
-                        <span className="qty">{this.state.defaultQuantity}</span>
-                        <span><AddOutlined style={{fontSize:"15px"}} onClick={() => this.handleQuantity("add")} /></span>
-                    </div>
-                </Col>
-                <Col  className="d-flex  flex-column mb-4"  xs={6}  sm={4} xl={4}>
-                    <span className="smallTitle">FROM</span>
-                    <span className="finalProprice">${!_isEmpty(this.state.productPrice) ? this.state.productPrice : _get(productDetailsData, "price", "")}</span>
-                </Col>
-                <Col  className="d-flex  flex-column"  xs={12} sm={4} xl={4}>
-                    <span className="smallTitle">DELIVERED COLD IN - 1 HR</span>
-                    <div className="snowFlakes">
-                        <span></span> 
-                        <span></span> 
-                        <span></span> 
-                        <span></span>
-                     </div> 
-                </Col>
-            </Row>
-            
-        </div>
-        <div className="d-flex flex-wrap justify-content-between justify-content-md-start flex-md-row" style={{ marginTop: "50px" }}>                                                                 
-                <Button variant="contained"  style={{ color:'#0032A0'}}  className="bottomActionbutton autoWidthbtn col-4 col-md-auto order-2 order-md-1 bg-white" type="submit">
-                <span className="icons shareIcons d-inline-block mr-2"></span>SHARE
-                 </Button>                    
-                <Button  disabled = {this.props.addToCartLoading} onClick={()=>this.handleAddToCart()} variant="contained"  className="bottomActionbutton order-1 col-12 col-md-auto order-md-2 cartActionBtn mx-md-4" type="submit">
-                {this.state.addToCartLoading ? <CircularProgress size={24} /> :<><span className="icons cartIcons d-inline-block mr-2"></span>ADD TO CART</>}
-                </Button>                    
-                <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)'}} variant="contained"  className="bottomActionbutton order-3 col-7 col-md-auto order-md-3 autoWidthbtn transiBtn" type="submit">
-                <span className="icons locationIcons d-inline-block mr-2"></span>FIND IN STORES
+                <div className="d-flex flex-wrap justify-content-between justify-content-md-start flex-md-row" style={{ marginTop: "50px" }}>
+                    <Button variant="contained" style={{ color: '#0032A0' }} className="bottomActionbutton autoWidthbtn col-4 col-md-auto order-2 order-md-1 bg-white" type="submit">
+                        <span className="icons shareIcons d-inline-block mr-2"></span>SHARE
+                 </Button>
+                    <Button onClick={() => this.handleAddToCart()} variant="contained" className="bottomActionbutton order-1 col-12 col-md-auto order-md-2 cartActionBtn mx-md-4" type="submit">
+                        <span className="icons cartIcons d-inline-block mr-2"></span>ADD TO CART
                 </Button>
-        </div>
-        </div>
+                    <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)' }} variant="contained" className="bottomActionbutton order-3 col-7 col-md-auto order-md-3 autoWidthbtn transiBtn" type="submit">
+                        <span className="icons locationIcons d-inline-block mr-2"></span>FIND IN STORES
+                </Button>
+                </div>
+            </div>
         </>
-        if(isMobile || isTablet){
+        if (isMobile || isTablet) {
             return <div>{commonContent}</div>
         }
-        else{
-        return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        else {
+            return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
         }
     }
 
@@ -277,12 +306,11 @@ class ProductDetails extends React.Component {
         console.log("product details", this.props.productDetailsData)
         let Ingredients = []
         const { productDetailsData } = this.props;
-        Ingredients =  !_isEmpty(productDetailsData.ingredients) && productDetailsData.ingredients.map((ingredient, index) => <Card>
-        <CardImg src={ingredient.image} alt="Card image cap" />
-        <CardBody>
-            <CardTitle className="ingredientLabel">{ingredient.title}</CardTitle>
-        </CardBody>
-        </Card>)
+        Ingredients = !_isEmpty(productDetailsData.ingredients) && productDetailsData.ingredients.map((ingredient, index) =>
+            <div>
+                <img src={ingredient.image} alt="Card image cap" />
+                <div className="ingredientLabel">{ingredient.title}</div>
+            </div>)
         let totalRating = 0;
         !_isEmpty(productDetailsData.reviews) && productDetailsData.reviews.map((review, index) => {
             totalRating += Number(review.rating)
@@ -303,33 +331,33 @@ class ProductDetails extends React.Component {
         !_isEmpty(productDetailsData.images) && productDetailsData.images.map((image, index) => {
             productImages.push(
                 <div className=" d-flex justify-content-between flex-column align-items-center h-100 ">
-                <img src={image} className="img-responsive" />
+                    <img src={image} className="img-responsive" />
                 </div>
             )
         })
         return (
-            
+
             <React.Fragment>
-            <Container fluid={true} className="productDetails"> 
-                <ProductTabs
-                tabValue={this.state.tabValue}
-                handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
-                />       
-                {isLoading ? <Loader /> :       
-            <Row className="no-gutters justify-content-lg-between secMinHeight">
-                <Col xs={12} lg={5} className="order-1 order-lg-2">
-                    <div className="productImgSection proDetailSec">
-                    {/* <Carousel  showStatus={false} >
+                <Container fluid={true} className="productDetails">
+                    <ProductTabs
+                        tabValue={this.state.tabValue}
+                        handleTabChange={(index, selectedTab) => this.handleTabChange(index, selectedTab)}
+                    />
+                    {isLoading ? <Loader /> :
+                        <Row className="no-gutters justify-content-lg-between secMinHeight">
+                            <Col xs={12} lg={5} className="order-1 order-lg-2">
+                                <div className="productImgSection proDetailSec">
+                                    {/* <Carousel  showStatus={false} >
                         {productImages}
                     </Carousel>  */}
-                          <img src={proImg} className="imgProduct"></img>
-                    </div>
-                </Col>
+                                    <img src={_get(this.props, "productDetailsData.images[0]", "")} className="imgProduct"></img>
+                                </div>
+                            </Col>
 
-                <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 order-2  d-flex order-lg-1 ">
-                    {this.renderContent(averageRating, reviewsList, productDetailsData, Ingredients)}                  
-                </Col>                        
-                </Row>}
+                            <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 order-2  d-flex order-lg-1 ">
+                                {this.renderContent(averageRating, reviewsList, productDetailsData, Ingredients)}
+                            </Col>
+                        </Row>}
                 </Container>
             </React.Fragment>
         );
@@ -338,7 +366,7 @@ class ProductDetails extends React.Component {
 
 function mapStateToProps(state) {
     let productDetailsData = _get(state, 'productDetails.lookUpData');
-    let categoriesList = _get(state,'categoriesList.lookUpData.data');
+    let categoriesList = _get(state, 'categoriesList.lookUpData.data');
     return { productDetailsData, categoriesList }
 }
 export default connect(mapStateToProps)(withStyles(styles)(ProductDetails));
