@@ -175,7 +175,7 @@ class ProductDetails extends React.Component {
                 error: "CART_ITEMS_ERROR"
             },
             identifier: "CART_ITEMS",
-            successCb: ()=>console.log("added succesfully"),
+            successCb: ()=>this.props.history.push('/cart'),
             errorCb: this.cartFetchError,
             successText:"Item added to cart succesfully"
         })

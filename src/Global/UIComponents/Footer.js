@@ -8,11 +8,16 @@ const styles = theme => ({
 });
 
 class Footer extends React.Component { 
+
+    showUserMenu = () => {
+        this.props.history.push('/setting/user')
+    }
+
     render() {
-        const { classes } = this.props;
+        const { classes, isLoginAndSignupScreen } = this.props;
         return (
             <React.Fragment>
-                <Container fluid={true}  className="footerLayout d-flex align-items-center">                   
+                <Container fluid={true}  className="footerLayout d-flex align-items-center">              
                 <Container className="container-content-header justify-content-center">
                         <Row>
                             <Col className="d-flex flex-column">
@@ -22,11 +27,12 @@ class Footer extends React.Component {
                         </Row>
                     </Container>
                 </Container>
+                { isLoginAndSignupScreen ? "" :
              <div className="mobile-bottom-bar d-block d-md-none">
                 <Container fluid={true}  className="d-flex align-items-center h-100 justify-content-center">   
                         <Row className="justify-content-between align-items-center flex-grow-1 no-gutters">
                             <Col  className="justify-content-around align-items-center d-flex">                                
-                                <Button onClick={() => this.props.history.push("/category")} className="homeIcons icons"></Button>
+                                <Button onClick={() => this.props.history.push("/home")} className="homeIcons icons"></Button>
                                 <Button className="locationIcons icons "></Button>                            
                                 <Button className="addCircleIcon icons">+</Button>
                                 <Badge badgeContent={this.props.total_items_count} color="primary">
@@ -47,6 +53,7 @@ class Footer extends React.Component {
                         </Row>
                         </Container>
                     </div> 
+                }
             </React.Fragment>
           );
      }
