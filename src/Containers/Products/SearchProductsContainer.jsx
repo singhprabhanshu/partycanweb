@@ -67,7 +67,8 @@ class SearchProductsContainer extends React.Component {
             },
             identifier:"SEARCH_PRODUCTS_LIST",
             successCb:this.searchProductsFetchSuccess,
-            errorCb:this.searchProductsFetchError
+            errorCb:this.searchProductsFetchError,
+            dontShowMessage: true
         })
     }
 
