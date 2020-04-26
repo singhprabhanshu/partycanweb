@@ -78,7 +78,10 @@ class ProductDetails extends React.Component {
             showReviews: false,
             slideIndex: 0,
             isLoading: true,
-            responsive: { 0: { items: 5 } }
+            responsive: {
+                0: { items: 3 },
+                
+            }
         }
     }
 
@@ -230,10 +233,12 @@ class ProductDetails extends React.Component {
                     <div  className="mb-3 title-2">INGREDIENTS</div>
                     
                     <div className="ingredientsList">
-                    <AliceCarousel
+                    <AliceCarousel mouseTrackingEnabled 
                         items={Ingredients}
                         responsive={this.state.responsive}
-                        buttonsDisabled={true}
+                        buttonsDisabled={false}
+                        dotsDisabled={true}
+                        infinite={false}
                     />
                     </div>
                    
@@ -292,12 +297,11 @@ class ProductDetails extends React.Component {
         console.log("product details", this.props.productDetailsData)
         let Ingredients = []
         const { productDetailsData } = this.props;
-        Ingredients =  !_isEmpty(productDetailsData.ingredients) && productDetailsData.ingredients.map((ingredient, index) => <Card>
-        <CardImg src={ingredient.image} alt="Card image cap" />
-        <CardBody>
-            <CardTitle className="ingredientLabel">{ingredient.title}</CardTitle>
-        </CardBody>
-        </Card>)
+        Ingredients =  !_isEmpty(productDetailsData.ingredients) && productDetailsData.ingredients.map((ingredient, index) => 
+        <div>
+            <img src={ingredient.image} alt="Card image cap" />
+            <div className="ingredientLabel">{ingredient.title}</div>
+         </div>)
         let totalRating = 0;
         !_isEmpty(productDetailsData.reviews) && productDetailsData.reviews.map((review, index) => {
             totalRating += Number(review.rating)
@@ -337,7 +341,7 @@ class ProductDetails extends React.Component {
                     {/* <Carousel  showStatus={false} >
                         {productImages}
                     </Carousel>  */}
-                          <img src={proImg} className="imgProduct"></img>
+                          <img src={_get(this.props, "productDetailsData.images[0]" ,"")} className="imgProduct"></img>
                     </div>
                 </Col>
 
