@@ -38,6 +38,7 @@ import proImg from '../../assets/images/party-can-product.png'
 import Carousel from 'react-multi-carousel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import 'react-multi-carousel/lib/styles.css';
+import {commonActionCreater} from "../../Redux/Actions/commonAction";
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -131,6 +132,17 @@ class ProductDetails extends React.Component {
             index = 0
         }
         this.setState({ tabValue: index })
+        this.FooterAddButtonFunction()
+    }
+
+    FooterAddButtonFunction = () => {
+        let data = {
+            product_id: this.props.match.params.productID,
+            qty: this.state.defaultQuantity,
+            api_token: localStorage.getItem("Token"),
+            cart_id:localStorage.getItem("cart_id")
+        };
+        this.props.dispatch(commonActionCreater(data, "PRODUCT_DETAILS_FOOTER"));
     }
 
     productDetailsFetchSuccess = (data) => {
@@ -153,7 +165,15 @@ class ProductDetails extends React.Component {
             quantity -= 1
         }
         let productPrice = (quantity * this.props.productDetailsData.price).toFixed(2)
-        this.setState({ defaultQuantity: quantity, productPrice })
+        this.setState({ defaultQuantity: quantity, productPrice }, ()=>{
+            let data = {
+                product_id: this.props.match.params.productID,
+                qty: this.state.defaultQuantity,
+                api_token: localStorage.getItem("Token"),
+                cart_id:localStorage.getItem("cart_id")
+            };
+            this.props.dispatch(commonActionCreater(data, "PRODUCT_DETAILS_FOOTER"));
+        })
 
     }
 

@@ -22,6 +22,7 @@ let cartTabValidation = commonStaticReducer('CART_TAB_VALIDATION');
 let userSettings = commonReducer("GET_SETTING_DATA");
 let orderSettings = commonReducer("GET_ORDER_SETTING_DATA");
 let searchProductsData = commonReducer("SEARCH_PRODUCTS_LIST");
+let addProductToCartByFooter = commonStaticReducer("PRODUCT_DETAILS_FOOTER");
 
 let rootRducer = combineReducers({
     zipCodeLocator,
@@ -40,7 +41,8 @@ let rootRducer = combineReducers({
     cartTabValidation,
     userSettings,
     orderSettings,
-    searchProductsData
+    searchProductsData,
+    addProductToCartByFooter
 })
 
 export default rootRducer;
