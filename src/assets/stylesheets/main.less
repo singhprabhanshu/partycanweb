@@ -105,6 +105,7 @@ button:focus {
 .img-responsive{
   width: auto!important;
   max-width: 100%;
+  height: auto;
 }
 
 
@@ -126,6 +127,9 @@ button:focus {
   @media (max-width: 991px){
     min-height: calc( 100vh - 5rem);
   } 
+  @media (max-width: 767px){
+    padding:0 7%;
+  } 
 }
 
 .container-fluid{
@@ -133,14 +137,14 @@ button:focus {
   padding-left: 0 !important;  
 }
 
-.container-content {
-    display: flex;
-    max-width: 192rem!important;
-    padding-right: 2.5rem!important;
-    padding-left: 2.5rem!important;
-    @media (max-width: 1366px){
-     
-    } 
+.container-content-header {
+  display: flex;
+  max-width: 192rem!important;
+  padding-right: 2.5rem!important;
+  padding-left: 2.5rem!important;
+  @media (max-width: 1366px){
+   
+  } 
 }
 
 ////////////////////// Intro carousel css
@@ -165,7 +169,7 @@ button:focus {
     margin: unset!important;
     position: relative!important;
     bottom:0;
-  opacity: 1!important;
+    opacity: 1!important;
   }
 
   .carousel .slide img{
@@ -202,8 +206,13 @@ button:focus {
   background-color: rgba(255, 255, 255, .1);
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
-  display: flex;
-  flex: 1;
+  display: flex; 
+  min-height: calc( 100vh - 190px);
+  @media (max-width:767px){
+    min-height: calc( 100vh - 120px);
+    margin: 0 -7%;
+  }
+
 }
 
 
@@ -258,7 +267,12 @@ button:focus {
   font-family: 'Tungsten-Bold';
   font-size: 5.5rem;
   letter-spacing: .5rem;
+  @media (max-width:575px){
+    font-size: 4.3rem;
+  }
 }
+
+
 
 .bottomActionbutton {
   font-family: 'Gibson-Regular', sans-serif !important;
@@ -282,6 +296,10 @@ button:focus {
     min-width: auto!important;
     @media (max-width:1199px){
       padding: 0 2rem!important;
+    }
+    @media (max-width:400px){
+      font-size: 1.2rem!important;
+      padding: 0 1rem!important;
     }
   }
   @media (max-width:575px){
@@ -414,6 +432,9 @@ button:focus {
 .mobile-tabs-title{
   background-color: rgba(255, 255, 255, .1);
   height: 8rem;  
+  @media(max-width:767px){
+    margin:0 -7%;
+   }
 
   .title{
     text-align: center;
@@ -427,8 +448,11 @@ button:focus {
   border-bottom-right-radius: 2rem;
   padding-right: 1.6rem!important;
   padding-left: 1.6rem!important;
-  
-  
+    @media(max-width:767px){
+    margin:0 -7%;
+    padding-right:0!important;
+    padding-left: 0!important;
+    }  
   .MuiTab-root
   {
     min-width: 10rem!important;
@@ -442,6 +466,7 @@ button:focus {
     @media(max-width:767px){
       min-width: auto!important;
       flex: 1;
+      font-size: 1.3rem;
     }
   }
 }
@@ -455,7 +480,8 @@ button:focus {
   flex-direction: column;
   padding: 1.5rem;
   border-radius: 5px;
-  z-index: 1;
+  z-index: 3;
+  width: 18rem;
 
   &:before{
     content: "";
@@ -515,11 +541,12 @@ button:focus {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-right: 2.5rem!important;
-  padding-left: 2.5rem!important;
+  padding-right: 1rem!important;
+  padding-left: 1rem!important;
   @media(max-width:767px){
-    padding-right: 1.5rem!important;
-  padding-left: 1.5rem!important;
+    padding-right:0!important;
+     padding-left:0!important;
+     margin: 0 -5%;
   }
 
   .card{
@@ -590,7 +617,25 @@ button:focus {
     font-size: 2.5rem;
     letter-spacing: .3rem;
   }
-
+  .react-multi-carousel-dot-list{
+    display: none;
+  }
+  
+  @media(max-width:767px){
+    .react-multiple-carousel__arrow{
+      display: none;
+    }
+    .react-multi-carousel-list{
+      overflow: unset!important;
+    }
+    .react-multi-carousel-dot-list{
+      display: flex;
+      bottom: -3rem;
+    }
+    &.mb-8{
+      margin-bottom: 8rem;
+    }
+  }
 }
 
 .snowFlakes{
@@ -678,7 +723,31 @@ button:focus {
   }
 }
 
+.ingredientLabel{
+  font-size: 1.0rem;
+    text-align: center;
+    text-transform: uppercase;
+}
 
+
+/////////////////////////your order
+.MuiExpansionPanelSummary-root{padding: 0!important;}
+.MuiExpansionPanelDetails-root{padding: 8px 0px!important;}
+.MuiExpansionPanel-root.Mui-expanded{border-radius: 8px; padding: 0px 25px 22px;}
+.MuiExpansionPanelSummary-content{margin: 12px 0px!important;}
+.pricingWrapper{ width: 20%; display: flex; justify-content: space-between; align-items: center; }
+.w40{width: 40%;}
+.orderStatusText{text-transform: capitalize;}
+.MuiExpansionPanel-rounded { border-radius: 8px!important; margin-bottom: 15px; padding: 10px 25px;}
+.MuiIconButton-edgeEnd {margin-right: 0!important;}
+
+//////////////////////order-place
+.orderPlaced span{font-size: 2.8rem; color: #a6bcd0; text-align: center;}
+b.orderNumber{display: flex; justify-content: center; font-family: Tungsten-Bold; font-size: 4.8rem; color: #fff; letter-spacing: 5.5px;}
+span.MuiButton-label {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
 
 
 
@@ -686,6 +755,7 @@ button:focus {
 
 .secMinHeight{
   min-height: calc(100vh - 180px);
+  
 }
 .secMinHeightwt{
   min-height: calc(100vh - 120px);
@@ -695,6 +765,7 @@ button:focus {
   max-height: calc(100vh - 240px);
   overflow-y: auto;
   width: 100%;
+  
   @media(max-width:767px){
     max-height:unset!important;
   }
@@ -705,13 +776,19 @@ button:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+  max-height: calc(100vh - 180px);
   height: 100%;
   z-index: 1;
   .imgProduct{
-    max-width: 42%;
-    position: relative;
-    z-index: 1;    
-  }
+    width: auto!important;
+     max-width: 100%;
+     height: 100%;  
+     @media(max-width:1024px){
+      height: auto; 
+      max-width: 80%;
+    }
+  } 
+  
   &.proDetailSec{
     .carousel .slide, .carousel .slide .legend{
       background-color: transparent!important;
@@ -771,17 +848,26 @@ button:focus {
      display: none;
     }
   }
+
+  @media(max-width:767px){   
+  
+    margin-bottom: 4rem;
+   
+  }
 }
+
+.ImgSectionwt { 
+  max-height: calc(100vh - 120px);  
+}
+
+
 .fs-11{
   font-size: 1.1rem!important;
 }
 
-
 .cartActionBtn{
   background-color: @color-l!important;
 }
-
-
 
 .block-title{
   font-size: 1.8rem; 
@@ -794,124 +880,152 @@ button:focus {
 }
 
 .CardsWrapper{
-  // max-height: calc(100vh - 280px);
-  // overflow: auto;
   margin: 0 -1rem;
+  flex-wrap: wrap;
 
-.card{
-  background-color: rgba(255, 255, 255, .3)!important;
-  width: 100%;  
-  border-radius: .5rem!important;
-  color:#fff!important;
-  transition: ease all .3s;
-  padding: 1.5rem;
-  margin: 1rem;
-  cursor: pointer;
-
-  &.addressCards{
-    max-width: 47%;
-    min-height: 15rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.speedCards{
-    max-width: 20rem;
-    min-height: 8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.deliveryCards{
-    max-width: 15rem;
-    min-height: 8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.retailerCards{
-    max-width: 15rem;
-    min-height: 8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.dateTimerCards{
-    max-width: 10rem;
-    min-height: 7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.paymentcard {      
-    max-width: 25rem;
-    min-height: 15rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    @media(max-width:992px){
-      max-width: 100%;
+  .card{  
+    width: 50%;    
+    color:#fff!important;  
+    padding: 1rem;
+    background-color: transparent!important;   
+    border: 0!important;
+    @media(max-width:767px){
+      width: 100%;    
+    }
+  
+    &.speedCardscontainer{
+      width: 33%;  
+      @media(max-width:767px){
+        width: 50%;    
+      }
+    }
+    &.shippingCardscontainer{
+      width: 25%; 
+      @media(max-width:767px){
+        width: 50%;    
+      } 
+    }
+    &.retailerCardscontainer{
+      width: 25%; 
+      @media(max-width:767px){
+        width: 50%;    
+      }  
+    }
+    &.dateTimerCardscontainer{
+      width: 20%; 
+      @media(max-width:767px){
+        width: 33%;    
+      }  
     }
 
-  } 
-
-  &.addnewcard {
-    max-width: 29rem;
-    min-height: 18rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    border-radius: 14.5px!important;
-  }
-
- 
-
-  &.userPreferenceSetting, &.userInfoSettingCards{
-    max-width: 25rem;
-    min-height: 10rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
-    @media(max-width:992px){
-      max-width: 100%;
-    }
-
-    &:hover{
-      color:@color-l!important;
+    .cardStyles{
+      padding: 1.5rem;
       background-color: rgba(255, 255, 255, .3)!important;
+      transition: ease all .3s;
+      border-radius: .5rem!important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      cursor: pointer;
+
+      &.speedCards{
+        // max-width: 20rem;
+        min-height: 8rem;  
+        opacity: .6; 
+      }
+    
+      &.timeCards{
+        max-width: 20rem;
+        min-height: 8rem; 
+        opacity: .6;  
+      }
+    
+      &.shippingCards{
+        max-width: 15rem;
+        min-height: 8rem;   
+        opacity: .6; 
+      }
+    
+      &.retailerCards{
+        // max-width: 15rem;
+        min-height: 8rem;  
+        opacity: .6;  
+      }
+    
+      &.dateTimerCards{
+        max-width: 10rem;
+        min-height: 7rem; 
+        opacity: .6;   
+      }
+  
+      &.addressCards{   
+        min-height: 15rem;   
+        justify-content: flex-start!important;
+        align-items:flex-start!important; 
+      }
+
+      &.addAddressCards{   
+        min-height: 15rem;    
+      }
+
+      &.addnewcard {   
+        min-height: 18rem;
+        border-radius: 14.5px!important;   
+      }  
+
+      &.paymentcard {      
+        max-width: 25rem;
+        min-height: 15rem;        
+        @media(max-width:992px){
+          max-width: 100%;
+        }
+      } 
+
+      &.userPreferenceSetting, &.userInfoSettingCards{
+        max-width: 25rem;
+        min-height: 10rem;   
+        justify-content: flex-start;
+        @media(max-width:992px){
+          max-width: 100%;
+        }
+        &:hover{
+          color:@color-l!important;
+          background-color: rgba(255, 255, 255, .3)!important;
+        }
+      }  
+
+    &.active{
+      color:@color-l!important;
+      background-color: rgba(255, 255, 255, 1)!important;
+      opacity: 1; 
     }
-  }
-
-  &:hover{
-    color:@color-l!important;
-    background-color: rgba(255, 255, 255, 1)!important;
-  }
-
-  &.active{
-    color:@color-l!important;
-    background-color: rgba(255, 255, 255, 1)!important;
-  }
-
-  &.disable{
-    cursor: not-allowed;
-    pointer-events: none;
-  }
 
     .title{
       font-family: 'Tungsten-Bold';
       font-size: 3rem;
       letter-spacing: .2rem;
-    }
+    }   
+
   }
+    &:hover .cardStyles{
+      color:@color-l!important;
+      background-color: rgba(255, 255, 255, 1)!important;
+      opacity: 1; 
+    }
 
+    &:hover .cardStyles.disable{
+      color:#fff!important;
+      background-color: rgba(255, 255, 255, .3)!important;
+      opacity: .6; 
+      cursor: not-allowed;
+      pointer-events: none;  
+    }
+   
+  }
 }
-
+////////////////retailer card
+.retailerTitle {  font-size: 1.8rem; font-weight: bold; text-align: center; }
 .ccCardsList {
   margin: 1rem;
   opacity: .3;
@@ -1058,10 +1172,15 @@ button:focus {
 }
 @media(min-width:992px) {
   .cart-pro-img{
-     max-width: 55%;
+     max-width: 55%;    
+  }
+}
+@media(max-width:767px) {
+  .cart-pro-img{
+    margin-right: 2rem;
+  }
 }
 
-}
 @media(max-width:575px){
   .cartItemChild
   {

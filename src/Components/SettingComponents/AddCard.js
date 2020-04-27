@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import { Form, Field } from 'react-final-form';
-import { TextInputField, SwitchInputField } from '../../../Global/FormCompoents/wrapperComponent';
-import Scrollbar from "react-scrollbars-custom";
-
-import validate from '../Addresses/validaor/addAddressFormValidator';
-import RFReactSelect from '../../../Global/FormCompoents/react-select-wrapper';
-import { stateDropDown } from '../../../assets/data/dropdown';
-import _map from "lodash/map";
-import { cleanEntityData } from '../../../Global/helper/commonUtil';
 import {
     CardNumberElement,
     CardCvcElement,
@@ -18,14 +9,16 @@ import {
     useStripe,
 } from '@stripe/react-stripe-js';
 
-import { logEvent, Result, ErrorResult } from './utils';
+import { logEvent, Result, ErrorResult } from '../CartComponents/Card/utils';
 import axios from "axios";
-import { Form as ReactStrapFrom, FormGroup, Button, Container, Row, Col, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, } from 'reactstrap';
+import { Form as ReactStrapFrom, FormGroup, Button, Container, Row, Col, Card, CardImg, CardText, 
+    CardBody, CardTitle, CardSubtitle, } from 'reactstrap';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { commonActionCreater } from "../../../Redux/Actions/commonAction";
+import { commonActionCreater } from "../../Redux/Actions/commonAction";
 import { connect } from "react-redux";
 import _get from "lodash/get";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import genericPostData from '../../Redux/Actions/genericPostData';
 const ELEMENT_OPTIONS = {
     style: {
         base: {
@@ -42,10 +35,6 @@ const ELEMENT_OPTIONS = {
         },
     },
 };
-const options = _map(stateDropDown, s => cleanEntityData({
-    value: _get(s, 'abbreviation'),
-    label: _get(s, 'name')
-}));
 
 const AddCard = (props) => {
     const elements = useElements();
@@ -85,10 +74,11 @@ const AddCard = (props) => {
             let paymentMethods = props.paymentMethods;
             let cartFlow = props.cartFlow;
             let card_token = payload.token.id;
-            let card_id = payload.token.card.id;
-            let customer_stripe_id = paymentMethods && Array.isArray(paymentMethods) && paymentMethods.length > 0 ? paymentMethods[0].customer_stripe_id : "";
+            let card_id =  payload.token.card.id;
+            let customer_stripe_id =  paymentMethods&&Array.isArray(paymentMethods)&&paymentMethods.length>0?paymentMethods[0].customer_stripe_id:"";
             let card_info = "";
             let payment_method = "stripe_payments";  //check here
+            let api_token = localStorage.getItem("Token");
             let data = {
                 ...cartFlow,
                 card_id,
@@ -97,14 +87,43 @@ const AddCard = (props) => {
                 card_info,
                 payment_method
             }
-
-            props.dispatch(commonActionCreater(data, 'CART_FLOW'));
-            props.handleContinueFromNewCard();
+            // props.dispatch(commonActionCreater(data, 'CART_FLOW'));
+            saveAndContinue({api_token, card_token});
         }
     };
 
-    let commonContent = <React.Fragment>
-        <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{ fontSize: 13, marginRight: 10 }} />CARDS</div>
+    const saveAndContinue = (reqObj) => {
+        genericPostData({
+            dispatch:props.dispatch,
+            reqObj: reqObj,
+            url:`api/account/mycards`,
+            constants:{
+            init:"ADD_PAYMENT_CARD_INIT",
+            success:"ADD_PAYMENT_CARD_SUCCESS",
+            error:"ADD_PAYMENT_CARD_ERROR" 
+            },
+            identifier:"ADD_PAYMENT_CARD",
+            successCb: addPayementCardSuccess,
+            errorCb: addPayementCardError,
+            dontShowMessage: true 
+        });
+    }
+
+    const addPayementCardSuccess = (data) => {
+       if(data.code === 1) {
+            props.handleContinueFromNewCard();
+       }
+    }
+
+    const addPayementCardError = (data) => {
+        console.log('ERROR', data);
+    }
+
+    return (
+        <React.Fragment>
+        <div className="bread-crumb mb-4">
+            <KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}}
+            onClick={() => props.handleBackFromNewCard()} />Cards</div>
         <div className="block-title mb-5">Add New Card</div>
         <div className="StripeCard">
             <ReactStrapFrom onSubmit={handleSubmit}>
@@ -163,90 +182,34 @@ const AddCard = (props) => {
                     </div>
                 </div>
                 {/* <div className="d-flex mt-4">
-            <div style={{ width: '50%', marginRight: 50 }}>
-            <label htmlFor="postal">Postal Code</label>
-            <input
-                id="postal"
-                required
-                placeholder="12345"
-                value={postal}
-                onChange={(e) => {
-                    setPostal(e.target.value);
-                }}
-            />
-            </div>
-            </div> */}
+                <div style={{ width: '50%', marginRight: 50 }}>
+                <label htmlFor="postal">Postal Code</label>
+                <input
+                    id="postal"
+                    required
+                    placeholder="12345"
+                    value={postal}
+                    onChange={(e) => {
+                        setPostal(e.target.value);
+                    }}
+                />
+                </div>
+                </div> */}
                 {errorMessage && <ErrorResult>{errorMessage}</ErrorResult>}
                 {paymentMethod && <Result>Got PaymentMethod: {paymentMethod.id}</Result>}
-                <Form onSubmit={(values) => console.log(values)} validate={validate}
-                    render={({ handleSubmit }) => (
-                        <form onSubmit={handleSubmit}>
-                            <div className="block-title d-flex justify-content-between align-items-center mb-4">
-                                <span className="d-flex align-items-center">
-                                    <Field name="defaultAddress" component={SwitchInputField} label='Same as Billing Address' />
-                                </span>
-                            </div>
-                            <div className="mt-4">
-                                <Field name="email" component={"input"} placeholder='EMAIL'
-                                    autoFocus={false} type='text' />
-                            </div>
-                            <div className="mt-4">
-                                <Field name="phone" component={TextInputField} placeholder='phone'
-                                    autoFocus={false} type='text' />
-                            </div>
-                            <div className="mt-4">
-                                <Field name="address" component={"input"} placeholder='ADDRESS'
-                                    autoFocus={false} type='text' />
-                            </div>
-                            <div className="mt-4">
-                                <Field name="address2" component={TextInputField} placeholder='ADDRESS 2'
-                                    autoFocus={false} type='text' />
-                            </div>
-                            <div className="mt-4">
-                                <Field name="city" component={TextInputField} placeholder='CITY'
-                                    autoFocus={false} type='text' />
-                            </div>
-                            <div className="d-flex mt-4">
-                                {/* <Field name="state" component={TextInputField} placeholder='STATE'
-                                    autoFocus={false} type='text' />
-                                    <Field name="zip" component={TextInputField} placeholder='ZIP'
-                                    autoFocus={false} type='text' />         */}
-                                <div style={{ width: '50%', marginRight: 50 }}>
-                                    <Field name="state" component={RFReactSelect} placeholder='STATE'
-                                        autoFocus={false} type='text' options={options} />
-                                </div>
-                                {/* <div style={{ width: '50%'}}>
-                                    <Field name="zip" component={TextInputField} placeholder='ZIP'
-                                    autoFocus={false} type='text' />
-                                </div> */}
-
-                            </div>
-                            <div className="mt-4">
-                                <Field name="addressNickname" component={TextInputField} placeholder='ADDRESS NICKNAME'
-                                    autoFocus={false} type='text' />
-                            </div>
-
-                        </form>)}
-                />
                 <Button
                     variant="contained"
                     disabled={!stripe}
                     color="primary"
                     onClick={handleSubmit}
                     className="bottomActionbutton cartActionBtn"
-                >
+                    >
                     <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />
-                Save and Continue
-            </Button>
+                    Save and Continue
+                </Button>
             </ReactStrapFrom>
         </div>
-    </React.Fragment>
-
-    return (
-        <>
-            {commonContent}
-        </>
-
+        </React.Fragment>
     );
 };
 
@@ -256,7 +219,7 @@ function mapStateToProps(state) {
 
     let cartFlow = _get(state, 'cartFlow.lookUpData', {});
 
-    return { cartFlow, paymentMethods }
+    return { cartFlow,paymentMethods }
 }
 
 export default connect(mapStateToProps)(AddCard);

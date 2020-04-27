@@ -9,7 +9,8 @@ import { white } from 'color-name';
 import {Container, Row, Col} from 'reactstrap'
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import SearchIcon from '@material-ui/icons/Search';
 import { Link } from 'react-router-dom'
 
 
@@ -26,10 +27,39 @@ class CartTabs extends React.Component {
     handleChange = (event, newValue) => {
         this.setState({ value: newValue });
       };
+    handleHeaderTitle = ({ tabValue }) => {
+      switch ( tabValue ) {
+        case "address":
+          return "address";
+        case "speed":
+          return "Delivery Options";
+        case "card":
+          return "Card";
+        case "checkout":
+          return "Summary";
+
+      }
+    }
     render() {
         const { classes } = this.props;
+        const headerTitle = this.props.tabValue ? this.handleHeaderTitle({ tabValue: this.props.tabValue }) : '';
         return (
-          <Container fluid={true}>   
+          <Container fluid={true}> 
+           <div className="mobile-tabs-title d-block d-md-none">
+                    <Container fluid={true}  className="d-flex align-items-center h-100 justify-content-center">   
+                        <Row className=" align-items-center flex-grow-1 pt-4 no-gutters px-3">
+                        <Col xs={'auto'}  className=""> 
+                            <KeyboardBackspaceIcon style={{fontSize:'3rem'}}/>
+                        </Col>
+                        <Col  className="title"> 
+                                 {headerTitle}
+                        </Col>
+                        <Col xs={'auto'}  className=""> 
+                            <SearchIcon style={{fontSize:'3rem'}}/>
+                        </Col>
+                        </Row>
+                        </Container>
+                        </div>  
             <Row className="no-gutters">
               <Col>
               <Tabs

@@ -20,8 +20,8 @@ class AddAddressCard extends React.Component {
     render() {
         return (
             <React.Fragment>               
-               <Card className="addressCards" onClick={this.props.handleAddAddress}>
-                    <CardBody className="p-3 d-flex align-items-center justify-content-center flex-column">
+               <Card onClick={this.props.handleAddAddress}>
+                    <CardBody className="cardStyles addAddressCards">
                         <div className="mb-4"><AddCircleOutlineOutlinedIcon style={{ fontSize: 25 }} /> </div> 
                         <div>ADD NEW ADDRESSES</div>                      
                     </CardBody>

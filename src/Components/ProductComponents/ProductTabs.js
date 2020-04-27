@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import genericGetData from "../../Redux/Actions/genericGetData";
 import {Container, Row, Col} from 'reactstrap'
 import SearchIcon from '@material-ui/icons/Search';
+import { get as _get } from 'lodash';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 const styles = theme => ({
    
@@ -38,7 +39,8 @@ class ProductTabs extends React.Component {
             },
             identifier:"CATEGORIES_LIST",
             successCb:this.categoriesFetchSuccess,
-            errorCb:this.categoriesFetchError
+            errorCb:this.categoriesFetchError,
+            dontShowMessage: true
         })
     }
 
@@ -56,8 +58,11 @@ class ProductTabs extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
-        const { selectedTab } = this.state;
+        const { classes, categoriesList } = this.props;
+        const { selectedTab } = this.state; 
+        const selectedCategory = categoriesList ?  categoriesList[this.props.tabValue] : undefined;
+        const headerTitle = _get(selectedCategory, 'category_name', '');
+        // console.log('header title');
         return (
             <React.Fragment>
                     <div className="mobile-tabs-title d-block d-md-none">
@@ -67,7 +72,7 @@ class ProductTabs extends React.Component {
                             <KeyboardBackspaceIcon style={{fontSize:'3rem'}}/>
                         </Col>
                         <Col  className="title"> 
-                                 Party Cans
+                                {headerTitle}
                         </Col>
                         <Col xs={'auto'}  className=""> 
                             <SearchIcon style={{fontSize:'3rem'}}/>
@@ -92,7 +97,9 @@ class ProductTabs extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  
+    let categoriesList = _get(state,'categoriesList.lookUpData.data');
+    console.log('categorylist', categoriesList);
+    return {categoriesList}
 };
 
 export default connect(mapStateToProps)(withStyles(styles)(ProductTabs));

@@ -8,6 +8,7 @@ import {get as _get , isEmpty as _isEmpty} from 'lodash';
 import Switch from '@material-ui/core/Switch';
 import genericPostData from "../../Redux/Actions/genericPostData";
 import UserInfo from './UserInfo';
+import AddCard from "./AddCard";
 
 class UserSetting extends React.Component {
     constructor(props){
@@ -15,7 +16,8 @@ class UserSetting extends React.Component {
         this.state = {
             userSettingData: {},
             newsLetter: false,
-            notification: false
+            notification: false,
+            addCard: false
         }
     }
      
@@ -73,9 +75,24 @@ class UserSetting extends React.Component {
         return brand.toUpperCase();
     }
 
+    addCardFunction = () => {
+        this.setState({ addCard: true });
+    }
+    
+    handleContinueFromNewCard = () => {
+        this.setState({ addCard : false });
+        this.getSettingData();
+    }
+
+    handleBackFromNewCard = () =>  {
+        this.setState({ addCard : false });
+    }
+
     render() {
         let renderCardInfo = _get(this.state,'userSettingData.list_cards',[]).map((data, index)=> {
             return (<React.Fragment key={data+index}>
+                <Card className="">
+                    <CardBody className="cardStyles paymentcard align-items-start active w-100">
                 <div className=" d-flex flex-column flex-wrap" 
                     style={{color: '#00BFB2', fontSize: '1.5rem', fontWeight: 'bold'}}>
                     {this.getFomatBrand(data.brand)}
@@ -89,18 +106,21 @@ class UserSetting extends React.Component {
                         {this.getFormatExpireMonth(data.card_exp_month) + '/' + 
                         this.getFormatExpireYear(data.card_exp_year)}
                     </span>
-                </div>  
+                </div>
+                </CardBody>
+                </Card>  
             </React.Fragment>)
         });
 
     return (
         <React.Fragment>
+        {!this.state.addCard && <React.Fragment>
             {this.state.userSettingData && <UserInfo userInfo={this.state.userSettingData} />}
             <div className="block-sub-title">YOUR PREFRENCES</div> 
-            <div className="row CardsWrapper">              
-                <Card className="userPreferenceSetting  mb-5 ">
-                   <CardBody className="p-3 d-flex flex-column w-100">
-                      <div className=" d-flex flex-row flex-wrap justify-content-between align-items-center">
+            <div className="CardsWrapper">              
+                <Card className=" mb-5 ">
+                   <CardBody className="cardStyles userPreferenceSetting">
+                      <div className=" d-flex  w-100 justify-content-between align-items-center">
                           <label>NOTIFICATION</label>
                             <Switch
                                 checked={this.state.notification}
@@ -109,7 +129,7 @@ class UserSetting extends React.Component {
                                 inputProps={{ 'aria-label': 'secondary checkbox' }}
                             />
                         </div>
-                        <div className=" d-flex flex-row flex-wrap justify-content-between align-items-center">
+                        <div className=" d-flex  w-100 justify-content-between align-items-center">
                             <label>NEWSLETTER</label>
                             <Switch
                                 checked={this.state.newsLetter}
@@ -122,21 +142,23 @@ class UserSetting extends React.Component {
                 </Card>
             </div>
             <div className="block-sub-title">PAYMENT METHOD</div>               
-            <div className="row CardsWrapper  mb-5 ">
-                <Card className="paymentcard active">
-                    <CardBody className="p-3 d-flex flex-column  w-100">
-                         {this.state.userSettingData && this.state.userSettingData.list_cards && renderCardInfo}                                   
-                    </CardBody>
-                </Card>
-                <Card className="paymentcard">
-                    <CardBody className="p-3 d-flex align-items-center justify-content-center flex-column usercardadd">
+            <div className="d-flex CardsWrapper flex-wrap  mb-5 ">
+                {this.state.userSettingData && this.state.userSettingData.list_cards && renderCardInfo}
+                <Card className="" onClick={this.addCardFunction}>
+                    <CardBody className="cardStyles paymentcard">
                         <div className="mb-4"><AddCircleOutlineOutlinedIcon style={{ fontSize: 25 }} /> </div> 
                         <div>ADD CARD</div>                      
                     </CardBody>                          
                 </Card>                          
             </div>
+        </React.Fragment>}
+        <React.Fragment>
+            {this.state.addCard ? <AddCard 
+            handleContinueFromNewCard={this.handleContinueFromNewCard}
+            handleBackFromNewCard={this.handleBackFromNewCard}
+             /> : null}
         </React.Fragment>
-        );
+        </React.Fragment>);
     }
 }
 

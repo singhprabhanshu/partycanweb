@@ -29,7 +29,7 @@ class HoldupContainer extends React.Component {
     onSubmit  = async values => {
         genericGetData({
             dispatch:this.props.dispatch,
-            url:`index.php/connect/index/getlocation?zipcode=${values.zipcode}`,
+            url:`/connect/index/getlocation?zipcode=${values.zipcode}`,
             constants:{
             init:"ZIPCODE_LOCATOR_INIT",
             success:"ZIPCODE_LOCATOR_SUCCESS",
@@ -71,25 +71,25 @@ class HoldupContainer extends React.Component {
         const { classes } = this.props;
         return (           
                <React.Fragment>
-                <Container fluid={true}  className="WhiteCurveBg">
+                <div  className="WhiteCurveBg">
                      <CssBaseline />
                 <Container className="container-custom d-flex flex-column justify-content-center">
-                    <Row className="align-items-center" style={{flex:2, maxHeight:200}}>
+                    <Row className="align-items-center mb-5" style={{flex:2, maxHeight:130, minHeight:130}}>
                         <Col  className="text-center" >
                         <h4 className="holduptext">HOLD UP!</h4>
                         </Col>                        
                     </Row>  
                     <Form  onSubmit= {this.onSubmit} validate={validate}
                             render={({ handleSubmit }) => (
-                        <form className="d-flex flex-column justify-content-around mb-4" style={{flex:3, maxHeight:350}} onSubmit={handleSubmit}>
+                        <form className="d-flex flex-column justify-content-around mb-4"  onSubmit={handleSubmit}>
                             <Row>
-                                <Col className="text-center" >
+                                <Col className="text-center mb-4" >
                                 <Field name="zipcode" component={TextInputField} placeholder='ZIPCODE'
                                         autoFocus={false} type='text' />
                                 </Col>                        
                             </Row>
                             <Row >
-                                <Col className="locationTxt" >
+                                <Col className="locationTxt mb-5" >
                                 <RoomOutlinedIcon style={{ fontSize: 23 }} /> USE MY LOCATION
                                 </Col>                        
                             </Row>
@@ -107,7 +107,7 @@ class HoldupContainer extends React.Component {
                          </form>)}                           
                     />  
                 </Container>
-                </Container>
+                </div>
                         <Container className="container-custom">
                             <Row>
                                 <Col className="text-center" >

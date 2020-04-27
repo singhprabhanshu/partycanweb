@@ -8,7 +8,7 @@ import { isEmpty as _isEmpty } from 'lodash';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 import WithLoading from '../../Global/UIComponents/LoaderHoc';
 import proImg from '../../assets/images/party-can.png';
-
+import proImg1 from '../../assets/images/party-can-product-01.png'
 const styles = theme => ({
 });
 
@@ -35,7 +35,8 @@ fetchTabs = () => {
         },
         identifier:"CATEGORIES_LIST",
         successCb:this.categoriesFetchSuccess,
-        errorCb:this.categoriesFetchError
+        errorCb:this.categoriesFetchError,
+        dontShowMessage: true
     })
 }
 
@@ -60,7 +61,7 @@ redirectToCansPage = () => {
 
                 <Card onClick={()=>this.redirectToCategories(category)}>
                 <div className="prodcutMinDetails">
-                    <CardImg src={category.category_image} alt="Card image cap" />
+                    <CardImg src={proImg1} alt="Card image cap" />
                     <CardBody>
                     <CardTitle className=" text-white text-center text-uppercase">{category.category_name}</CardTitle>
                     </CardBody>
