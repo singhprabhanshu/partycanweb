@@ -14,28 +14,30 @@ import { map as _map, findIndex as _findIndex, get as _get, isEmpty as _isEmpty 
 import genericGetData from "../../../Redux/Actions/genericGetData";
 import genericPostData from '../../../Redux/Actions/genericPostData';
 import { Form, Field } from 'react-final-form';
-import {TextInputField, SwitchInputField} from '../../../Global/FormCompoents/wrapperComponent';
+import { TextInputField, SwitchInputField } from '../../../Global/FormCompoents/wrapperComponent';
 import RFReactSelect from '../../../Global/FormCompoents/react-select-wrapper';
 import { Button as MaterialButtom } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import validate from './validaor/addAddressFormValidator';
 import { commonActionCreater } from '../../../Redux/Actions/commonAction';
-import {Container, Row, Col} from 'reactstrap'
+import { Container, Row, Col } from 'reactstrap'
 import proImg from '../../../assets/images/party-can.png'
 import { stateDropDown } from '../../../assets/data/dropdown';
 import { Loader } from '../../../Global/UIComponents/LoaderHoc';
 import { cleanEntityData } from '../../../Global/helper/commonUtil';
-import {isMobile, isTablet} from 'react-device-detect';
+import { isMobile, isTablet } from 'react-device-detect';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 const styles = (state) => ({
-    
+
     addressFormShow: {
         display: state.isAddressFormShown ? 'block' : 'none',
-        width: 'auto',      
-       
+        width: 'auto',
+
     },
     addressFormHide: {
         display: state.isAddressFormShown ? 'none' : 'block'
-    },   
+    },
 
 });
 
@@ -56,7 +58,7 @@ class Address extends React.Component {
         }
     }
 
-    
+
 
     fetchAddressModify = (data) => {
         let addressList = [];
@@ -77,20 +79,20 @@ class Address extends React.Component {
                 address: _get(d, 'street2') ? `${_get(d, 'street1')}, ${_get(d, 'street2')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}` : `${_get(d, 'street1')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}`
             }));
         }
-        
-    
+
+
         const primaryAddressIndex = _findIndex(addressList, ['isPrimary', true]);
         const splicedData = (primaryAddressIndex !== -1) ? addressList.splice(primaryAddressIndex, 1) : undefined;
-        if(splicedData) {
+        if (splicedData) {
             addressList.unshift(splicedData[0]);
         }
-    
+
         const selectedAddress = addressList.find(add => {
             if (add.isPrimary === true) {
                 return add;
             }
         })
-    
+
         this.setState({
             selectedAddress: _get(selectedAddress, 'id'),
             userAddress: addressList,
@@ -103,10 +105,10 @@ class Address extends React.Component {
         this.setState({
             isLoading: true,
         });
-        const userAddressFetchSuccess=(data)=>{
+        const userAddressFetchSuccess = (data) => {
             this.fetchAddressModify(data);
         };
-        const userAddressFetchError=(err)=>{
+        const userAddressFetchError = (err) => {
             console.log(err);
             this.setState({
                 isLoading: false,
@@ -117,18 +119,18 @@ class Address extends React.Component {
             customerid: parseInt(_get(this.props, 'userDetails.customer_id', 0), 10)
         };
         genericPostData({
-            dispatch:this.props.dispatch,
+            dispatch: this.props.dispatch,
             reqObj: body,
-            url:`/connect/customer/getaddresses?customerid=${_get(this.props, 'userDetails.customer_id', 0)}`,
+            url: `/connect/customer/getaddresses?customerid=${_get(this.props, 'userDetails.customer_id', 0)}`,
             // url: '/card/new',
-            constants:{
-                init:"USER_ADDRESS_INIT",
-                success:"USER_ADDRESS_SUCCESS",
-                error:"USER_ADDRESS_ERROR" 
+            constants: {
+                init: "USER_ADDRESS_INIT",
+                success: "USER_ADDRESS_SUCCESS",
+                error: "USER_ADDRESS_ERROR"
             },
-            identifier:"USER_ADDRESS",
-            successCb:userAddressFetchSuccess,
-            errorCb:userAddressFetchError,
+            identifier: "USER_ADDRESS",
+            successCb: userAddressFetchSuccess,
+            errorCb: userAddressFetchError,
             dontShowMessage: true
         });
     };
@@ -137,7 +139,7 @@ class Address extends React.Component {
         this.setState({
             selectedAddress: selectedId,
             isAddressSelected: true
-          });
+        });
     };
 
     handleAddAddress = () => {
@@ -146,7 +148,7 @@ class Address extends React.Component {
         });
     };
 
-    componentDidMount(){
+    componentDidMount() {
         if (!_isEmpty(this.props.userDetails)) {
             this.fetchAddress();
         }
@@ -155,10 +157,10 @@ class Address extends React.Component {
             iscardTab: false,
             isSummaryTab: false
         };
-        this.props.dispatch(commonActionCreater(data,'CART_TAB_VALIDATION'));
-        
+        this.props.dispatch(commonActionCreater(data, 'CART_TAB_VALIDATION'));
 
-        
+
+
         // if(this.props.sessionRedirectToLogin){
         //     this.setState({currentStep:3});
         //     this.props.dispatch(commonActionCreater(false,'SESSION_START_REDIRECT_TO_LOGIN'));
@@ -167,16 +169,18 @@ class Address extends React.Component {
 
     addUserAddressSuccess = (data) => {
         this.setState({
-            isAddressFormShown: this.state.isAddressFormShown ? false : true
+            isAddressFormShown: this.state.isAddressFormShown ? false : true,
+            saveAddressLoading:false
         });
-        this.fetchAddress(); 
+        this.fetchAddress();
     };
 
     addUserAddressError = (err) => {
+        this.setState({saveAddressLoading:false});
         console.log(err)
     };
 
-    onSubmit  = async values => {
+    onSubmit = async values => {
         let body = {
             'first_name': _get(values, 'firstName'),
             'last_name': _get(values, 'lastName'),
@@ -189,7 +193,7 @@ class Address extends React.Component {
             'telephone': _get(values, 'phone'),
             'default_address': _get(values, 'defaultAddress') ? '1' : '0',
             'country': 'USA',
-      
+
         };
         genericPostData({
             dispatch: this.props.dispatch,
@@ -205,8 +209,8 @@ class Address extends React.Component {
             errorCb: this.addUserAddressError,
             dontShowMessage: true
         });
-            
-          
+
+
     };
 
     handleCardSelect = () => {
@@ -215,7 +219,7 @@ class Address extends React.Component {
             ...cartFlow,
             selectedAddress: this.state.selectedAddress,
         };
-        this.props.dispatch(commonActionCreater(data,'CART_FLOW'));
+        this.props.dispatch(commonActionCreater(data, 'CART_FLOW'));
         this.props.handleTabOnContinue('speed');
     }
 
@@ -227,139 +231,145 @@ class Address extends React.Component {
 
     renderContent = (addresses) => {
         let commonContent = <>
-            <div className="pr-lg-4" > 
-                <div style={styles(this.state).addressFormHide}> 
-                   
-                    <div className="d-flex flex-wrap CardsWrapper">                   
+            <div className="pr-lg-4" >
+                <div style={styles(this.state).addressFormHide}>
+
+                    <div className="d-flex flex-wrap CardsWrapper">
                         <AddAddressCard handleAddAddress={this.handleAddAddress} />
                         {addresses}
-                    </div> 
-                   
+                    </div>
+
                 </div>
-                <div style={styles(this.state).addressFormShow}> 
-                        
-                        <Form onSubmit= {this.onSubmit} validate={validate}
-                                render={({ handleSubmit }) => (
-                            <form onSubmit={handleSubmit}>
-                            <div className="block-title d-flex justify-content-between align-items-center mb-4"> 
-                                <span className="d-flex align-items-center">
-                                    <Field name="defaultAddress" component={SwitchInputField} label='DEFAULT ADDRESS' />
-                                </span>
-                            </div>
+                <div style={styles(this.state).addressFormShow}>
+
+                    <Form onSubmit={this.onSubmit} validate={validate}
+                        render={({ handleSubmit }) => (
+                            <form id="###addressform###" onSubmit={handleSubmit}>
+                                <div className="block-title d-flex justify-content-between align-items-center mb-4">
+                                    <span className="d-flex align-items-center">
+                                        <Field name="defaultAddress" component={SwitchInputField} label='DEFAULT ADDRESS' />
+                                    </span>
+                                </div>
                                 <div className="d-flex mt-4">
-                                    <div style={{ width: '50%', marginRight: 50}}>
+                                    <div style={{ width: '50%', marginRight: 50 }}>
                                         <Field name="firstName" component={TextInputField} placeholder='FIRST NAME'
-                                        autoFocus={false} type='text' />
+                                            autoFocus={false} type='text' />
                                     </div>
-                                    <div style={{ width: '50%'}}>
+                                    <div style={{ width: '50%' }}>
                                         <Field name="lastName" component={TextInputField} placeholder='LAST NAME'
-                                        autoFocus={false} type='text' />
+                                            autoFocus={false} type='text' />
                                     </div>
                                 </div>
                                 <div className="mt-4">
                                     <Field name="address" component={TextInputField} placeholder='ADDRESS'
-                                    autoFocus={false} type='text' />
+                                        autoFocus={false} type='text' />
                                 </div>
                                 <div className="mt-4">
                                     <Field name="address2" component={TextInputField} placeholder='ADDRESS 2'
-                                    autoFocus={false} type='text' />
+                                        autoFocus={false} type='text' />
                                 </div>
                                 <div className="mt-4">
                                     <Field name="city" component={TextInputField} placeholder='CITY'
-                                    autoFocus={false} type='text' />
+                                        autoFocus={false} type='text' />
                                 </div>
                                 <div className="d-flex mt-4">
-                                        {/* <Field name="state" component={TextInputField} placeholder='STATE'
+                                    {/* <Field name="state" component={TextInputField} placeholder='STATE'
                                         autoFocus={false} type='text' />
                                         <Field name="zip" component={TextInputField} placeholder='ZIP'
                                         autoFocus={false} type='text' />         */}
-                                    <div style={{ width: '50%', marginRight: 50}}>
+                                    <div style={{ width: '50%', marginRight: 50 }}>
                                         <Field name="state" component={RFReactSelect} placeholder='STATE'
-                                        autoFocus={false} type='text' options={options} />
+                                            autoFocus={false} type='text' options={options} />
                                     </div>
-                                    <div style={{ width: '50%'}}>
+                                    <div style={{ width: '50%' }}>
                                         <Field name="zip" component={TextInputField} placeholder='ZIP'
-                                        autoFocus={false} type='text' />
+                                            autoFocus={false} type='text' />
                                     </div>
-                                    
+
                                 </div>
                                 <div className="mt-4">
                                     <Field name="addressNickname" component={TextInputField} placeholder='ADDRESS NICKNAME'
-                                    autoFocus={false} type='text' />
+                                        autoFocus={false} type='text' />
                                 </div>
                                 <div className="mt-4">
                                     <Field name="phone" component={TextInputField} placeholder='phone'
-                                    autoFocus={false} type='text' />
-                                </div> 
-                              
+                                        autoFocus={false} type='text' />
+                                </div>
+
                             </form>)}
-                            />
-                    </div>
-             </div>
+                    />
+                </div>
+            </div>
 
         </>
-        if(isMobile || isTablet){
+        if (isMobile || isTablet) {
             return <div>{commonContent}</div>
         }
-        else{
-        return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        else {
+            return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
         }
-      }
-    
+    }
+
+    addressSubmit = ()=>{
+        this.setState({saveAddressLoading:true});
+        document
+            .getElementById('###addressform###')
+        .dispatchEvent(new Event('submit', { cancelable: true }))
+    }
     render() {
         const { isLoading } = this.state;
         if (isLoading) {
-        return <Loader />
+            return <Loader />
         }
         const { classes } = this.props;
         let addresses = this.state.userAddress.map(a => {
             return (
                 <React.Fragment key={a.id}>
-                        <AddressCard
-                    data={a}
-                    handleCardClick={this.handleCardClick}
-                    selectedAddress={this.state.selectedAddress}
-                    selectedCardColor={this.state.selectedCardColor} 
-                />
+                    <AddressCard
+                        data={a}
+                        handleCardClick={this.handleCardClick}
+                        selectedAddress={this.state.selectedAddress}
+                        selectedCardColor={this.state.selectedCardColor}
+                    />
                 </React.Fragment>
-                
+
             );
         });
 
-        
+
 
 
         return (
             <React.Fragment>
-                <Container fluid={true}>                
+                <Container fluid={true}>
                     <Row className="no-gutters justify-content-lg-between secMinHeight">
-                    <Col lg={5} className="order-1 d-none d-lg-block order-md-2">
-                        <div className="productImgSection">
+                        <Col lg={5} className="order-1 d-none d-lg-block order-md-2">
+                            <div className="productImgSection">
                                 <img src={proImg} className="imgProduct img-responsive"></img>
-                         </div>
+                            </div>
                         </Col>
                         <Col lg={6} className="p-xl-5 p-md-4 py-4 d-flex flex-column order-2 order-md-1">
-                        {!this.state.isAddressFormShown ? <div className="block-title mb-5">Address</div> : <div>
-                            <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} onClick={this.handleGoBack} />ADDRESS</div>
-                            <div className="block-title mb-5">ADD NEW ADDRESSES</div> 
+                            {!this.state.isAddressFormShown ? <div className="block-title mb-5">Address</div> : <div>
+                                <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{ fontSize: 13, marginRight: 10 }} onClick={this.handleGoBack} />ADDRESS</div>
+                                <div className="block-title mb-5">ADD NEW ADDRESSES</div>
                             </div>}
-                             {this.renderContent(addresses)}
+                            {this.renderContent(addresses)}
 
-                             {!this.state.isAddressFormShown ? <div className="text-left mt-4" >
+                            {!this.state.isAddressFormShown ? <div className="text-left mt-4" >
                                 <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" disabled={!_get(this.state, 'isAddressSelected', false)} onClick={this.handleCardSelect}>
                                     <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE & CONTINUE
                                 </Button>
                             </div> :
-                            <div className="text-left mt-4" >
-                                    <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" type="submit">
-                                        <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE ADDRESS
+                                <div className="text-left mt-4" >
+                                    <Button onClick={this.addressSubmit} variant="contained" color="primary" className="bottomActionbutton cartActionBtn">
+                                     {this.state.saveAddressLoading?<CircularProgress/>:<><ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> SAVE ADDRESS</>}
                                     </Button>
-                            </div> }
+                                </div>}
                         </Col>
-                        
+
                     </Row>
                 </Container>
-               
+
             </React.Fragment>
         );
     }
