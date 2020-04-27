@@ -91,6 +91,8 @@ class UserSetting extends React.Component {
     render() {
         let renderCardInfo = _get(this.state,'userSettingData.list_cards',[]).map((data, index)=> {
             return (<React.Fragment key={data+index}>
+                <Card className="">
+                    <CardBody className="cardStyles paymentcard align-items-start active w-100">
                 <div className=" d-flex flex-column flex-wrap" 
                     style={{color: '#00BFB2', fontSize: '1.5rem', fontWeight: 'bold'}}>
                     {this.getFomatBrand(data.brand)}
@@ -104,7 +106,9 @@ class UserSetting extends React.Component {
                         {this.getFormatExpireMonth(data.card_exp_month) + '/' + 
                         this.getFormatExpireYear(data.card_exp_year)}
                     </span>
-                </div>  
+                </div>
+                </CardBody>
+                </Card>  
             </React.Fragment>)
         });
 
@@ -139,11 +143,7 @@ class UserSetting extends React.Component {
             </div>
             <div className="block-sub-title">PAYMENT METHOD</div>               
             <div className="d-flex CardsWrapper flex-wrap  mb-5 ">
-                <Card className="">
-                    <CardBody className="cardStyles paymentcard align-items-start active w-100">
-                         {this.state.userSettingData && this.state.userSettingData.list_cards && renderCardInfo}                                   
-                    </CardBody>
-                </Card>
+                {this.state.userSettingData && this.state.userSettingData.list_cards && renderCardInfo}
                 <Card className="" onClick={this.addCardFunction}>
                     <CardBody className="cardStyles paymentcard">
                         <div className="mb-4"><AddCircleOutlineOutlinedIcon style={{ fontSize: 25 }} /> </div> 
