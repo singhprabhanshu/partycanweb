@@ -121,7 +121,7 @@ class CardComponent extends React.Component {
             }
         }
         else {
-            return <AddCard handleContinueFromNewCard={this.handleContinueFromNewCard} />
+            return <AddCard goBack = {()=>this.setState({addCard:false})} handleContinueFromNewCard={this.handleContinueFromNewCard} />
         }
 
     }
@@ -137,7 +137,7 @@ class CardComponent extends React.Component {
                             </div>
                         </Col>
                         <Col lg={6} className="p-xl-5 p-md-4 py-4 flex-column d-flex">
-                            <div className="block-title mb-4">SAVED CARDS</div>
+                            {!this.state.addCard?<div className="block-title mb-4">SAVED CARDS</div>:null}
                              {this.renderContent()}    
                             {!this.state.addCard ?
                                 <div className="text-left mt-4" >

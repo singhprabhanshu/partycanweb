@@ -26,6 +26,9 @@ import { commonActionCreater } from "../../../Redux/Actions/commonAction";
 import { connect } from "react-redux";
 import _get from "lodash/get";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import { isMobile, isTablet } from 'react-device-detect';
+
+
 const ELEMENT_OPTIONS = {
     style: {
         base: {
@@ -103,8 +106,8 @@ const AddCard = (props) => {
         }
     };
 
-    let commonContent = <React.Fragment>
-        <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{ fontSize: 13, marginRight: 10 }} />CARDS</div>
+    let content = <React.Fragment>
+        <div onClick={()=>props.goBack()} className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{ fontSize: 13, marginRight: 10 }} />CARDS</div>
         <div className="block-title mb-5">Add New Card</div>
         <div className="StripeCard">
             <ReactStrapFrom onSubmit={handleSubmit}>
@@ -228,23 +231,32 @@ const AddCard = (props) => {
 
                         </form>)}
                 />
-                <Button
-                    variant="contained"
-                    disabled={!stripe}
-                    color="primary"
-                    onClick={handleSubmit}
-                    className="bottomActionbutton cartActionBtn"
-                >
-                    <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />
-                Save and Continue
-            </Button>
             </ReactStrapFrom>
         </div>
     </React.Fragment>
+    let commonContent = null;
+    if (isMobile || isTablet) {
+    commonContent = <div>{content}</div>
+    }
+    else{
+    commonContent = <Scrollbar>{content}</Scrollbar>
+    }
 
     return (
         <>
             {commonContent}
+            <div className="text-left mt-4" >
+            <Button
+                variant="contained"
+                disabled={!stripe}
+                color="primary"
+                onClick={handleSubmit}
+                className="bottomActionbutton cartActionBtn"
+            >
+                <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />
+                Save and Continue
+            </Button>
+            </div>
         </>
 
     );
