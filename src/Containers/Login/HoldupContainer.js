@@ -13,6 +13,8 @@ import genericGetData from '../../Redux/Actions/genericGetData';
 import showMessage from '../../Redux/Actions/toastAction';
 import WithLoading from '../../Global/UIComponents/LoaderHoc';
 import _get from 'lodash/get';
+import { isEmpty as _isEmpty } from 'lodash';
+import { commonActionCreater } from '../../Redux/Actions/commonAction';
 
 const styles = theme => ({
     main: {
@@ -43,6 +45,19 @@ class HoldupContainer extends React.Component {
 
       zipcodeLocatorSuccess= (data) => {
             if(data.messgae === "Zipcode validation success") {
+                let signInData;
+                if (_isEmpty(this.props.userSignInInfo)) {
+                    signInData=[{ isGuestLogin: true }];
+                } else {
+                    let lookupData = _get(this.props.userSignInInfo, '[0]');
+                    signInData = [
+                        {
+                            ...lookupData,
+                            isGuestLogin: true
+                        }
+                    ];
+                }
+                this.props.dispatch(commonActionCreater(signInData, 'USER_SIGNIN_SUCCESS'));
                 this.props.history.push('/splash');
             } else {
                this.props.dispatch(
@@ -122,8 +137,10 @@ class HoldupContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     let isLoading = _get(state, 'zipCodeLocator.isFetching')
+    let userSignInInfo = _get(state, 'userSignInInfo.lookUpData', []);
     return {
-        isLoading
+        isLoading,
+        userSignInInfo
     };
 };
 

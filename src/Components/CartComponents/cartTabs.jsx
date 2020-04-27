@@ -11,7 +11,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import SearchIcon from '@material-ui/icons/Search';
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router';
+import { get as _get } from 'lodash';
 
 
 const styles = theme => ({
@@ -40,7 +41,17 @@ class CartTabs extends React.Component {
 
       }
     }
+
+    handleMobileBack = () => {
+      this.setState({
+        mobileBack: true
+      });
+      
+    };
     render() {
+        if (_get(this.state, 'mobileBack', false)) {
+          return <Redirect to='/cart'/>;
+        }
         const { classes } = this.props;
         const headerTitle = this.props.tabValue ? this.handleHeaderTitle({ tabValue: this.props.tabValue }) : '';
         return (
@@ -49,7 +60,7 @@ class CartTabs extends React.Component {
                     <Container fluid={true}  className="d-flex align-items-center h-100 justify-content-center">   
                         <Row className=" align-items-center flex-grow-1 pt-4 no-gutters px-3">
                         <Col xs={'auto'}  className=""> 
-                            <KeyboardBackspaceIcon style={{fontSize:'3rem'}}/>
+                            <KeyboardBackspaceIcon style={{fontSize:'3rem'}} onClick={this.handleMobileBack}/>
                         </Col>
                         <Col  className="title"> 
                                  {headerTitle}
@@ -85,6 +96,7 @@ class CartTabs extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  return {};
   
 };
 

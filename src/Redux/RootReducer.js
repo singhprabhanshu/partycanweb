@@ -23,6 +23,7 @@ let userSettings = commonReducer("GET_SETTING_DATA");
 let orderSettings = commonReducer("GET_ORDER_SETTING_DATA");
 let searchProductsData = commonReducer("SEARCH_PRODUCTS_LIST");
 
+
 let rootRducer = combineReducers({
     zipCodeLocator,
     userSignInInfo,
