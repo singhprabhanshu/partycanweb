@@ -182,6 +182,7 @@ class Address extends React.Component {
     };
 
     onSubmit = async values => {
+        this.setState({saveAddressLoading:true});
         let body = {
             'first_name': _get(values, 'firstName'),
             'last_name': _get(values, 'lastName'),
@@ -312,7 +313,6 @@ class Address extends React.Component {
     }
 
     addressSubmit = ()=>{
-        this.setState({saveAddressLoading:true});
         document
             .getElementById('###addressform###')
         .dispatchEvent(new Event('submit', { cancelable: true }))
