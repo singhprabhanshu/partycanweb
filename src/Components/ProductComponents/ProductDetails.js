@@ -212,10 +212,16 @@ class ProductDetails extends React.Component {
     )
 
     addToCartSuccess = (data) => {
-        console.log(data);
         this.setState({addToCartLoading:false})
         localStorage.setItem("cart_id",data[0].cart_id);
-        this.props.history.push('/cart')
+        // checking guest login
+        if (_isEmpty(_get(this.props.userSignInInfo, '[0].result.api_token', ''))){
+            this.props.history.push('/guest/register')
+
+        } else {
+            this.props.history.push('/cart')
+        };
+        
     }
 
     addToCartFailure = () => {
@@ -391,6 +397,7 @@ class ProductDetails extends React.Component {
 function mapStateToProps(state) {
     let productDetailsData = _get(state, 'productDetails.lookUpData');
     let categoriesList = _get(state, 'categoriesList.lookUpData.data');
-    return { productDetailsData, categoriesList }
+    let userSignInInfo = _get(state, 'userSignInInfo.lookUpData', []);
+    return { productDetailsData, categoriesList, userSignInInfo }
 }
 export default connect(mapStateToProps)(withStyles(styles)(ProductDetails));

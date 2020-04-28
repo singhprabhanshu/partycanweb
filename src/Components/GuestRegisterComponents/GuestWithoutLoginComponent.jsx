@@ -8,8 +8,11 @@ import { Button } from 'reactstrap';
 import { get as _get, isEmpty as _isEmpty } from 'lodash';
 import validate from './validator/guestWithoutLoginValidator';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { Redirect } from 'react-router'
-import { TextInputField, SwitchInputField } from '../../Global/FormCompoents/wrapperComponent';
+import { Redirect } from 'react-router';
+import genericPostData from '../../Redux/Actions/genericPostData';
+import { commonActionCreater } from '../../Redux/Actions/commonAction';
+
+import { TextInputField } from '../../Global/FormCompoents/wrapperComponent';
 
 
 
@@ -17,18 +20,66 @@ class GuestWithoutLoginContainer extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {};
     }
 
 
     componentDidMount() {
         
     }
+    addGuestEmailSuccess = (data) => {
+        if (_get(data, 'code', -1) === 1) {
+            let cartId = localStorage.getItem("cart_id");
+            let lookupData = _get(this.props.userSignInInfo, '[0]', {});
+            let userSignInInfo = [
+                {
+                    ...lookupData,
+                    result: {
+                        ...lookupData.result,
+                        customer_id: _get(data, 'data.customer_id'),
+                        api_token: _get(data, 'data.api_token'),
+                        cart_id: cartId,
+                    }
+                }
+            ];
+            this.props.dispatch(commonActionCreater(userSignInInfo, 'USER_SIGNIN_SUCCESS'));
+            this.props.history.push('/cart');
+        }
+        
+    };
+
+    addGuestEmailError = (err) => {
+        console.log('error in guest email proceed', err);
+    };
+
     onSubmit = async values => {
-        console.log(values);
+        let cartId = localStorage.getItem("cart_id");
+
+        let body = {
+            customer_email: _get(values, 'email'),
+            store_id: 1,
+            cart_id: cartId
+        }
+
+        genericPostData({
+            dispatch: this.props.dispatch,
+            reqObj: body,
+            url: '/api/cart/guestcart',
+            constants: {
+                init: 'POST_USER_ADDRESSES_INIT',
+                success: 'POST_USER_ADDRESSES_SUCCESS',
+                error: 'POST_USER_ADDRESSES_ERROR'
+            },
+            identifier: 'POST_GUEST_EMAIL',
+            successCb: this.addGuestEmailSuccess,
+            errorCb: this.addGuestEmailError,
+            dontShowMessage: true
+        });
+        
     }
 
     render() {
-        if (!_get(this.props.userSignInInfo, '[0].isGuestLogin', false)){
+        if (!_isEmpty(_get(this.props.userSignInInfo, '[0].result.api_token', ''))){
             return <Redirect to='/home'/>;
 
         };
@@ -71,8 +122,10 @@ class GuestWithoutLoginContainer extends React.Component {
 
 function mapStateToProps(state) {
     let userSignInInfo = _get(state, 'userSignInInfo.lookUpData', []);
+    let cartData = _get(state, 'cart.lookUpData', []);
     return {
-        userSignInInfo
+        userSignInInfo,
+        cartData,
     };
 }
 export default connect(mapStateToProps)(GuestWithoutLoginContainer);
