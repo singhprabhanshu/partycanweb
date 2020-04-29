@@ -25,11 +25,9 @@ class GuestRegisterContainer extends React.Component {
         return (
             <React.Fragment>
                     <div >
-                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: "center", height: '500px'}}>
                             <GuestWithoutLoginComponent 
                                 {...this.props} 
                             />
-                        </div>
                     </div>
                     
                     

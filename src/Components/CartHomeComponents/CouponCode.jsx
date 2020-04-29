@@ -50,16 +50,11 @@ class CouponCode extends React.Component {
         }
         return (
             <div className="d-flex no-gutters">
-                <Col xs={12} lg={11}>
-                    <Form >
-                        <FormGroup>
-                            <Input onChange={this.onChangeCouponCode} value={this.state.coupon_code} type="email" name="email" id="exampleEmail" placeholder="Coupon Code" />
-                        </FormGroup>
-                        <FormGroup>
-                            <Button style={{ marginLeft: "10px", marginBottom: "2px" }} onClick={this.handleAppply}>Apply</Button>
-                        </FormGroup>
-                    </Form>
-                </Col>
+                    <Form className="d-flex w-100">                    
+                            <Input onChange={this.onChangeCouponCode} value={this.state.coupon_code} type="email" name="email" id="exampleEmail" placeholder="Coupon Code" className="col" />
+                            <Button style={{ marginLeft: "10px", marginBottom: "2px" }} className="applyBtn" onClick={this.handleAppply}>Apply</Button>
+                      </Form>
+            
             </div>
         )
     }

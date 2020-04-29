@@ -11,7 +11,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { Redirect } from 'react-router';
 import genericPostData from '../../Redux/Actions/genericPostData';
 import { commonActionCreater } from '../../Redux/Actions/commonAction';
-
+import {Container, Row, Col} from 'reactstrap'
 import { TextInputField } from '../../Global/FormCompoents/wrapperComponent';
 
 
@@ -87,31 +87,37 @@ class GuestWithoutLoginContainer extends React.Component {
 
         return (
             <React.Fragment>
-
-                <div >
-                    CHECKOUT AS GUEST
-                </div>
-                <div >
-                    ENTER YOUR EMAIL ADDRESS TO PROCEED WITH YOUR ORDER.
-                </div>
-                    <Form onSubmit={this.onSubmit} validate={validate}
+                <div  className="WhiteCurveBg">
+                     <Container className="container-custom d-flex flex-column justify-content-center m-mb-130">
+                    <Row className="align-items-center mb-5" style={{flex:2, maxHeight:130, minHeight:130}}>
+                        <Col  className="text-center" >
+                            <h4 className="holduptext"> CHECKOUT AS GUEST</h4>
+                            <h5 className="pt-4 pb-5">ENTER YOUR EMAIL ADDRESS TO PROCEED WITH YOUR ORDER.</h5>
+                        </Col>                        
+                    </Row>                
+                    <Form  onSubmit={this.onSubmit} validate={validate}
                         render={({ handleSubmit }) => (
-                            <form onSubmit={handleSubmit} style={{ width: "30%", marginTop: 20 }}>
+                            <form className="d-flex flex-column justify-content-around mb-4" onSubmit={handleSubmit} >
 
 
-                                <div style={{ marginBottom: 20 }}>
+                                <Row>
+                                <Col className="text-center mb-4" >
                                     <Field name="email" component={TextInputField} placeholder='EMAIL'
                                         autoFocus={false} type='text' />
-                                </div>
+                                    </Col>                        
+                            </Row>
 
 
-                                <div style={{ display: "flex", justifyContent: "center" }}>
-                                <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" type="submit">
+                                <Row className="justify-content-center align-items-ceenter">
+                                     <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
+                                    <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                     <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> PROCEED</Button>
-                                </div>
+                                    </Col>                        
+                            </Row>  
                             </form>)}
                     />
-                
+                    </Container>
+                    </div>
             </React.Fragment>
 
 
