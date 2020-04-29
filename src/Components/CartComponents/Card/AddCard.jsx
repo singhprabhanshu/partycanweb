@@ -145,9 +145,8 @@ const AddCard = (props) => {
     }
 
     let content = <React.Fragment>
-        <div onClick={() => props.goBack()} className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{ fontSize: 13, marginRight: 10 }} />CARDS</div>
-        <div className="block-title mb-5">Add New Card</div>
-        <div className="StripeCard">
+        <div className="scrollerwrapper" >        
+        <div className="">
             <Form onSubmit={handleSubmit} validate={validate}
 
                 mutators={{
@@ -167,24 +166,24 @@ const AddCard = (props) => {
                 
                 render={({ handleSubmit,form }) => (
                     <ReactStrapFrom id="###creditcardform###" onSubmit={handleSubmit}>
-                        <div className="d-flex mt-4">
-                            <div style={{ width: '50%', marginRight: 50 }}>
-                                <label>Name</label>
+                    <div className="StripeCard">
+                    <div className="addNewCC no-gutters d-flex flex-wrap">
+                        <div className="col-12 w-100 mb-4">
+                                <label>CARD HOLDER</label>
                                 <input
                                     id="name"
                                     style={{ color: "black !important" }}
                                     required
                                     placeholder="Jenny Rosen"
+                                    className="cardHolderName"
                                     value={name}
                                     onChange={(e) => {
                                         setName(e.target.value);
                                     }}
                                 />
-                            </div>
                         </div>
-                        <div className="d-flex mt-4">
-                            <div style={{ width: '50%', marginRight: 50 }}>
-                                <label htmlFor="cardNumber">Card Number</label>
+                        <div className="col-12 w-100 mb-4">
+                                <label htmlFor="cardNumber">CARD NUMBER</label>
                                 <CardNumberElement
                                     id="cardNumber"
                                     onBlur={logEvent('blur')}
@@ -193,11 +192,9 @@ const AddCard = (props) => {
                                     onReady={logEvent('ready')}
                                     options={ELEMENT_OPTIONS}
                                 />
-                            </div>
                         </div>
-                        <div className="d-flex mt-4">
-                            <div style={{ width: '50%', marginRight: 50 }}>
-                                <label htmlFor="expiry">Card Expiration</label>
+                        <div className="col-8 w-100 mb-4">
+                                <label htmlFor="expiry">EXPIRATION DATE</label>
                                 <CardExpiryElement
                                     id="expiry"
                                     onBlur={logEvent('blur')}
@@ -206,10 +203,8 @@ const AddCard = (props) => {
                                     onReady={logEvent('ready')}
                                     options={ELEMENT_OPTIONS}
                                 />
-                            </div>
                         </div>
-                        <div className="d-flex mt-4">
-                            <div style={{ width: '50%', marginRight: 50 }}>
+                        <div className="col-4 w-100 mb-4">
                                 <label htmlFor="cvc">CVC</label>
                                 <CardCvcElement
                                     id="cvc"
@@ -219,7 +214,6 @@ const AddCard = (props) => {
                                     onReady={logEvent('ready')}
                                     options={ELEMENT_OPTIONS}
                                 />
-                            </div>
                         </div>
                         {errorMessage && <ErrorResult>{errorMessage}</ErrorResult>}
                         {paymentMethod && <Result>Got PaymentMethod: {paymentMethod.id}</Result>}
@@ -228,83 +222,91 @@ const AddCard = (props) => {
                                 <Field name="defaultAddress" component={SwitchInputField} label='Same as Billing Address' />
                             </span>
                         </div> */}
-                        <h3>Billing Address</h3>
-                        <React.Fragment>
-                            <InputLabel className="label-txt fs-11 mb-0">Same As Shipping Address</InputLabel>
-                            <Switch
-                                color="primary"
-                                checked={sas}
-                                onClick={() => sasChange(!sas,form.mutators)}
-                                className="custom-switch"
-                            />
+                        </div>
 
+                        </div>
+                        
+                        <React.Fragment>
+                            <div className="d-flex no-gutters flex-wrap justify-content-between align-items-center">
+                            <h4 className="col-12 col-md-auto ">Billing Address</h4>
+                                <div className="d-flex justify-content-between align-items-center col-12 col-md-auto">
+                                <InputLabel className="label-txt fs-11 mb-0 ">Same As Shipping Address</InputLabel>
+                                <Switch
+                                    color="primary"
+                                    checked={sas}
+                                    onClick={() => sasChange(!sas,form.mutators)}
+                                    className="custom-switch"
+                                />
+                                </div>
+                            </div>
                         </React.Fragment>
+                        <div className="d-flex mt-4">
+                                <div style={{ width: '50%', paddingRight: 50 }}>
+                                    <Field name="name" component={TextInputField} placeholder='Name'
+                                        autoFocus={false} type='text' />  
+                                </div>
+                                <div style={{ width: '50%' }}>
+                                    <Field name="address" component={TextInputField} placeholder='ADDRESS'
+                                        autoFocus={false} type='text' />
+                                </div>
+                        </div>
+                      
                         <div className="mt-4">
-                            <Field name="name" component={"input"} placeholder='Name'
+                            <Field name="address2" component={TextInputField} placeholder='ADDRESS 2'
                                 autoFocus={false} type='text' />
-                            <span></span>
-                            <Error name="name" />
                         </div>
                         <div className="mt-4">
-                            <Field name="address" component={"input"} placeholder='ADDRESS'
+                            <Field name="city" component={TextInputField} placeholder='CITY'
                                 autoFocus={false} type='text' />
-                            <Error name="address" />
-                        </div>
-                        <div className="mt-4">
-                            <Field name="address2" component={"input"} placeholder='ADDRESS 2'
-                                autoFocus={false} type='text' />
-                        </div>
-                        <div className="mt-4">
-                            <Field name="city" component={"input"} placeholder='CITY'
-                                autoFocus={false} type='text' />
-                            <Error name="city" />
+                          
                         </div>
                         <div className="d-flex mt-4">
-                            {/* <Field name="state" component={"input"} placeholder='STATE'
+                            {/* <Field name="state" component={TextInputField} placeholder='STATE'
                                     autoFocus={false} type='text' />
-                                    <Field name="zip" component={"input"} placeholder='ZIP'
+                                    <Field name="zip" component={TextInputField} placeholder='ZIP'
                                     autoFocus={false} type='text' />         */}
-                            <div style={{ width: '40%', marginRight: 50 }}>
+                            <div style={{ width: '55%', paddingRight: 50 }}>
                                 <Field name="state" component={RFReactSelect} placeholder='STATE'
                                     autoFocus={false} type='text' options={options} />
-                                <Error name="state" />
+                              
 
                             </div>
-                            <div style={{ width: '40%' }}>
-                                <Field name="zip" component={"input"} placeholder='ZIP'
+                            <div style={{ width: '45%' }}>
+                                <Field name="zip" component={TextInputField} placeholder='ZIP'
                                     autoFocus={false} type='text' />
-                                <Error name="zip" />
+                              
 
                             </div>
 
                         </div>
                         <div className="mt-4">
-                            <Field name="addressNickname" component={"input"} placeholder='ADDRESS NICKNAME'
+                            <Field name="addressNickname" component={TextInputField} placeholder='ADDRESS NICKNAME'
                                 autoFocus={false} type='text' />
-                            <Error name="addressNickname" />
+                           
 
                         </div>
                         <div className="mt-4">
-                            <Field name="phone" component={"input"} placeholder='PHONE'
+                            <Field name="phone" component={TextInputField} placeholder='PHONE'
                                 autoFocus={false} type='text' />
-                            <Error name="phone" />
+                           
 
                         </div>
-                        <h3>Contact For Order Confirmation</h3>
+                        {/* <h3>Contact For Order Confirmation</h3>
                         <div className="mt-4">
-                            <Field name="email" component={"input"} placeholder='EMAIL'
+                            <Field name="email" component={TextInputField} placeholder='EMAIL'
                                 autoFocus={false} type='text' />
-                            <Error name="email" />
+                           
                         </div>
                         <h3>Date of Birth</h3>
                         <div className="mt-4">
-                            <Field name="dob" component={"input"} placeholder='MM/DD/YYYY'
+                            <Field name="dob" component={TextInputField} placeholder='MM/DD/YYYY'
                                 autoFocus={false} type='text' />
 
-                        </div>
+                        </div> */}
                     </ReactStrapFrom>)}
             />
         </div>
+    </div>
     </React.Fragment>
     let commonContent = null;
     if (isMobile || isTablet) {
@@ -316,6 +318,8 @@ const AddCard = (props) => {
 
     return (
         <>
+         <div onClick={() => props.goBack()} className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{ fontSize: 13, marginRight: 10 }} />CARDS</div>
+        <div className="block-title mb-5">Add New Card</div>
             {commonContent}
             <div className="text-left mt-4" >
                 <Button
