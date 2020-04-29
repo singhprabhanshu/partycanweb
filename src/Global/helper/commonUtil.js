@@ -16,7 +16,8 @@ const createReqObjForCart = ()=>{
     let reqObj = {}
     if(localStorage.getItem("Token"))
     reqObj = {
-        "api_token": localStorage.getItem("Token")
+        "api_token": localStorage.getItem("Token"),
+        "cart_id":localStorage.getItem("cart_id")
     };
     else{
         reqObj = {
