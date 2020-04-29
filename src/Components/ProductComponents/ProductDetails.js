@@ -212,15 +212,21 @@ class ProductDetails extends React.Component {
     )
 
     addToCartSuccess = (data) => {
-        this.setState({addToCartLoading:false})
-        localStorage.setItem("cart_id",data[0].cart_id);
-        // checking guest login
-        if (_isEmpty(_get(this.props.userSignInInfo, '[0].result.api_token', ''))){
-            this.props.history.push('/guest/register')
-
-        } else {
-            this.props.history.push('/cart')
-        };
+        if(data[0].code==1){
+            this.setState({addToCartLoading:false})
+            localStorage.setItem("cart_id",data[0].cart_id);
+            // checking guest login
+            if (_isEmpty(_get(this.props.userSignInInfo, '[0].result.api_token', ''))){
+                this.props.history.push('/guest/register')
+    
+            } else {
+                this.props.history.push('/cart')
+            };
+        }
+        else{
+            this.setState({addToCartLoading:false})
+            alert(data[0].message);
+        }
         
     }
 

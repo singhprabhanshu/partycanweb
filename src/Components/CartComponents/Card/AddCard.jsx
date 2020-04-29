@@ -28,6 +28,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { isMobile, isTablet } from 'react-device-detect';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Switch, InputLabel } from '@material-ui/core';
+import genericPostData from "../../../Redux/Actions/genericPostData";
 
 
 
@@ -74,10 +75,27 @@ const AddCard = (props) => {
     const [postal, setPostal] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState(null);
+    
+    let billingAddress = {};
 
     const handleSubmit = async (values) => {
         // event.preventDefault();
-        setLoading(true)
+        setLoading(true);
+        let api_token = localStorage.getItem("Token");
+        billingAddress = {
+            api_token: api_token,
+            first_name: values.name.split(" ")[0],
+            last_name:  values.name.split(" ")[1],
+            street1: values.address,
+            street2: values.address2,
+            city: values.city,
+            state: values.state,
+            zipcode: values.zip,
+            nickname: values.addressNickname,
+            telephone: values.phone,
+            billing_address: _get(values,'address','') + ' ' + _get(values,'address2',''),
+            country: "USA"
+        };
         if (!stripe || !elements) {
             // Stripe.js has not loaded yet. Make sure to disable
             // form submission until Stripe.js has loaded.
@@ -102,27 +120,86 @@ const AddCard = (props) => {
             setErrorMessage(payload.error.message);
             setPaymentMethod(null);
         } else {
-            let paymentMethods = props.paymentMethods;
-            let cartFlow = props.cartFlow;
             let card_token = payload.token.id;
-            let card_id = payload.token.card.id;
-            let customer_stripe_id = paymentMethods && Array.isArray(paymentMethods) && paymentMethods.length > 0 ? paymentMethods[0].customer_stripe_id : "";
-            let card_info = "";
-            let payment_method = "stripe_payments";  //check here
-            let data = {
-                ...cartFlow,
-                card_id,
-                card_token,
-                customer_stripe_id,
-                card_info,
-                payment_method,
-                billingAddress: { ...values }
-            }
-            props.dispatch(commonActionCreater(data, 'CART_FLOW'));
-            props.handleContinueFromNewCard();
-            setLoading(false)
+            saveAndContinue({api_token, card_token});
+            
         }
     };
+
+    const saveAndContinue = (reqObj) => {
+        genericPostData({
+            dispatch:props.dispatch,
+            reqObj: reqObj,
+            url:`api/account/mycards`,
+            constants:{
+            init:"ADD_PAYMENT_CARD_INIT",
+            success:"ADD_PAYMENT_CARD_SUCCESS",
+            error:"ADD_PAYMENT_CARD_ERROR" 
+            },
+            identifier:"ADD_PAYMENT_CARD",
+            successCb: addPayementCardSuccess,
+            errorCb: addPayementCardError,
+            dontShowMessage: true 
+        });
+    }
+
+    const addPayementCardSuccess = (data) => {
+       if(data.code === 1) {
+        saveBillingInfo(billingAddress)
+       }
+    }
+
+    const addPayementCardError = (data) => {
+        console.log('ERROR', data);
+    }
+
+    const saveBillingInfo = (reqObj) => {
+        genericPostData({
+            dispatch: props.dispatch,
+            reqObj: reqObj,
+            url:`connect/customer/addaddress`,
+            constants:{
+            init:"ADD_BILLING_INFO_INIT",
+            success:"ADD_BILLING_INFO_SUCCESS",
+            error:"ADD_BILLING_INFO_ERROR" 
+            },
+            identifier:"ADD_BILLING_INFO",
+            successCb: addBillingInfoSuccess,
+            errorCb: addBillingInfoError,
+            dontShowMessage: true 
+        });
+    }
+
+    const addBillingInfoSuccess = (data) => {
+        if(data.code === 1) {
+            setLoading(false);
+            props.goBack();
+            // let paymentMethods = props.paymentMethods;
+            // let cartFlow = props.cartFlow;
+            // let card_token = payload.token.id;
+            // let card_id = payload.token.card.id;
+            // let customer_stripe_id = paymentMethods && Array.isArray(paymentMethods) && paymentMethods.length > 0 ? paymentMethods[0].customer_stripe_id : "";
+            // let card_info = "";
+            // let payment_method = "stripe_payments";  //check here
+            // let data = {
+            //     ...cartFlow,
+            //     card_id,
+            //     card_token,
+            //     customer_stripe_id,
+            //     card_info,
+            //     payment_method,
+            //     billingAddress: { ...values }
+            // }
+            // props.dispatch(commonActionCreater(data, 'CART_FLOW'));
+            // props.handleContinueFromNewCard();
+            // props.handleContinueFromNewCard();
+            props.loadCardDataAndBack();
+       }
+    }
+
+    const addBillingInfoError = (data) => {
+        console.log('ERROR', data);
+    }
     const sasChange = (val,mutators) => {
         sasFun(val);
         if(val==false){

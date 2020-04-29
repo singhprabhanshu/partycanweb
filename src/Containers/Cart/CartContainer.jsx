@@ -88,6 +88,7 @@ class CartContainer extends React.Component {
                                     isFetching={itemRemovedFetching || itemUpdatedFetching || cartIsFetching}
                                     variant="contained"
                                     color="primary"
+                                    disabled={itemRemovedFetching || itemUpdatedFetching || cartIsFetching}
                                     className="bottomActionbutton cartActionBtn"
                                     onClick={() => this.props.history.push("/cart/address")}>
                                     <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> CHECKOUT
