@@ -229,7 +229,7 @@ class Speed extends React.Component {
       // cart_id:"26234",
       // delivery_address_id: "2517"
       api_token: _get(this.props, 'userDetails.api_token', ''),
-      cart_id: _get(this.props, 'userDetails.cart_id', '0'),
+      cart_id: localStorage.getItem("cart_id"),
       delivery_address_id: _get(this.props, 'cartFlow.selectedAddress', '0')
     }
     this.setState({
