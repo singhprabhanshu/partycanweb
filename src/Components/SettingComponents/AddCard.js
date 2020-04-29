@@ -137,7 +137,6 @@ const AddCard = (props) => {
             // props.dispatch(commonActionCreater(data, 'CART_FLOW'));
             // props.handleContinueFromNewCard();
             saveAndContinue({api_token, card_token});
-            setLoading(false);
             
         }
     };
@@ -188,6 +187,7 @@ const AddCard = (props) => {
 
     const addBillingInfoSuccess = (data) => {
         if(data.code === 1) {
+            setLoading(false);
             props.handleContinueFromNewCard();
        }
     }
@@ -371,7 +371,7 @@ const AddCard = (props) => {
             <div className="text-left mt-4" >
                 <Button
                     variant="contained"
-                    disabled={!stripe}
+                    disabled={!stripe || loading}
                     color="primary"
                     onClick={creditCardDetailsSubmit}
                     className="bottomActionbutton cartActionBtn"
