@@ -26,7 +26,8 @@ app.get("/connect/index/banners",(req,res)=>{
 
 app.get("/connect/index/getlocation",(req,res)=>{
   const zipcode = req.query.zipcode;
-  let p1 = axios.get(`${application_bff_url}/connect/index/getlocation?zipcode=${zipcode}&store_id=1`);
+  const store = req.query.store;
+  let p1 = axios.get(`${application_bff_url}/connect/index/getlocation?zipcode=${zipcode}&store_id=1&store=${store}`);
   p1.then((apiRespo)=>{
    res.setHeader('Content-Type', 'application/json');
    res.send(apiRespo.data);
