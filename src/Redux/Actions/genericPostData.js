@@ -13,8 +13,12 @@ function genericPostData({ dispatch, reqObj, url, constants, identifier, success
             error:`${identifier}_ERROR`
         }
     }
+    let modifiedReqObj = {
+        ...reqObj,
+        store_id: 1,
+    }
     let p1 =  dispatch(
-        postData(`${APPLICATION_BFF_URL}${modifiedUrl}`, reqObj, identifier, constants)
+        postData(`${APPLICATION_BFF_URL}${modifiedUrl}`, modifiedReqObj, identifier, constants)
     )
     p1.then((data) => {
         if (!dontShowMessage) {
