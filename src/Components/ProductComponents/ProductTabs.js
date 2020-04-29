@@ -66,14 +66,15 @@ class ProductTabs extends React.Component {
         const { selectedTab } = this.state; 
         const selectedCategory = categoriesList ?  categoriesList[this.props.tabValue] : undefined;
         const headerTitle = _get(selectedCategory, 'category_name', '');
-        // console.log('header title');
+        console.log('header title', this.props.history);
         return (
             <React.Fragment>
                     <div className="mobile-tabs-title d-block d-md-none">
                     <Container fluid={true}  className="d-flex align-items-center h-100 justify-content-center">   
                         <Row className=" align-items-center flex-grow-1 pt-4 no-gutters px-3">
                         <Col xs={'auto'}  className=""> 
-                            <KeyboardBackspaceIcon onClick={this.handleMobileBack} style={{fontSize:'3rem'}}/>
+                            { this.props.history.location.pathname.includes('product') && 
+                            <KeyboardBackspaceIcon onClick={this.handleMobileBack} style={{fontSize:'3rem'}}/>}
                         </Col>
                         <Col  className="title"> 
                                 {headerTitle}

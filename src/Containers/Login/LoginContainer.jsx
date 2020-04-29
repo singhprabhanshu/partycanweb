@@ -90,11 +90,6 @@ class SignIn extends React.Component {
         if (code === 1 && message === 'success') {
             let cartObj = [{ total_items_count }];
             this.props.dispatch(commonActionCreater(cartObj, 'CART_ITEMS_SUCCESS'));
-            this.props.dispatch(
-                showMessage({
-                    text: 'Signin Successfully',
-                    isSuccess: true
-                }));
             localStorage.setItem('Token', _get(data[0], 'result.api_token', ''));
             localStorage.setItem('cart_id', _get(data[0], 'result.cart_id', ''));
             this.props.history.push('/category/Cans');
