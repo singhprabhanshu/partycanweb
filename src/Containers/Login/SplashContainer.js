@@ -34,7 +34,7 @@ class SplashContainer extends React.Component {
         this.setState({ isLoading: true});
         genericGetData({
             dispatch:this.props.dispatch,
-            url:"/connect/index/banners",
+            url:"/connect/index/banners?store_id=1",
             constants:{
             init:"SPLASH_BANNER_INIT",
             success:"SPLASH_BANNER_SUCCESS",

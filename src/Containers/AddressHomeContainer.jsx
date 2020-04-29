@@ -9,8 +9,6 @@ import CartTabs from '../Components/CartComponents/cartTabs';
 import Address from '../Components/CartComponents/Addresses/address';
 import Card from "../Components/CartComponents/Card/Card"
 import Speed from '../Components/CartComponents/Speed/speed';
-// import { map as _map, findIndex as _findIndex, get as _get } from 'lodash';
-import genericGetData from "../Redux/Actions/genericGetData";
 import CheckOut from '../Components/CartComponents/CheckOut/CheckOut';
 import {Container, Row, Col} from 'reactstrap';
 import { get as _get } from 'lodash';

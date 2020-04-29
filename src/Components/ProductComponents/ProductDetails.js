@@ -114,7 +114,7 @@ class ProductDetails extends React.Component {
         const productID = this.props.match.params.productID;
         genericGetData({
             dispatch: this.props.dispatch,
-            url: `/connect/index/product?prodid=${productID}`,
+            url: `/connect/index/product?prodid=${productID}&store_id=1`,
             constants: {
                 init: "PRODUCT_DETAILS_LIST_INIT",
                 success: "PRODUCT_DETAILS_LIST_SUCCESS",

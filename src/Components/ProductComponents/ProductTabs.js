@@ -31,7 +31,7 @@ class ProductTabs extends React.Component {
     
         genericGetData({
             dispatch:this.props.dispatch,
-            url:"/connect/index/categorylist",
+            url:"/connect/index/categorylist?store_id=1",
             constants:{
             init:"CATEGORIES_LIST_INIT",
             success:"CATEGORIES_LIST_SUCCESS",

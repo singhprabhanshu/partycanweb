@@ -2,7 +2,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-// import genericGetData from "../../../Redux/Actions/genericGetData";
 import genericPostData from '../../../Redux/Actions/genericPostData';
 import { Button } from 'reactstrap';
 import { get as _get, map as _map, find as _find, findIndex as _findIndex, isEmpty as _isEmpty } from 'lodash';
