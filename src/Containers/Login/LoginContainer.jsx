@@ -96,7 +96,7 @@ class SignIn extends React.Component {
                     isSuccess: true
                 }));
             localStorage.setItem('Token', _get(data[0], 'result.api_token', ''));
-            this.props.history.push('/home');
+            this.props.history.push('/category/Cans');
         } else {
             this.props.dispatch(showMessage({ text: message, isSuccess: false }));
         }
