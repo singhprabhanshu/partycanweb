@@ -233,7 +233,7 @@ class Address extends React.Component {
 
     renderContent = (addresses) => {
         let commonContent = <>
-            <div className="pr-lg-4" >
+            <div className="scrollerwrapper" >
                 <div style={styles(this.state).addressFormHide}>
 
                     <div className="d-flex flex-wrap CardsWrapper">

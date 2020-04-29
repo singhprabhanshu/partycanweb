@@ -425,7 +425,7 @@ class Speed extends React.Component {
 
   renderContent = (speed,retailer,shippingMethod,selectDate,availableTime) => {
     let commonContent = <>
-    <div className="pr-lg-4" > 
+    <div className="scrollerwrapper" > 
                     <div className="d-flex flex-column">
 
                         <div className="d-flex flex-column mb-5 ">

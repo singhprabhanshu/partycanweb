@@ -86,7 +86,7 @@ class CardComponent extends React.Component {
     }
     renderContent = (addresses) => {
         let commonContent =
-            <div className="pr-lg-4" >
+            <div className="scrollerwrapper" >
                 <div className="CardsWrapper d-flex align-items-center flex-wrap">
                     <Card onClick={this.addNewCard} onClick={this.addCardFunction}>
                         <CardBody className="cardStyles addnewcard">
