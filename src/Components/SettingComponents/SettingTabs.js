@@ -47,7 +47,9 @@ class SettingTabs extends React.Component {
                     <Tabs
                         value={this.props.tabValue}
                         variant="standard"
-                        aria-label="tabs"
+                        indicatorColor=""
+                        textColor="white"
+                        aria-label="icon tabs example"
                         className="product-tabs"
                     >
                         {this.state.renderTabs}

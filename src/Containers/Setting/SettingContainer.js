@@ -69,7 +69,7 @@ class SettingContainer extends React.Component {
                     /> 
                        
                 <Row className="no-gutters justify-content-lg-between secMinHeight">
-                    <Col xs={12} lg={7} className="p-xl-5 p-4" >
+                    <Col xs={12} lg={6} className="p-xl-5 p-md-4" >
                     {this.props.userName ? this.renderContent() : 
                     <Container fluid={true} > 
                     <Row className="no-gutters  secMinHeightwt">

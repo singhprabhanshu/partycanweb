@@ -472,6 +472,7 @@ button:focus {
     }
     @media(max-width:767px){
       min-width: auto!important;
+      max-width: 25%;
       flex: 1;
       font-size: 1.3rem;
     }
@@ -480,7 +481,7 @@ button:focus {
 
 .drop-option{
   position: absolute;
-  background-color: rgba(255, 255, 255, .3);
+  background-color: #50e2d8;
   right: 0;
   top: 35px;
   display: flex;
@@ -489,6 +490,10 @@ button:focus {
   border-radius: 5px;
   z-index: 3;
   width: 18rem;
+  @media(max-width:767px){
+    top: unset;
+    bottom: 40px;
+  }
 
   &:before{
     content: "";
@@ -496,10 +501,16 @@ button:focus {
     height: 0; 
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-bottom: 6px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 6px solid #50e2d8;
     position: absolute;
     top: -6px;
-    right: 9px;    
+    right: 9px;  
+    @media(max-width:767px){
+      top: unset;
+      bottom: -6px;
+      transform: rotate(180deg);
+    }
+    
   }
 
   span{
@@ -740,14 +751,45 @@ button:focus {
 /////////////////////////your order
 .MuiExpansionPanelSummary-root{padding: 0!important;}
 .MuiExpansionPanelDetails-root{padding: 8px 0px!important;}
-.MuiExpansionPanel-root.Mui-expanded{border-radius: 8px; padding: 0px 25px 22px;}
+.MuiExpansionPanel-root.Mui-expanded{border-radius: 8px; padding: 0px 25px 22px;
+  @media(max-width:767px){
+    padding: 0px 15px 15px;
+  }
+}
 .MuiExpansionPanelSummary-content{margin: 12px 0px!important;}
-.pricingWrapper{ width: 20%; display: flex; justify-content: space-between; align-items: center; }
-.w40{width: 40%;}
+.pricingWrapper{ width: 30%; display: flex; justify-content: space-between; align-items: center;
+  @media(max-width:767px){
+    width: 55%;
+    align-items: flex-start;
+  }
+}
 .orderStatusText{text-transform: capitalize;}
 .MuiExpansionPanel-rounded { border-radius: 8px!important; margin-bottom: 15px; padding: 10px 25px;}
 .MuiIconButton-edgeEnd {margin-right: 0!important;}
+.itemsname{
+  max-width: 60%;
+  flex-wrap: wrap;
+  color: #0033a0; 
+  font-weight: bold;
+  font-size: 1.8rem;
+  @media(max-width:767px){
+    width: 40%;
+    align-items: flex-start;
+    line-height: 1.9rem;
+    font-size: 1.5rem;
+  }
+}
 
+.orderDetaillabel{
+  color: #a6bcd0;
+   font-size:1.3rem;
+   width: 40%;
+   text-align: right;
+
+   @media(max-width:767px){
+    font-size:1.2rem;
+  }
+}
 //////////////////////order-place
 .orderPlaced span{font-size: 2.8rem; color: #a6bcd0; text-align: center;}
 b.orderNumber{display: flex; justify-content: center; font-family: Tungsten-Bold; font-size: 4.8rem; color: #fff; letter-spacing: 5.5px;}
@@ -925,6 +967,34 @@ span.MuiButton-label {
       }  
     }
 
+    &.userPreferenceContainer{
+      width: 50%;
+      min-width: 32rem;
+      flex-wrap: wrap;     
+      @media(max-width:767px){
+        width: 100%;    
+      }  
+    }
+
+    &.userinfoSettingContainer{
+      width: 40%; 
+      min-width: 25rem;
+      flex-wrap: wrap;  
+     
+      @media(max-width:767px){
+        width: 100%;    
+      }  
+    }
+
+    &.paymentcardContainer{
+      width: 40%; 
+      min-width: 25rem;
+      flex-wrap: wrap;  
+      @media(max-width:767px){
+        width: 100%;    
+      }  
+    } 
+  
     .cardStyles{
       padding: 1.5rem;
       background-color: rgba(255, 255, 255, .3)!important;
@@ -936,8 +1006,7 @@ span.MuiButton-label {
       flex-direction: column;
       cursor: pointer;
 
-      &.speedCards{
-        // max-width: 20rem;
+      &.speedCards{       
         min-height: 8rem;  
         opacity: .6; 
       }
@@ -948,24 +1017,21 @@ span.MuiButton-label {
         opacity: .6;  
       }
     
-      &.shippingCards{
-        max-width: 15rem;
+      &.shippingCards{       
         min-height: 8rem;   
         opacity: .6; 
       }
     
-      &.retailerCards{
-        // max-width: 15rem;
+      &.retailerCards{      
         min-height: 8rem;  
         opacity: .6;  
       }
     
-      &.dateTimerCards{
-        max-width: 10rem;
+      &.dateTimerCards{       
         min-height: 7rem; 
         opacity: .6;   
       }
-  
+
       &.addressCards{   
         min-height: 15rem;   
         justify-content: flex-start!important;
@@ -981,26 +1047,13 @@ span.MuiButton-label {
         border-radius: 14.5px!important;   
       }  
 
-      &.paymentcard {      
-        max-width: 25rem;
-        min-height: 15rem;        
-        @media(max-width:992px){
-          max-width: 100%;
-        }
-      } 
-
-      &.userPreferenceSetting, &.userInfoSettingCards{
-        max-width: 25rem;
+      &.userPreferenceSetting, &.userInfoSettingCards{       
         min-height: 10rem;   
         justify-content: flex-start;
-        @media(max-width:992px){
-          max-width: 100%;
-        }
-        &:hover{
-          color:@color-l!important;
-          background-color: rgba(255, 255, 255, .3)!important;
-        }
+        cursor: default!important;      
       }  
+
+     
 
     &.active{
       color:@color-l!important;
@@ -1330,6 +1383,11 @@ img{
   justify-content: flex-start;
   background-color: #00BFB2 !important;
   color: #fff !important;
+}
+
+.myInfocolor{
+  color:#57e5dc;
+  font-size: '1.5rem'
 }
 
 

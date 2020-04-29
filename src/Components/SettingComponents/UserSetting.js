@@ -91,7 +91,7 @@ class UserSetting extends React.Component {
     render() {
         let renderCardInfo = _get(this.state,'userSettingData.list_cards',[]).map((data, index)=> {
             return (<React.Fragment key={data+index}>
-                <Card className="">
+                <Card className="paymentcardContainer">
                     <CardBody className="cardStyles paymentcard align-items-start active w-100">
                 <div className=" d-flex flex-column flex-wrap" 
                     style={{color: '#00BFB2', fontSize: '1.5rem', fontWeight: 'bold'}}>
@@ -118,7 +118,7 @@ class UserSetting extends React.Component {
             {this.state.userSettingData && <UserInfo userInfo={this.state.userSettingData} />}
             <div className="block-sub-title">YOUR PREFRENCES</div> 
             <div className="CardsWrapper">              
-                <Card className=" mb-5 ">
+                <Card className="userinfoSettingContainer mb-5 ">
                    <CardBody className="cardStyles userPreferenceSetting">
                       <div className=" d-flex  w-100 justify-content-between align-items-center">
                           <label>NOTIFICATION</label>
@@ -143,13 +143,14 @@ class UserSetting extends React.Component {
             </div>
             <div className="block-sub-title">PAYMENT METHOD</div>               
             <div className="d-flex CardsWrapper flex-wrap  mb-5 ">
-                {this.state.userSettingData && this.state.userSettingData.list_cards && renderCardInfo}
-                <Card className="" onClick={this.addCardFunction}>
+               
+                <Card className="paymentcardContainer" onClick={this.addCardFunction}>
                     <CardBody className="cardStyles paymentcard">
                         <div className="mb-4"><AddCircleOutlineOutlinedIcon style={{ fontSize: 25 }} /> </div> 
                         <div>ADD CARD</div>                      
                     </CardBody>                          
-                </Card>                          
+                </Card> 
+                {this.state.userSettingData && this.state.userSettingData.list_cards && renderCardInfo}                         
             </div>
         </React.Fragment>}
         <React.Fragment>
