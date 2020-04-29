@@ -80,7 +80,7 @@ class GuestWithoutLoginContainer extends React.Component {
 
     render() {
         if (!_isEmpty(_get(this.props.userSignInInfo, '[0].result.api_token', ''))){
-            return <Redirect to='/home'/>;
+            return <Redirect to='/category/Cans'/>;
 
         };
 

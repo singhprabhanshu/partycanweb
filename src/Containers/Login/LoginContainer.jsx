@@ -97,7 +97,7 @@ class SignIn extends React.Component {
                 }));
             localStorage.setItem('Token', _get(data[0], 'result.api_token', ''));
             localStorage.setItem('cart_id', _get(data[0], 'result.cart_id', ''));
-            this.props.history.push('/home');
+            this.props.history.push('/category/Cans');
         } else {
             this.props.dispatch(showMessage({ text: message, isSuccess: false }));
         }

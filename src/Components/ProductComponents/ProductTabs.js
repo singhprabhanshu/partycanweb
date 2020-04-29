@@ -57,6 +57,10 @@ class ProductTabs extends React.Component {
 
     }
 
+    handleMobileBack = () => {
+        this.props.history.push('/category/Cans');
+    }
+
     render() {
         const { classes, categoriesList } = this.props;
         const { selectedTab } = this.state; 
@@ -69,7 +73,7 @@ class ProductTabs extends React.Component {
                     <Container fluid={true}  className="d-flex align-items-center h-100 justify-content-center">   
                         <Row className=" align-items-center flex-grow-1 pt-4 no-gutters px-3">
                         <Col xs={'auto'}  className=""> 
-                            <KeyboardBackspaceIcon style={{fontSize:'3rem'}}/>
+                            <KeyboardBackspaceIcon onClick={this.handleMobileBack} style={{fontSize:'3rem'}}/>
                         </Col>
                         <Col  className="title"> 
                                 {headerTitle}

@@ -112,6 +112,7 @@ class ProductsContainer extends React.Component {
                 <CssBaseline />   
                 <Container fluid={true}  className="">  
                 <ProductTabs
+                    {...this.props}
                     tabValue={this.state.tabValue}
                     handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
                     /> 

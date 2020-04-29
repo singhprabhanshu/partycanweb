@@ -370,6 +370,7 @@ class ProductDetails extends React.Component {
             <React.Fragment>
                 <Container fluid={true} className="productDetails">
                     <ProductTabs
+                        {...this.props}
                         tabValue={this.state.tabValue}
                         handleTabChange={(index, selectedTab) => this.handleTabChange(index, selectedTab)}
                     />

@@ -23,6 +23,7 @@ let userSettings = commonReducer("GET_SETTING_DATA");
 let orderSettings = commonReducer("GET_ORDER_SETTING_DATA");
 let searchProductsData = commonReducer("SEARCH_PRODUCTS_LIST");
 let addProductToCartByFooter = commonStaticReducer("PRODUCT_DETAILS_FOOTER");
+let userAddress = commonReducer("USER_ADDRESS");
 
 
 let rootRducer = combineReducers({
@@ -43,7 +44,8 @@ let rootRducer = combineReducers({
     userSettings,
     orderSettings,
     searchProductsData,
-    addProductToCartByFooter
+    addProductToCartByFooter,
+    userAddress
 })
 
 export default rootRducer;

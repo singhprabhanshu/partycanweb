@@ -20,7 +20,7 @@ class Footer extends React.Component {
     }
 
     showUserMenu = () => {
-        // this.setState({ showUserMenuOption: true })
+        this.setState({ showUserMenuOption: true })
         this.props.history.push('/setting/user')
     }
 
@@ -67,7 +67,7 @@ class Footer extends React.Component {
                 <Container fluid={true}  className="d-flex align-items-center h-100 justify-content-center">   
                         <Row className="justify-content-between align-items-center flex-grow-1 no-gutters">
                             <Col  className="justify-content-around align-items-center d-flex">                                
-                                <Button onClick={() => this.props.history.push("/home")} className="homeIcons icons"></Button>
+                                <Button onClick={() => this.props.history.push("/category/Cans")} className="homeIcons icons"></Button>
                                 <Button className="locationIcons icons "></Button>                            
                                 <Button onClick={this.handleAddProductToCart} className="addCircleIcon icons">+</Button>
                                 <Badge badgeContent={this.props.total_items_count} color="primary">
