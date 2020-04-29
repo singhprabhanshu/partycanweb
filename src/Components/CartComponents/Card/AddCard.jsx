@@ -173,6 +173,7 @@ const AddCard = (props) => {
     const addBillingInfoSuccess = (data) => {
         if(data.code === 1) {
             setLoading(false);
+            props.goBack();
             // let paymentMethods = props.paymentMethods;
             // let cartFlow = props.cartFlow;
             // let card_token = payload.token.id;
@@ -192,6 +193,7 @@ const AddCard = (props) => {
             // props.dispatch(commonActionCreater(data, 'CART_FLOW'));
             // props.handleContinueFromNewCard();
             // props.handleContinueFromNewCard();
+            props.loadCardDataAndBack();
        }
     }
 

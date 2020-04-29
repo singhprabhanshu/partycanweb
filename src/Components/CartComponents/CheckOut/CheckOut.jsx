@@ -29,13 +29,13 @@ class CheckOut extends React.Component {
         //this.fetchCart(this.cartFetchSuccess);
     };
     fetchCart = (successCB) => {
-        let reqObj = createReqObjForCart;
+        let reqObj = createReqObjForCart();
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj,
             url: "/api/cart/showcart",
             identifier: "CART_ITEMS",
-            successCb: successCB,
+            successCb: ()=>successCB(),
             errorCb: this.cartFetchError
         })
     }
@@ -86,7 +86,7 @@ class CheckOut extends React.Component {
     }
     placeOrderSuccess = (data) => {
         if (data.code == 1) {
-            localStorage.clearItem("cart_id",""); //removing the cart_id when place order is done
+            localStorage.removeItem("cart_id"); //removing the cart_id when place order is done
             this.fetchCart(() => {
                 this.setState({ placeOrderLoading: false });
                 this.setState({ order_id: data.order_id, orderPlaced: true });
@@ -109,7 +109,7 @@ class CheckOut extends React.Component {
 
 
     trackOrder = () => {
-
+        this.props.history.push("/setting/order")
     }
 
     renderContent = () => {
