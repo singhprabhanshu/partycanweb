@@ -42,6 +42,7 @@ class GuestWithoutLoginContainer extends React.Component {
                     }
                 }
             ];
+            localStorage.setItem('Token', _get(data, 'data.api_token', ''));
             this.props.dispatch(commonActionCreater(userSignInInfo, 'USER_SIGNIN_SUCCESS'));
             this.props.history.push('/cart');
         }
@@ -80,7 +81,7 @@ class GuestWithoutLoginContainer extends React.Component {
 
     render() {
         if (!_isEmpty(_get(this.props.userSignInInfo, '[0].result.api_token', ''))){
-            return <Redirect to='/home'/>;
+            return <Redirect to='/category/Cans'/>;
 
         };
 

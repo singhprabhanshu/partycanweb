@@ -11,7 +11,6 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import AddressCard from './addressCardNew';
 import AddAddressCard from './addAddressCard';
 import { map as _map, findIndex as _findIndex, get as _get, isEmpty as _isEmpty } from 'lodash';
-import genericGetData from "../../../Redux/Actions/genericGetData";
 import genericPostData from '../../../Redux/Actions/genericPostData';
 import { Form, Field } from 'react-final-form';
 import { TextInputField, SwitchInputField } from '../../../Global/FormCompoents/wrapperComponent';

@@ -13,7 +13,7 @@ app.use(cors());
 const application_bff_url = "https://uat.drinkpartycan.com";
 
 app.get("/connect/index/banners",(req,res)=>{
-  let p1 = axios.get(`${application_bff_url}/connect/index/banners`);
+  let p1 = axios.get(`${application_bff_url}/connect/index/banners?store_id=1`);
   p1.then((apiRespo)=>{
    res.setHeader('Content-Type', 'application/json');
    res.send(apiRespo.data);
@@ -26,7 +26,8 @@ app.get("/connect/index/banners",(req,res)=>{
 
 app.get("/connect/index/getlocation",(req,res)=>{
   const zipcode = req.query.zipcode;
-  let p1 = axios.get(`${application_bff_url}/connect/index/getlocation?zipcode=${zipcode}`);
+  const store = req.query.store;
+  let p1 = axios.get(`${application_bff_url}/connect/index/getlocation?zipcode=${zipcode}&store_id=1&store=${store}`);
   p1.then((apiRespo)=>{
    res.setHeader('Content-Type', 'application/json');
    res.send(apiRespo.data);
@@ -122,7 +123,7 @@ app.post("/api/cart/addtocart",(req,res)=>{
 
 app.get("/connect/index/categorylist",(req,res)=>{
   const zipcode = req.query.zipcode;
-  let p1 = axios.get(`${application_bff_url}/connect/index/categorylist`);
+  let p1 = axios.get(`${application_bff_url}/connect/index/categorylist?store_id=1`);
   p1.then((apiRespo)=>{
   console.log(res.data)
    res.setHeader('Content-Type', 'application/json');
@@ -137,7 +138,7 @@ app.get("/connect/index/categorylist",(req,res)=>{
 
 app.get("/connect/index/category",(req,res)=>{
   const categoryID = req.query.catid;
-  let p1 = axios.get(`${application_bff_url}/connect/index/category?catid=${categoryID}`);
+  let p1 = axios.get(`${application_bff_url}/connect/index/category?catid=${categoryID}&store_id=1`);
   p1.then((apiRespo)=>{
     res.setHeader('Content-Type', 'application/json');
     res.send(apiRespo.data);
@@ -151,7 +152,7 @@ app.get("/connect/index/category",(req,res)=>{
 
 app.get("/connect/index/product",(req,res)=>{
   const ProductID = req.query.prodid;
-  let p1 = axios.get(`${application_bff_url}/connect/index/product?prodid=${ProductID}`);
+  let p1 = axios.get(`${application_bff_url}/connect/index/product?prodid=${ProductID}&store_id=1`);
   p1.then((apiRespo)=>{
     res.setHeader('Content-Type', 'application/json');
     res.send(apiRespo.data);
@@ -283,6 +284,18 @@ app.post("/connect/index/search",(req,res)=>{
 
 app.post("/api/account/mycards",(req,res)=>{
   let p1 = axios.post(`${application_bff_url}/api/account/mycards`, req.body);
+  p1.then((apiRespo)=>{
+   res.setHeader('Content-Type', 'application/json');
+   res.send(apiRespo.data);
+  })
+  p1.catch((err)=>{
+      res.setHeader('Content-Type', 'application/json');
+      res.send(err)
+  })
+});
+
+app.post("/connect/customer/addaddress",(req,res)=>{
+  let p1 = axios.post(`${application_bff_url}/connect/customer/addaddress`, req.body);
   p1.then((apiRespo)=>{
    res.setHeader('Content-Type', 'application/json');
    res.send(apiRespo.data);

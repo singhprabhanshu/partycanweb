@@ -4,7 +4,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import ProductTabs from '../../Components/ProductComponents/ProductTabs';
 import { map as _map, findIndex as _findIndex, get as _get, set as _set  } from 'lodash';
-import genericGetData from "../../Redux/Actions/genericGetData";
 import {Container, Row, Col} from 'reactstrap';
 import SettingTabs from '../../Components/SettingComponents/SettingTabs';
 import UserSetting from '../../Components/SettingComponents/UserSetting';

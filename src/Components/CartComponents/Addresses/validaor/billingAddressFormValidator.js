@@ -10,7 +10,7 @@ var schema = yup.object().shape({
     state: yup.string().required('State is required.'),
     addressNickname: yup.string().required('Address nickname is required.'),
     phone: yup.string().required('Phone is required.'),
-    email:yup.string().required("email is required").email("Email must be in email format.")
+    // email:yup.string().required("email is required").email("Email must be in email format.")
     
 });
 

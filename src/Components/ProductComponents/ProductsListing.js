@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { map as _map, findIndex as _findIndex, get as _get, isEmpty as _isEmpty } from 'lodash';
-import genericGetData from "../../Redux/Actions/genericGetData";
 import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
