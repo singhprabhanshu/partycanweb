@@ -90,11 +90,11 @@ class HoldupContainer extends React.Component {
                                         autoFocus={false} type='text' />
                                 </Col>                        
                             </Row>
-                            <Row >
+                            {/* <Row >
                                 <Col className="locationTxt mb-5" >
                                 <RoomOutlinedIcon style={{ fontSize: 23 }} /> USE MY LOCATION
                                 </Col>                        
-                            </Row>
+                            </Row> */}
                             <Row>
                                 <Col className="text-center d-flex align-items-center justify-content-between" >
                                     <Field name="overAge" component={SwitchInputField} label='ARE YOU OVER 21 ?' />

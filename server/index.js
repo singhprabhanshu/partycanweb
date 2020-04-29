@@ -293,6 +293,18 @@ app.post("/api/account/mycards",(req,res)=>{
   })
 });
 
+app.post("/connect/customer/addaddress",(req,res)=>{
+  let p1 = axios.post(`${application_bff_url}/connect/customer/addaddress`, req.body);
+  p1.then((apiRespo)=>{
+   res.setHeader('Content-Type', 'application/json');
+   res.send(apiRespo.data);
+  })
+  p1.catch((err)=>{
+      res.setHeader('Content-Type', 'application/json');
+      res.send(err)
+  })
+});
+
 app.post("/api/cart/guestcart",(req,res)=>{
   let p1 = axios.post(`${application_bff_url}/api/cart/guestcart`, req.body);
   p1.then((apiRespo)=>{
