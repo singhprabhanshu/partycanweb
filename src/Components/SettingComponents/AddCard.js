@@ -286,7 +286,7 @@ const AddCard = (props) => {
 
                         </div>
                         
-                        <React.Fragment>
+                       
                             <div className="d-flex no-gutters flex-wrap justify-content-between align-items-center">
                             <h4 className="col-12 col-md-auto ">Billing Address</h4>
                                 {/* <div className="d-flex justify-content-between align-items-center col-12 col-md-auto">
@@ -298,8 +298,7 @@ const AddCard = (props) => {
                                     className="custom-switch"
                                 />
                                 </div> */}
-                            </div>
-                        </React.Fragment>
+                            </div>                       
                         <div className="d-flex mt-4">
                                 <div style={{ width: '50%', paddingRight: 50 }}>
                                     <Field name="name" component={TextInputField} placeholder='Name'

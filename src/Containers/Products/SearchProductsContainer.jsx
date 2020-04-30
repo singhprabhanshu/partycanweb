@@ -9,35 +9,7 @@ import SearchOutlined from '@material-ui/icons/SearchOutlined'
 import genericPostData from "../../Redux/Actions/genericPostData";
 
 const styles = theme => ({
-    main: {
-        width: 'auto',
-        display: 'block', // Fix IE 11 issue.
-        marginLeft: theme.spacing(3),
-        marginRight: theme.spacing(3),
-        [theme.breakpoints.up(400 + theme.spacing(3 * 2))]: {
-            width: 400,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-        },
-    },
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        marginTop: theme.spacing(3),
-    },
+    
 });
 
 class SearchProductsContainer extends React.Component {
@@ -85,8 +57,8 @@ class SearchProductsContainer extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline />   
-                <Container fluid={true}  className="search-panel">
-                <div className="pt-5">    
+                <Container fluid={true} className="d-flex justify-content-center" >
+                <div className="pt-5 search-panel">    
                      <Input onChange={(e)=>this.handleSearchProducts(e)} className="searchItembar" placeholder="SEARCH PRODUCTS" />
                  </div>
                 </Container>

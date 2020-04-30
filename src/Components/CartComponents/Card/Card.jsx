@@ -80,7 +80,7 @@ class CardComponent extends React.Component {
     fetchCardData = () => {
         let reqObj = {
             api_token: localStorage.getItem("Token"),
-            cart_id: this.props.cartId
+            cart_id: localStorage.getItem("cart_id")
         };
 
         this.setState({ loading: true })
@@ -90,7 +90,8 @@ class CardComponent extends React.Component {
             url: "/api/checkout/paymentmethods",
             identifier: "GET_PAYMENTMETHODS",
             successCb: () => { this.setState({ loading: false }) },
-            errorCb: () => { this.setState({ loading: false }) }
+            errorCb: () => { this.setState({ loading: false }) },
+            dontShowMessage:true
 
         })
     }
