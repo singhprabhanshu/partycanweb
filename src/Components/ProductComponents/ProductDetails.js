@@ -245,22 +245,22 @@ class ProductDetails extends React.Component {
 
     renderContent = (averageRating, reviewsList, productDetailsData, Ingredients) => {
         let commonContent = <>
-            <div className="pr-lg-4" >
+            <div className="scrollerwrapper" >
                 <Row className="mb-5 flex-column flex-md-row justify-content-md-between no-gutters" >
-                    <Col className="prostarRatings order-md-2 ">
+                    <Col xs={'auto'} className="prostarRatings order-md-2 ">
                         <div className="reviewsBox d-flex align-items-center mb-3">
                             <StarRatingComponent value={averageRating} starCount={5} editing={false} />
                             <span style={{ fontSize: '1.2rem' }} >{this.props.productDetailsData.review_count}</span>
                             {!this.state.showReviews ? <ExpandMoreOutlined style={{ cursor: "pointer" }} onClick={() => this.handleReviews()} /> : <ClearOutlined style={{ cursor: "pointer" }} onClick={() => this.handleReviews()} />}
                         </div>
                         {this.state.showReviews ?
-                            <Scrollbar style={{ maxHeight: 150, overflowY: 'auto' }}>
+                            <Scrollbar className="productReviewHolder">
                                 <div className="d-flex flex-column">{reviewsList}</div>
                             </Scrollbar>
                             : ""}
                     </Col>
 
-                    <Col className="order-md-1" >
+                    <Col  className="order-md-1" >
                         <div className="proName text-uppercase mb-4 d-flex align-items-center" >
                             <ArrowBackIcon onClick={this.handleBackAction} className="mr-4 d-none d-lg-block" style={{ fontSize: '20px', color: 'rgba(255, 255, 255, .6)' }} />  {_get(productDetailsData, "name", "")}
                         </div>
@@ -290,7 +290,7 @@ class ProductDetails extends React.Component {
 
                     </div>
                     : ""}
-                <div style={{ marginTop: "50px" }}>
+                <div className="pt-30">
                     <Row>
                         <Col className="d-flex flex-column mb-5" xs={6} sm={4} xl={3}>
                             <span className="smallTitle">AMOUNT</span>
@@ -316,11 +316,11 @@ class ProductDetails extends React.Component {
                     </Row>
 
                 </div>
-                <div className="d-flex flex-wrap justify-content-between justify-content-md-start flex-md-row" style={{ marginTop: "50px" }}>
+                <div className="d-flex flex-wrap justify-content-between justify-content-md-start flex-md-row pt-30" >
                     {/* <Button variant="contained" style={{ color: '#0032A0' }} className="bottomActionbutton autoWidthbtn col-4 col-md-auto order-2 order-md-1 bg-white" type="submit">
                         <span className="icons shareIcons d-inline-block mr-2"></span>SHARE
                  </Button> */}
-                    <Button onClick={() => this.handleAddToCart()} variant="contained" className="bottomActionbutton order-1 col-12 col-md-auto order-md-2 cartActionBtn mx-md-4" type="submit">
+                    <Button onClick={() => this.handleAddToCart()} variant="contained" className="bottomActionbutton order-1 col-12 col-md-auto order-md-2 cartActionBtn" type="submit">
                         {this.state.addToCartLoading?<CircularProgress/> :<> <span className="icons cartIcons d-inline-block mr-2"></span>ADD TO CART</>}
                 </Button>
                     {/* <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)' }} variant="contained" className="bottomActionbutton order-3 col-7 col-md-auto order-md-3 autoWidthbtn transiBtn" type="submit">
