@@ -302,17 +302,8 @@ const AddCard = (props) => {
                         </div>
                         
                         <React.Fragment>
-                            <div className="d-flex no-gutters flex-wrap justify-content-between align-items-center">
-                            <h4 className="col-12 col-md-auto ">Billing Address</h4>
-                                <div className="d-flex justify-content-between align-items-center col-12 col-md-auto">
-                                <InputLabel className="label-txt fs-11 mb-0 ">Same As Shipping Address</InputLabel>
-                                <Switch
-                                    color="primary"
-                                    checked={sas}
-                                    onClick={() => sasChange(!sas,form.mutators)}
-                                    className="custom-switch"
-                                />
-                                </div>
+                            <div className="d-flex no-gutters flex-wrap  align-items-center">
+                            <h4 className="col-12 col-md-auto ">Billing Address</h4>                                
                             </div>
                         </React.Fragment>
                         <div className="d-flex mt-4">

@@ -78,6 +78,8 @@ body {
   min-height: 100vh;
   letter-spacing: .1rem !important;
   .bodyBackground();
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 .btn:focus, .btn.focus, .btn.active:focus, .btn:active{
   box-shadow:none!important;
@@ -175,8 +177,13 @@ button:focus {
     right: 0!important; 
     margin: unset!important;
     position: relative!important;
-    bottom:0;
+    bottom:3rem;
     opacity: 1!important;
+    max-width: 70%;
+    line-height: 2.2rem;
+    @media (max-width: 767px){
+      max-width: 90%;
+    } 
   }
 
   .carousel .slide img{
@@ -1408,12 +1415,32 @@ img{
 .container-content-section .search-panel
   {    
    width: 50%;
+   position: relative;
+   &:before{
+    content: "";
+    position: absolute;
+    background-image: url(../images/HOMEPAGE_ICONS_SEARCH.svg);
+    width: 3rem;
+    height: 3rem;
+    display: block;
+    bottom: 1rem;
+    left: 0;
+  }
   @media (max-width: 767px){
     width: 90%;
   }
   .searchItembar{
-
+    background: transparent;
+    border-width: 0 0 2px 0;
+    border-radius: 0;
+    color: #fff!important;
+    height: 5rem;
+    line-height: 5rem;
+    padding-left:5rem;
+    position: relative;     
   }
+  ::-webkit-input-placeholder {color: rgba(255, 255, 255, 0.4)}
+
 }
 
 .StripeCard{
