@@ -34,7 +34,7 @@ class CartContainer extends React.Component {
         // let windowWidth = window.innerWidth;
         // let cardWidth = windowWidth > 800 ? "60%" : "100%";
         let commonContent = <>
-            <div className="cartContainer ">
+            <div className="cartContainer scrollerwrapper">
                 <div className="CartItemParent mb-3">
                     <CartItemsList
                         dispatch={this.props.dispatch}
@@ -80,7 +80,7 @@ class CartContainer extends React.Component {
             <React.Fragment>
                 <Container fluid={true} >
                     <Row style={noCartItem ? { display: "none" } : null} className="no-gutters justify-content-lg-between secMinHeightwt">
-                        <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 d-flex flex-column">
+                        <Col xs={12} lg={6} className="p-xl-5 p-md-4 py-4 d-flex flex-column">
                             <div className="block-title mb-5" style={{}}>CART</div>
                             {this.renderContent()}
                             <div className="text-left mt-4" >
@@ -88,6 +88,7 @@ class CartContainer extends React.Component {
                                     isFetching={itemRemovedFetching || itemUpdatedFetching || cartIsFetching}
                                     variant="contained"
                                     color="primary"
+                                    disabled={itemRemovedFetching || itemUpdatedFetching || cartIsFetching}
                                     className="bottomActionbutton cartActionBtn"
                                     onClick={() => this.props.history.push("/cart/address")}>
                                     <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> CHECKOUT

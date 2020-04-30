@@ -49,16 +49,16 @@ class HeaderBar extends React.Component {
                     <Container className="container-content-header">
                         <Row className="justify-content-between align-items-center flex-grow-1">
                             <Col xs={'auto'}>
-                                <Button className="addCircleIcon icons mr-4">+</Button>
-                                <Button onClick={() => this.props.history.push("/home")}
+                                {/* <Button className="addCircleIcon icons mr-4">+</Button> */}
+                                <Button onClick={() => this.props.history.push("/category/Cans")}
                                  className="homeIcons icons mr-3"></Button>
-                                <Button className="locationIcons icons "></Button>
+                                {/* <Button className="locationIcons icons "></Button> */}
                             </Col>
                             <Col sm={4} className="d-flex justify-content-center" >
                                 <img src={Logo} className="img-responsive"></img>
                             </Col>
                             <Col xs={'auto'} className="d-flex">
-                                <Button onClick={this.handleSearchAction} className="searchIcons icons"></Button>
+                                {/* <Button onClick={this.handleSearchAction} className="searchIcons icons"></Button> */}
                                 <Badge badgeContent={this.props.total_items_count} color="primary">
                                     <Button onClick={() => this.props.history.push("/cart")} className="cartIcons icons ml-3"></Button>
                                 </Badge>
@@ -67,12 +67,13 @@ class HeaderBar extends React.Component {
                                 {this.props.showUserMenuOption ? 
                                     <div className="drop-option">
                                         <span className="user">Hey , {this.props.userName ? this.props.userName : 'Guest'}</span>                                        
-                                        <span className="settings" onClick={() =>this.handleSettingClick()}>Settings</span>
+                                        {this.props.userName &&  
+                                        <span className="settings" onClick={() =>this.handleSettingClick()}>Settings</span>}
+                                         {!this.props.userName && 
+                                            <span className="signIn" onClick={() =>this.handleSignInClick()}>Sign In</span>}
                                         {!this.props.userName && 
-                                        <span className="settings" onClick={() =>this.handleSignInClick()}>Sign In</span>}
-                                        {!this.props.userName && 
-                                        <span className="settings" onClick={() =>this.handleCreateAccountClick()}>Create Account</span>}
-                                        {this.props.userName && 
+                                            <span className="addAccount" onClick={() =>this.handleCreateAccountClick()}>Create Account</span>}
+                                   {this.props.userName && 
                                         <span className="logOut" onClick={()=>this.handleLogout()}>Logout</span> }
                                     </div>
                                      : null 

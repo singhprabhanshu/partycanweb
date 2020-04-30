@@ -85,16 +85,16 @@ class HoldupContainer extends React.Component {
                             render={({ handleSubmit }) => (
                         <form className="d-flex flex-column justify-content-around mb-4"  onSubmit={handleSubmit}>
                             <Row>
-                                <Col className="text-center mb-4" >
+                                <Col className="text-center mb-4 mpb-30" >
                                 <Field name="zipcode" component={TextInputField} placeholder='ZIPCODE'
                                         autoFocus={false} type='text' />
                                 </Col>                        
                             </Row>
-                            <Row >
+                            {/* <Row >
                                 <Col className="locationTxt mb-5" >
                                 <RoomOutlinedIcon style={{ fontSize: 23 }} /> USE MY LOCATION
                                 </Col>                        
-                            </Row>
+                            </Row> */}
                             <Row>
                                 <Col className="text-center d-flex align-items-center justify-content-between" >
                                     <Field name="overAge" component={SwitchInputField} label='ARE YOU OVER 21 ?' />

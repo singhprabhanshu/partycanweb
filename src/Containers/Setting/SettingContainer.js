@@ -69,8 +69,9 @@ class SettingContainer extends React.Component {
                     /> 
                        
                 <Row className="no-gutters justify-content-lg-between secMinHeight">
-                    <Col xs={12} lg={7} className="p-xl-5 p-4" >
-                    {this.props.userName ? this.renderContent() : 
+                    <Col xs={12} lg={6} className="p-xl-5 p-md-4" >
+                     { this.renderContent()} 
+                      {/* : 
                     <Container fluid={true} > 
                     <Row className="no-gutters  secMinHeightwt">
                         <Col xs={12}  className="d-flex p-xl-5 p-md-4 py-4 flex-column justify-content-center align-items-center">                           
@@ -82,7 +83,7 @@ class SettingContainer extends React.Component {
                         </Col>                        
                     </Row>
                 </Container>
-                    }
+                    } */}
                     </Col>
                 </Row >   
                 </Container>

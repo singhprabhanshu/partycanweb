@@ -21,6 +21,8 @@ import { connect } from "react-redux";
 import _get from "lodash/get";
 import { commonActionCreater } from "../../../Redux/Actions/commonAction";
 import { isMobile, isTablet } from 'react-device-detect';
+import { Loader } from "../../../Global/UIComponents/LoaderHoc";
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const onSubmit = async values => {
@@ -69,24 +71,38 @@ class CardComponent extends React.Component {
             isCardTab: true,
             isSummaryTab: false
         };
-        this.props.dispatch(commonActionCreater(data,'CART_TAB_VALIDATION'));
+        this.props.dispatch(commonActionCreater(data, 'CART_TAB_VALIDATION'));
 
         // cart tab validation end
+
+        this.fetchCardData();
+    }
+    fetchCardData = () => {
         let reqObj = {
             api_token: localStorage.getItem("Token"),
-            cart_id: this.props.cartId
+            cart_id: localStorage.getItem("cart_id")
         };
 
+        this.setState({ loading: true })
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj,
             url: "/api/checkout/paymentmethods",
-            identifier: "GET_PAYMENTMETHODS"
+            identifier: "GET_PAYMENTMETHODS",
+            successCb: () => { this.setState({ loading: false }) },
+            errorCb: () => { this.setState({ loading: false }) },
+            dontShowMessage:true
+
         })
     }
+    loadCardDataAndBack = () =>{
+        this.setState({addCard:false});
+        this.fetchCardData();
+    }
+
     renderContent = (addresses) => {
         let commonContent =
-            <div className="pr-lg-4" >
+            <div className="scrollerwrapper" >
                 <div className="CardsWrapper d-flex align-items-center flex-wrap">
                     <Card onClick={this.addNewCard} onClick={this.addCardFunction}>
                         <CardBody className="cardStyles addnewcard">
@@ -121,12 +137,18 @@ class CardComponent extends React.Component {
             }
         }
         else {
-            return <AddCard goBack = {()=>this.setState({addCard:false})} handleContinueFromNewCard={this.handleContinueFromNewCard} />
+            return <AddCard
+                loadCardDataAndBack = {this.loadCardDataAndBack}
+                goBack={() => this.setState({ addCard: false })}
+                handleContinueFromNewCard={this.handleContinueFromNewCard} />
         }
 
     }
 
     render() {
+        if (this.state.loading) {
+            return <Loader />
+        }
         return (
             <React.Fragment>
                 <Container fluid={true}>
@@ -137,8 +159,8 @@ class CardComponent extends React.Component {
                             </div>
                         </Col>
                         <Col lg={6} className="p-xl-5 p-md-4 py-4 flex-column d-flex">
-                            {!this.state.addCard?<div className="block-title mb-4">SAVED CARDS</div>:null}
-                             {this.renderContent()}    
+                            {!this.state.addCard ? <div className="block-title mb-4">SAVED CARDS</div> : null}
+                            {this.renderContent()}
                             {!this.state.addCard ?
                                 <div className="text-left mt-4" >
                                     <Button variant="contained" onClick={this.handleContinueFromExistingCard} disabled={!this.state.selectedCard} color="primary" className="bottomActionbutton cartActionBtn" type="submit">

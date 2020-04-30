@@ -15,6 +15,7 @@ import showMessage from '../../Redux/Actions/toastAction';
 import { Container, Row, Col } from 'reactstrap';
 import WithLoading from '../../Global/UIComponents/LoaderHoc';
 import { commonActionCreater } from "../../Redux/Actions/commonAction";
+import genericGetData from '../../Redux/Actions/genericGetData';
 
 
 
@@ -90,18 +91,38 @@ class SignIn extends React.Component {
         if (code === 1 && message === 'success') {
             let cartObj = [{ total_items_count }];
             this.props.dispatch(commonActionCreater(cartObj, 'CART_ITEMS_SUCCESS'));
-            this.props.dispatch(
-                showMessage({
-                    text: 'Signin Successfully',
-                    isSuccess: true
-                }));
             localStorage.setItem('Token', _get(data[0], 'result.api_token', ''));
             localStorage.setItem('cart_id', _get(data[0], 'result.cart_id', ''));
-            this.props.history.push('/category/Cans');
+            this.fetchCategories();
         } else {
             this.props.dispatch(showMessage({ text: message, isSuccess: false }));
         }
     }
+
+    fetchCategories = () => {
+
+        genericGetData({
+            dispatch:this.props.dispatch,
+            url:"/connect/index/categorylist?store_id=1",
+            constants:{
+            init:"CATEGORIES_LIST_INIT",
+            success:"CATEGORIES_LIST_SUCCESS",
+            error:"CATEGORIES_LIST_ERROR" 
+            },
+            identifier:"CATEGORIES_LIST",
+            successCb:this.categoriesFetchSuccess,
+            errorCb:this.categoriesFetchError,
+            dontShowMessage: true
+        })
+    }
+    
+    categoriesFetchSuccess = (data) => {
+
+        this.props.history.push('/category/Cans');
+     }
+    
+    categoriesFetchError = () => { }
+
     userSigninError = (data) => {
 
     }
@@ -139,11 +160,11 @@ class SignIn extends React.Component {
                                         </Col>
                                     </Row>
 
-                                    <Row >
+                                    {/* <Row >
                                         <Col className="locationTxt" >
                                             FORGOT PASSWORD ?
                                 </Col>
-                                    </Row>
+                                    </Row> */}
 
                                     <Row className="justify-content-center align-items-ceenter">
                                         <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
@@ -174,7 +195,7 @@ SignIn.propTypes = {
 
 
 function mapStateToProps(state) {
-    let isLoading = _get(state, 'userSignInInfo.isFetching')
+    let isLoading = _get(state, 'userSignInInfo.isFetching') ||  _get(state, 'categoriesList.isFetching')
     return { isLoading }
 }
 export default connect(mapStateToProps)(withStyles(styles)(WithLoading(SignIn)));

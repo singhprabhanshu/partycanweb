@@ -14,14 +14,14 @@ export default class UserInfo extends Component {
         <React.Fragment>
             <div className="block-sub-title">YOUR INFORMATION</div>    
                 <div className="CardsWrapper">               
-                    <Card className=" mb-5 ">
+                    <Card className="userPreferenceContainer mb-5 ">
                         <CardBody className="cardStyles userInfoSettingCards align-items-start flex-wrap">
                             {this.props.userInfo && <React.Fragment>
                                 <div className="pb-4"> 
                                 <div className=" d-flex flex-column flex-wrap">
                                     FULL NAME
                                     </div>
-                                    <div style={{color: '#00BFB2', fontSize: '1.5rem'}}>
+                                    <div className="myInfocolor">
                                         {this.props.userInfo.name}
                                     </div>
                                 </div>
@@ -29,7 +29,7 @@ export default class UserInfo extends Component {
                                     <div className=" d-flex flex-column flex-wrap">
                                         PRIMARY ADDRESS
                                     </div>
-                                    <div style={{color: '#00BFB2', fontSize: '1.5rem'}}>
+                                    <div  className="myInfocolor">
                                         {this.props.userInfo.address}
                                     </div>
                                 </div>
@@ -37,18 +37,18 @@ export default class UserInfo extends Component {
                                     <div className=" d-flex flex-column flex-wrap">
                                         EMAIL
                                     </div>
-                                    <div style={{color: '#00BFB2', fontSize: '1.5rem'}}>
+                                    <div className="myInfocolor">
                                         {this.props.userInfo.email}
                                     </div>
                                 </div>
-                                <div className="pb-4">
+                                {this.props.userName&&<div className="pb-4">
                                     <div className=" d-flex flex-column flex-wrap">
                                         PASSWORD
                                     </div>
-                                    <div style={{color: '#00BFB2', fontSize: '1.5rem'}}>
+                                    <div  className="myInfocolor">
                                         **********
                                     </div>
-                                </div>
+                                </div>}
                             </React.Fragment>}                
                         </CardBody>
                     </Card>

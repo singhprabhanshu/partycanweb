@@ -115,11 +115,11 @@ class CreateAccountContainer extends React.Component {
                                 autoFocus={false} type='password' />
                                </Col>                        
                             </Row>
-                            <Row >
+                            {/* <Row >
                                 <Col className="locationTxt" >
                                 FORGOT PASSWORD ?
                                 </Col>                        
-                            </Row>
+                            </Row> */}
                             <Row>
                                 <Col className="text-center d-flex align-items-center justify-content-between" >
                                     <Field name="overAge" component={SwitchInputField} label='ARE YOU OVER 21 ?' />
