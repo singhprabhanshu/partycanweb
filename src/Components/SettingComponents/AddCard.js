@@ -338,7 +338,7 @@ const AddCard = (props) => {
                                     autoFocus={false} type='text' />         */}
                             <div style={{ width: '55%', paddingRight: 50 }}>
                                 <Field name="state" component={RFReactSelect} placeholder='STATE'
-                                    autoFocus={false} type='text' options={options} />
+                                   search={true} autoFocus={false} type='text' options={options} />
                               
 
                             </div>
