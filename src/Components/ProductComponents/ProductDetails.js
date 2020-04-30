@@ -177,8 +177,10 @@ class ProductDetails extends React.Component {
 
     }
 
-    handleReviews = () => {
+    handleReviews = (reviewsList) => {
+        if(!_isEmpty(reviewsList)){
         this.setState({ showReviews: !this.state.showReviews })
+        }
     }
 
     handleAddToCart = () => {
@@ -251,7 +253,7 @@ class ProductDetails extends React.Component {
                         <div className="reviewsBox d-flex align-items-center mb-3">
                             <StarRatingComponent value={averageRating} starCount={5} editing={false} />
                             <span style={{ fontSize: '1.2rem' }} >{this.props.productDetailsData.review_count}</span>
-                            {!this.state.showReviews ? <ExpandMoreOutlined style={{ cursor: "pointer" }} onClick={() => this.handleReviews()} /> : <ClearOutlined style={{ cursor: "pointer" }} onClick={() => this.handleReviews()} />}
+                            {!this.state.showReviews ? <ExpandMoreOutlined style={{ cursor: "pointer" }} onClick={() => this.handleReviews(reviewsList)} /> : <ClearOutlined style={{ cursor: "pointer" }} onClick={() => this.handleReviews(reviewsList)} />}
                         </div>
                         {this.state.showReviews ?
                             <Scrollbar className="productReviewHolder">
