@@ -23,7 +23,8 @@ class CouponCode extends React.Component {
             url: "/api/cart/showcart",
             identifier: "CART_ITEMS",
             successCb: this.applyCouponCodeSuccess,
-            errorCb: this.applyCouponCodeError
+            errorCb: this.applyCouponCodeError,
+            dontShowMessage:true
         })
     }
     applyCouponCodeSuccess = ()=>{
