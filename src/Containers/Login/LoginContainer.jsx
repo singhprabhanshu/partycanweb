@@ -92,7 +92,7 @@ class SignIn extends React.Component {
             this.props.dispatch(commonActionCreater(cartObj, 'CART_ITEMS_SUCCESS'));
             localStorage.setItem('Token', _get(data[0], 'result.api_token', ''));
             localStorage.setItem('cart_id', _get(data[0], 'result.cart_id', ''));
-            this.props.history.push('/splash');
+            this.props.history.push('/category/Cans');
         } else {
             this.props.dispatch(showMessage({ text: message, isSuccess: false }));
         }
