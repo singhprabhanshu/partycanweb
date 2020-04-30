@@ -3,7 +3,9 @@ import { setIn } from 'final-form';
 
 var schema = yup.object().shape({
 	// name: yup.string().required('Name is required.'),
-	email: yup.string().required('Email is required.'),
+	// email: yup.string().required('Email is required.'),
+	email: yup.string().required('Email is required.')
+        .email('must be in email format')
     
     
 });
