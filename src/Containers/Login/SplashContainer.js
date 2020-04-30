@@ -57,8 +57,33 @@ class SplashContainer extends React.Component {
         this.setState({ slideIndex :  this.state.slideIndex + 1});
     }
     redirectToNext = () => {
-        this.props.history.push('/category/Cans');
+        this.fetchCategories();
     }
+
+    fetchCategories = () => {
+
+        genericGetData({
+            dispatch:this.props.dispatch,
+            url:"/connect/index/categorylist?store_id=1",
+            constants:{
+            init:"CATEGORIES_LIST_INIT",
+            success:"CATEGORIES_LIST_SUCCESS",
+            error:"CATEGORIES_LIST_ERROR" 
+            },
+            identifier:"CATEGORIES_LIST",
+            successCb:this.categoriesFetchSuccess,
+            errorCb:this.categoriesFetchError,
+            dontShowMessage: true
+        })
+    }
+    
+    categoriesFetchSuccess = (data) => {
+
+        this.props.history.push('/category/Cans');
+     }
+    
+    categoriesFetchError = () => { }
+
     handleIndicator = (event) => {
         this.setState({ slideIndex :  event});
     }
