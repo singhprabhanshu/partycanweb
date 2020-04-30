@@ -15,6 +15,7 @@ import showMessage from '../../Redux/Actions/toastAction';
 import { Container, Row, Col } from 'reactstrap';
 import WithLoading from '../../Global/UIComponents/LoaderHoc';
 import { commonActionCreater } from "../../Redux/Actions/commonAction";
+import genericGetData from '../../Redux/Actions/genericGetData';
 
 
 
