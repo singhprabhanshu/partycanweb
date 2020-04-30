@@ -77,6 +77,8 @@ const AddCard = (props) => {
     const [paymentMethod, setPaymentMethod] = useState(null);
     
     let billingAddress = {};
+    let cardData = {};
+    let payload = {};
 
     const handleSubmit = async (values) => {
         // event.preventDefault();
@@ -113,7 +115,7 @@ const AddCard = (props) => {
 
 
         //step 3 create the payment method it will return a payload that is used for charge the client
-        const payload = await stripe.createToken(cardElement);
+          payload = await stripe.createToken(cardElement);
 
         if (payload.error) {
             console.log('[error]', payload.error);
@@ -145,6 +147,7 @@ const AddCard = (props) => {
 
     const addPayementCardSuccess = (data) => {
        if(data.code === 1) {
+        cardData = data;
         saveBillingInfo(billingAddress)
        }
     }
@@ -174,26 +177,26 @@ const AddCard = (props) => {
         if(data.code === 1) {
             setLoading(false);
             props.goBack();
-            // let paymentMethods = props.paymentMethods;
-            // let cartFlow = props.cartFlow;
-            // let card_token = payload.token.id;
-            // let card_id = payload.token.card.id;
-            // let customer_stripe_id = paymentMethods && Array.isArray(paymentMethods) && paymentMethods.length > 0 ? paymentMethods[0].customer_stripe_id : "";
-            // let card_info = "";
-            // let payment_method = "stripe_payments";  //check here
-            // let data = {
-            //     ...cartFlow,
-            //     card_id,
-            //     card_token,
-            //     customer_stripe_id,
-            //     card_info,
-            //     payment_method,
-            //     billingAddress: { ...values }
-            // }
-            // props.dispatch(commonActionCreater(data, 'CART_FLOW'));
-            // props.handleContinueFromNewCard();
-            // props.handleContinueFromNewCard();
-            props.loadCardDataAndBack();
+            let paymentMethods = props.paymentMethods;
+            let cartFlow = props.cartFlow;
+            let card_token = payload.token.id;
+            let card_id = payload.token.card.id;
+            let customer_stripe_id = cardData.data[0].customer; //paymentMethods && Array.isArray(paymentMethods) && paymentMethods.length > 0 ? paymentMethods[0].customer_stripe_id : "";
+            let card_info = "";
+            let payment_method = "stripe_payments";  //check here
+            let data = {
+                ...cartFlow,
+                card_id,
+                card_token,
+                customer_stripe_id,
+                card_info,
+                payment_method
+                //billingAddress: { ...values }
+            }
+            props.dispatch(commonActionCreater(data, 'CART_FLOW'));
+            props.handleContinueFromNewCard();
+
+            //props.loadCardDataAndBack();
        }
     }
 

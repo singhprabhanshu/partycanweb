@@ -177,7 +177,7 @@ class CheckOut extends React.Component {
                        color="primary"
                        variant="contained"                               
                        type="submit" className="bottomActionbutton autoWidthbtn transiBtn btn btn-secondary">
-                       <LocationOnOutlinedIcon className="mr-3"/> Track Your Order
+                       <LocationOnOutlinedIcon className="mr-3"/> Your Orders
                    </LoaderButton>   
                </div> 
                             </Col>
