@@ -70,9 +70,9 @@ class HeaderBar extends React.Component {
                                         {this.props.userName &&  
                                         <span className="settings" onClick={() =>this.handleSettingClick()}>Settings</span>}
                                          {!this.props.userName && 
-                                            <span className="settings" onClick={() =>this.handleSignInClick()}>Sign In</span>}
+                                            <span className="signIn" onClick={() =>this.handleSignInClick()}>Sign In</span>}
                                         {!this.props.userName && 
-                                            <span className="settings" onClick={() =>this.handleCreateAccountClick()}>Create Account</span>}
+                                            <span className="addAccount" onClick={() =>this.handleCreateAccountClick()}>Create Account</span>}
                                    {this.props.userName && 
                                         <span className="logOut" onClick={()=>this.handleLogout()}>Logout</span> }
                                     </div>

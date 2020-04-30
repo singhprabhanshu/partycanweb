@@ -117,6 +117,15 @@ button:focus {
   height: auto;
 }
 
+.pt-30{
+  padding-top:3rem;
+}
+@media(max-width:767px){
+  .mpb-30
+  {
+    padding-bottom: 3rem;
+  }
+}
 
 /////////////////////////// Layout styling css
 
@@ -488,7 +497,7 @@ button:focus {
 
 .drop-option{
   position: absolute;
-  background-color: #50e2d8;
+  background-color: #00bfb3;
   right: 0;
   top: 35px;
   display: flex;
@@ -508,7 +517,7 @@ button:focus {
     height: 0; 
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-bottom: 6px solid #50e2d8;
+    border-bottom: 6px solid #00bfb3;
     position: absolute;
     top: -6px;
     right: 9px;  
@@ -520,24 +529,24 @@ button:focus {
     
   }
 
-  span{
-    margin-bottom: 2px;
-    font-size: 13px;
-    padding-left: 2.5rem;
-    position: relative;
-    line-height: 23px;
-    cursor: pointer;
-  }
+    span{
+      margin-bottom: 2px;
+      font-size: 13px;
+      padding-left: 2.5rem;
+      position: relative;
+      line-height: 23px;
+      cursor: pointer;
+    }
 
-  span.user{  
-   
-    position: relative;
-    line-height: 23px;
-    padding-left: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    padding-bottom:2px;
-    margin-bottom: 5px;
-  }
+    span.user{      
+      position: relative;
+      line-height: 23px;
+      padding-left: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      padding-bottom:2px;
+      margin-bottom: 5px;
+    }
+
     span.settings{     
       &::before{
         width: 2.3rem;
@@ -545,6 +554,30 @@ button:focus {
         cursor: pointer;
         content: "";
         background: url(../images/HOMEPAGE_SETTINGS.svg) no-repeat;
+        position: absolute;
+        left: 0;
+      }
+    }
+
+    span.signIn{     
+      &::before{
+        width: 2.3rem;
+        height: 2.3rem;
+        cursor: pointer;
+        content: "";
+        background: url(../images/logIn.svg) no-repeat;
+        position: absolute;
+        left: 0;
+      }
+    }
+
+    span.addAccount{     
+      &::before{
+        width: 2.3rem;
+        height: 2.3rem;
+        cursor: pointer;
+        content: "";
+        background: url(../images/addAccount.svg) no-repeat;
         position: absolute;
         left: 0;
       }
@@ -558,7 +591,8 @@ button:focus {
         content: "";
         background: url(../images/logOut.svg) no-repeat;
         position: absolute;
-        left: 0;
+        left: -6px;
+        top: 4px;
       }
     }
 }
@@ -636,7 +670,7 @@ button:focus {
 }
 
 .proItems{
-
+  padding-top: 2rem;
   .title-2{
     font-family: 'Tungsten-Medium';
     font-size: 2.5rem;
@@ -696,16 +730,20 @@ button:focus {
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
-.reviewsBox{
-  background-color: rgba(255, 255, 255, .2);
-  padding: .5rem 1rem;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: .5rem;
-}
+
 .prostarRatings{
-  max-width: 21rem!important;
+ 
   padding-left: 1.5rem!important;
+  position: relative;
+
+  .reviewsBox{
+    background-color: rgba(255, 255, 255, .2);
+    padding: .5rem 1rem;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: .5rem;
+    max-width: 21rem!important;
+  }
   @media(max-width:991px){
     padding-left: 0px!important;
     margin-bottom: 2rem;
@@ -754,6 +792,20 @@ button:focus {
     text-transform: uppercase;
 }
 
+.productReviewHolder{
+  height: 10rem!important;
+  overflow-y: auto;
+  position: absolute!important;
+  top: 4rem;
+  @media(max-width:767px){
+    position: relative!important;   
+    top: unset;
+    height: 10rem!important;
+   
+  }
+  
+}
+
 
 /////////////////////////your order
 .MuiExpansionPanelSummary-root{padding: 0!important;}
@@ -787,6 +839,16 @@ button:focus {
   }
 }
 
+.emptyCart{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4rem;
+  img{
+    max-width: 70%;
+  }
+}
+
 .orderDetaillabel{
   color: #a6bcd0;
    font-size:1.3rem;
@@ -798,7 +860,7 @@ button:focus {
   }
 }
 //////////////////////order-place
-.orderPlaced span{font-size: 2.8rem; color: #a6bcd0; text-align: center;}
+.orderPlaced span{font-size: 2.5rem; color: #a6bcd0; text-align: center;}
 b.orderNumber{display: flex; justify-content: center; font-family: Tungsten-Bold; font-size: 4.8rem; color: #fff; letter-spacing: 5.5px;}
 span.MuiButton-label {
   font-size: 1.5rem;
@@ -835,15 +897,36 @@ span.MuiButton-label {
   max-height: calc(100vh - 180px);
   height: 100%;
   z-index: 1;
+
+  @media(max-width:1199px){   
+    align-items: flex-start;   
+    &:after{
+     display: none;
+    }
+  }
+
+  @media(max-width:991px){     
+    max-height: 100%;
+    margin-bottom: 3rem;
+  }
+  
+  @media(max-width:767px){
+    margin-bottom: 2rem;   
+  }
+
   .imgProduct{
     width: auto!important;
-     max-width: 100%;
-     height: 100%;  
-     @media(max-width:1024px){
-      height: auto; 
-      max-width: 80%;
-    }
-  } 
+     max-width:60%;
+     height: auto;
+      @media(min-width:768px) and (max-width:991px)  {     
+        height: auto; 
+        max-width: 45%;
+        }
+        @media(max-width:767px){     
+          height: auto; 
+          max-width: 80%;
+        }
+   } 
   
   &.proDetailSec{
     .carousel .slide, .carousel .slide .legend{
@@ -897,19 +980,7 @@ span.MuiButton-label {
       display: none;
     }
   }
-  @media(max-width:1199px){   
-    align-items: flex-start;
-    margin-bottom: 8rem;
-    &:after{
-     display: none;
-    }
-  }
-
-  @media(max-width:767px){   
   
-    margin-bottom: 4rem;
-   
-  }
 }
 
 .ImgSectionwt { 

@@ -88,7 +88,7 @@ class GuestWithoutLoginContainer extends React.Component {
         return (
             <React.Fragment>
                 <div  className="WhiteCurveBg">
-                     <Container className="container-custom d-flex flex-column justify-content-center m-mb-130">
+                     <Container className="container-custom d-flex flex-column justify-content-center">
                     <Row className="align-items-center mb-5" style={{flex:2, maxHeight:130, minHeight:130}}>
                         <Col  className="text-center" >
                             <h4 className="holduptext"> CHECKOUT AS GUEST</h4>
@@ -101,7 +101,7 @@ class GuestWithoutLoginContainer extends React.Component {
 
 
                                 <Row>
-                                <Col className="text-center mb-4" >
+                                <Col className="text-center mb-4 mpb-30" >
                                     <Field name="email" component={TextInputField} placeholder='EMAIL'
                                         autoFocus={false} type='text' />
                                     </Col>                        
