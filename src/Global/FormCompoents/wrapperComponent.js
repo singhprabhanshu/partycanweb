@@ -30,21 +30,33 @@ const TextInputField = (props) => {
 }
 
 
-const SwitchInputField = ({ input, label }) => (
-    <React.Fragment>
-      <InputLabel className="label-txt fs-11 mb-0" htmlFor={label}>{label}</InputLabel>
-        <Switch
-            color="primary"
-            id={label}
-            {...input}
-            checked={input.value ? true : false}
-            onChange={(event, value) => input.onChange(value)}
-            className="custom-switch"
-            
-        />
-      
-    </React.Fragment>
+const SwitchInputField = (props) => {
+  let { input, label, variant = 'standard', placeholder, autoFocus, type, disabled = false,
+     meta: { touched, error, pristine }, custom } = props;
+
+  return(<React.Fragment>
+    <InputLabel className="label-txt fs-11 mb-0" htmlFor={label}>{label}</InputLabel>
+      <Switch
+          color="primary"
+          id={label}
+          {...input}
+          checked={input.value ? true : false}
+          onChange={(event, value) => input.onChange(value)}
+          className="custom-switch"
+          
+      />
+      {touched && error && <React.Fragment>
+          <div className="text-input error" style={{display: 'inline-flex', marginTop: '10px',
+                  marginLeft: '13px'}}><FormHelperText>
+                {error}
+            </FormHelperText>
+          </div>
+        </React.Fragment>
+      }
+  </React.Fragment>
   )
+  
+}
 
 export {
     TextInputField,

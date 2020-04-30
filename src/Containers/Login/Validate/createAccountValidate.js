@@ -11,8 +11,8 @@ var schema = yup.object().shape({
         // .matches(/[a-zA-Z]/, 'Password can only contain alphabetic characters.'),
     confirm_password: yup.string().required('Password is required.')
         .oneOf([yup.ref('password'), null], 'Passwords must match'),
-    overAge: yup.bool().required()
-        .oneOf([true], "OverAge")
+    overAge: yup.bool().required('Please confirm you are over 21 to enter the site.')
+        .oneOf([true], "Please confirm you are over 21 to enter the site.")
 });
 
 
