@@ -89,7 +89,12 @@ class UserSetting extends React.Component {
     }
 
     render() {
-        let renderCardInfo = _get(this.state,'userSettingData.list_cards',[]).map((data, index)=> {
+        console.log(this.props.userName,"usernameeee")
+        let listCard = []
+        if(Array.isArray(_get(this.state,'userSettingData.list_cards',[]))){
+            listCard = _get(this.state,'userSettingData.list_cards',[]);
+        }
+        let renderCardInfo = listCard.map((data, index)=> {
             return (<React.Fragment key={data+index}>
                 <Card className="paymentcardContainer">
                     <CardBody className="cardStyles paymentcard align-items-start active w-100">
@@ -115,7 +120,7 @@ class UserSetting extends React.Component {
     return (
         <React.Fragment>
         {!this.state.addCard && <React.Fragment>
-            {this.state.userSettingData && <UserInfo userInfo={this.state.userSettingData} />}
+            {this.state.userSettingData && <UserInfo userName={this.props.userName} userInfo={this.state.userSettingData} />}
             <div className="block-sub-title">YOUR PREFRENCES</div> 
             <div className="CardsWrapper">              
                 <Card className="userinfoSettingContainer mb-5 ">
@@ -141,20 +146,20 @@ class UserSetting extends React.Component {
                     </CardBody>
                 </Card>
             </div>
-            <div className="block-sub-title">PAYMENT METHOD</div>               
+        {this.props.userName&&<div className="block-sub-title">PAYMENT METHOD</div>}       
             <div className="d-flex CardsWrapper flex-wrap  mb-5 ">
                
-                <Card className="paymentcardContainer" onClick={this.addCardFunction}>
-                    <CardBody className="cardStyles paymentcard">
-                        <div className="mb-4"><AddCircleOutlineOutlinedIcon style={{ fontSize: 25 }} /> </div> 
-                        <div>ADD CARD</div>                      
-                    </CardBody>                          
-                </Card> 
+            {this.props.userName&& <Card className="paymentcardContainer" onClick={this.addCardFunction}>
+            <CardBody className="cardStyles paymentcard">
+                <div className="mb-4"><AddCircleOutlineOutlinedIcon style={{ fontSize: 25 }} /> </div> 
+                <div>ADD CARD</div>                      
+            </CardBody>                          
+        </Card>}
                 {this.state.userSettingData && this.state.userSettingData.list_cards && renderCardInfo}                         
             </div>
         </React.Fragment>}
         <React.Fragment>
-            {this.state.addCard ? <AddCard 
+            {this.state.addCard? <AddCard 
             handleContinueFromNewCard={this.handleContinueFromNewCard}
             handleBackFromNewCard={this.handleBackFromNewCard}
              /> : null}
@@ -165,7 +170,8 @@ class UserSetting extends React.Component {
 
 const mapStateToProps = (state) => {
     let isLoading = _get(state, 'userSettings.isFetching')
-    return {isLoading}
+    let userName = _get(state,"userSignInInfo.lookUpData[0].result.cust_name",''); 
+    return {isLoading,userName}
 };
 
 export default connect(mapStateToProps)(WithLoading(UserSetting));
