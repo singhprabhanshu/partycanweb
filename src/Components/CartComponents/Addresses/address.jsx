@@ -168,11 +168,16 @@ class Address extends React.Component {
     };
 
     addUserAddressSuccess = (data) => {
-        this.setState({
-            isAddressFormShown: this.state.isAddressFormShown ? false : true,
-            saveAddressLoading:false
-        });
-        this.fetchAddress();
+        if (_get(data, 'code') === 1) {
+            this.setState({
+                isAddressFormShown: this.state.isAddressFormShown ? false : true,
+                saveAddressLoading:false
+            });
+            this.fetchAddress();
+        } else {
+            this.setState({saveAddressLoading:false}); 
+        }
+        
     };
 
     addUserAddressError = (err) => {

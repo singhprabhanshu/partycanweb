@@ -49,7 +49,7 @@ class CouponCode extends React.Component {
         return (
             <div className="d-flex no-gutters">
                     <Form className="d-flex w-100">                    
-                            <Input onChange={this.onChangeCouponCode} value={this.state.coupon_code=="NA"?"":this.state.coupon_code} type="email" name="email" id="exampleEmail" placeholder="Coupon Code" className="col" />
+                            <Input onChange={this.onChangeCouponCode} value={this.state.coupon_code} type="email" name="email" id="exampleEmail" placeholder="Coupon Code" className="col" />
         <Button disabled={this.state.applyCouponLoading} style={{ marginLeft: "10px", marginBottom: "2px" }} className="applyBtn" onClick={this.handleAppply}>{this.state.applyCouponLoading?<CircularProgress/>:"Apply"}</Button>
                       </Form>
             
@@ -60,7 +60,6 @@ class CouponCode extends React.Component {
 
 function mapStateToProps(state) {
     let coupon_code = _get(state, "cart.lookUpData[0].coupon_code", "");
-
     return {
         coupon_code
     }
