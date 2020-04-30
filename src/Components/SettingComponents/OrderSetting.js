@@ -122,7 +122,9 @@ class OrderSetting extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} />YOUR ORDERS</div> 
+                <div className="bread-crumb mb-4">
+                    {/* <KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} /> */}
+                YOUR ORDERS</div> 
                     {this.state.orderData && renderOrder}
             </React.Fragment>
           );
