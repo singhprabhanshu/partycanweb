@@ -69,6 +69,10 @@ class HeaderBar extends React.Component {
                                         <span className="user">Hey , {this.props.userName ? this.props.userName : 'Guest'}</span>                                        
                                         {this.props.userName &&  
                                         <span className="settings" onClick={() =>this.handleSettingClick()}>Settings</span>}
+                                         {!this.props.userName && 
+                                            <span className="settings" onClick={() =>this.handleSignInClick()}>Sign In</span>}
+                                        {!this.props.userName && 
+                                            <span className="settings" onClick={() =>this.handleCreateAccountClick()}>Create Account</span>}
                                    {this.props.userName && 
                                         <span className="logOut" onClick={()=>this.handleLogout()}>Logout</span> }
                                     </div>

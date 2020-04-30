@@ -136,8 +136,7 @@ const AddCard = (props) => {
             }
             // props.dispatch(commonActionCreater(data, 'CART_FLOW'));
             // props.handleContinueFromNewCard();
-            saveAndContinue({api_token, card_token});
-            
+            saveAndContinue({api_token, card_token}); 
         }
     };
 
@@ -201,20 +200,6 @@ const AddCard = (props) => {
         document
             .getElementById('###creditcardform###')
             .dispatchEvent(new Event('submit', { cancelable: true }))
-    }
-    const sasChange = (val,mutators) => {
-        sasFun(val);
-        if(val==false){
-            return;
-        }
-        let selectedAddress = props.userAddress.find(add => add.address_id == props.cartFlow.selectedAddress);
-        if(selectedAddress)
-        {     
-        let state = stateDropDown.find(s=>s.name==selectedAddress.state);
-        if(state)
-        selectedAddress.state = state.abbreviation;   
-        mutators.setShippingAddress(selectedAddress);
-        }
     }
 
     let content = <React.Fragment>
@@ -304,7 +289,7 @@ const AddCard = (props) => {
                         <React.Fragment>
                             <div className="d-flex no-gutters flex-wrap justify-content-between align-items-center">
                             <h4 className="col-12 col-md-auto ">Billing Address</h4>
-                                <div className="d-flex justify-content-between align-items-center col-12 col-md-auto">
+                                {/* <div className="d-flex justify-content-between align-items-center col-12 col-md-auto">
                                 <InputLabel className="label-txt fs-11 mb-0 ">Same As Shipping Address</InputLabel>
                                 <Switch
                                     color="primary"
@@ -312,7 +297,7 @@ const AddCard = (props) => {
                                     onClick={() => sasChange(!sas,form.mutators)}
                                     className="custom-switch"
                                 />
-                                </div>
+                                </div> */}
                             </div>
                         </React.Fragment>
                         <div className="d-flex mt-4">
