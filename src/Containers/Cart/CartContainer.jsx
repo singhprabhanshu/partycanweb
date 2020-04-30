@@ -5,6 +5,7 @@ import CouponCode from "../../Components/CartHomeComponents/CouponCode";
 import CartPriceSummary from "../../Components/CartHomeComponents/CartPriceSummary"
 import genericPostData from "../../Redux/Actions/genericPostData";
 import _get from "lodash/get";
+import {isEmpty as _isEmpty} from 'lodash';
 import LoaderButton from '../../Global/UIComponents/LoaderButton';
 import { isMobile, isTablet } from 'react-device-detect';
 import Scrollbar from "react-scrollbars-custom";
@@ -27,6 +28,13 @@ class CartContainer extends React.Component {
     cartFetchError = (err) => {
         console.log(err);  //TODO: ERROR CASE NEED TO BE HANDLED 
     };
+
+    componentDidMount() {
+        if (_isEmpty(_get(this.props.userSignInInfo, '[0].result.api_token', ''))) {
+            this.props.history.push('/category/Cans');
+        }
+
+    }
 
     renderContent = () => {
         let { discount, subTotal, grandTotal, cartIsFetching, itemRemovedFetching, itemUpdatedFetching } = this.props;
@@ -118,6 +126,7 @@ function mapStateToProps(state) {
     let itemUpdatedFetching = _get(state, "updateCart.isFetching");
     let feeAmount = _get(state, "cart.lookUpData[0].fee_amount", 0);
     let taxes = _get(state, "cart.lookUpData[0].taxes", 0);
+    let userSignInInfo = _get(state, 'userSignInInfo.lookUpData', []);
 
     return {
         cartItems,
@@ -128,7 +137,8 @@ function mapStateToProps(state) {
         itemRemovedFetching,
         itemUpdatedFetching,
         feeAmount,
-        taxes
+        taxes,
+        userSignInInfo,
     }
 }
 
