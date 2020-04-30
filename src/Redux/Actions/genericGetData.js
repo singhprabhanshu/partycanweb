@@ -19,7 +19,7 @@ const genericGetData = ({ dispatch,url, constants, identifier, successText, succ
             dispatch(showMessage({}));
             if (successTimeOutCb)
                 successTimeOutCb()
-        }, 1000);
+        }, 10000);
 
     })
         .catch(({err,errCode}) => {
