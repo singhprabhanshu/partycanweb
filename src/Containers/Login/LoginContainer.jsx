@@ -160,11 +160,11 @@ class SignIn extends React.Component {
                                         </Col>
                                     </Row>
 
-                                    <Row >
+                                    {/* <Row >
                                         <Col className="locationTxt" >
                                             FORGOT PASSWORD ?
                                 </Col>
-                                    </Row>
+                                    </Row> */}
 
                                     <Row className="justify-content-center align-items-ceenter">
                                         <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
@@ -195,7 +195,7 @@ SignIn.propTypes = {
 
 
 function mapStateToProps(state) {
-    let isLoading = _get(state, 'userSignInInfo.isFetching')
+    let isLoading = _get(state, 'userSignInInfo.isFetching') ||  _get(state, 'categoriesList.isFetching')
     return { isLoading }
 }
 export default connect(mapStateToProps)(withStyles(styles)(WithLoading(SignIn)));
