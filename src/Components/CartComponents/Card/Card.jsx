@@ -80,7 +80,7 @@ class CardComponent extends React.Component {
     fetchCardData = () => {
         let reqObj = {
             api_token: localStorage.getItem("Token"),
-            cart_id: this.props.cartId
+            cart_id: localStorage.getItem("cart_id")
         };
 
         this.setState({ loading: true })
