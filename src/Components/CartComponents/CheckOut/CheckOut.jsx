@@ -36,7 +36,8 @@ class CheckOut extends React.Component {
             url: "/api/cart/showcart",
             identifier: "CART_ITEMS",
             successCb: ()=>successCB(),
-            errorCb: this.cartFetchError
+            errorCb: this.cartFetchError,
+            dontShowMessage:true
         })
     }
     cartFetchSuccess = (data) => {

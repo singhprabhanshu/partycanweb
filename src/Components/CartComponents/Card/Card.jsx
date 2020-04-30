@@ -90,7 +90,8 @@ class CardComponent extends React.Component {
             url: "/api/checkout/paymentmethods",
             identifier: "GET_PAYMENTMETHODS",
             successCb: () => { this.setState({ loading: false }) },
-            errorCb: () => { this.setState({ loading: false }) }
+            errorCb: () => { this.setState({ loading: false }) },
+            dontShowMessage:true
 
         })
     }
