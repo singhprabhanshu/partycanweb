@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
+import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 import ClearOutlined from '@material-ui/icons/ClearOutlined';
 import AddOutlined from '@material-ui/icons/AddOutlined'
 import ExpandMoreOutlined from '@material-ui/icons/ExpandMoreOutlined'
@@ -297,9 +297,9 @@ class ProductDetails extends React.Component {
                         <Col className="d-flex flex-column mb-5" xs={6} sm={4} xl={3}>
                             <span className="smallTitle">AMOUNT</span>
                             <div className="addQty">
-                                <span><ClearOutlined onClick={() => this.handleQuantity("less")} /></span>
+                                <span onClick={() => this.handleQuantity("less")} ><RemoveOutlinedIcon  /></span>
                                 <span className="qty">{this.state.defaultQuantity}</span>
-                                <span><AddOutlined style={{ fontSize: "15px" }} onClick={() => this.handleQuantity("add")} /></span>
+                                <span onClick={() => this.handleQuantity("add")} ><AddOutlined style={{ fontSize: "15px" }} /></span>
                             </div>
                         </Col>
                         <Col className="d-flex  flex-column mb-4" xs={6} sm={4} xl={4}>
