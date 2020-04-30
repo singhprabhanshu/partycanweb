@@ -11,7 +11,6 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import AddressCard from './addressCardNew';
 import AddAddressCard from './addAddressCard';
 import { map as _map, findIndex as _findIndex, get as _get, isEmpty as _isEmpty } from 'lodash';
-import genericGetData from "../../../Redux/Actions/genericGetData";
 import genericPostData from '../../../Redux/Actions/genericPostData';
 import { Form, Field } from 'react-final-form';
 import { TextInputField, SwitchInputField } from '../../../Global/FormCompoents/wrapperComponent';
@@ -27,6 +26,7 @@ import { Loader } from '../../../Global/UIComponents/LoaderHoc';
 import { cleanEntityData } from '../../../Global/helper/commonUtil';
 import { isMobile, isTablet } from 'react-device-detect';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const styles = (state) => ({
 
@@ -181,6 +181,7 @@ class Address extends React.Component {
     };
 
     onSubmit = async values => {
+        this.setState({saveAddressLoading:true});
         let body = {
             'first_name': _get(values, 'firstName'),
             'last_name': _get(values, 'lastName'),
@@ -231,7 +232,7 @@ class Address extends React.Component {
 
     renderContent = (addresses) => {
         let commonContent = <>
-            <div className="pr-lg-4" >
+            <div className="scrollerwrapper" >
                 <div style={styles(this.state).addressFormHide}>
 
                     <div className="d-flex flex-wrap CardsWrapper">
@@ -311,7 +312,6 @@ class Address extends React.Component {
     }
 
     addressSubmit = ()=>{
-        this.setState({saveAddressLoading:true});
         document
             .getElementById('###addressform###')
         .dispatchEvent(new Event('submit', { cancelable: true }))

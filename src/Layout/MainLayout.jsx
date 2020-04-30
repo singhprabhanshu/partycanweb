@@ -53,11 +53,16 @@ class MainLayout extends React.Component {
     let currentRoute = this.props.match.path;
     switch (currentRoute) {
       case "/splash":
-        return "";
+        return <Footer isLoginAndSignupScreen={true} {...this.props} showUserMenu={this.showUserMenu}
+        hideUserMenu={this.hideUserMenu} howUserMenuOption={this.state.showUserMenuOption} />;
       case "/cart/:cartflow":
-        return <Footer isLoginAndSignupScreen={true} {...this.props} />;
+        return <Footer isLoginAndSignupScreen={true} {...this.props} showUserMenu={this.showUserMenu}
+        hideUserMenu={this.hideUserMenu}
+        showUserMenuOption={this.state.showUserMenuOption}/>;
       default:
-        return <Footer isLoginAndSignupScreen={false} {...this.props} />;
+        return <Footer isLoginAndSignupScreen={false} {...this.props} showUserMenu={this.showUserMenu}
+        hideUserMenu={this.hideUserMenu}
+        showUserMenuOption={this.state.showUserMenuOption} />;
     }
   }
 

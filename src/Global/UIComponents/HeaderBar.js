@@ -67,12 +67,13 @@ class HeaderBar extends React.Component {
                                 {this.props.showUserMenuOption ? 
                                     <div className="drop-option">
                                         <span className="user">Hey , {this.props.userName ? this.props.userName : 'Guest'}</span>                                        
-                                        <span className="settings" onClick={() =>this.handleSettingClick()}>Settings</span>
+                                        {this.props.userName &&  
+                                        <span className="settings" onClick={() =>this.handleSettingClick()}>Settings</span>}
+                                         {!this.props.userName && 
+                                            <span className="settings" onClick={() =>this.handleSignInClick()}>Sign In</span>}
                                         {!this.props.userName && 
-                                        <span className="settings" onClick={() =>this.handleSignInClick()}>Sign In</span>}
-                                        {!this.props.userName && 
-                                        <span className="settings" onClick={() =>this.handleCreateAccountClick()}>Create Account</span>}
-                                        {this.props.userName && 
+                                            <span className="settings" onClick={() =>this.handleCreateAccountClick()}>Create Account</span>}
+                                   {this.props.userName && 
                                         <span className="logOut" onClick={()=>this.handleLogout()}>Logout</span> }
                                     </div>
                                      : null 

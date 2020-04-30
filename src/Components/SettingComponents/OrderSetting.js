@@ -57,12 +57,12 @@ class OrderSetting extends React.Component {
     render() {
         let renderItems= (items) => items && items.map((item,index)=> {
             return(<React.Fragment  key={index}>
-                        <div className=" d-flex flex-wrap justify-content-between" style={{fontSize: '1.8rem',}}>
-                            <div style={{ color: '#0033a0', fontWeight: 'bold',}} >
+                        <div className=" d-flex flex-wrap justify-content-between mb-3">
+                            <div className="itemsname" >
                                 {item.product_name}
                                 </div>
                                 <div className="pricingWrapper">
-                                <span style={{color: '#a6bcd0', fontSize: '1.3rem'}} className="w40 text-right">{item.product_qty}CAN</span>
+                                <span  className="orderDetaillabel">{item.product_qty}CAN</span>
                                 <span style={{ color: '#0033a0', }}>{item.product_price}</span>
                                 </div>
                             
@@ -82,7 +82,7 @@ class OrderSetting extends React.Component {
                             </div>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                                <div className = "row w-100">
+                                <div className = "d-flex no-gutters w-100">
                                     <div className="col-md-12">                                      
                                             <div>
                                                 {renderItems(data.items)}
@@ -95,27 +95,19 @@ class OrderSetting extends React.Component {
                                             </div>
                                             <div className="pricingWrapper flex-column">
                                             <div className="d-flex justify-content-between w-100" >
-
-                                                 <span style={{color: '#a6bcd0', fontSize: '1.5rem'}} className="w40 text-right">
-                                                DELIVERY </span> <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.delivery_fee}</span>
-                                            
+                                                 <span  className="orderDetaillabel">DELIVERY</span> 
+                                                 <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.delivery_fee}</span>
                                             </div>
 
                                             <div className="d-flex justify-content-between w-100" >
-                                          
-                                            <span style={{color: '#a6bcd0', fontSize: '1.5rem'}} className="w40 text-right"> 
-                                                TAX 
-                                            </span>
-                                            <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.tax}</span>
-                                            
+                                            <span className="orderDetaillabel">TAX</span>
+                                            <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.tax}</span>                                            
                                             </div>
                                             
-                                            <div className="d-flex justify-content-between w-100" style={{ color: '#0033a0', fontWeight: 'bold',}} >
-                                           
-                                            <span className="w40 text-right" >TOTAL</span>
+                                            <div className="d-flex justify-content-between w-100" style={{ color: '#0033a0', fontWeight: 'bold',}} >                                           
+                                                <span className="orderDetaillabel" >TOTAL</span>
                                                 <span className="ml-2" style={{ color: '#0033a0', fontWeight: 'bold',}} >{data.grand_total}</span>
-                                              
-                                                </div>
+                                              </div>
                                                 
                                             </div> 
                                             </div>
@@ -130,7 +122,9 @@ class OrderSetting extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} />YOUR ORDERS</div> 
+                <div className="bread-crumb mb-4">
+                    {/* <KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} /> */}
+                YOUR ORDERS</div> 
                     {this.state.orderData && renderOrder}
             </React.Fragment>
           );

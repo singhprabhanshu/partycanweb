@@ -13,6 +13,8 @@ import genericGetData from '../../Redux/Actions/genericGetData';
 import showMessage from '../../Redux/Actions/toastAction';
 import WithLoading from '../../Global/UIComponents/LoaderHoc';
 import _get from 'lodash/get';
+import { isEmpty as _isEmpty } from 'lodash';
+import { commonActionCreater } from '../../Redux/Actions/commonAction';
 
 const styles = theme => ({
     main: {
@@ -29,7 +31,7 @@ class HoldupContainer extends React.Component {
     onSubmit  = async values => {
         genericGetData({
             dispatch:this.props.dispatch,
-            url:`/connect/index/getlocation?zipcode=${values.zipcode}`,
+            url:`/connect/index/getlocation?zipcode=${values.zipcode}&store_id=1&store='drinkpartycan'`,
             constants:{
             init:"ZIPCODE_LOCATOR_INIT",
             success:"ZIPCODE_LOCATOR_SUCCESS",
@@ -88,11 +90,11 @@ class HoldupContainer extends React.Component {
                                         autoFocus={false} type='text' />
                                 </Col>                        
                             </Row>
-                            <Row >
+                            {/* <Row >
                                 <Col className="locationTxt mb-5" >
                                 <RoomOutlinedIcon style={{ fontSize: 23 }} /> USE MY LOCATION
                                 </Col>                        
-                            </Row>
+                            </Row> */}
                             <Row>
                                 <Col className="text-center d-flex align-items-center justify-content-between" >
                                     <Field name="overAge" component={SwitchInputField} label='ARE YOU OVER 21 ?' />
@@ -123,7 +125,7 @@ class HoldupContainer extends React.Component {
 const mapStateToProps = (state) => {
     let isLoading = _get(state, 'zipCodeLocator.isFetching')
     return {
-        isLoading
+        isLoading,
     };
 };
 

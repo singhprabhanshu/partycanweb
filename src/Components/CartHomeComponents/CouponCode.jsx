@@ -4,7 +4,7 @@ import { connect} from 'react-redux';
 import genericPostData from "../../Redux/Actions/genericPostData";
 import { createReqObjForCart } from "../../Global/helper/commonUtil";
 import _get from "lodash/get";
-import { Loader } from "../../Global/UIComponents/LoaderHoc";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 class CouponCode extends React.Component {
@@ -45,21 +45,13 @@ class CouponCode extends React.Component {
     }
 
     render() {
-        if (this.state.applyCouponLoading) {
-            return <Loader />
-        }
         return (
             <div className="d-flex no-gutters">
-                <Col xs={12} lg={11}>
-                    <Form >
-                        <FormGroup>
-                            <Input onChange={this.onChangeCouponCode} value={this.state.coupon_code} type="email" name="email" id="exampleEmail" placeholder="Coupon Code" />
-                        </FormGroup>
-                        <FormGroup>
-                            <Button style={{ marginLeft: "10px", marginBottom: "2px" }} onClick={this.handleAppply}>Apply</Button>
-                        </FormGroup>
-                    </Form>
-                </Col>
+                    <Form className="d-flex w-100">                    
+                            <Input onChange={this.onChangeCouponCode} value={this.state.coupon_code} type="email" name="email" id="exampleEmail" placeholder="Coupon Code" className="col" />
+        <Button disabled={this.state.applyCouponLoading} style={{ marginLeft: "10px", marginBottom: "2px" }} className="applyBtn" onClick={this.handleAppply}>{this.state.applyCouponLoading?<CircularProgress/>:"Apply"}</Button>
+                      </Form>
+            
             </div>
         )
     }

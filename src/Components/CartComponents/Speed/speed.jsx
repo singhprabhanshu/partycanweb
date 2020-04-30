@@ -2,7 +2,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-// import genericGetData from "../../../Redux/Actions/genericGetData";
 import genericPostData from '../../../Redux/Actions/genericPostData';
 import { Button } from 'reactstrap';
 import { get as _get, map as _map, find as _find, findIndex as _findIndex, isEmpty as _isEmpty } from 'lodash';
@@ -230,7 +229,7 @@ class Speed extends React.Component {
       // cart_id:"26234",
       // delivery_address_id: "2517"
       api_token: _get(this.props, 'userDetails.api_token', ''),
-      cart_id: _get(this.props, 'userDetails.cart_id', '0'),
+      cart_id: localStorage.getItem("cart_id"),
       delivery_address_id: _get(this.props, 'cartFlow.selectedAddress', '0')
     }
     this.setState({
@@ -425,7 +424,7 @@ class Speed extends React.Component {
 
   renderContent = (speed,retailer,shippingMethod,selectDate,availableTime) => {
     let commonContent = <>
-    <div className="pr-lg-4" > 
+    <div className="scrollerwrapper" > 
                     <div className="d-flex flex-column">
 
                         <div className="d-flex flex-column mb-5 ">

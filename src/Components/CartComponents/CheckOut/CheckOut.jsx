@@ -29,13 +29,13 @@ class CheckOut extends React.Component {
         //this.fetchCart(this.cartFetchSuccess);
     };
     fetchCart = (successCB) => {
-        let reqObj = createReqObjForCart;
+        let reqObj = createReqObjForCart();
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj,
             url: "/api/cart/showcart",
             identifier: "CART_ITEMS",
-            successCb: successCB,
+            successCb: ()=>successCB(),
             errorCb: this.cartFetchError
         })
     }
@@ -86,7 +86,7 @@ class CheckOut extends React.Component {
     }
     placeOrderSuccess = (data) => {
         if (data.code == 1) {
-            localStorage.clearItem("cart_id",""); //removing the cart_id when place order is done
+            localStorage.removeItem("cart_id"); //removing the cart_id when place order is done
             this.fetchCart(() => {
                 this.setState({ placeOrderLoading: false });
                 this.setState({ order_id: data.order_id, orderPlaced: true });
@@ -109,7 +109,7 @@ class CheckOut extends React.Component {
 
 
     trackOrder = () => {
-
+        this.props.history.push("/setting/order")
     }
 
     renderContent = () => {
@@ -118,7 +118,7 @@ class CheckOut extends React.Component {
         // let windowWidth = window.innerWidth;
         // let cardWidth = windowWidth > 800 ? "60%" : "100%";
         let commonContent = <>
-            <div className="cartContainer">
+            <div className="cartContainer scrollerwrapper">
                 <div className="CartItemParent">
                     <CartListItem
                         dispatch={this.props.dispatch}
@@ -129,15 +129,15 @@ class CheckOut extends React.Component {
                 <div className="couponParent mt-5">
                     <CouponCode dispatch={this.props.dispatch} onChange={this.onChange} coupon_code={coupon_code} />
                 </div>
-                <div style={{ padding: "10px 0px" }}>
-                    <Label>Driver Tip</Label>
+                <div className="driverTip">
+                    <Label>TIP FOR DRIVER </Label>
                     <br />
                     <ButtonGroup color="secondary" aria-label="outlined primary button group">
-                        <MUIButton style={this.state.driverTip.id == 0 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 0, value: 0 })}>0%</MUIButton>
-                        <MUIButton style={this.state.driverTip.id == 0.5 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 0.5, value: 5 })}>5%</MUIButton>
-                        <MUIButton style={this.state.driverTip.id == 1 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 1, value: 10 })}>10%</MUIButton>
-                        <MUIButton style={this.state.driverTip.id == 2 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 2, value: 15 })}>15%</MUIButton>
-                        <MUIButton style={this.state.driverTip.id == 3 ? { background: "white" } : null} onClick={() => this.DriverTip({ id: 3, value: 20 })}>20%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 0 ? { background: "white", color:'#000' } : null} onClick={() => this.DriverTip({ id: 0, value: 0 })}>0%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 0.5 ? { background: "white", color:'#000' } : null} onClick={() => this.DriverTip({ id: 0.5, value: 5 })}>5%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 1 ? { background: "white", color:'#000' } : null} onClick={() => this.DriverTip({ id: 1, value: 10 })}>10%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 2 ? { background: "white", color:'#000' } : null} onClick={() => this.DriverTip({ id: 2, value: 15 })}>15%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 3 ? { background: "white", color:'#000' } : null} onClick={() => this.DriverTip({ id: 3, value: 20 })}>20%</MUIButton>
                     </ButtonGroup>                    </div>
                 <div className="PriceSummaryParent">
                     <CheckOutPriceSummary
@@ -197,7 +197,7 @@ class CheckOut extends React.Component {
             <React.Fragment>
                 <Container fluid={true}>
                     <Row style={noCartItem ? { display: "none" } : null} className="no-gutters justify-content-lg-between secMinHeight">
-                        <Col xs={12} lg={7} className="p-xl-5 p-4 flex-column d-flex">
+                        <Col xs={12} lg={6} className="p-xl-5 p-4 flex-column d-flex">
                             <div className="block-title mb-5">Order Summary</div>
                             {this.renderContent()}
                             <div className="mt-4" >

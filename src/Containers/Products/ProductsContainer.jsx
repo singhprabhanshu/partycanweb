@@ -82,7 +82,7 @@ class ProductsContainer extends React.Component {
     
         genericGetData({
             dispatch:this.props.dispatch,
-            url:`/connect/index/category?catid=${categoryID}`,
+            url:`/connect/index/category?catid=${categoryID}&store_id=1`,
             constants:{
             init:"PRODUCTS_LIST_INIT",
             success:"PRODUCTS_LIST_SUCCESS",
@@ -112,6 +112,7 @@ class ProductsContainer extends React.Component {
                 <CssBaseline />   
                 <Container fluid={true}  className="">  
                 <ProductTabs
+                    {...this.props}
                     tabValue={this.state.tabValue}
                     handleTabChange={(index, selectedTab)=>this.handleTabChange(index, selectedTab)}
                     /> 

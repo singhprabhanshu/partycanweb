@@ -38,6 +38,7 @@ import proImg from '../../assets/images/party-can-product.png'
 import Carousel from 'react-multi-carousel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import 'react-multi-carousel/lib/styles.css';
+import {commonActionCreater} from "../../Redux/Actions/commonAction";
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -113,7 +114,7 @@ class ProductDetails extends React.Component {
         const productID = this.props.match.params.productID;
         genericGetData({
             dispatch: this.props.dispatch,
-            url: `/connect/index/product?prodid=${productID}`,
+            url: `/connect/index/product?prodid=${productID}&store_id=1`,
             constants: {
                 init: "PRODUCT_DETAILS_LIST_INIT",
                 success: "PRODUCT_DETAILS_LIST_SUCCESS",
@@ -131,6 +132,17 @@ class ProductDetails extends React.Component {
             index = 0
         }
         this.setState({ tabValue: index })
+        this.FooterAddButtonFunction()
+    }
+
+    FooterAddButtonFunction = () => {
+        let data = {
+            product_id: this.props.match.params.productID,
+            qty: this.state.defaultQuantity,
+            api_token: localStorage.getItem("Token"),
+            cart_id:localStorage.getItem("cart_id")
+        };
+        this.props.dispatch(commonActionCreater(data, "PRODUCT_DETAILS_FOOTER"));
     }
 
     productDetailsFetchSuccess = (data) => {
@@ -153,7 +165,15 @@ class ProductDetails extends React.Component {
             quantity -= 1
         }
         let productPrice = (quantity * this.props.productDetailsData.price).toFixed(2)
-        this.setState({ defaultQuantity: quantity, productPrice })
+        this.setState({ defaultQuantity: quantity, productPrice }, ()=>{
+            let data = {
+                product_id: this.props.match.params.productID,
+                qty: this.state.defaultQuantity,
+                api_token: localStorage.getItem("Token"),
+                cart_id:localStorage.getItem("cart_id")
+            };
+            this.props.dispatch(commonActionCreater(data, "PRODUCT_DETAILS_FOOTER"));
+        })
 
     }
 
@@ -192,10 +212,22 @@ class ProductDetails extends React.Component {
     )
 
     addToCartSuccess = (data) => {
-        console.log(data);
-        this.setState({addToCartLoading:false})
-        localStorage.setItem("cart_id",data[0].cart_id);
-        this.props.history.push('/cart')
+        if(data[0].code==1){
+            this.setState({addToCartLoading:false})
+            localStorage.setItem("cart_id",data[0].cart_id);
+            // checking guest login
+            if (_isEmpty(_get(this.props.userSignInInfo, '[0].result.api_token', ''))){
+                this.props.history.push('/guest/register')
+    
+            } else {
+                this.props.history.push('/cart')
+            };
+        }
+        else{
+            this.setState({addToCartLoading:false})
+            alert(data[0].message);
+        }
+        
     }
 
     addToCartFailure = () => {
@@ -272,7 +304,7 @@ class ProductDetails extends React.Component {
                             <span className="smallTitle">FROM</span>
                             <span className="finalProprice">${!_isEmpty(this.state.productPrice) ? this.state.productPrice : _get(productDetailsData, "price", "")}</span>
                         </Col>
-                        <Col className="d-flex  flex-column" xs={12} sm={4} xl={4}>
+                        {/* <Col className="d-flex  flex-column" xs={12} sm={4} xl={4}>
                             <span className="smallTitle">DELIVERED COLD IN - 1 HR</span>
                             <div className="snowFlakes">
                                 <span></span>
@@ -280,20 +312,20 @@ class ProductDetails extends React.Component {
                                 <span></span>
                                 <span></span>
                             </div>
-                        </Col>
+                        </Col> */}
                     </Row>
 
                 </div>
                 <div className="d-flex flex-wrap justify-content-between justify-content-md-start flex-md-row" style={{ marginTop: "50px" }}>
-                    <Button variant="contained" style={{ color: '#0032A0' }} className="bottomActionbutton autoWidthbtn col-4 col-md-auto order-2 order-md-1 bg-white" type="submit">
+                    {/* <Button variant="contained" style={{ color: '#0032A0' }} className="bottomActionbutton autoWidthbtn col-4 col-md-auto order-2 order-md-1 bg-white" type="submit">
                         <span className="icons shareIcons d-inline-block mr-2"></span>SHARE
-                 </Button>
+                 </Button> */}
                     <Button onClick={() => this.handleAddToCart()} variant="contained" className="bottomActionbutton order-1 col-12 col-md-auto order-md-2 cartActionBtn mx-md-4" type="submit">
                         {this.state.addToCartLoading?<CircularProgress/> :<> <span className="icons cartIcons d-inline-block mr-2"></span>ADD TO CART</>}
                 </Button>
-                    <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)' }} variant="contained" className="bottomActionbutton order-3 col-7 col-md-auto order-md-3 autoWidthbtn transiBtn" type="submit">
+                    {/* <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)' }} variant="contained" className="bottomActionbutton order-3 col-7 col-md-auto order-md-3 autoWidthbtn transiBtn" type="submit">
                         <span className="icons locationIcons d-inline-block mr-2"></span>FIND IN STORES
-                </Button>
+                </Button> */}
                 </div>
             </div>
         </>
@@ -344,6 +376,7 @@ class ProductDetails extends React.Component {
             <React.Fragment>
                 <Container fluid={true} className="productDetails">
                     <ProductTabs
+                        {...this.props}
                         tabValue={this.state.tabValue}
                         handleTabChange={(index, selectedTab) => this.handleTabChange(index, selectedTab)}
                     />
@@ -371,6 +404,7 @@ class ProductDetails extends React.Component {
 function mapStateToProps(state) {
     let productDetailsData = _get(state, 'productDetails.lookUpData');
     let categoriesList = _get(state, 'categoriesList.lookUpData.data');
-    return { productDetailsData, categoriesList }
+    let userSignInInfo = _get(state, 'userSignInInfo.lookUpData', []);
+    return { productDetailsData, categoriesList, userSignInInfo }
 }
 export default connect(mapStateToProps)(withStyles(styles)(ProductDetails));
