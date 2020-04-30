@@ -41,14 +41,14 @@ export default class UserInfo extends Component {
                                         {this.props.userInfo.email}
                                     </div>
                                 </div>
-                                <div className="pb-4">
+                                {this.props.userName&&<div className="pb-4">
                                     <div className=" d-flex flex-column flex-wrap">
                                         PASSWORD
                                     </div>
                                     <div  className="myInfocolor">
                                         **********
                                     </div>
-                                </div>
+                                </div>}
                             </React.Fragment>}                
                         </CardBody>
                     </Card>
