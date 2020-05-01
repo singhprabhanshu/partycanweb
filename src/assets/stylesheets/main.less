@@ -180,31 +180,35 @@ button:focus {
     padding: 0;
   }
   .carousel.carousel-slider{
-    height: 70vh;
+    // height: 70vh;
   }
   .carousel .slide .legend{
     left:0!important;
     right: 0!important; 
     margin: unset!important;
     position: relative!important;
-    bottom:3rem;
+    bottom:0rem;
     opacity: 1!important;
     max-width: 70%;
     line-height: 2.2rem;   
-    font-size: 1.3rem!important;
+    font-size: 1.5rem!important;
     text-transform: uppercase;
     @media (max-width: 767px){
       max-width: 90%;
     } 
+    @media (max-width: 991px){   
+      bottom:2rem;
+      font-size: 1.2rem!important;      
+    }
   }
 
   .carousel .slide img{
-    max-width: 40%;
-    @media (max-width: 1440px){
-      max-width: 30%;
+    // max-width: 40%;
+    @media (max-width: 1366px){
+      max-width: 90%;
     } 
     @media (max-width: 991px){
-      max-width: 80%;
+      max-width: 80%;      
     }
   }
 }
