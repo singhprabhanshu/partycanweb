@@ -245,7 +245,7 @@ class ProductDetails extends React.Component {
         this.props.history.push(`/category/${categoryName}`)
     }
 
-    renderContent = (averageRating, reviewsList, productDetailsData, Ingredients) => {
+    renderContent = (averageRating, reviewsList, productDetailsData, Ingredients, descriptionContent) => {
         let commonContent = <>
             <div className="scrollerwrapper" >
                 <Row className="mb-5 flex-column flex-md-row justify-content-md-between no-gutters" >
@@ -267,7 +267,7 @@ class ProductDetails extends React.Component {
                             <ArrowBackIcon onClick={this.handleBackAction} className="mr-4 d-none d-lg-block" style={{ fontSize: '20px', color: 'rgba(255, 255, 255, .6)' }} />  {_get(productDetailsData, "name", "")}
                         </div>
                         <div className="proDescription"  >
-                            {_get(productDetailsData, "description", "")}
+                            <li>{descriptionContent}</li>
                         </div>
                     </Col>
 
@@ -373,6 +373,22 @@ class ProductDetails extends React.Component {
                 </div>
             )
         })
+
+        let decriptionArray = [];
+        let descriptionSplit = _get(productDetailsData, "description", "").split('\r\n');
+        !_isEmpty(descriptionSplit) && descriptionSplit.map((review, index) => { 
+            if(review !== null && review !== undefined && review !== "") {
+                decriptionArray.push(review);
+            }
+        })
+
+        let descriptionContent = decriptionArray.map((data, index) => (<React.Fragment>
+            <ul>
+                {data}
+            </ul>
+        </React.Fragment>));
+
+
         return (
 
             <React.Fragment>
@@ -394,7 +410,7 @@ class ProductDetails extends React.Component {
                             </Col>
 
                             <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 order-2  d-flex order-lg-1 ">
-                                {this.renderContent(averageRating, reviewsList, productDetailsData, Ingredients)}
+                                {this.renderContent(averageRating, reviewsList, productDetailsData, Ingredients, descriptionContent)}
                             </Col>
                         </Row>}
                 </Container>
