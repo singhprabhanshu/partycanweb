@@ -93,8 +93,9 @@ class SplashContainer extends React.Component {
 
         let renderSlide = this.state.imageData.map((subdata,index) => {
             return(<React.Fragment key={index}>
-                <div className=" d-flex justify-content-center align-items-start h-100 ">
-                  <img src={slide1} className="img-responsive" />
+                <div className=" d-flex justify-content-center align-items-center h-100 ">
+                  <img src={subdata.imageurl}  className="img-responsive d-none d-lg-block"  />
+                  <img src={subdata.imageurl}  className="img-responsive d-block d-lg-none"  />
                     <p className="legend">{subdata.text}</p>
                 </div>
             </React.Fragment>)
@@ -106,17 +107,17 @@ class SplashContainer extends React.Component {
                      <CssBaseline />
                 <Container className="d-flex flex-column justify-content-center">
                 <Row className="flex-grow-1">
-                      <Col className="text-center d-flex justify-content-center IntroSlider  align-items-cnter position-relative" >
+                      <Col className="text-center d-flex justify-content-center IntroSlider  align-items-center position-relative" >
                         <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} showArrows={false}
                             selectedItem= {this.state.slideIndex} onChange={this.handleIndicator}
                             >
-                                {/* {renderSlide} */}
-                            <div className=" d-flex justify-content-center align-items-center h-100 ">
+                                {renderSlide}
+                            {/* <div className=" d-flex justify-content-between flex-column align-items-center h-100 ">
                             <img src={slide1} className="img-responsive d-none d-lg-block"  />
                             <img src={slide2} className="img-responsive d-block d-lg-none" />
                                 <p className="legend">THE PARTY CAN BRING CRAFT COCKTAIL GOODNESS TO YOUR GLASS IN SECONDS!</p>
                             </div>
-                           
+                            */}
                            
                         </Carousel>  
                     </Col>
