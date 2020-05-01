@@ -150,7 +150,7 @@ class UserSetting extends React.Component {
             <div className="d-flex CardsWrapper flex-wrap  mb-5 ">
                
             {this.props.userName&& <Card className="paymentcardContainer" onClick={this.addCardFunction}>
-            <CardBody className="cardStyles paymentcard">
+            <CardBody className="cardStyles paymentcard addnewcard">
                 <div className="mb-4"><AddCircleOutlineOutlinedIcon style={{ fontSize: 25 }} /> </div> 
                 <div>ADD CARD</div>                      
             </CardBody>                          
