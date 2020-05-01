@@ -7,6 +7,7 @@ import { get as _get, isEmpty as _isEmpty } from "lodash";
 import {commonActionCreater} from "../../Redux/Actions/commonAction";
 import genericPostData from "../../Redux/Actions/genericPostData";
 import {logoutActionCreator} from '../../Redux/Actions/logoutAction';
+import cLogo from '../../../src/assets/images/cocktail-courier-logo.png';
 const styles = theme => ({
    
 });
@@ -73,12 +74,23 @@ class Footer extends React.Component {
         const { classes, isLoginAndSignupScreen } = this.props;
         return (
             <React.Fragment>
-                <Container fluid={true}  className="footerLayout d-flex align-items-center">              
-                <Container className="container-content-header justify-content-center">
-                        <Row>
-                            <Col className="d-flex flex-column">
-                                <span className="pb-2">&copy; to PartyCan</span>                     
-                                <span>HandCrafted with <i className="fa fa-heart"></i> By PartCan Team</span>
+                <Container fluid={true}  className="footerLayout d-flex align-items-center p-3">              
+                <Container className="container-content-header justify-content-center ">
+                        <Row className="w-100 align-items-center justify-content-sm-between justify-content-center ">
+                        <Col xs={'auto'} md={'3'} >
+                            <div className="text-center d-flex flex-column footerLink">
+                                    <a href="" className="pb-2">Privacy Policy</a>
+                                    <a href="">Terms & Conditions</a>
+                            </div>
+                            </Col>
+                            <Col xs={'auto'} className="d-flex align-items-center justify-content-center">                                
+                                <div className="d-flex flex-column pt-4 pt-xs-0">
+                                <span className="p-2 poweredLine">Powered by<br></br> Three-Tire Solution<br></br> From</span>                   
+                                <span className="cLogo"><img src={cLogo} className="img-responsive"></img></span>
+                                </div>
+                            </Col>
+                            <Col xs={'auto'} md={'3'} className="mNone" >
+                           
                             </Col>
                         </Row>
                     </Container>
