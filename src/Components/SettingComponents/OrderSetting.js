@@ -78,7 +78,7 @@ class OrderSetting extends React.Component {
                             <ExpansionPanelSummary
                             expandIcon={<ExpandMoreIcon />}                            
                             aria-controls="panel1a-content" id="panel1a-header">
-                            <div className="d-flex flex-wrap title" style={{color: '#00BFB2', fontSize: '1.8rem'}}>
+                            <div className="d-flex flex-wrap title">
                                             ORDER #{data.increment_id }
                             </div>
                             </ExpansionPanelSummary>
@@ -133,10 +133,11 @@ class OrderSetting extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="bread-crumb mb-4">
+                <div className="block-title mb-5">
                     {/* <KeyboardBackspaceIcon style={{fontSize:13, marginRight:10}} /> */}
                 YOUR ORDERS</div> 
-                    {this.state.orderData && renderOrder}
+
+                   <div className="orderSummary">{this.state.orderData && renderOrder}</div> 
             </React.Fragment>
           );
      }

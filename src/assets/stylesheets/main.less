@@ -90,6 +90,7 @@ textarea,
 select form {
   font-family: 'Gibson-Regular', sans-serif !important;
   font-size: 1.6rem !important;
+  text-transform: unset!important;
   color: rgba(255, 255, 255, .8) !important;
   &:focus{
     outline: none!important;
@@ -1523,11 +1524,6 @@ img{
 }
 }
 
-.ElementsApp .InputElement {
-  font-size: 18px;
-  color: #ffffff!important;
-  letter-spacing: 0.025em;
-}
 
 
 .addNewCC{
@@ -1541,6 +1537,7 @@ img{
     padding: 2rem;
   }
 
+  
   
  input.cardHolderName, .StripeElement, .StripeElementIdeal, .StripeElementFpx
   {
@@ -1569,6 +1566,26 @@ img{
 }
 
 /////////////// Setting page Design
+
+.orderSummary{
+  .MuiExpansionPanel-root{
+    background-color:rgba(255, 255, 255, 0.4);
+    transition: ease all .3s;
+    &.Mui-expanded{
+      background-color: #fff!important;
+    }
+    .title{
+      color:#fff;
+    }
+    &:hover{
+      background-color:rgba(255, 255, 255, 1);
+      .title{
+        color: rgb(0, 191, 178);
+      }
+      
+    }
+  }
+}
 
 .userpayment-setting {
   width: 100%;
