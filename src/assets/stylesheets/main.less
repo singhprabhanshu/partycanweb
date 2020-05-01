@@ -441,7 +441,28 @@ button:focus {
   border-top-right-radius: 2rem;
   color:rgba(255, 255, 255, .6);
   text-align: center;
-  min-height: 5rem;
+  min-height: 15rem;
+}
+.footerLink a{
+  color: #fff;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+.footerLink a:hover{
+  color: #000; 
+  text-decoration: none;
+}
+.cLogo img{
+  max-width: 50%;
+}
+.poweredLine{
+  font-size: 1.3rem; 
+  text-transform: uppercase;
+  color: #fff;
+}
+
+@media (max-width:767px){
+  .mNone{display: none;}
 }
 
 ///////Product page css
@@ -1480,12 +1501,22 @@ img{
     margin-bottom: 0!important;
     color: #fff!important;
     box-shadow: none!important;
+    text-transform: uppercase;
   }
   &:focus{
     outline: none!important;
     box-shadow: none!important;
     outline-offset: none!important;
   }
+}
+.ElementsApp, .ElementsApp, .InputElement, .InputElement.is-invalid
+{
+  color: #fff!important;
+}
+
+.MuiInputBase-input
+{
+  text-transform: uppercase;
 }
 
 /////////////// Setting page Design
@@ -1599,9 +1630,6 @@ img{
 *:after {
   box-sizing: border-box;
 }
-
-
-
 
 
 label {
