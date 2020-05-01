@@ -8,7 +8,7 @@ import {map, set} from 'lodash';
 import genericGetData from '../../Redux/Actions/genericGetData';
 import {Container, Row, Col} from 'reactstrap'
 import slide1 from '../../assets/images/HOMEPAGE1.png'
-import slide2 from '../../assets/images/HOMEPAGE2.png'
+import slide2 from '../../assets/images/homepage-xs.png'
 import slide3 from '../../assets/images/HOMEPAGE3.png'
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -110,20 +110,14 @@ class SplashContainer extends React.Component {
                         <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} showArrows={false}
                             selectedItem= {this.state.slideIndex} onChange={this.handleIndicator}
                             >
-                                {renderSlide}
-                            {/* <div className=" d-flex justify-content-between flex-column align-items-center h-100 ">
-                            <img src={slide1} className="img-responsive" />
-                                <p className="legend">MADE WITH 100% BLUE WEBER AGAVE TEQUILA, COMBIER LIQUEUR D'ORANGE TRIPLE SEC, AND FRESH LIME JUICE. 
-                                    THE PARTY CAN BRING CRAFT COCKTAIL GOODNESS TO YOUR GLASS IN SECONDS!</p>
+                                {/* {renderSlide} */}
+                            <div className=" d-flex justify-content-between flex-column align-items-center h-100 ">
+                            <img src={slide1} className="img-responsive d-none d-lg-block"  />
+                            <img src={slide2} className="img-responsive d-block d-lg-none" />
+                                <p className="legend">THE PARTY CAN BRING CRAFT COCKTAIL GOODNESS TO YOUR GLASS IN SECONDS!</p>
                             </div>
-                            <div className=" d-flex justify-content-between  flex-column align-items-center h-100">
-                            <img src={slide2} className="img-responsive" />
-                                <p className="legend">Legend 2</p>
-                            </div>
-                            <div className=" d-flex justify-content-between flex-column align-items-center h-100">
-                            <img src={slide3} className="img-responsive" />
-                                <p className="legend">Legend 3</p>
-                            </div> */}
+                           
+                           
                         </Carousel>  
                     </Col>
                     </Row>  
