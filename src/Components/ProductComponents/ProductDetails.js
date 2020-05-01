@@ -267,7 +267,7 @@ class ProductDetails extends React.Component {
                             <ArrowBackIcon onClick={this.handleBackAction} className="mr-4 d-none d-lg-block" style={{ fontSize: '20px', color: 'rgba(255, 255, 255, .6)' }} />  {_get(productDetailsData, "name", "")}
                         </div>
                         <div className="proDescription"  >
-                            <li>{descriptionContent}</li>
+                            {descriptionContent}
                         </div>
                     </Col>
 
