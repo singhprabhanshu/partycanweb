@@ -17,14 +17,14 @@ export default class UserInfo extends Component {
                     <Card className="userPreferenceContainer mb-5 ">
                         <CardBody className="cardStyles userInfoSettingCards align-items-start flex-wrap">
                             {this.props.userInfo && <React.Fragment>
-                                <div className="pb-4"> 
-                                <div className=" d-flex flex-column flex-wrap">
+                                {this.props.userName && <div className="pb-4"> 
+                                 <div className=" d-flex flex-column flex-wrap">
                                     FULL NAME
                                     </div>
                                     <div className="myInfocolor">
                                         {this.props.userInfo.name}
                                     </div>
-                                </div>
+                                </div>}
                                 <div className="pb-4">
                                     <div className=" d-flex flex-column flex-wrap">
                                         PRIMARY ADDRESS
