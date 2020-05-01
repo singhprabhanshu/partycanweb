@@ -30,9 +30,8 @@ class CartContainer extends React.Component {
     };
 
     componentDidMount() {
-        if (_isEmpty(_get(this.props.userSignInInfo, '[0].result.api_token', ''))) {
-            this.props.history.push('/category/Cans');
-        }
+        
+        
 
     }
 
@@ -45,6 +44,7 @@ class CartContainer extends React.Component {
             <div className="cartContainer scrollerwrapper">
                 <div className="CartItemParent mb-3">
                     <CartItemsList
+                        {...this.props}
                         dispatch={this.props.dispatch}
                         //width={cardWidth}
                         cartItems={this.props.cartItems} />

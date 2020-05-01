@@ -26,6 +26,12 @@ class CartItemList extends React.Component {
     sb = (data) => {
         this.setState({ cartItems: _get(data, "[0].result",[]) });
         this.setState({cartIsFetching:false})
+        if (!_.isEmpty(_get(data, "[0].result",[]))) {
+            if (_.isEmpty(_get(this.props.userSignInInfo, '[0].result.api_token', ''))) {
+                this.props.history.push('/guest/register');
+            }
+        }
+
     }
     eb = (err) => {
         this.setState({cartIsFetching:false})
@@ -176,4 +182,13 @@ callUpdateQuantityApi=(item,newQty)=>{
     }
 }
 
-export default CartItemList;
+function mapStateToProps(state) {
+    let userSignInInfo = _get(state, 'userSignInInfo.lookUpData', []);
+
+    return {
+        userSignInInfo,
+    }
+}
+
+export default connect(mapStateToProps, null)(CartItemList);
+// export default CartItemList;
