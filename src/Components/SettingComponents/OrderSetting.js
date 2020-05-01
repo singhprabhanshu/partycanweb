@@ -104,6 +104,16 @@ class OrderSetting extends React.Component {
                                             <span className="orderDetaillabel">TAX</span>
                                             <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.tax}</span>                                            
                                             </div>
+
+                                            <div className="d-flex justify-content-between w-100" >
+                                            <span className="orderDetaillabel">TIP</span>
+                                            <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.driver_tip}</span>                                            
+                                            </div>
+
+                                            <div className="d-flex justify-content-between w-100" >
+                                            <span className="orderDetaillabel">DISCOUNT</span>
+                                            <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.discount}</span>                                            
+                                            </div>
                                             
                                             <div className="d-flex justify-content-between w-100" style={{ color: '#0033a0', fontWeight: 'bold',}} >                                           
                                                 <span className="orderDetaillabel" >TOTAL</span>
