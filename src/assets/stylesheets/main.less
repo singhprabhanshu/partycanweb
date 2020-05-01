@@ -533,8 +533,8 @@ button:focus {
   }
 
     span{
-      margin-bottom: 2px;
-      font-size: 13px;
+      margin:3px 0;
+      font-size: 14px;
       padding-left: 2.5rem;
       position: relative;
       line-height: 23px;
@@ -1025,24 +1025,28 @@ span.MuiButton-label {
   
     &.speedCardscontainer{
       width: 33%;  
+      color:rgba(0, 0, 0, 0.4)!important;  
       @media(max-width:767px){
         width: 50%;    
       }
     }
     &.shippingCardscontainer{
-      width: 25%; 
+      width: 33%; 
+      color:rgba(0, 0, 0, 0.4)!important;  
       @media(max-width:767px){
         width: 50%;    
       } 
     }
     &.retailerCardscontainer{
-      width: 25%; 
+      width: 33%; 
+      color:rgba(0, 0, 0, 0.4)!important;  
       @media(max-width:767px){
         width: 50%;    
       }  
     }
     &.dateTimerCardscontainer{
       width: 20%; 
+      color:rgba(0, 0, 0, 0.4)!important;  
       @media(max-width:767px){
         width: 33%;    
       }  
@@ -1134,39 +1138,109 @@ span.MuiButton-label {
         cursor: default!important;      
       }  
 
+      .title{
+        font-family: 'Tungsten-Bold';
+        font-size: 3rem;
+        letter-spacing: .2rem;
+      }  
+      
+      .cardTitle{
+        font-size:1.8rem;
+        color:#0032A0;      
+      }    
+  
+      .inner-content{
+        color:rgba(0, 0, 0, .6);
+        font-size: 1.0rem;
+        font-weight: bold;
+      }
      
-
-    &.active{
-      color:@color-l!important;
-      background-color: rgba(255, 255, 255, 1)!important;
-      opacity: 1; 
-    }
-
-    .title{
-      font-family: 'Tungsten-Bold';
-      font-size: 3rem;
-      letter-spacing: .2rem;
-    }   
+  
+      .cardPrice{
+        color:rgba(0, 0, 0, 0.4);
+        font-family: 'Tungsten-semibold';
+        font-size: 3rem;
+        letter-spacing: .4rem;
+      }
+  
+      .retailerTitle {  
+        font-size: 1.2rem;
+        font-family: 'Gibson-Regular';
+        text-align: center;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.6);
+        text-transform: uppercase;
+      }
+  
+      .cardAddress{
+        font-size: 14px;
+        font-family: 'Gibson-Regular';
+        color: rgba(0, 0, 0, 0.6);
+        text-align: center;
+      }
+  
+      .storeDistance{
+        font-size: 1.1rem;
+        font-family: 'Gibson-Regular';
+        text-align: center;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.6);
+      }
+  
+      .shippingCardTitle{
+        font-size:1.7rem ;
+        font-variant: all-small-caps;
+        font-weight: bold;
+      }
+      
+      &.active{     
+        background-color: rgba(255, 255, 255, 1)!important;
+        opacity: 1; 
+        .cardTitle{    
+          color:#00BFB2;       
+        }
+        .cardPrice{
+          color:#00BFB2;
+        }
+      }   
+      
+      
+  
+      &:hover{      
+        background-color: rgba(255, 255, 255, 1)!important;
+        opacity: 1; 
+        .cardPrice{
+          color:#00BFB2;
+        }
+        .cardTitle{    
+          color:#00BFB2;       
+        }
+      }
+  
+      &.disable{     
+        background-color: rgba(255, 255, 255, .3)!important;
+        opacity: .6; 
+        cursor: not-allowed;
+        pointer-events: none;  
+        .cardTitle{       
+          color:#0032A0;      
+        }
+  
+  
+      }
 
   }
-    &:hover .cardStyles{
-      color:@color-l!important;
-      background-color: rgba(255, 255, 255, 1)!important;
-      opacity: 1; 
-    }
 
-    &:hover .cardStyles.disable{
-      color:#fff!important;
-      background-color: rgba(255, 255, 255, .3)!important;
-      opacity: .6; 
-      cursor: not-allowed;
-      pointer-events: none;  
-    }
+    
+
+  
+
+   
    
   }
 }
 ////////////////retailer card
-.retailerTitle {  font-size: 1.8rem; font-weight: bold; text-align: center; }
+
 .ccCardsList {
   margin: 1rem;
   opacity: .3;

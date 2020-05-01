@@ -23,13 +23,13 @@ class ShippingMethodCard extends Component {
             <React.Fragment>                
                     <Card className="shippingCardscontainer">
                         <CardBody className={this._getRootCardClass({ selectedId: this.props.selectedShippingMethod, id: this.props.data.id})}  onClick={() => this.props.changeShippingMethodOpacity(this.props.data.id)}>
-                            <div style={{ fontSize: 8, marginBottom: 10 }}>
+                            <div className="cardTitle shippingCardTitle">
                                 {this.props.data.method}
                             </div>
-                            <div style={{ fontSize: 8, marginBottom: 10 }}>
+                            <div className="inner-content py-3">
                                 Estimated ~{this.props.estimatedShippingTime} Days
                             </div>
-                            <div style={{ fontSize: 15, marginBottom: 10 }}>
+                            <div className="cardPrice">
                                 ${this.props.data.amount}
                             </div>
                             {/* <div>
