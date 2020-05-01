@@ -6,8 +6,8 @@ var schema = yup.object().shape({
         .test('len', 'Must be exactly 5 digit', val => val ? val.toString().length === 5 : false)
         .typeError('Zipcode must be a number.')
         .required('Zipcode is required.'),
-    overAge: yup.bool().required()
-        .oneOf([true], "OverAge")
+    overAge: yup.bool().required('Please confirm you are over 21 to enter the site.')
+        .oneOf([true], "Please confirm you are over 21 to enter the site.")
 });
 
 // To be passed to React Final Form

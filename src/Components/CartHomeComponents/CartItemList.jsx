@@ -118,7 +118,7 @@ callUpdateQuantityApi=(item,newQty)=>{
         this.timeOutId = setTimeout(() => {
             this.callUpdateQuantityApi(this.item,this.newQty);
            this.timeOutId = null //clearing the last timeout id
-        }, 1000);
+        }, 800);
         this.setState({ cartItems: this.state.cartItems })
     }
     errorUpdateQuantity = (err) => {

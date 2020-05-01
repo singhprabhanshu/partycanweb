@@ -117,6 +117,8 @@ const AddCard = (props) => {
             console.log('[error]', payload.error);
             setErrorMessage(payload.error.message);
             setPaymentMethod(null);
+            setLoading(false);
+            return;
         } else {
             let paymentMethods = props.paymentMethods;
             let cartFlow = props.cartFlow;
@@ -161,6 +163,11 @@ const AddCard = (props) => {
        if(data.code === 1) {
         saveBillingInfo(billingAddress)
        }
+       else{
+        setLoading(false);
+        setErrorMessage("something went wrong while processing card")
+        return;
+       }
     }
 
     const addPayementCardError = (data) => {
@@ -188,6 +195,11 @@ const AddCard = (props) => {
         if(data.code === 1) {
             setLoading(false);
             props.handleContinueFromNewCard();
+       }
+       else{
+        setLoading(false);
+        setErrorMessage("something went wrong while saving billing address")
+        return;
        }
     }
 
@@ -326,7 +338,7 @@ const AddCard = (props) => {
                                     autoFocus={false} type='text' />         */}
                             <div style={{ width: '55%', paddingRight: 50 }}>
                                 <Field name="state" component={RFReactSelect} placeholder='STATE'
-                                    autoFocus={false} type='text' options={options} />
+                                   search={true} autoFocus={false} type='text' options={options} />
                               
 
                             </div>

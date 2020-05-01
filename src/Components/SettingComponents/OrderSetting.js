@@ -62,8 +62,9 @@ class OrderSetting extends React.Component {
                                 {item.product_name}
                                 </div>
                                 <div className="pricingWrapper">
-                                <span  className="orderDetaillabel">{item.product_qty}CAN</span>
-                                <span style={{ color: '#0033a0', }}>{item.product_price}</span>
+                                <span  className="orderDetaillabel">{item.product_qty}
+                                {item.product_qty <= 1 ? ' CAN' : ' CANS'}</span>
+                                <span style={{ color: '#0033a0', }}>{item.total}</span>
                                 </div>
                             
                         </div>

@@ -35,9 +35,9 @@ class CheckOut extends React.Component {
             reqObj,
             url: "/api/cart/showcart",
             identifier: "CART_ITEMS",
-            successCb: ()=>successCB(),
+            successCb: () => successCB(),
             errorCb: this.cartFetchError,
-            dontShowMessage:true
+            dontShowMessage: true
         })
     }
     cartFetchSuccess = (data) => {
@@ -93,10 +93,9 @@ class CheckOut extends React.Component {
                 this.setState({ order_id: data.order_id, orderPlaced: true });
             });
         }
-        else
-        {
-        this.setState({ placeOrderLoading: false })
-        alert(_get(data,"message","something went wrong while placing the order"));
+        else {
+            this.setState({ placeOrderLoading: false })
+            alert(_get(data, "message", "something went wrong while placing the order"));
         }
     }
     placeOrderError = () => {
@@ -130,19 +129,22 @@ class CheckOut extends React.Component {
                 <div className="couponParent mt-5">
                     <CouponCode dispatch={this.props.dispatch} onChange={this.onChange} coupon_code={coupon_code} />
                 </div>
-                <div className="driverTip">
+                {_get(this.props, "cartFlow.selectedSpeedID") == 1 && <div className="driverTip">
                     <Label>TIP FOR DRIVER </Label>
                     <br />
                     <ButtonGroup color="secondary" aria-label="outlined primary button group">
-                        <MUIButton style={this.state.driverTip.id == 0 ? { background: "white", color:'#000' } : null} onClick={() => this.DriverTip({ id: 0, value: 0 })}>0%</MUIButton>
-                        <MUIButton style={this.state.driverTip.id == 0.5 ? { background: "white", color:'#000' } : null} onClick={() => this.DriverTip({ id: 0.5, value: 5 })}>5%</MUIButton>
-                        <MUIButton style={this.state.driverTip.id == 1 ? { background: "white", color:'#000' } : null} onClick={() => this.DriverTip({ id: 1, value: 10 })}>10%</MUIButton>
-                        <MUIButton style={this.state.driverTip.id == 2 ? { background: "white", color:'#000' } : null} onClick={() => this.DriverTip({ id: 2, value: 15 })}>15%</MUIButton>
-                        <MUIButton style={this.state.driverTip.id == 3 ? { background: "white", color:'#000' } : null} onClick={() => this.DriverTip({ id: 3, value: 20 })}>20%</MUIButton>
-                    </ButtonGroup>                    </div>
+                        <MUIButton style={this.state.driverTip.id == 0 ? { background: "white", color: '#000' } : null} onClick={() => this.DriverTip({ id: 0, value: 0 })}>0%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 0.5 ? { background: "white", color: '#000' } : null} onClick={() => this.DriverTip({ id: 0.5, value: 5 })}>5%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 1 ? { background: "white", color: '#000' } : null} onClick={() => this.DriverTip({ id: 1, value: 10 })}>10%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 2 ? { background: "white", color: '#000' } : null} onClick={() => this.DriverTip({ id: 2, value: 15 })}>15%</MUIButton>
+                        <MUIButton style={this.state.driverTip.id == 3 ? { background: "white", color: '#000' } : null} onClick={() => this.DriverTip({ id: 3, value: 20 })}>20%</MUIButton>
+                    </ButtonGroup>
+                </div>}
                 <div className="PriceSummaryParent">
                     <CheckOutPriceSummary
+                        showDriverTip={_get(this.props, "cartFlow.selectedSpeedID") == 1}
                         delivery_charges={delivery_charges}
+                        shippingAmount={this.props.cartFlow.shippingAmount}
                         taxes={taxes}
                         subTotal={subTotal}
                         grandTotal={grandTotal}
@@ -164,22 +166,22 @@ class CheckOut extends React.Component {
     render() {
         if (this.state.orderPlaced) {
             return (
-<React.Fragment>
-<Container fluid={true}>            
-    <Row className="no-gutters justify-content-lg-between secMinHeight">  
-    <Col lg={6}  className="p-xl-5 p-md-4 py-4 d-flex flex-column align-items-center justify-content-center orderPlaced">                 
-               <span>Order Placed.</span>                           
-               <span className="mt-0">Your Order id is <b class="orderNumber">#{this.state.order_id}</b></span>
-               <div className="mt-5" >
-       
-                   <LoaderButton
-                       onClick={this.trackOrder}
-                       color="primary"
-                       variant="contained"                               
-                       type="submit" className="bottomActionbutton autoWidthbtn transiBtn btn btn-secondary">
-                       <LocationOnOutlinedIcon className="mr-3"/> Your Orders
-                   </LoaderButton>   
-               </div> 
+                <React.Fragment>
+                    <Container fluid={true}>
+                        <Row className="no-gutters justify-content-lg-between secMinHeight">
+                            <Col lg={6} className="p-xl-5 p-md-4 py-4 d-flex flex-column align-items-center justify-content-center orderPlaced">
+                                <span>Order Placed.</span>
+                                <span className="mt-0">Your Order id is <b class="orderNumber">#{this.state.order_id}</b></span>
+                                <div className="mt-5" >
+
+                                    <LoaderButton
+                                        onClick={this.trackOrder}
+                                        color="primary"
+                                        variant="contained"
+                                        type="submit" className="bottomActionbutton autoWidthbtn transiBtn btn btn-secondary">
+                                        <LocationOnOutlinedIcon className="mr-3" /> Your Orders
+                   </LoaderButton>
+                                </div>
                             </Col>
                             <Col lg={5} className="d-none d-lg-block">
                                 <div className="productImgSection">
@@ -205,9 +207,9 @@ class CheckOut extends React.Component {
                                 <LoaderButton
                                     isFetching={
                                         itemRemovedFetching
-                                        ||itemUpdatedFetching
-                                        ||cartIsFetching
-                                        ||this.state.placeOrderLoading
+                                        || itemUpdatedFetching
+                                        || cartIsFetching
+                                        || this.state.placeOrderLoading
                                     }
                                     variant="contained"
                                     color="primary"
@@ -228,7 +230,7 @@ class CheckOut extends React.Component {
             </React.Fragment>
         )
     }
-    
+
 }
 
 

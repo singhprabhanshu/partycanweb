@@ -32,7 +32,7 @@ function genericPostData({ dispatch, reqObj, url, constants, identifier, success
             dispatch(showMessage({}));
             if (successTimeOutCb)
                 successTimeOutCb()
-        }, 1000);
+        }, 10000);
 
     })
         .catch(({err,errCode}) => {

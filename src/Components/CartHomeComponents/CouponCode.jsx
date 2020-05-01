@@ -60,7 +60,6 @@ class CouponCode extends React.Component {
 
 function mapStateToProps(state) {
     let coupon_code = _get(state, "cart.lookUpData[0].coupon_code", "");
-
     return {
         coupon_code
     }
