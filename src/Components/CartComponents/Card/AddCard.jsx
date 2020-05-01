@@ -49,7 +49,7 @@ const ELEMENT_OPTIONS = {
         base: {
             fontSize: '18px',
             width: "300px",
-            color: '#424770',
+            color: '#fff',
             letterSpacing: '0.025em',
             '::placeholder': {
                 color: '#aab7c4',
@@ -305,6 +305,7 @@ const AddCard = (props) => {
                                     onFocus={logEvent('focus')}
                                     onReady={logEvent('ready')}
                                     options={ELEMENT_OPTIONS}
+                                    className="CCCC"
                                 />
                         </div>
                         {errorMessage && <ErrorResult>{errorMessage}</ErrorResult>}
@@ -320,7 +321,7 @@ const AddCard = (props) => {
                         
                         <React.Fragment>
                             <div className="d-flex no-gutters flex-wrap justify-content-between align-items-center">
-                            <h4 className="col-12 col-md-auto ">Billing Address</h4>
+                            <h4 className="col-12 col-md-auto block-title ">Billing Address</h4>
                                 <div className="d-flex justify-content-between align-items-center col-12 col-md-auto">
                                 <InputLabel className="label-txt fs-11 mb-0 ">Same As Shipping Address</InputLabel>
                                 <Switch

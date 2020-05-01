@@ -78,15 +78,15 @@ class Footer extends React.Component {
                 <Container className="container-content-header justify-content-center ">
                         <Row className="w-100 align-items-center justify-content-sm-between justify-content-center ">
                         <Col xs={'auto'} md={'3'} >
-                            <div className="text-center d-flex flex-column footerLink">
-                                    <a href="" className="pb-2">Privacy Policy</a>
-                                    <a href="">Terms & Conditions</a>
+                            <div className="text-left d-flex flex-column footerLink">
+                                    {/* <a href="" className="pb-2">Privacy Policy</a>
+                                    <a href="">Terms & Conditions</a> */}
                             </div>
                             </Col>
                             <Col xs={'auto'} className="d-flex align-items-center justify-content-center">                                
-                                <div className="d-flex flex-column pt-4 pt-xs-0">
-                                <span className="p-2 poweredLine">Powered by<br></br> Three-Tire Solution<br></br> From</span>                   
-                                <span className="cLogo"><img src={cLogo} className="img-responsive"></img></span>
+                                <div className="d-flex align-items-center pt-xs-0">
+                                <span className="mt-3 mr-4 poweredLine">Powered by<br></br> Three-Tire Solution<br></br> From</span>                   
+                                <img src={cLogo} className="img-responsive cLogo"></img>
                                 </div>
                             </Col>
                             <Col xs={'auto'} md={'3'} className="mNone" >
