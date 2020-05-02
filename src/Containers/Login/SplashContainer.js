@@ -11,6 +11,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import ReactDOM from "react-dom";
 import { Loader } from '../../Global/UIComponents/LoaderHoc';
+import { isMobile, isTablet } from 'react-device-detect';
 
 const styles = theme => ({   
 });
@@ -44,7 +45,7 @@ class SplashContainer extends React.Component {
     }
 
     splashBannerSuccess= (data) => {
-        this.setState({ imageData : data, isLoading: false});
+        this.setState({ imageData : isMobile ? data[1] : data[0], isLoading: false});
     }
     splashBannerFetchError = (data) => {
         this.setState({ isLoading: false});
@@ -89,13 +90,15 @@ class SplashContainer extends React.Component {
 
         let renderSlide = this.state.imageData.map((subdata,index) => {
             return(<React.Fragment key={index}>
-                <div className=" d-flex justify-content-center align-items-center h-100 ">
+                <div className={isMobile ? "d-flex justify-content-between flex-column align-items-center h-100" 
+                : " d-flex justify-content-center align-items-center h-100 "}>
                   <img src={subdata.imageurl}  className="img-responsive d-none d-lg-block"  />
                   <img src={subdata.imageurl}  className="img-responsive d-block d-lg-none"  />
                     <p className="legend">{subdata.text}</p>
                 </div>
             </React.Fragment>)
         })
+
         return ( 
             <React.Fragment>
              {this.state.isLoading && <Loader /> }
@@ -107,7 +110,8 @@ class SplashContainer extends React.Component {
                         <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} showArrows={false}
                             selectedItem= {this.state.slideIndex} onChange={this.handleIndicator}
                             >
-                                {renderSlide}
+                                {this.state.imageData.length > 0 && renderSlide}
+                                {/* {isMobile && this.state.imageData.length > 0 &&renderMobileSlide} */}
                             {/* <div className=" d-flex justify-content-between flex-column align-items-center h-100 ">
                             <img src={slide1} className="img-responsive d-none d-lg-block"  />
                             <img src={slide2} className="img-responsive d-block d-lg-none" />

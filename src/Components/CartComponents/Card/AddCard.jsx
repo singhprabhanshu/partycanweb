@@ -75,7 +75,7 @@ const AddCard = (props) => {
     const [postal, setPostal] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState(null);
-    
+
     let billingAddress = {};
     let cardData = {};
     let payload = {};
@@ -86,8 +86,8 @@ const AddCard = (props) => {
         let api_token = localStorage.getItem("Token");
         billingAddress = {
             api_token: api_token,
-            first_name: values.name.split(" ")[0],
-            last_name:  values.name.split(" ")[1],
+            first_name: values.firstName,
+            last_name: values.lastName,
             street1: values.address,
             street2: values.address2,
             city: values.city,
@@ -95,7 +95,7 @@ const AddCard = (props) => {
             zipcode: values.zip,
             nickname: values.addressNickname,
             telephone: values.phone,
-            billing_address: _get(values,'address','') + ' ' + _get(values,'address2',''),
+            billing_address: _get(values, 'address', '') + ' ' + _get(values, 'address2', ''),
             country: "USA"
         };
         if (!stripe || !elements) {
@@ -115,7 +115,7 @@ const AddCard = (props) => {
 
 
         //step 3 create the payment method it will return a payload that is used for charge the client
-          payload = await stripe.createToken(cardElement);
+        payload = await stripe.createToken(cardElement);
 
         if (payload.error) {
             console.log('[error]', payload.error);
@@ -125,38 +125,38 @@ const AddCard = (props) => {
             return;
         } else {
             let card_token = payload.token.id;
-            saveAndContinue({api_token, card_token});
+            saveAndContinue({ api_token, card_token });
 
         }
     };
 
     const saveAndContinue = (reqObj) => {
         genericPostData({
-            dispatch:props.dispatch,
+            dispatch: props.dispatch,
             reqObj: reqObj,
-            url:`api/account/mycards`,
-            constants:{
-            init:"ADD_PAYMENT_CARD_INIT",
-            success:"ADD_PAYMENT_CARD_SUCCESS",
-            error:"ADD_PAYMENT_CARD_ERROR" 
+            url: `api/account/mycards`,
+            constants: {
+                init: "ADD_PAYMENT_CARD_INIT",
+                success: "ADD_PAYMENT_CARD_SUCCESS",
+                error: "ADD_PAYMENT_CARD_ERROR"
             },
-            identifier:"ADD_PAYMENT_CARD",
+            identifier: "ADD_PAYMENT_CARD",
             successCb: addPayementCardSuccess,
             errorCb: addPayementCardError,
-            dontShowMessage: true 
+            dontShowMessage: true
         });
     }
 
     const addPayementCardSuccess = (data) => {
-       if(data.code === 1) {
-        cardData = data;
-        saveBillingInfo(billingAddress)
-       }
-       else{
-        setLoading(false);
-        setErrorMessage("something went wrong while processing card")
-        return;
-       }
+        if (data.code === 1) {
+            cardData = data;
+            saveBillingInfo(billingAddress)
+        }
+        else {
+            setLoading(false);
+            setErrorMessage("something went wrong while processing card")
+            return;
+        }
     }
 
     const addPayementCardError = (data) => {
@@ -167,21 +167,21 @@ const AddCard = (props) => {
         genericPostData({
             dispatch: props.dispatch,
             reqObj: reqObj,
-            url:`connect/customer/addaddress`,
-            constants:{
-            init:"ADD_BILLING_INFO_INIT",
-            success:"ADD_BILLING_INFO_SUCCESS",
-            error:"ADD_BILLING_INFO_ERROR" 
+            url: `connect/customer/addaddress`,
+            constants: {
+                init: "ADD_BILLING_INFO_INIT",
+                success: "ADD_BILLING_INFO_SUCCESS",
+                error: "ADD_BILLING_INFO_ERROR"
             },
-            identifier:"ADD_BILLING_INFO",
+            identifier: "ADD_BILLING_INFO",
             successCb: addBillingInfoSuccess,
             errorCb: addBillingInfoError,
-            dontShowMessage: true 
+            dontShowMessage: true
         });
     }
 
     const addBillingInfoSuccess = (data) => {
-        if(data.code === 1) {
+        if (data.code === 1) {
             setLoading(false);
             props.goBack();
             let paymentMethods = props.paymentMethods;
@@ -204,29 +204,28 @@ const AddCard = (props) => {
             props.handleContinueFromNewCard();
 
             //props.loadCardDataAndBack();
-       }
-       else{
-        setLoading(false);
-        setErrorMessage("something went wrong while saving billing address")
-        return;
-       }
+        }
+        else {
+            setLoading(false);
+            setErrorMessage("something went wrong while saving billing address")
+            return;
+        }
     }
 
     const addBillingInfoError = (data) => {
         console.log('ERROR', data);
     }
-    const sasChange = (val,mutators) => {
+    const sasChange = (val, mutators) => {
         sasFun(val);
-        if(val==false){
+        if (val == false) {
             return;
         }
         let selectedAddress = props.userAddress.find(add => add.address_id == props.cartFlow.selectedAddress);
-        if(selectedAddress)
-        {     
-        let state = stateDropDown.find(s=>s.name==selectedAddress.state);
-        if(state)
-        selectedAddress.state = state.abbreviation;   
-        mutators.setShippingAddress(selectedAddress);
+        if (selectedAddress) {
+            let state = stateDropDown.find(s => s.name == selectedAddress.state);
+            if (state)
+                selectedAddress.state = state.abbreviation;
+            mutators.setShippingAddress(selectedAddress);
         }
     }
     const creditCardDetailsSubmit = () => {
@@ -237,154 +236,161 @@ const AddCard = (props) => {
     }
 
     let content = <React.Fragment>
-        <div className="scrollerwrapper" >        
-        <div className="">
-            <Form onSubmit={handleSubmit} validate={validate}
+        <div className="scrollerwrapper" >
+            <div className="">
+                <Form onSubmit={handleSubmit} validate={validate}
 
-                mutators={{
-                    setShippingAddress: (args, state, utils) => {
+                    mutators={{
+                        setShippingAddress: (args, state, utils) => {
 
-                        utils.changeValue(state, 'addressNickname', () => _get(args[0],"address_nickname"));
-                        utils.changeValue(state, 'city', () => _get(args[0],"city"));
-                        utils.changeValue(state, 'name', () => _get(args[0],"name"));
-                        utils.changeValue(state, 'country', () => _get(args[0],"country"));
-                        utils.changeValue(state, 'state', () => _get(args[0],"state"));
-                        utils.changeValue(state, 'address', () => _get(args[0],"street1"));
-                        utils.changeValue(state, 'address2', () => _get(args[0],"street2"));
-                        utils.changeValue(state, 'phone', () => _get(args[0],"telephone"));
-                        utils.changeValue(state, 'zip', () => _get(args[0],"zipcode"));
-                    }
-                }}
-                
-                render={({ handleSubmit,form }) => (
-                    <ReactStrapFrom id="###creditcardform###" onSubmit={handleSubmit}>
-                    <div className="StripeCard">
-                    <div className="addNewCC no-gutters d-flex flex-wrap">
-                        <div className="col-12 w-100 mb-4">
-                                <label>CARD HOLDER</label>
-                                <input
-                                    id="name"
-                                    style={{ color: "black !important" }}
-                                    required
-                                    placeholder="Jenny Rosen"
-                                    className="cardHolderName"
-                                    value={name}
-                                    onChange={(e) => {
-                                        setName(e.target.value);
-                                    }}
-                                />
-                        </div>
-                        <div className="col-12 w-100 mb-4">
-                                <label htmlFor="cardNumber">CARD NUMBER</label>
-                                <CardNumberElement
-                                    id="cardNumber"
-                                    onBlur={logEvent('blur')}
-                                    onChange={logEvent('change')}
-                                    onFocus={logEvent('focus')}
-                                    onReady={logEvent('ready')}
-                                    options={ELEMENT_OPTIONS}
-                                />
-                        </div>
-                        <div className="col-8 w-100 mb-4">
-                                <label htmlFor="expiry">EXPIRATION DATE</label>
-                                <CardExpiryElement
-                                    id="expiry"
-                                    onBlur={logEvent('blur')}
-                                    onChange={logEvent('change')}
-                                    onFocus={logEvent('focus')}
-                                    onReady={logEvent('ready')}
-                                    options={ELEMENT_OPTIONS}
-                                />
-                        </div>
-                        <div className="col-4  pl-5 w-100 mb-4">
-                                <label htmlFor="cvc">CVC</label>
-                                <CardCvcElement
-                                    id="cvc"
-                                    onBlur={logEvent('blur')}
-                                    onChange={logEvent('change')}
-                                    onFocus={logEvent('focus')}
-                                    onReady={logEvent('ready')}
-                                    options={ELEMENT_OPTIONS}
-                                    className="CCCC"
-                                />
-                        </div>
-                        {errorMessage && <ErrorResult>{errorMessage}</ErrorResult>}
-                        {paymentMethod && <Result>Got PaymentMethod: {paymentMethod.id}</Result>}
-                        {/* <div className="block-title d-flex justify-content-between align-items-center mb-4">
+                            utils.changeValue(state, 'addressNickname', () => _get(args[0], "address_nickname"));
+                            utils.changeValue(state, 'city', () => _get(args[0], "city"));
+                            utils.changeValue(state, 'firstName', () => _get(args[0], "name").split(" ")[0]);
+                            utils.changeValue(state, 'lastName', () => _get(args[0], "name").split(" ")[1]);
+                            utils.changeValue(state, 'country', () => _get(args[0], "country"));
+                            utils.changeValue(state, 'state', () => _get(args[0], "state"));
+                            utils.changeValue(state, 'address', () => _get(args[0], "street1"));
+                            utils.changeValue(state, 'address2', () => _get(args[0], "street2"));
+                            utils.changeValue(state, 'phone', () => _get(args[0], "telephone"));
+                            utils.changeValue(state, 'zip', () => _get(args[0], "zipcode"));
+                        }
+                    }}
+
+                    render={({ handleSubmit, form }) => (
+                        <ReactStrapFrom id="###creditcardform###" onSubmit={handleSubmit}>
+                            <div className="StripeCard">
+                                <div className="addNewCC no-gutters d-flex flex-wrap">
+                                    <div className="col-12 w-100 mb-4">
+                                        <label>CARD HOLDER</label>
+                                        <input
+                                            id="name"
+                                            style={{ color: "black !important" }}
+                                            required
+                                            placeholder="Jenny Rosen"
+                                            className="cardHolderName"
+                                            value={name}
+                                            onChange={(e) => {
+                                                setName(e.target.value);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="col-12 w-100 mb-4">
+                                        <label htmlFor="cardNumber">CARD NUMBER</label>
+                                        <CardNumberElement
+                                            id="cardNumber"
+                                            onBlur={logEvent('blur')}
+                                            onChange={logEvent('change')}
+                                            onFocus={logEvent('focus')}
+                                            onReady={logEvent('ready')}
+                                            options={ELEMENT_OPTIONS}
+                                        />
+                                    </div>
+                                    <div className="col-8 w-100 mb-4">
+                                        <label htmlFor="expiry">EXPIRATION DATE</label>
+                                        <CardExpiryElement
+                                            id="expiry"
+                                            onBlur={logEvent('blur')}
+                                            onChange={logEvent('change')}
+                                            onFocus={logEvent('focus')}
+                                            onReady={logEvent('ready')}
+                                            options={ELEMENT_OPTIONS}
+                                        />
+                                    </div>
+                                    <div className="col-4  pl-5 w-100 mb-4">
+                                        <label htmlFor="cvc">CVC</label>
+                                        <CardCvcElement
+                                            id="cvc"
+                                            onBlur={logEvent('blur')}
+                                            onChange={logEvent('change')}
+                                            onFocus={logEvent('focus')}
+                                            onReady={logEvent('ready')}
+                                            options={ELEMENT_OPTIONS}
+                                            className="CCCC"
+                                        />
+                                    </div>
+                                    {errorMessage && <ErrorResult>{errorMessage}</ErrorResult>}
+                                    {paymentMethod && <Result>Got PaymentMethod: {paymentMethod.id}</Result>}
+                                    {/* <div className="block-title d-flex justify-content-between align-items-center mb-4">
                             <span className="d-flex align-items-center">
                                 <Field name="defaultAddress" component={SwitchInputField} label='Same as Billing Address' />
                             </span>
                         </div> */}
-                        </div>
+                                </div>
 
-                        </div>
-                        
-                        <React.Fragment>
-                            <div className="d-flex no-gutters flex-wrap justify-content-between align-items-center">
-                            <h4 className="col-12 col-md-auto block-title ">Billing Address</h4>
-                                <div className="d-flex justify-content-between align-items-center col-12 col-md-auto">
-                                <InputLabel className="label-txt fs-11 mb-0 ">Same As Shipping Address</InputLabel>
-                                <Switch
-                                    color="primary"
-                                    checked={sas}
-                                    onClick={() => sasChange(!sas,form.mutators)}
-                                    className="custom-switch"
-                                />
+                            </div>
+
+                            <React.Fragment>
+                                <div className="d-flex no-gutters flex-wrap justify-content-between align-items-center">
+                                    <h4 className="col-12 col-md-auto block-title ">Billing Address</h4>
+                                    <div className="d-flex justify-content-between align-items-center col-12 col-md-auto">
+                                        <InputLabel className="label-txt fs-11 mb-0 ">Same As Shipping Address</InputLabel>
+                                        <Switch
+                                            color="primary"
+                                            checked={sas}
+                                            onClick={() => sasChange(!sas, form.mutators)}
+                                            className="custom-switch"
+                                        />
+                                    </div>
+                                </div>
+                            </React.Fragment>
+                            <div className="d-flex mt-4">
+                                <div style={{ width: '50%', paddingRight: 50 }}>
+                                    <Field name="firstName" component={TextInputField} placeholder='First Name'
+                                        autoFocus={false} type='text' />
+                                </div>
+                                <div style={{ width: '50%', paddingRight: 50 }}>
+                                    <Field name="lastName" component={TextInputField} placeholder='Last Name'
+                                        autoFocus={false} type='text' />
                                 </div>
                             </div>
-                        </React.Fragment>
-                        <div className="d-flex mt-4">
-                                <div style={{ width: '50%', paddingRight: 50 }}>
-                                    <Field name="name" component={TextInputField} placeholder='Name'
-                                        autoFocus={false} type='text' />  
-                                </div>
-                                <div style={{ width: '50%' }}>
+                            <div className="mt-4">
+                                <div>
                                     <Field name="address" component={TextInputField} placeholder='ADDRESS'
                                         autoFocus={false} type='text' />
                                 </div>
-                        </div>
-                      
-                        <div className="mt-4">
-                            <Field name="address2" component={TextInputField} placeholder='ADDRESS 2'
-                                autoFocus={false} type='text' />
-                        </div>
-                        <div className="mt-4">
-                            <Field name="city" component={TextInputField} placeholder='CITY'
-                                autoFocus={false} type='text' />
-                          
-                        </div>
-                        <div className="d-flex mt-4">
-                            {/* <Field name="state" component={TextInputField} placeholder='STATE'
+                            </div>
+
+                            {/* <div className="mt-4">
+                                <Field name="address2" component={TextInputField} placeholder='ADDRESS 2'
+                                    autoFocus={false} type='text' />
+                            </div> */}
+                            <div className="mt-4">
+                                <Field name="city" component={TextInputField} placeholder='CITY'
+                                    autoFocus={false} type='text' />
+
+                            </div>
+                            <div className="d-flex mt-4">
+                                {/* <Field name="state" component={TextInputField} placeholder='STATE'
                                     autoFocus={false} type='text' />
                                     <Field name="zip" component={TextInputField} placeholder='ZIP'
                                     autoFocus={false} type='text' />         */}
-                            <div style={{ width: '55%', paddingRight: 50 }}>
-                                <Field name="state" component={RFReactSelect} placeholder='STATE'
-                                   search={true} autoFocus={false} type='text' options={options} />
-                              
+                                <div style={{ width: '55%', paddingRight: 50 }}>
+                                    <Field name="state" component={RFReactSelect} placeholder='STATE'
+                                        search={true} autoFocus={false} type='text' options={options} />
+
+
+                                </div>
+                                <div style={{ width: '45%' }}>
+                                    <Field name="zip" component={TextInputField} placeholder='ZIP'
+                                        autoFocus={false} type='text' />
+
+
+                                </div>
 
                             </div>
-                            <div style={{ width: '45%' }}>
-                                <Field name="zip" component={TextInputField} placeholder='ZIP'
+                            <div className="mt-4">
+                                <Field name="addressNickname" component={TextInputField} placeholder='ADDRESS NICKNAME'
                                     autoFocus={false} type='text' />
-                              
+
 
                             </div>
+                            <div className="mt-4">
+                                <Field name="phone" component={TextInputField} placeholder='PHONE'
+                                    autoFocus={false} type='text' />
 
-                        </div>
-                        <div className="mt-4">
-                            <Field name="addressNickname" component={TextInputField} placeholder='ADDRESS NICKNAME'
-                                autoFocus={false} type='text' />
-                           
 
-                        </div>
-                        <div className="mt-4">
-                            <Field name="phone" component={TextInputField} placeholder='PHONE'
-                                autoFocus={false} type='text' />
-                           
-
-                        </div>
-                        {/* <h3>Contact For Order Confirmation</h3>
+                            </div>
+                            {/* <h3>Contact For Order Confirmation</h3>
                         <div className="mt-4">
                             <Field name="email" component={TextInputField} placeholder='EMAIL'
                                 autoFocus={false} type='text' />
@@ -396,10 +402,10 @@ const AddCard = (props) => {
                                 autoFocus={false} type='text' />
 
                         </div> */}
-                    </ReactStrapFrom>)}
-            />
+                        </ReactStrapFrom>)}
+                />
+            </div>
         </div>
-    </div>
     </React.Fragment>
     let commonContent = null;
     if (isMobile || isTablet) {
@@ -411,8 +417,8 @@ const AddCard = (props) => {
 
     return (
         <>
-         <div onClick={() => props.goBack()} className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{ fontSize: 13, marginRight: 10 }} />CARDS</div>
-        <div className="block-title mb-5">Add New Card</div>
+            <div onClick={() => props.goBack()} className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{ fontSize: 13, marginRight: 10 }} />CARDS</div>
+            <div className="block-title mb-5">Add New Card</div>
             {commonContent}
             <div className="text-left mt-4" >
                 <Button

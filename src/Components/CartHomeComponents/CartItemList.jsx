@@ -146,9 +146,9 @@ callUpdateQuantityApi=(item,newQty)=>{
                                     <div className="additems">
                                         <div className="d-block d-sm-none itemName">{item.name}</div>
                                         <div className="d-flex align-items-center justify-content-between addQty ">
-                                            <span onClick={() => this.updateQty(item, -1, key)} style={{ cursor: "pointer" }}><RemoveOutlinedIcon style={{ fontSize: 15 }} /></span>
+                                        {!this.props.isCheckOut?<span onClick={() => this.updateQty(item, -1, key)} style={{ cursor: "pointer" }}><RemoveOutlinedIcon style={{ fontSize: 15 }} /></span>:null}
                                             <span class="Qty">{`   ${item.qty}   `}</span>
-                                            <span onClick={() => this.updateQty(item, +1, key)} style={{ cursor: "pointer" }} ><AddOutlinedIcon style={{ fontSize: 15 }} /></span>
+                                           {!this.props.isCheckOut?<span onClick={() => this.updateQty(item, +1, key)} style={{ cursor: "pointer" }} ><AddOutlinedIcon style={{ fontSize: 15 }} /></span>:null}
                                         </div>
                                         {this.props.cartIsFetching ? <span>Loading</span> : <span className="cartItemPrice">{item.row_total}</span>}
                                     </div>
@@ -157,10 +157,10 @@ callUpdateQuantityApi=(item,newQty)=>{
                                     </div>
 
                                 </div>
-                                <div className="col-auto ml-3 text-center d-none d-sm-block remove-cart-icon" onClick={() => this.handleCartRemoveItem(item)}>
+                               {!this.props.isCheckOut? <div className="col-auto ml-3 text-center d-none d-sm-block remove-cart-icon" onClick={() => this.handleCartRemoveItem(item)}>
                                     <div className="mb-2"><CloseOutlinedIcon style={{ fontSize: 25 }} /> </div>
                                     <div>Remove</div>
-                                </div>
+                                </div>:null}
                             </div>
                         </Col>
                     </Row>
