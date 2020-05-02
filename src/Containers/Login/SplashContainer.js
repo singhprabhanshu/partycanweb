@@ -8,7 +8,7 @@ import {map, set} from 'lodash';
 import genericGetData from '../../Redux/Actions/genericGetData';
 import {Container, Row, Col} from 'reactstrap'
 import slide1 from '../../assets/images/HOMEPAGE1.png'
-import slide2 from '../../assets/images/homepage-xs.png'
+import slide2 from '../../assets/images/homepage1-xs.png'
 import slide3 from '../../assets/images/HOMEPAGE3.png'
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -93,7 +93,7 @@ class SplashContainer extends React.Component {
 
         let renderSlide = this.state.imageData.map((subdata,index) => {
             return(<React.Fragment key={index}>
-                <div className=" d-flex justify-content-between flex-column align-items-center h-100 ">
+                <div className=" d-flex justify-content-center align-items-start h-100 ">
                   <img src={slide1} className="img-responsive" />
                     <p className="legend">{subdata.text}</p>
                 </div>
@@ -106,12 +106,12 @@ class SplashContainer extends React.Component {
                      <CssBaseline />
                 <Container className="d-flex flex-column justify-content-center">
                 <Row className="flex-grow-1">
-                      <Col className="text-center d-flex justify-content-center IntroSlider  align-items-center position-relative" >
+                      <Col className="text-center d-flex justify-content-center IntroSlider  align-items-cnter position-relative" >
                         <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} showArrows={false}
                             selectedItem= {this.state.slideIndex} onChange={this.handleIndicator}
                             >
                                 {/* {renderSlide} */}
-                            <div className=" d-flex justify-content-between flex-column align-items-center h-100 ">
+                            <div className=" d-flex justify-content-center align-items-center h-100 ">
                             <img src={slide1} className="img-responsive d-none d-lg-block"  />
                             <img src={slide2} className="img-responsive d-block d-lg-none" />
                                 <p className="legend">THE PARTY CAN BRING CRAFT COCKTAIL GOODNESS TO YOUR GLASS IN SECONDS!</p>

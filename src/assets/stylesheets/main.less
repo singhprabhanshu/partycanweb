@@ -180,15 +180,16 @@ button:focus {
     right:0;
     padding: 0;
   }
-  .carousel.carousel-slider{
-    // height: 70vh;
-  }
+  .carousel-root {
+    outline: none;
+    height: 100%;
+}
   .carousel .slide .legend{
     left:0!important;
     right: 0!important; 
-    margin: unset!important;
-    position: relative!important;
-    bottom:0rem;
+    margin: auto!important;
+    position: absolute!important;
+    bottom:3rem;
     opacity: 1!important;
     max-width: 70%;
     line-height: 2.2rem;   
@@ -204,9 +205,9 @@ button:focus {
   }
 
   .carousel .slide img{
-    // max-width: 40%;
-    @media (max-width: 1366px){
-      max-width: 90%;
+   margin-bottom: 8rem;
+    @media (max-width: 1366px) and (min-width: 992px){
+      max-width: 70%;
     } 
     @media (max-width: 991px){
       max-width: 80%;      
@@ -239,6 +240,7 @@ button:focus {
   border-bottom-right-radius: 2rem;
   display: flex; 
   min-height: calc( 100vh - 230px);
+  max-height: calc( 100vh - 230px);
   @media (max-width:767px){
     min-height: calc( 100vh - 120px);
     margin: 0 -7%;
