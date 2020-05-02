@@ -51,7 +51,7 @@ import ProductDetails from './Components/ProductComponents/ProductDetails';
 import PartyLocatorContainer from './Containers/PartyLocator/PartyLocatorContainer';
 import SearchProductsContainer from './Containers/Products/SearchProductsContainer';
 import GuestRegisterContainer from './Containers/GuestRegister/GuestRegisterContainer';
-
+import PrivacyPolicyContainer from './Containers/TermsPolicy/PrivacyPolicyContainer';
 // commented temporarly
 
 // import socketIOClient from "socket.io-client";
@@ -125,7 +125,7 @@ ReactDOM.render(
                 <RouteWithLayout Layout={MainLayout} exact path="/party/locator" Component={PartyLocatorContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/search" Component={SearchProductsContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/guest/register" Component={GuestRegisterContainer} />
-
+                <RouteWithLayout Layout={MainLayout} exact path="/privacyPolicy" Component={PrivacyPolicyContainer} />
               </Switch>
             </Router>
             </PersistGate>
