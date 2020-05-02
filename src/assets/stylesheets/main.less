@@ -72,7 +72,7 @@ html {
 body {
   font-family: 'Gibson-Regular', sans-serif !important;
   margin: 0;
-  font-size: 1.4rem !important;
+  font-size: 1.6rem !important;
   color: #fff !important;
   // overflow: hidden;
   min-height: 100vh;
@@ -89,7 +89,8 @@ input,
 textarea,
 select form {
   font-family: 'Gibson-Regular', sans-serif !important;
-  font-size: 1.4rem !important;
+  font-size: 1.6rem !important;
+  text-transform: unset!important;
   color: rgba(255, 255, 255, .8) !important;
   &:focus{
     outline: none!important;
@@ -97,6 +98,7 @@ select form {
     outline-offset: none!important;
   }
 }
+
 
 .MuiInput-underline:before {
   border-bottom: 1px solid rgba(255, 255, 255, .8) !important;
@@ -136,7 +138,7 @@ button:focus {
 }
 
 .container-content-section {
-  min-height: calc( 100vh - 12rem);
+  min-height: calc( 100vh - 16rem);
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -170,7 +172,7 @@ button:focus {
   .carousel .slide, .carousel .slide .legend{
     background-color: transparent!important;
   }
-  .carousel.carousel-slider, .carousel, .carousel .slide, .carousel .slider, .carousel .slider-wrapper{
+  .carousel.carousel-slider, .carousel, .carousel .slider, .carousel .slider-wrapper{
     position: unset!important;
     height: 100%;
   }
@@ -178,30 +180,37 @@ button:focus {
     right:0;
     padding: 0;
   }
-  .carousel.carousel-slider{
-    height: 70vh;
-  }
+  .carousel-root {
+    outline: none;
+    height: 100%;
+}
   .carousel .slide .legend{
     left:0!important;
     right: 0!important; 
-    margin: unset!important;
-    position: relative!important;
+    margin: auto!important;
+    position: absolute!important;
     bottom:3rem;
     opacity: 1!important;
     max-width: 70%;
-    line-height: 2.2rem;
+    line-height: 2.2rem;   
+    font-size: 1.5rem!important;
+    text-transform: uppercase;
     @media (max-width: 767px){
       max-width: 90%;
     } 
+    @media (max-width: 991px){   
+      bottom:2rem;
+      font-size: 1.2rem!important;      
+    }
   }
 
   .carousel .slide img{
-    max-width: 40%;
-    @media (max-width: 1440px){
-      max-width: 30%;
+   margin-bottom: 8rem;
+    @media (max-width: 1366px) and (min-width: 992px){
+      max-width: 55%;
     } 
     @media (max-width: 991px){
-      max-width: 80%;
+      max-width: 80%;      
     }
   }
 }
@@ -230,10 +239,12 @@ button:focus {
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
   display: flex; 
-  min-height: calc( 100vh - 190px);
+  min-height: calc( 100vh - 230px);
+  max-height: calc( 100vh - 230px);
   @media (max-width:767px){
     min-height: calc( 100vh - 120px);
     margin: 0 -7%;
+    max-height: unset;
   }
 
 }
@@ -432,13 +443,38 @@ button:focus {
 }
 
 .footerLayout{
-  background-color: rgba(255, 255, 255, .1);  
+  background-color: rgba(254, 68, 47, .1); 
   font-size: 1rem;
-  border-top-left-radius: 2rem;
-  border-top-right-radius: 2rem;
+  // border-top-left-radius: 2rem;
+  // border-top-right-radius: 2rem;
   color:rgba(255, 255, 255, .6);
   text-align: center;
-  min-height: 5rem;
+  min-height: 9rem;
+}
+.footerLink a{
+  color: #fff;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+}
+.footerLink a:hover{
+  color: #000; 
+  text-decoration: none;
+}
+
+
+img.cLogo{
+  max-width:9rem;
+}
+
+.poweredLine{
+  font-size: 1.3rem; 
+  text-transform: uppercase;
+  color: #fff;
+  text-align: right;
+}
+
+@media (max-width:767px){
+  .mNone{display: none;}
 }
 
 ///////Product page css
@@ -530,8 +566,8 @@ button:focus {
   }
 
     span{
-      margin-bottom: 2px;
-      font-size: 13px;
+      margin:3px 0;
+      font-size: 14px;
       padding-left: 2.5rem;
       position: relative;
       line-height: 23px;
@@ -666,7 +702,15 @@ button:focus {
 
 .proDescription{
   font-size: 1.3rem;
-  color:rgba(255, 255, 255, .6)
+  color:rgba(255, 255, 255, .6);
+  ul{
+    margin:0;
+    padding:0;
+    li{
+      list-style:none;
+      padding-bottom:5px;
+    }
+  }
 }
 
 .proItems{
@@ -810,11 +854,28 @@ button:focus {
 /////////////////////////your order
 .MuiExpansionPanelSummary-root{padding: 0!important;}
 .MuiExpansionPanelDetails-root{padding: 8px 0px!important;}
-.MuiExpansionPanel-root.Mui-expanded{border-radius: 8px; padding: 0px 25px 22px;
+.MuiButtonBase-root.Mui-expanded{border-radius: 8px; padding: 0px 25px 22px;  
   @media(max-width:767px){
-    padding: 0px 15px 15px;
+    padding: 5px 15px !important;
   }
 }
+.MuiExpansionPanelSummary-root.Mui-expanded{
+  @media(max-width:767px){
+    padding: 5px 0 !important;
+  }
+}
+.MuiExpansionPanelSummary-content.Mui-expanded{
+  .title{
+    color: rgba(0, 191, 178, 1)!important;
+  }
+}
+.MuiExpansionPanel-root{
+  @media(max-width:767px){
+    padding: 5px 15px !important;
+  }
+}
+
+
 .MuiExpansionPanelSummary-content{margin: 12px 0px!important;}
 .pricingWrapper{ width: 30%; display: flex; justify-content: space-between; align-items: center;
   @media(max-width:767px){
@@ -872,15 +933,15 @@ span.MuiButton-label {
 ////////////////////////////// Address section
 
 .secMinHeight{
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 22rem);
   
 }
 .secMinHeightwt{
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 16rem);
 }
 
 .leftSecmaxHeight{
-  max-height: calc(100vh - 240px);
+  max-height: calc(100vh - 24rem);
   overflow-y: auto;
   width: 100%;
   
@@ -1022,24 +1083,28 @@ span.MuiButton-label {
   
     &.speedCardscontainer{
       width: 33%;  
+      color:rgba(0, 0, 0, 0.4)!important;  
       @media(max-width:767px){
         width: 50%;    
       }
     }
     &.shippingCardscontainer{
-      width: 25%; 
+      width: 33%; 
+      color:rgba(0, 0, 0, 0.4)!important;  
       @media(max-width:767px){
         width: 50%;    
       } 
     }
     &.retailerCardscontainer{
-      width: 25%; 
+      width: 33%; 
+      color:rgba(0, 0, 0, 0.4)!important;  
       @media(max-width:767px){
         width: 50%;    
       }  
     }
     &.dateTimerCardscontainer{
       width: 20%; 
+      color:rgba(0, 0, 0, 0.4)!important;  
       @media(max-width:767px){
         width: 33%;    
       }  
@@ -1067,7 +1132,8 @@ span.MuiButton-label {
     &.paymentcardContainer{
       width: 40%; 
       min-width: 25rem;
-      flex-wrap: wrap;  
+      min-height: 14rem;
+      flex-wrap: wrap;        
       @media(max-width:767px){
         width: 100%;    
       }  
@@ -1114,56 +1180,161 @@ span.MuiButton-label {
         min-height: 15rem;   
         justify-content: flex-start!important;
         align-items:flex-start!important; 
+        &:hover{
+          color:#00BFB2;
+        }
+        &.active{
+          color:#00BFB2;
+        }
+      }
+
+      &.paymentcard {
+        min-height: 14rem;   
+        justify-content: flex-start!important;
+        align-items:flex-start!important; 
+
+        &.addnewcard {  
+          min-height: 14rem; 
+          border-radius: .5rem!important;
+          justify-content: center!important;
+          align-items:center!important; 
+        }  
+        &:hover{
+          color:#00BFB2;
+        }
+        &.active{
+          color:#00BFB2;
+        }
       }
 
       &.addAddressCards{   
-        min-height: 15rem;    
+        min-height: 15rem;  
+        &:hover{
+          color:#00BFB2;
+        }  
       }
 
       &.addnewcard {   
         min-height: 18rem;
-        border-radius: 14.5px!important;   
+        border-radius: 14.5px!important;  
+        &:hover{
+          color:#00BFB2;
+        } 
       }  
 
       &.userPreferenceSetting, &.userInfoSettingCards{       
         min-height: 10rem;   
         justify-content: flex-start;
-        cursor: default!important;      
+        cursor: default!important;    
+        &:hover{
+          color:#00BFB2;
+        }    
       }  
 
+      .title{
+        font-family: 'Tungsten-Bold';
+        font-size: 2.5rem;
+        letter-spacing: .2rem;
+        margin-bottom: 10px;
+      }  
+      
+      .cardTitle{
+        font-size:1.8rem;
+        color:#0032A0;      
+      }    
+  
+      .inner-content{
+        color:rgba(0, 0, 0, .6);
+        font-size: 1.0rem;
+        font-weight: bold;
+      }
      
-
-    &.active{
-      color:@color-l!important;
-      background-color: rgba(255, 255, 255, 1)!important;
-      opacity: 1; 
-    }
-
-    .title{
-      font-family: 'Tungsten-Bold';
-      font-size: 3rem;
-      letter-spacing: .2rem;
-    }   
+  
+      .cardPrice{
+        color:rgba(0, 0, 0, 0.4);
+        font-family: 'Tungsten-semibold';
+        font-size: 3rem;
+        letter-spacing: .4rem;
+      }
+  
+      .retailerTitle {  
+        font-size: 1.2rem;
+        font-family: 'Gibson-Regular';
+        text-align: center;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.6);
+        text-transform: uppercase;
+      }
+  
+      .cardAddress{
+        font-size: 14px;
+        font-family: 'Gibson-Regular';
+        color: rgba(0, 0, 0, 0.6);
+        text-align: center;
+      }
+  
+      .storeDistance{
+        font-size: 1.1rem;
+        font-family: 'Gibson-Regular';
+        text-align: center;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.6);
+      }
+  
+      .shippingCardTitle{
+        font-size:1.7rem ;
+        font-variant: all-small-caps;
+        font-weight: bold;
+      }
+      
+      &.active{     
+        background-color: rgba(255, 255, 255, 1)!important;
+        opacity: 1; 
+        .cardTitle{    
+          color:#00BFB2;       
+        }
+        .cardPrice{
+          color:#00BFB2;
+        }
+      }   
+      
+      
+  
+      &:hover{      
+        background-color: rgba(255, 255, 255, 1)!important;
+        opacity: 1; 
+        .cardPrice{
+          color:#00BFB2;
+        }
+        .cardTitle{    
+          color:#00BFB2;       
+        }
+      }
+  
+      &.disable{     
+        background-color: rgba(255, 255, 255, .3)!important;
+        opacity: .6; 
+        cursor: not-allowed;
+        pointer-events: none;  
+        .cardTitle{       
+          color:#0032A0;      
+        }
+  
+  
+      }
 
   }
-    &:hover .cardStyles{
-      color:@color-l!important;
-      background-color: rgba(255, 255, 255, 1)!important;
-      opacity: 1; 
-    }
 
-    &:hover .cardStyles.disable{
-      color:#fff!important;
-      background-color: rgba(255, 255, 255, .3)!important;
-      opacity: .6; 
-      cursor: not-allowed;
-      pointer-events: none;  
-    }
+    
+
+  
+
+   
    
   }
 }
 ////////////////retailer card
-.retailerTitle {  font-size: 1.8rem; font-weight: bold; text-align: center; }
+
 .ccCardsList {
   margin: 1rem;
   opacity: .3;
@@ -1385,6 +1556,8 @@ img{
 }
 }
 
+
+
 .addNewCC{
   width: 70%;
   background: rgba(255, 255,255, .2);
@@ -1395,6 +1568,9 @@ img{
     width: 100%;
     padding: 2rem;
   }
+
+  
+  
  input.cardHolderName, .StripeElement, .StripeElementIdeal, .StripeElementFpx
   {
     background: transparent!important;
@@ -1403,6 +1579,7 @@ img{
     margin-bottom: 0!important;
     color: #fff!important;
     box-shadow: none!important;
+    text-transform: uppercase;
   }
   &:focus{
     outline: none!important;
@@ -1410,8 +1587,37 @@ img{
     outline-offset: none!important;
   }
 }
+.ElementsApp, .ElementsApp, .InputElement, .InputElement.is-invalid
+{
+  color: #fff!important;
+}
+
+.MuiInputBase-input
+{
+  text-transform: uppercase;
+}
 
 /////////////// Setting page Design
+
+.orderSummary{
+  .MuiExpansionPanel-root{
+    background-color:rgba(255, 255, 255, 0.4);
+    transition: ease all .3s;
+    &.Mui-expanded{
+      background-color: #fff!important;
+    }
+    .title{
+      color:#fff;
+    }
+    &:hover{
+      background-color:rgba(255, 255, 255, 1);
+      .title{
+        color: rgb(0, 191, 178);
+      }
+      
+    }
+  }
+}
 
 .userpayment-setting {
   width: 100%;
@@ -1522,9 +1728,6 @@ img{
 *:after {
   box-sizing: border-box;
 }
-
-
-
 
 
 label {

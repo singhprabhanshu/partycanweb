@@ -7,6 +7,7 @@ import { get as _get, isEmpty as _isEmpty } from "lodash";
 import {commonActionCreater} from "../../Redux/Actions/commonAction";
 import genericPostData from "../../Redux/Actions/genericPostData";
 import {logoutActionCreator} from '../../Redux/Actions/logoutAction';
+import cLogo from '../../../src/assets/images/cocktail-courier-logo.png';
 const styles = theme => ({
    
 });
@@ -73,12 +74,23 @@ class Footer extends React.Component {
         const { classes, isLoginAndSignupScreen } = this.props;
         return (
             <React.Fragment>
-                <Container fluid={true}  className="footerLayout d-flex align-items-center">              
-                <Container className="container-content-header justify-content-center">
-                        <Row>
-                            <Col className="d-flex flex-column">
-                                <span className="pb-2">&copy; to PartyCan</span>                     
-                                <span>HandCrafted with <i className="fa fa-heart"></i> By PartCan Team</span>
+                <Container fluid={true}  className="footerLayout d-flex align-items-center p-3">              
+                <Container className="container-content-header justify-content-center ">
+                        <Row className="w-100 align-items-center justify-content-sm-between justify-content-center ">
+                        <Col xs={'auto'} md={'3'} className="mNone">
+                            <div className="text-left d-flex flex-column footerLink">
+                                    {/* <a href="" className="pb-2">Privacy Policy</a>
+                                    <a href="">Terms & Conditions</a> */}
+                            </div>
+                            </Col>
+                            <Col xs={'auto'} className="d-flex align-items-center justify-content-center">                                
+                                <div className="d-flex align-items-center pt-xs-0">
+                                <span className="mt-3 mr-4 poweredLine">Powered by<br></br> Three-Tire Solution<br></br> From</span>                   
+                                <img src={cLogo} className="img-responsive cLogo"></img>
+                                </div>
+                            </Col>
+                            <Col xs={'auto'} md={'3'} className="mNone" >
+                           
                             </Col>
                         </Row>
                     </Container>
@@ -89,8 +101,8 @@ class Footer extends React.Component {
                         <Row className="justify-content-between align-items-center flex-grow-1 no-gutters">
                             <Col  className="justify-content-around align-items-center d-flex">                                
                                 <Button onClick={() => this.props.history.push("/category/Cans")} className="homeIcons icons"></Button>
-                                <Button className="locationIcons icons "></Button>                            
-                                <Button onClick={this.handleAddProductToCart} className="addCircleIcon icons">+</Button>
+                                {/* <Button className="locationIcons icons "></Button>                            
+                                <Button onClick={this.handleAddProductToCart} className="addCircleIcon icons">+</Button> */}
                                 <Badge badgeContent={this.props.total_items_count} color="primary">
                                     <Button onClick={() => this.props.history.push("/cart")} className="cartIcons icons"></Button>
                                 </Badge>
@@ -102,9 +114,9 @@ class Footer extends React.Component {
                                         {this.props.userName && 
                                         <span className="settings" onClick={() =>this.handleSettingClick()}>Settings</span>}
                                         {!this.props.userName && 
-                                            <span className="settings" onClick={() =>this.handleSignInClick()}>Sign In</span>}
+                                            <span className="signIn" onClick={() =>this.handleSignInClick()}>Sign In</span>}
                                         {!this.props.userName && 
-                                            <span className="settings" onClick={() =>this.handleCreateAccountClick()}>Create Account</span>}
+                                            <span className="addAccount" onClick={() =>this.handleCreateAccountClick()}>Create Account</span>}
                                         {this.props.userName && 
                                         <span className="logOut" onClick={()=>this.handleLogout()}>Logout</span> }
                                      </div>

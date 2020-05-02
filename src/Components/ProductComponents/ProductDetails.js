@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
+import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 import ClearOutlined from '@material-ui/icons/ClearOutlined';
 import AddOutlined from '@material-ui/icons/AddOutlined'
 import ExpandMoreOutlined from '@material-ui/icons/ExpandMoreOutlined'
@@ -245,7 +245,7 @@ class ProductDetails extends React.Component {
         this.props.history.push(`/category/${categoryName}`)
     }
 
-    renderContent = (averageRating, reviewsList, productDetailsData, Ingredients) => {
+    renderContent = (averageRating, reviewsList, productDetailsData, Ingredients, descriptionContent) => {
         let commonContent = <>
             <div className="scrollerwrapper" >
                 <Row className="mb-5 flex-column flex-md-row justify-content-md-between no-gutters" >
@@ -267,7 +267,7 @@ class ProductDetails extends React.Component {
                             <ArrowBackIcon onClick={this.handleBackAction} className="mr-4 d-none d-lg-block" style={{ fontSize: '20px', color: 'rgba(255, 255, 255, .6)' }} />  {_get(productDetailsData, "name", "")}
                         </div>
                         <div className="proDescription"  >
-                            {_get(productDetailsData, "description", "")}
+                           <ul>{descriptionContent}</ul> 
                         </div>
                     </Col>
 
@@ -297,9 +297,9 @@ class ProductDetails extends React.Component {
                         <Col className="d-flex flex-column mb-5" xs={6} sm={4} xl={3}>
                             <span className="smallTitle">AMOUNT</span>
                             <div className="addQty">
-                                <span><ClearOutlined onClick={() => this.handleQuantity("less")} /></span>
+                                <span onClick={() => this.handleQuantity("less")} ><RemoveOutlinedIcon  /></span>
                                 <span className="qty">{this.state.defaultQuantity}</span>
-                                <span><AddOutlined style={{ fontSize: "15px" }} onClick={() => this.handleQuantity("add")} /></span>
+                                <span onClick={() => this.handleQuantity("add")} ><AddOutlined style={{ fontSize: "15px" }} /></span>
                             </div>
                         </Col>
                         <Col className="d-flex  flex-column mb-4" xs={6} sm={4} xl={4}>
@@ -373,6 +373,20 @@ class ProductDetails extends React.Component {
                 </div>
             )
         })
+
+        let decriptionArray = [];
+        let descriptionSplit = _get(productDetailsData, "description", "").split('\r\n');
+        !_isEmpty(descriptionSplit) && descriptionSplit.map((review, index) => { 
+            if(review !== null && review !== undefined && review !== "") {
+                decriptionArray.push(review);
+            }
+        })
+
+        let descriptionContent = decriptionArray.map((data, index) => (<React.Fragment>            
+                <li>{data}</li>          
+        </React.Fragment>));
+
+
         return (
 
             <React.Fragment>
@@ -394,7 +408,7 @@ class ProductDetails extends React.Component {
                             </Col>
 
                             <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 order-2  d-flex order-lg-1 ">
-                                {this.renderContent(averageRating, reviewsList, productDetailsData, Ingredients)}
+                                {this.renderContent(averageRating, reviewsList, productDetailsData, Ingredients, descriptionContent)}
                             </Col>
                         </Row>}
                 </Container>

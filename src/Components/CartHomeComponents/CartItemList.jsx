@@ -26,6 +26,12 @@ class CartItemList extends React.Component {
     sb = (data) => {
         this.setState({ cartItems: _get(data, "[0].result",[]) });
         this.setState({cartIsFetching:false})
+        if (!_.isEmpty(_get(data, "[0].result",[]))) {
+            if (_.isEmpty(_get(this.props.userSignInInfo, '[0].result.api_token', ''))) {
+                this.props.history.push('/guest/register');
+            }
+        }
+
     }
     eb = (err) => {
         this.setState({cartIsFetching:false})
@@ -118,7 +124,7 @@ callUpdateQuantityApi=(item,newQty)=>{
         this.timeOutId = setTimeout(() => {
             this.callUpdateQuantityApi(this.item,this.newQty);
            this.timeOutId = null //clearing the last timeout id
-        }, 1000);
+        }, 800);
         this.setState({ cartItems: this.state.cartItems })
     }
     errorUpdateQuantity = (err) => {
@@ -176,4 +182,13 @@ callUpdateQuantityApi=(item,newQty)=>{
     }
 }
 
-export default CartItemList;
+function mapStateToProps(state) {
+    let userSignInInfo = _get(state, 'userSignInInfo.lookUpData', []);
+
+    return {
+        userSignInInfo,
+    }
+}
+
+export default connect(mapStateToProps, null)(CartItemList);
+// export default CartItemList;

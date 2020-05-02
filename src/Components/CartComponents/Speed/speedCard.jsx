@@ -7,13 +7,6 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const styles = theme => ({  
 
-    speedCardTitle:{
-        fontSize: 15,
-        textTransform: 'uppercase',
-        color:'#0033A0',
-        fontWeight: 'bold',
-
-    }
 });
 
 class SpeedCard extends Component {
@@ -37,10 +30,10 @@ class SpeedCard extends Component {
                     <Card className="speedCardscontainer" >
                         <CardBody className={this._getRootCardClass({ selectedId: this.props.selectedTransportAddress, id: this.props.data.id, enablePointer: this.props.data.enablePointer})} onClick={() => this.props.changeOpactiy(this.props.data.id)} >
                         <div className="mb-4"><LocalShippingOutlinedIcon style={{ fontSize: 25 }} /> </div> 
-                            <div className={classes.speedCardTitle}>
+                            <div className="cardTitle">
                                 {this.props.data.description}
                             </div>
-                            <div style={{ fontSize: 10, marginBottom: 10 }}>
+                            <div className="inner-content">
                                 {this.props.data.duration}
                             </div>
                             {/* <div>
