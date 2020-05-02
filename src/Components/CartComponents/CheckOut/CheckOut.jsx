@@ -124,6 +124,7 @@ class CheckOut extends React.Component {
                         dispatch={this.props.dispatch}
                         cartIsFetching={(itemRemovedFetching || itemUpdatedFetching || cartIsFetching)}
                         //width={cardWidth}
+                        isCheckOut = {true}
                         cartItems={this.props.cartItems} />
                 </div>
                 <div className="couponParent mt-5">
