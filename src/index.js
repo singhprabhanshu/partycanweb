@@ -126,7 +126,7 @@ ReactDOM.render(
                 <RouteWithLayout Layout={MainLayout} exact path="/party/locator" Component={PartyLocatorContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/search" Component={SearchProductsContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/guest/register" Component={GuestRegisterContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/privacyPolicy" Component={PrivacyPolicyContainer} />
+                <RouteWithLayout Layout={MainLayout} exact path="/privacy-policy" Component={PrivacyPolicyContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/terms-conditions" Component={TermsConditionContainer} />
               </Switch>
             </Router>
