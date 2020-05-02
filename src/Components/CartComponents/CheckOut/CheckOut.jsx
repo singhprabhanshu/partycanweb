@@ -200,7 +200,7 @@ class CheckOut extends React.Component {
             <React.Fragment>
                 <Container fluid={true}>
                     <Row style={noCartItem ? { display: "none" } : null} className="no-gutters justify-content-lg-between secMinHeight">
-                        <Col xs={12} lg={6} className="p-xl-5 p-4 flex-column d-flex">
+                        <Col xs={12} lg={6} className="p-xl-5 p-md-4 py-4 flex-column d-flex">
                             <div className="block-title mb-5">Order Summary</div>
                             {this.renderContent()}
                             <div className="mt-4" >

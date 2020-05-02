@@ -40,7 +40,7 @@ class SettingContainer extends React.Component {
 
     renderContent = (addresses) => {
         let commonContent = <>
-         <div className="pr-lg-4" >
+         <div className="scrollerwrapper" >
             {this.state.tabValue === 0 && 
                 <UserSetting  tabValue = {this.state.tabValue}/>
             } 
@@ -69,7 +69,7 @@ class SettingContainer extends React.Component {
                     /> 
                        
                 <Row className="no-gutters justify-content-lg-between secMinHeight">
-                    <Col xs={12} lg={6} className="p-xl-5 p-md-4" >
+                    <Col xs={12} lg={6} className="p-xl-5 p-md-4 py-4" >
                      { this.renderContent()} 
                       {/* : 
                     <Container fluid={true} > 
