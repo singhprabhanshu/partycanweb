@@ -8,7 +8,7 @@ import {get as _get , isEmpty as _isEmpty} from 'lodash';
 import Switch from '@material-ui/core/Switch';
 import genericPostData from "../../Redux/Actions/genericPostData";
 import UserInfo from './UserInfo';
-import AddCard from "./AddCard";
+import AddCard from "../../Components/CartComponents/Card/AddCard.jsx";
 
 class UserSetting extends React.Component {
     constructor(props){
@@ -159,9 +159,11 @@ class UserSetting extends React.Component {
             </div>
         </React.Fragment>}
         <React.Fragment>
-            {this.state.addCard? <AddCard 
+            {this.state.addCard? 
+            <AddCard 
+            isUserSettingAddCard = {true}
             handleContinueFromNewCard={this.handleContinueFromNewCard}
-            handleBackFromNewCard={this.handleBackFromNewCard}
+            goBack={this.handleBackFromNewCard}
              /> : null}
         </React.Fragment>
         </React.Fragment>);
