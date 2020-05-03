@@ -90,7 +90,7 @@ class SplashContainer extends React.Component {
 
         let renderSlide = this.state.imageData.map((subdata,index) => {
             return(<React.Fragment key={index}>
-                <div className={isMobile ? "d-flex justify-content-between flex-column align-items-center h-100" 
+                <div className={isMobile ? "d-flex justify-content-center flex-column align-items-center h-100" 
                 : " d-flex justify-content-center align-items-center h-100 "}>
                   <img src={subdata.imageurl}  className="img-responsive d-none d-lg-block"  />
                   <img src={subdata.imageurl}  className="img-responsive d-block d-lg-none"  />
