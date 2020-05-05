@@ -92,8 +92,8 @@ class SplashContainer extends React.Component {
             return(<React.Fragment key={index}>
                 <div className={isMobile ? "d-flex justify-content-center flex-column align-items-center h-100" 
                 : " d-flex justify-content-center align-items-center h-100 "}>
-                  <img src={subdata.imageurl}  className="img-responsive d-none d-lg-block"  />
-                  <img src={subdata.imageurl}  className="img-responsive d-block d-lg-none"  />
+                  <img src={subdata.imageurl}  className="img-responsive d-none d-md-block"  />
+                  <img src={subdata.imageurl}  className="img-responsive d-block d-md-none"  />
                     <p className="legend">{subdata.text}</p>
                 </div>
             </React.Fragment>)
