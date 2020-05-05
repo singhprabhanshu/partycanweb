@@ -3,7 +3,8 @@ import { setIn } from 'final-form';
 
 var schema = yup.object().shape({
 	// name: yup.string().required('Name is required.'),
-	name: yup.string().required('name is required.'),
+    firstName: yup.string().required('first name is required.'),
+    lastName:yup.string().required('last name is required.'),
     address: yup.string().required('Address is required.'),
     city: yup.string().required('City is required.'),
     zip: yup.string('Must be a number.')

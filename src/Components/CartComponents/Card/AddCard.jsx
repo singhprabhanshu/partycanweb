@@ -49,7 +49,7 @@ const ELEMENT_OPTIONS = {
         base: {
             fontSize: '18px',
             width: "300px",
-            color: '#fff',
+            color: '#000',
             letterSpacing: '0.025em',
             '::placeholder': {
                 color: '#aab7c4',
@@ -96,7 +96,9 @@ const AddCard = (props) => {
             nickname: values.addressNickname,
             telephone: values.phone,
             billing_address: _get(values, 'address', '') + ' ' + _get(values, 'address2', ''),
-            country: "USA"
+            country: "USA",
+            email:values.email,
+            dob:values.dob
         };
         if (!stripe || !elements) {
             // Stripe.js has not loaded yet. Make sure to disable
@@ -183,7 +185,6 @@ const AddCard = (props) => {
     const addBillingInfoSuccess = (data) => {
         if (data.code === 1) {
             setLoading(false);
-            props.goBack();
             let paymentMethods = props.paymentMethods;
             let cartFlow = props.cartFlow;
             let card_token = payload.token.id;
@@ -200,8 +201,13 @@ const AddCard = (props) => {
                 payment_method
                 //billingAddress: { ...values }
             }
-            props.dispatch(commonActionCreater(data, 'CART_FLOW'));
-            props.handleContinueFromNewCard();
+            if(props.isUserSettingAddCard){
+                props.handleContinueFromNewCard();
+            }
+            else{
+                props.dispatch(commonActionCreater(data, 'CART_FLOW'));
+                props.handleContinueFromNewCard();
+            }
 
             //props.loadCardDataAndBack();
         }
@@ -322,7 +328,7 @@ const AddCard = (props) => {
                             <React.Fragment>
                                 <div className="d-flex no-gutters flex-wrap justify-content-between align-items-center">
                                     <h4 className="col-12 col-md-auto block-title ">Billing Address</h4>
-                                    <div className="d-flex justify-content-between align-items-center col-12 col-md-auto">
+                                   { !props.isUserSettingAddCard&&<div className="d-flex justify-content-between align-items-center col-12 col-md-auto">
                                         <InputLabel className="label-txt fs-11 mb-0 ">Same As Shipping Address</InputLabel>
                                         <Switch
                                             color="primary"
@@ -330,16 +336,16 @@ const AddCard = (props) => {
                                             onClick={() => sasChange(!sas, form.mutators)}
                                             className="custom-switch"
                                         />
-                                    </div>
+                                    </div>}
                                 </div>
                             </React.Fragment>
                             <div className="d-flex mt-4">
                                 <div style={{ width: '50%', paddingRight: 50 }}>
-                                    <Field name="firstName" component={TextInputField} placeholder='First Name'
+                                    <Field name="firstName" component={TextInputField} placeholder='FIRST NAME'
                                         autoFocus={false} type='text' />
                                 </div>
                                 <div style={{ width: '50%', paddingRight: 50 }}>
-                                    <Field name="lastName" component={TextInputField} placeholder='Last Name'
+                                    <Field name="lastName" component={TextInputField} placeholder='LAST NAME'
                                         autoFocus={false} type='text' />
                                 </div>
                             </div>
@@ -407,13 +413,10 @@ const AddCard = (props) => {
             </div>
         </div>
     </React.Fragment>
-    let commonContent = null;
-    if (isMobile || isTablet) {
+    let commonContent = null;  
         commonContent = <div>{content}</div>
-    }
-    else {
-        commonContent = <Scrollbar>{content}</Scrollbar>
-    }
+  
+   
 
     return (
         <>
@@ -423,7 +426,7 @@ const AddCard = (props) => {
             <div className="text-left mt-4" >
                 <Button
                     variant="contained"
-                    disabled={!stripe}
+                    disabled={!stripe || loading}
                     color="primary"
                     onClick={creditCardDetailsSubmit}
                     className="bottomActionbutton cartActionBtn"
