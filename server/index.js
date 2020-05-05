@@ -41,7 +41,7 @@ app.get("/connect/index/getlocation",(req,res)=>{
 app.post("/api/customer/login",(req,res)=>{
   const email = req.query.email;
   const password = req.query.password;
-  let p1 = axios.post(`${application_bff_url}/api/customer/login?email=${email}&password=${password}`,{});
+  let p1 = axios.post(`${application_bff_url}/api/customer/login?email=${email}&password=${password}`,req.body);
   p1.then((apiRespo)=>{
    res.setHeader('Content-Type', 'application/json');
    res.send(apiRespo.data);
@@ -58,7 +58,7 @@ app.post("/api/customer/register",(req,res)=>{
   const confirm_pswd = req.query.confirm_pswd;
   const first_name = req.query.first_name;
   const last_name = req.query.last_name;
-  let p1 = axios.post(`${application_bff_url}/api/customer/register?email=${email}&password=${password}&confirm_password=${confirm_pswd}&first_name=${first_name}&last_name=${last_name}`,{});
+  let p1 = axios.post(`${application_bff_url}/api/customer/register?email=${email}&password=${password}&confirm_password=${confirm_pswd}&first_name=${first_name}&last_name=${last_name}`,req.body);
   p1.then((apiRespo)=>{
    res.setHeader('Content-Type', 'application/json');
    res.send(apiRespo.data);
@@ -270,7 +270,7 @@ app.post("/api/account/myorders",(req,res)=>{
 
 app.post("/connect/index/search",(req,res)=>{
   const searchRequest = req.query.searchRequest;
-  let p1 = axios.post(`${application_bff_url}/connect/index/search?q=${searchRequest}`, {});
+  let p1 = axios.post(`${application_bff_url}/connect/index/search?q=${searchRequest}`, req.body);
   p1.then((apiRespo)=>{
     res.setHeader('Content-Type', 'application/json');
     res.send(apiRespo.data);
