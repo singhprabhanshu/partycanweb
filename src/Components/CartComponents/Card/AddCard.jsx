@@ -414,9 +414,12 @@ const AddCard = (props) => {
         </div>
     </React.Fragment>
     let commonContent = null;  
-        commonContent = <div>{content}</div>
-  
-   
+    if(isMobile || isTablet){
+        commonContent =  <div>{content}</div>
+    }
+    else{
+        commonContent =  <Scrollbar  className="leftSecmaxHeight">{content}</Scrollbar>
+    }    
 
     return (
         <>

@@ -14,6 +14,8 @@ import { Container, Row, Col } from 'reactstrap'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { Loader } from "../../Global/UIComponents/LoaderHoc";
 import CartEmptyComponent from "../../Components/CartHomeComponents/CartEmptyComponent";
+import GiftCard from "../../Components/CartHomeComponents/GiftCard";
+
 
 class CartContainer extends React.Component {
     constructor(props) {
@@ -56,6 +58,9 @@ class CartContainer extends React.Component {
                         applyCouponLoading={(applyCouponLoading) => this.setState({ applyCouponLoading })}
                         //width={cardWidth}
                         coupon_code={coupon_code} />
+                </div>
+                <div style={{marginTop:"3rem"}} className="couponParent">
+                <GiftCard/>
                 </div>
                 <div
                     //style={{ width: cardWidth }}

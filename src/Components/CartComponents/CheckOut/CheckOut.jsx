@@ -54,7 +54,7 @@ class CheckOut extends React.Component {
         this.setState({ driverTip: DriverTipObj, driverTipAmount })
     }
     placeOrder = () => {
-        let { cartFlow, taxes, cartId } = this.props;
+        let { cartFlow, taxes, cartId,giftMessage } = this.props;
         let reqObj = {
             "api_token": localStorage.getItem("Token"),
             "cart_id": cartId,
@@ -72,7 +72,8 @@ class CheckOut extends React.Component {
             "taxes": taxes,
             "delivery_fee": cartFlow.deliveryFee,
             "driver_tip": this.state.driverTipAmount.toString(), //workhere
-            "payment_method": cartFlow.payment_method
+            "payment_method": cartFlow.payment_method,
+            "gift_message":giftMessage
         }
         this.setState({ placeOrderLoading: true })
         genericPostData({
@@ -249,6 +250,7 @@ function mapStateToProps(state) {
     let itemRemovedFetching = _get(state, "removeCart.isFetching");
     let itemUpdatedFetching = _get(state, "updateCart.isFetching");
     let cartFlow = _get(state, "cartFlow.lookUpData");
+    let giftMessage = _get(state, "giftMessage.lookUpData","");
     return {
         cartItems,
         subTotal,
@@ -263,7 +265,8 @@ function mapStateToProps(state) {
         itemUpdatedFetching,
         cartFlow,
         cartId,
-        feeAmount
+        feeAmount,
+        giftMessage
     }
 }
 
