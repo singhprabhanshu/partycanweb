@@ -19,6 +19,7 @@ import { createReqObjForCart } from "../../../Global/helper/commonUtil";
 import CartEmptyComponent from "../../CartHomeComponents/CartEmptyComponent";
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import { commonActionCreater } from "../../../Redux/Actions/commonAction";
 
 class CheckOut extends React.Component {
     constructor(props) {
@@ -89,6 +90,7 @@ class CheckOut extends React.Component {
     placeOrderSuccess = (data) => {
         if (data.code == 1) {
             localStorage.removeItem("cart_id"); //removing the cart_id when place order is done
+            this.props.dispatch(commonActionCreater("", "GIFT_MESSAGE"));
             this.fetchCart(() => {
                 this.setState({ placeOrderLoading: false });
                 this.setState({ order_id: data.order_id, orderPlaced: true });

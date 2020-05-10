@@ -125,7 +125,8 @@ function mapStateToProps(state) {
     let cartItems = _get(state, "cart.lookUpData[0].result", []);
     let subTotal = _get(state, "cart.lookUpData[0].subtotal", 0);
     let discount = _get(state, "cart.lookUpData[0].discount", 0);
-    let grandTotal = _get(state, "cart.lookUpData[0].grandtotal", 0);
+    //let grandTotal = _get(state, "cart.lookUpData[0].grandtotal", 0);
+    let grandTotal = _get(state, "cart.lookUpData[0].subtotal_discount", 0); //for cart it is the subtotal_discount
     let cartIsFetching = _get(state, "cart.isFetching", false);
     let itemRemovedFetching = _get(state, "removeCart.isFetching");
     let itemUpdatedFetching = _get(state, "updateCart.isFetching");
