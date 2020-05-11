@@ -30,7 +30,7 @@ class CartPriceSummary extends React.Component {
                 </div>
                 <div className="PriceSummaryChild pb-2">
                     <span>TOTAL</span>
-                    {cartIsFetching ? <span>Loading..</span> : <span>{(Number(shippingAmount)+Number(grandTotal) + Number(driverTipAmount)).toFixed(2)}</span>}
+                    {cartIsFetching ? <span>Loading..</span> : <span className="cartPrice">{(Number(grandTotal) + Number(driverTipAmount)).toFixed(2)}</span>}
                 </div>
             </>
         )
