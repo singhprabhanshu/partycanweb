@@ -49,7 +49,7 @@ redirectToCategories = (category) => {
 }
 
 redirectToCansPage = () => {
-    this.props.history.push('/category/Cans')
+    this.props.history.push('/category/ALL')
 }
     
 

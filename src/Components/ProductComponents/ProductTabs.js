@@ -58,7 +58,7 @@ class ProductTabs extends React.Component {
     }
 
     handleMobileBack = () => {
-        this.props.history.push('/category/Cans');
+        this.props.history.push('/category/ALL');
     }
 
     render() {

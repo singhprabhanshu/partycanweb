@@ -76,7 +76,7 @@ class SplashContainer extends React.Component {
     
     categoriesFetchSuccess = (data) => {
 
-        this.props.history.push('/category/Cans');
+        this.props.history.push('/category/ALL');
      }
     
     categoriesFetchError = () => { }
@@ -129,7 +129,7 @@ class SplashContainer extends React.Component {
                         <Col className="text-center" style={{height:70}} >
                             <Button variant="text" color="secondary" className="txtButton" 
                                 onClick={this.state.slideIndex == 2 ? this.redirectToNext: this.handleSlideChange}>
-                                         {this.state.slideIndex == 2 ? ' COOL !!' : 'NEXT' }
+                                         {this.state.slideIndex == 2 ? ' SHOP NOW !!' : 'NEXT' }
                             </Button>
                         </Col>                        
                     </Row>

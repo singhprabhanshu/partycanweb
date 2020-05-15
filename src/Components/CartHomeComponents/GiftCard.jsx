@@ -35,7 +35,7 @@ class GiftCard extends Component {
             <div className="d-flex no-gutters">
                 <Form className="w-100" >
                     <FormControlLabel
-                        label="THIS IS A GIFT"
+                        label="IS THIS A GIFT?"
                         control={
                             <Checkbox
                                 value={this.state.checked}
