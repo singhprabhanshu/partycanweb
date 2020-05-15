@@ -148,7 +148,7 @@ button:focus {
     min-height: calc( 100vh - 5rem);
   } 
   @media (max-width: 767px){
-    padding:0 7%;
+    padding:0 1.5rem;
   } 
 }
 
@@ -247,7 +247,7 @@ button:focus {
   max-height: calc( 100vh - 230px);
   @media (max-width:767px){
     min-height: calc( 100vh - 120px);
-    margin: 0 -7%;
+    margin: 0 -1.5rem;
     max-height: unset;
   }
 
@@ -482,6 +482,11 @@ img.cLogo{
 }
 
 ///////Product page css
+
+.MuiTabs-fixed{
+  max-width: 1920px;
+  margin: 0 auto;
+}
 .productDetails{
   @media (min-width: 992px) and (max-width: 1199px){  
     .bottomActionbutton{
@@ -496,7 +501,7 @@ img.cLogo{
   background-color: rgba(255, 255, 255, .1);
   height: 8rem;  
   @media(max-width:767px){
-    margin:0 -7%;
+    margin:0 -1.5rem;
    }
 
   .title{
@@ -512,7 +517,7 @@ img.cLogo{
   padding-right: 1.6rem!important;
   padding-left: 1.6rem!important;
     @media(max-width:767px){
-    margin:0 -7%;
+    margin:0 -1.5rem;
     padding-right:0!important;
     padding-left: 0!important;
     }  
@@ -640,12 +645,14 @@ img.cLogo{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  max-width: 192rem;
+  margin: auto;
   padding-right: 1rem!important;
   padding-left: 1rem!important;
   @media(max-width:767px){
     padding-right:0!important;
      padding-left:0!important;
-     margin: 0 -5%;
+     margin: 0 -1.5rem;
   }
 
   .card{
@@ -938,7 +945,10 @@ span.MuiButton-label {
 ////////////////////////////// Address section
 
 .secMinHeight{
+  max-width: 192rem;
   min-height: calc(100vh - 22rem);
+  margin:0 auto!important;  
+  width:100%;  
   
 }
 .secMinHeightwt{
@@ -1157,6 +1167,7 @@ span.MuiButton-label {
       justify-content: center;
       flex-direction: column;
       cursor: pointer;
+      position: relative;
 
       &.speedCards{       
         min-height: 8rem;  
@@ -1193,6 +1204,16 @@ span.MuiButton-label {
         }
         &.active{
           color:#00BFB2;
+          &:before{
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            content: "";
+            background: url("../images/rightSign.png") no-repeat;
+            background-size: cover;
+            width: 18px;
+            height: 18px;
+          }
         }
       }
 
@@ -1739,7 +1760,7 @@ img{
 
 
 label {
-  color:white;
+  color:rgba(255, 255, 255, 0.4);
   font-weight: 300;
   letter-spacing: 0.025em;
   display: block;

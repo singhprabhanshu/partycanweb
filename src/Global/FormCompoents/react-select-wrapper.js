@@ -40,6 +40,18 @@ export default function RFReactSelect(props) {
       // backgroundColor: 'rgba(255,255,255,0)'
     }),
     singleValue: (styles) => ({ ...styles, color: 'white' }),
+    valueContainer: base => ({
+      ...base,    
+      padding: '0px',
+    }),
+    clearIndicator: base => ({
+      ...base,
+      padding: '0px',
+    }),
+    dropdownIndicator: base => ({
+      ...base,
+      padding: '0px',
+    }),
   }
     return (
       <React.Fragment>
