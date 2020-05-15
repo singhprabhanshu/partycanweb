@@ -50,7 +50,7 @@ class HeaderBar extends React.Component {
                         <Row className="justify-content-between align-items-center flex-grow-1">
                             <Col xs={'auto'}>
                                 {/* <Button className="addCircleIcon icons mr-4">+</Button> */}
-                                <Button onClick={() => this.props.history.push("/category/Cans")}
+                                <Button onClick={() => this.props.history.push("/category/ALL")}
                                  className="homeIcons icons mr-3"></Button>
                                 {/* <Button className="locationIcons icons "></Button> */}
                             </Col>

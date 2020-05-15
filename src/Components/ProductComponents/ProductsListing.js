@@ -5,7 +5,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
-import { map as _map, findIndex as _findIndex, get as _get, isEmpty as _isEmpty } from 'lodash';
+import { isArray as _isArray, map as _map, findIndex as _findIndex, get as _get, isEmpty as _isEmpty } from 'lodash';
 import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
@@ -70,7 +70,7 @@ class ProductsListing extends React.Component {
     render() {
         const { productListingData, classes } = this.props;
         let ProductList = []
-        !_isEmpty(productListingData) && productListingData.map((product, index)=>{
+        _isArray(productListingData) && productListingData.map((product, index)=>{
             ProductList.push(
                 <Card onClick={()=>this.fetchProductDetails(product.id)} >
                     <div className="prodcutMinDetails">

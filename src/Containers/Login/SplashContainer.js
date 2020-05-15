@@ -76,7 +76,7 @@ class SplashContainer extends React.Component {
     
     categoriesFetchSuccess = (data) => {
 
-        this.props.history.push('/category/Cans');
+        this.props.history.push('/category/ALL');
      }
     
     categoriesFetchError = () => { }
