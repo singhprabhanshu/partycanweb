@@ -1157,6 +1157,7 @@ span.MuiButton-label {
       justify-content: center;
       flex-direction: column;
       cursor: pointer;
+      position: relative;
 
       &.speedCards{       
         min-height: 8rem;  
@@ -1193,6 +1194,16 @@ span.MuiButton-label {
         }
         &.active{
           color:#00BFB2;
+          &:before{
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            content: "";
+            background: url("../images/rightSign.png") no-repeat;
+            background-size: cover;
+            width: 18px;
+            height: 18px;
+          }
         }
       }
 
@@ -1739,7 +1750,7 @@ img{
 
 
 label {
-  color:white;
+  color:rgba(255, 255, 255, 0.4);
   font-weight: 300;
   letter-spacing: 0.025em;
   display: block;
