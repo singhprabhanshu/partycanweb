@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import genericPostData from '../../../Redux/Actions/genericPostData';
 import { Button } from 'reactstrap';
-import { get as _get, map as _map, find as _find, findIndex as _findIndex, isEmpty as _isEmpty } from 'lodash';
+import { get as _get, map as _map, find as _find, findIndex as _findIndex, isEmpty as _isEmpty, sortBy as _sortBy } from 'lodash';
 import { cleanEntityData } from '../../../Global/helper/commonUtil';
 import SpeedCard from './speedCard';
 import RetailerCard from './retailerCard';
@@ -132,17 +132,29 @@ class Speed extends React.Component {
 
     }));
 
-    const mapShipMethods = ({ data }) => _map(data, (d, index) => cleanEntityData({
-      method: _get(d, 'method'),
-      amount: _get(d, 'amount'),
-      delivery_date: _get(d, 'delivery_date'),
-      id: _get(d, 'id')? _get(d, 'id') :  index,
-      fee: _get(d, 'fee'),
-      duration: _get(d, 'duration'),
-      dropoff_eta: _get(d, 'dropoff_eta'),
-      isPrimary: (index === 0) ? true : false,
-      index
-    }));
+    const mapShipMethods = ({ data }) => {
+      let shortedShipMethods = _sortBy(data, [function(o)
+        {
+          if(_get(o, 'amount')){
+            let amount = _get(o, 'amount', 0);
+            let intAmount = parseInt(amount, 10);
+            return intAmount;
+          }
+          
+      }]);
+      let response = _map(shortedShipMethods, (d, index) => cleanEntityData({
+        method: _get(d, 'method'),
+        amount: _get(d, 'amount'),
+        delivery_date: _get(d, 'delivery_date'),
+        id: _get(d, 'id')? _get(d, 'id') :  index,
+        fee: _get(d, 'fee'),
+        duration: _get(d, 'duration'),
+        dropoff_eta: _get(d, 'dropoff_eta'),
+        isPrimary: (index === 0) ? true : false,
+        index
+      }));
+      return response;
+    };
 
     const findPrimarySpeed = ({ data, index }) => {
       const ship_methods = _map(_get(data, 'ship_methods', []), s => mapShipMethods({ data: s}));

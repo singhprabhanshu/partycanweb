@@ -21,8 +21,52 @@ class CartItemList extends React.Component {
     }
     componentDidMount() {
         this.setState({cartIsFetching:true})
-        this.fetchCartAgain(this.sb, this.eb);
+        if(this.props.isCheckOut){
+            this.fetchTaxes(this.sb, this.eb)
+        }
+        else{
+            this.fetchCartAgain(this.sb, this.eb);
+        }
     }
+    fetchTaxes = (sb,eb) => {
+        let { cartFlow,avail_id } = this.props;
+        let reqObj = {
+            ...createReqObjForCart(),
+            "delivery_address_id": cartFlow.selectedAddress,
+            "speed_id": cartFlow.selectedSpeedID,
+            "retialer_id": cartFlow.selectedRetailerID,
+            "ship_method_id": cartFlow.selectedShippingMethodID == -1 ? "" : cartFlow.selectedShippingMethodID,
+            "delivery_date": cartFlow.deliveryDate,
+            "ship_method": cartFlow.selectedShippingMethod == "none" ? "" : cartFlow.selectedShippingMethod,
+            "ship_method_amount": cartFlow.shippingAmount,
+            "avail_id": avail_id
+        }
+          genericPostData({
+            dispatch: this.props.dispatch,
+            reqObj,
+            url: "/api/checkout/orderreview",
+            constants: {
+                init: "CART_ITEMS_INIT",
+                success: "CART_ITEMS_SUCCESS",
+                error: "CART_ITEMS_ERROR"
+            },
+            identifier: "CART_ITEMS",
+            successCb:sb,
+            errorCb:eb,
+            dontShowMessage: true
+        })
+    }
+    // orderReviewSuccess = (data)=>{
+    //     if(data[0].code==1){
+    //     let taxes = _get(data,"[0].taxes");
+    //     let grandTotal = _get(data,"[0].grandTotal");
+    //     let discount = _get(data,"[0].discount");
+    //     this.setState({taxes,grandTotal,discount,fetchingTaxes:false});
+    //     }
+    //     else{
+    //         alert("something went wrong while fetching taxes")
+    //     }
+    // }
     sb = (data) => {
         this.setState({ cartItems: _get(data, "[0].result",[]) });
         this.setState({cartIsFetching:false})
@@ -152,9 +196,9 @@ callUpdateQuantityApi=(item,newQty)=>{
                                         </div>
                                         {this.props.cartIsFetching ? <span>Loading</span> : <span className="cartItemPrice">{item.row_total}</span>}
                                     </div>
-                                    <div className="col-auto ml-3 d-block d-sm-none remove-cart-icon" onClick={() => this.handleCartRemoveItem(item)}>
+                                    {!this.props.isCheckOut?<div className="col-auto ml-3 d-block d-sm-none remove-cart-icon" onClick={() => this.handleCartRemoveItem(item)}>
                                         <div className="mb-2"><CloseOutlinedIcon style={{ fontSize: 25 }} /> </div>
-                                    </div>
+                                    </div>:null}
 
                                 </div>
                                {!this.props.isCheckOut? <div className="col-auto ml-3 text-center d-none d-sm-block remove-cart-icon" onClick={() => this.handleCartRemoveItem(item)}>
@@ -184,9 +228,13 @@ callUpdateQuantityApi=(item,newQty)=>{
 
 function mapStateToProps(state) {
     let userSignInInfo = _get(state, 'userSignInInfo.lookUpData', []);
-
+    let cartFlow = _get(state, "cartFlow.lookUpData");
+    //console.log(state.productAvailabilityReducer.lookUpData.data.avail_id,"hahahahha")
+    let avail_id = _get(state,"productAvailabilityReducer.lookUpData.data.avail_id","")
     return {
         userSignInInfo,
+        cartFlow,
+        avail_id
     }
 }
 
