@@ -461,9 +461,10 @@ button:focus {
   color: #fff;
   font-size: 1.3rem;
   text-transform: uppercase;
+  transition: ease all .3s;
 }
 .footerLink a:hover{
-  color: #000; 
+  color: rgba(255, 255, 255, 0.7); 
   text-decoration: none;
 }
 
@@ -661,6 +662,12 @@ img.cLogo{
     width: 25%;
     background-color: transparent!important;
     border: 0;
+    @media(max-width:991px){
+      width: 33.33%;
+    }   
+    @media(max-width:767px){
+      width: 50%;        
+    }
     .prodcutMinDetails{
       border-radius:1.5rem;
       flex-direction: column;
@@ -965,7 +972,7 @@ span.MuiButton-label {
 .productImgSection{
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   // max-height: calc(100vh - 180px);
   height: 100%;
@@ -1073,7 +1080,7 @@ span.MuiButton-label {
 }
 
 .block-title{
-  font-size: 1.8rem; 
+  font-size: 2rem; 
   text-transform: uppercase;
 }
 

@@ -74,7 +74,7 @@ class Footer extends React.Component {
         const { classes, isLoginAndSignupScreen } = this.props;
         return (
             <React.Fragment>
-                <Container fluid={true}  className="footerLayout d-flex align-items-center py-4 p-md-3">              
+                <Container fluid={true}  className="footerLayout d-flex align-items-center py-4  p-md-3">              
                 <Container className="container-content-header justify-content-center ">
                         <Row className="w-100 align-items-start align-items-md-center no-gutters justify-content-sm-between justify-content-center ">
                         <Col xs={'6'} md={'3'} >
