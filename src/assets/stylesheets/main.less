@@ -148,7 +148,7 @@ button:focus {
     min-height: calc( 100vh - 5rem);
   } 
   @media (max-width: 767px){
-    padding:0 1.5rem;
+    padding:0 7%;
   } 
 }
 
@@ -210,10 +210,6 @@ button:focus {
       max-width: 55%;
     } 
     @media (max-width: 991px){
-      max-width: 60%;      
-    }
-
-    @media (max-width: 767px){
       max-width: 80%;      
     }
   }
@@ -247,7 +243,7 @@ button:focus {
   max-height: calc( 100vh - 230px);
   @media (max-width:767px){
     min-height: calc( 100vh - 120px);
-    margin: 0 -1.5rem;
+    margin: 0 -7%;
     max-height: unset;
   }
 
@@ -482,11 +478,6 @@ img.cLogo{
 }
 
 ///////Product page css
-
-.MuiTabs-fixed{
-  max-width: 1920px;
-  margin: 0 auto;
-}
 .productDetails{
   @media (min-width: 992px) and (max-width: 1199px){  
     .bottomActionbutton{
@@ -501,7 +492,7 @@ img.cLogo{
   background-color: rgba(255, 255, 255, .1);
   height: 8rem;  
   @media(max-width:767px){
-    margin:0 -1.5rem;
+    margin:0 -7%;
    }
 
   .title{
@@ -517,7 +508,7 @@ img.cLogo{
   padding-right: 1.6rem!important;
   padding-left: 1.6rem!important;
     @media(max-width:767px){
-    margin:0 -1.5rem;
+    margin:0 -7%;
     padding-right:0!important;
     padding-left: 0!important;
     }  
@@ -645,14 +636,12 @@ img.cLogo{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  max-width: 192rem;
-  margin: auto;
   padding-right: 1rem!important;
   padding-left: 1rem!important;
   @media(max-width:767px){
     padding-right:0!important;
      padding-left:0!important;
-     margin: 0 -1.5rem;
+     margin: 0 -5%;
   }
 
   .card{
@@ -663,7 +652,6 @@ img.cLogo{
       border-radius:1.5rem;
       flex-direction: column;
       margin:4rem 2rem;
-      padding: 1rem!important;
       display: flex;
       align-items: center;     
       border: 0!important;
@@ -675,9 +663,10 @@ img.cLogo{
         }  
         
         @media(max-width:767px){         
-          margin:2rem 1rem;         
+          margin:2rem 1rem;
         }
       }
+
       @media(max-width:767px){
         width: 50%;        
       }
@@ -845,7 +834,6 @@ img.cLogo{
   font-size: 1.0rem;
     text-align: center;
     text-transform: uppercase;
-    margin-top: 1rem;
 }
 
 .productReviewHolder{
@@ -945,10 +933,7 @@ span.MuiButton-label {
 ////////////////////////////// Address section
 
 .secMinHeight{
-  max-width: 192rem;
   min-height: calc(100vh - 22rem);
-  margin:0 auto!important;  
-  width:100%;  
   
 }
 .secMinHeightwt{
@@ -956,7 +941,7 @@ span.MuiButton-label {
 }
 
 .leftSecmaxHeight{
-  // max-height: calc(100vh - 24rem);
+  max-height: calc(100vh - 24rem);
   overflow-y: auto;
   width: 100%;
   
@@ -973,19 +958,6 @@ span.MuiButton-label {
   max-height: calc(100vh - 180px);
   height: 100%;
   z-index: 1;
-
-
-  &:after{
-    position: absolute;
-    width: 100%;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, .4);
-    content: "";
-    border-bottom-left-radius:10rem;
-    z-index: -1;
-  }
 
   @media(max-width:1199px){   
     align-items: flex-start;   
@@ -1015,7 +987,7 @@ span.MuiButton-label {
           height: auto; 
           max-width: 80%;
         }
-  } 
+   } 
   
   &.proDetailSec{
     .carousel .slide, .carousel .slide .legend{
@@ -1052,7 +1024,17 @@ span.MuiButton-label {
         }
     }
   }
-  
+  &:after{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, .4);
+    content: "";
+    border-bottom-left-radius:10rem;
+    z-index: -1;
+  }
 
   @media(max-width:1024px){
     .thumbs-wrapper{
@@ -1068,7 +1050,7 @@ span.MuiButton-label {
 
 
 .fs-11{
-  font-size: 1.6rem!important;
+  font-size: 1.1rem!important;
 }
 
 .cartActionBtn{
@@ -1167,7 +1149,6 @@ span.MuiButton-label {
       justify-content: center;
       flex-direction: column;
       cursor: pointer;
-      position: relative;
 
       &.speedCards{       
         min-height: 8rem;  
@@ -1204,16 +1185,6 @@ span.MuiButton-label {
         }
         &.active{
           color:#00BFB2;
-          &:before{
-            position: absolute;
-            right: 1rem;
-            top: 1rem;
-            content: "";
-            background: url("../images/rightSign.png") no-repeat;
-            background-size: cover;
-            width: 18px;
-            height: 18px;
-          }
         }
       }
 
@@ -1760,7 +1731,7 @@ img{
 
 
 label {
-  color:rgba(255, 255, 255, 0.4);
+  color:white;
   font-weight: 300;
   letter-spacing: 0.025em;
   display: block;

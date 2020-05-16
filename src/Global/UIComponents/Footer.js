@@ -85,7 +85,7 @@ class Footer extends React.Component {
                             </Col>
                             <Col xs={'auto'} className="d-flex align-items-center justify-content-center">                                
                                 <div className="d-flex align-items-center pt-xs-0">
-                                <span className="mt-3 mr-4 poweredLine">Powered by<br></br>Three-Tier Solution<br></br>From</span>                   
+                                <span className="mt-3 mr-4 poweredLine">Powered by<br></br> Three-Tire Solution<br></br> From</span>                   
                                 <img src={cLogo} className="img-responsive cLogo"></img>
                                 </div>
                             </Col>

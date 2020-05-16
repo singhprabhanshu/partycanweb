@@ -19,7 +19,6 @@ import { createReqObjForCart } from "../../../Global/helper/commonUtil";
 import CartEmptyComponent from "../../CartHomeComponents/CartEmptyComponent";
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import { commonActionCreater } from "../../../Redux/Actions/commonAction";
 
 class CheckOut extends React.Component {
     constructor(props) {
@@ -55,7 +54,7 @@ class CheckOut extends React.Component {
         this.setState({ driverTip: DriverTipObj, driverTipAmount })
     }
     placeOrder = () => {
-        let { cartFlow, taxes, cartId,giftMessage } = this.props;
+        let { cartFlow, taxes, cartId } = this.props;
         let reqObj = {
             "api_token": localStorage.getItem("Token"),
             "cart_id": cartId,
@@ -73,8 +72,7 @@ class CheckOut extends React.Component {
             "taxes": taxes,
             "delivery_fee": cartFlow.deliveryFee,
             "driver_tip": this.state.driverTipAmount.toString(), //workhere
-            "payment_method": cartFlow.payment_method,
-            "gift_message":giftMessage
+            "payment_method": cartFlow.payment_method
         }
         this.setState({ placeOrderLoading: true })
         genericPostData({
@@ -90,7 +88,6 @@ class CheckOut extends React.Component {
     placeOrderSuccess = (data) => {
         if (data.code == 1) {
             localStorage.removeItem("cart_id"); //removing the cart_id when place order is done
-            this.props.dispatch(commonActionCreater("", "GIFT_MESSAGE"));
             this.fetchCart(() => {
                 this.setState({ placeOrderLoading: false });
                 this.setState({ order_id: data.order_id, orderPlaced: true });
@@ -252,7 +249,6 @@ function mapStateToProps(state) {
     let itemRemovedFetching = _get(state, "removeCart.isFetching");
     let itemUpdatedFetching = _get(state, "updateCart.isFetching");
     let cartFlow = _get(state, "cartFlow.lookUpData");
-    let giftMessage = _get(state, "giftMessage.lookUpData","");
     return {
         cartItems,
         subTotal,
@@ -267,8 +263,7 @@ function mapStateToProps(state) {
         itemUpdatedFetching,
         cartFlow,
         cartId,
-        feeAmount,
-        giftMessage
+        feeAmount
     }
 }
 
