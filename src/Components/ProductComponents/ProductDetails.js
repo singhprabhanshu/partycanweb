@@ -111,6 +111,7 @@ class ProductDetails extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         const productID = this.props.match.params.productID;
         genericGetData({
             dispatch: this.props.dispatch,

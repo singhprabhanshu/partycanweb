@@ -25,7 +25,7 @@ class GuestWithoutLoginContainer extends React.Component {
 
 
     componentDidMount() {
-        
+        window.scrollTo(0, 0);
     }
     addGuestEmailSuccess = (data) => {
         if (_get(data, 'code', -1) === 1) {

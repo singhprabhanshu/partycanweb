@@ -65,7 +65,7 @@ class SignIn extends React.Component {
     }
 
     componentDidMount() {
-
+        window.scrollTo(0, 0);
     }
 
     onSubmit = async values => {

@@ -23,6 +23,7 @@ class ProductTabs extends React.Component {
       }
 
     componentDidMount(){
+        window.scrollTo(0, 0);
         this.fetchTabs();
         this.categoriesFetchSuccess();
     }

@@ -152,6 +152,7 @@ class Address extends React.Component {
     };
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         if (!_isEmpty(this.props.userDetails)) {
             this.fetchAddress();
         }

@@ -28,6 +28,7 @@ class SplashContainer extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         this.setState({ isLoading: true});
         genericGetData({
             dispatch:this.props.dispatch,
