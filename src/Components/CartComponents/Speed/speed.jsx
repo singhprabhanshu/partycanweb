@@ -107,6 +107,7 @@ class Speed extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     let cartTabValidation = this.props.cartTabValidation;
 
     let data = {

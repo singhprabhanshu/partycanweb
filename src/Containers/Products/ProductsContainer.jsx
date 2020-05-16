@@ -56,6 +56,7 @@ class ProductsContainer extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         const categoryType = this.props.match.params.categoryType;
         let index = _findIndex(this.props.categoriesList, { 'category_name': categoryType })
         if(index == -1){

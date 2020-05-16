@@ -63,6 +63,7 @@ class CardComponent extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         // cart tab validation
         let cartTabValidation = this.props.cartTabValidation;
 

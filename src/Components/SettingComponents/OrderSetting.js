@@ -19,6 +19,7 @@ class OrderSetting extends React.Component {
     }
     
     componentDidMount() {
+        window.scrollTo(0, 0);
         if(this.props.tabValue === 1) {
             this.getOrderSettingData();
         }

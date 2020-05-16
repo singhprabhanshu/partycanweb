@@ -68,6 +68,7 @@ class AddressHome extends React.Component {
         this.props.history.push(`/cart/${value}`);
     };
     componentDidMount () {
+        window.scrollTo(0, 0);
         const isCheckout = localStorage.getItem("isCheckout");
         // if (isCheckout === 'false'){
         //     this.props.history.push(`/cart`);
