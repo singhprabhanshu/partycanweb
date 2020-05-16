@@ -30,8 +30,14 @@ class AddressCard extends React.Component {
                         </div>
                         <div className=" d-flex flex-column flex-wrap">
                             {this.props.data.name}
-                            {this.props.data.address}
-                        </div>                      
+                            
+                        </div> 
+                        <div className=" d-flex flex-column flex-wrap">
+                          {this.props.data.address_1}
+                        </div>
+                        <div className=" d-flex flex-column flex-wrap">
+                          {this.props.data.address_2}
+                        </div>                 
                     </CardBody>
                 </Card>
             </React.Fragment>
