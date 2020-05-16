@@ -12,7 +12,6 @@ import Speed from '../Components/CartComponents/Speed/speed';
 import CheckOut from '../Components/CartComponents/CheckOut/CheckOut';
 import {Container, Row, Col} from 'reactstrap';
 import { get as _get } from 'lodash';
-import { Redirect } from 'react-router';
 
 const styles = theme => ({
   
@@ -37,25 +36,21 @@ class AddressHome extends React.Component {
         if (newValue === 'speed') {
             if(_get(cartTabValidation, 'isSpeedTab') === true) {
                 this.setState({ tabValue: newValue });
-                localStorage.setItem("nextTab", newValue);
                 this.props.history.push(`/cart/${newValue}`);
             }
         } else if (newValue === 'card') {
             if(_get(cartTabValidation, 'isCardTab') === true) {
                 this.setState({ tabValue: newValue });
-                localStorage.setItem("nextTab", newValue);
                 this.props.history.push(`/cart/${newValue}`);
             }
         } else if (newValue === 'checkout') {
             if(_get(cartTabValidation, 'isSummaryTab') === true) {
                 this.setState({ tabValue: newValue });
-                localStorage.setItem("nextTab", newValue);
                 this.props.history.push(`/cart/${newValue}`);
             }
         }
         else {
             this.setState({ tabValue: newValue });
-            localStorage.setItem("nextTab", newValue);
             this.props.history.push(`/cart/${newValue}`);
         }
         // this.setState({ tabValue: newValue });
@@ -64,22 +59,8 @@ class AddressHome extends React.Component {
 
     handleTabOnContinue = (value) => {
         this.setState({ tabValue: value });
-        localStorage.setItem("nextTab", value);
         this.props.history.push(`/cart/${value}`);
     };
-    componentDidMount () {
-        const isCheckout = localStorage.getItem("isCheckout");
-        // if (isCheckout === 'false'){
-        //     this.props.history.push(`/cart`);
-
-        // } 
-
-    }
-
-    componentWillUnmount () {
-        localStorage.setItem("isCheckout", false);
-        localStorage.removeItem("nextTab");
-    }
 
 
     // handleStepChange = (currentStep) => {
@@ -92,7 +73,6 @@ class AddressHome extends React.Component {
 
 
     render() {
-        const nextTab = localStorage.getItem("nextTab");
         const tabs = [{
             link: 'address',
             component: <Address
@@ -117,20 +97,6 @@ class AddressHome extends React.Component {
         ];
         const currentTab = this.props.match.params.cartflow;
         const selectedTab = tabs.find(tab => currentTab === tab.link);
-
-        if (currentTab === 'speed') {
-            if(nextTab !== 'speed') {
-                return <Redirect to={`/cart/${this.state.tabValue}`}/>;
-            }
-        } else if (currentTab === 'card') {
-            if(nextTab !== 'card') {
-                return <Redirect to={`/cart/${this.state.tabValue}`}/>;
-            }
-        } else if (currentTab === 'checkout') {
-            if(nextTab !== 'checkout') {
-                return <Redirect to={`/cart/${this.state.tabValue}`}/>;
-            }
-        }
         return (
             <React.Fragment>
                 <CssBaseline />                 

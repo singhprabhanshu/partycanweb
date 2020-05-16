@@ -15,7 +15,6 @@ let productList = commonReducer("PRODUCTS_LIST");
 let categoriesList = commonReducer("CATEGORIES_LIST");
 let paymentMethods = commonReducer("GET_PAYMENTMETHODS")
 let lockTerminal = commonStaticReducer('LOCK_TERMINAL');
-let giftMessage = commonStaticReducer('GIFT_MESSAGE');
 let productDetails = commonReducer("PRODUCT_DETAILS_LIST");
 let cartFlow = commonStaticReducer('CART_FLOW');
 let speed = commonReducer('FETCH_DELIVERY_OPTIONS');
@@ -46,8 +45,7 @@ let rootRducer = combineReducers({
     orderSettings,
     searchProductsData,
     addProductToCartByFooter,
-    userAddress,
-    giftMessage
+    userAddress
 })
 
 export default rootRducer;

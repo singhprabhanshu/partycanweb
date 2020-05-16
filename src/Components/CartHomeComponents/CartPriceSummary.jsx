@@ -13,10 +13,10 @@ class CartPriceSummary extends React.Component {
                     <span>SUBTOTAL</span>
                     {cartIsFetching ? <span>Loading..</span> :<span>{subTotal}</span>}
                 </div>
-                {/* <div className="PriceSummaryChild">
+                <div className="PriceSummaryChild">
                     <span>TAXES</span>
                     {cartIsFetching ? <span>Loading..</span> :<span>{taxes}</span>}
-                </div> */}
+                </div>
                 <div className="PriceSummaryChild">
                     <span>DISCOUNT</span>
                     {cartIsFetching ? <span>Loading..</span> :<span>{discount}</span>}

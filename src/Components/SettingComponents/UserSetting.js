@@ -126,7 +126,7 @@ class UserSetting extends React.Component {
                 <Card className="userinfoSettingContainer mb-5 ">
                    <CardBody className="cardStyles userPreferenceSetting">
                       <div className=" d-flex  w-100 justify-content-between align-items-center">
-                          <label>NOTIFICATIONS</label>
+                          <label>NOTIFICATION</label>
                             <Switch
                                 checked={this.state.notification}
                                 onChange={this.handleSwitchChange}
