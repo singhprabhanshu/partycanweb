@@ -49,12 +49,13 @@ class SettingContainer extends React.Component {
             {/* {this.state.tabValue === 2 &&  <LivechatSetting /> }    */}
         </div>
          </>
-        if(isMobile || isTablet){
-            return <div>{commonContent}</div>
-        }
-        else{
-        return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
-        }
+          return <div>{commonContent}</div>
+        // if(isMobile || isTablet){
+        //     return <div>{commonContent}</div>
+        // }
+        // else{
+        // return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        // }
       }
 
     render() {

@@ -143,12 +143,13 @@ class OrderStatus extends React.Component {
     renderContent = (addresses) => {
       let commonContent = <>
        </>
-      if(isMobile || isTablet){
-          return <div>{commonContent}</div>
-      }
-      else{
-      return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
-      }
+        return <div>{commonContent}</div>
+      // if(isMobile || isTablet){
+      //     return <div>{commonContent}</div>
+      // }
+      // else{
+      // return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+      // }
     }
 
 

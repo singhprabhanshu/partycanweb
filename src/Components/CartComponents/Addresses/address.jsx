@@ -286,7 +286,7 @@ class Address extends React.Component {
                                         autoFocus={false} type='text' />
                                         <Field name="zip" component={TextInputField} placeholder='ZIP'
                                         autoFocus={false} type='text' />         */}
-                                    <div style={{ width: '50%', marginRight: 50 }}>
+                                    <div style={{ width: '50%', marginRight: 50, position:'relative' }}>
                                         <Field name="state" component={RFReactSelect} placeholder='STATE'
                                             autoFocus={false} type='text' options={options} search={true} />
                                     </div>
@@ -311,12 +311,13 @@ class Address extends React.Component {
             </div>
 
         </>
-        if (isMobile || isTablet) {
-            return <div>{commonContent}</div>
-        }
-        else {
-            return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
-        }
+         return <div>{commonContent}</div>
+        // if (isMobile || isTablet) {
+        //     return <div>{commonContent}</div>
+        // }
+        // else {
+        //     return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        // }
     }
 
     addressSubmit = ()=>{

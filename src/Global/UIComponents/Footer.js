@@ -74,18 +74,18 @@ class Footer extends React.Component {
         const { classes, isLoginAndSignupScreen } = this.props;
         return (
             <React.Fragment>
-                <Container fluid={true}  className="footerLayout d-flex align-items-center p-3">              
+                <Container fluid={true}  className="footerLayout d-flex align-items-center py-4 p-md-3">              
                 <Container className="container-content-header justify-content-center ">
-                        <Row className="w-100 align-items-center justify-content-sm-between justify-content-center ">
-                        <Col xs={'auto'} md={'3'} className="mNone">
+                        <Row className="w-100 align-items-start align-items-md-center no-gutters justify-content-sm-between justify-content-center ">
+                        <Col xs={'6'} md={'3'} >
                             <div className="text-left d-flex flex-column footerLink">
-                                    {/* <a href="" className="pb-2">Privacy Policy</a>
-                                    <a href="">Terms & Conditions</a> */}
+                                    <a href="#/privacy-policy" className="pb-2">Privacy & Cookie Policy</a>
+                                    <a href="#/terms-conditions">Terms & Conditions</a>
                             </div>
                             </Col>
-                            <Col xs={'auto'} className="d-flex align-items-center justify-content-center">                                
-                                <div className="d-flex align-items-center pt-xs-0">
-                                <span className="mt-3 mr-4 poweredLine">Powered by<br></br>Three-Tier Solution<br></br>From</span>                   
+                            <Col xs={'6'} className="d-flex align-items-center justify-content-center">                                
+                                <div className="d-flex flex-column flex-md-row align-items-end align-items-md-center pt-xs-0">
+                                <span className="mt-md-3 mr-md-4 poweredLine">Powered by <br className="mNone"></br>Three-Tier Solution <br className="mNone"></br>From</span>                   
                                 <img src={cLogo} className="img-responsive cLogo"></img>
                                 </div>
                             </Col>

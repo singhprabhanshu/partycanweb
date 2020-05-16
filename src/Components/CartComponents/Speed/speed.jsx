@@ -488,12 +488,13 @@ class Speed extends React.Component {
                    </div> 
                         </div>
      </>
-    if(isMobile || isTablet){
-        return <div>{commonContent}</div>
-    }
-    else{
-    return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
-    }
+      return <div>{commonContent}</div>
+    // if(isMobile || isTablet){
+    //     return <div>{commonContent}</div>
+    // }
+    // else{
+    // return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+    // }
   }
 
   render() {

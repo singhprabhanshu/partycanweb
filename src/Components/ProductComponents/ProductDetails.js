@@ -331,12 +331,13 @@ class ProductDetails extends React.Component {
                 </div>
             </div>
         </>
-        if (isMobile || isTablet) {
-            return <div style={{overflow:'hidden'}}>{commonContent}</div>
-        }
-        else {
-            return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
-        }
+         return <div style={{overflow:'hidden'}}>{commonContent}</div>
+        // if (isMobile || isTablet) {
+        //     return <div style={{overflow:'hidden'}}>{commonContent}</div>
+        // }
+        // else {
+        //     return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        // }
     }
 
     render() {
