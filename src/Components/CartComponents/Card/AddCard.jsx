@@ -49,7 +49,7 @@ const ELEMENT_OPTIONS = {
         base: {
             fontSize: '18px',
             width: "300px",
-            color: '#000',
+            color: '#fff',
             letterSpacing: '0.025em',
             '::placeholder': {
                 color: '#aab7c4',
@@ -414,9 +414,12 @@ const AddCard = (props) => {
         </div>
     </React.Fragment>
     let commonContent = null;  
-        commonContent = <div>{content}</div>
-  
-   
+    if(isMobile || isTablet){
+        commonContent =  <div>{content}</div>
+    }
+    else{
+        commonContent =  <Scrollbar  className="leftSecmaxHeight">{content}</Scrollbar>
+    }    
 
     return (
         <>

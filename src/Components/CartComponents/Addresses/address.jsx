@@ -76,7 +76,10 @@ class Address extends React.Component {
                 phone: _get(d, 'telephone'),
                 defaultAddress: _get(d, 'default_address'),
                 isPrimary: (_get(d, 'default_address') === "1") ? true : false,
-                address: _get(d, 'street2') ? `${_get(d, 'street1')}, ${_get(d, 'street2')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}` : `${_get(d, 'street1')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}`
+                // address: _get(d, 'street2') ? `${_get(d, 'street1')}, ${_get(d, 'street2')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}` : `${_get(d, 'street1')},${_get(d, 'city')}, ${_get(d, 'state')}, ${_get(d, 'zipcode')}`
+                address_1: _get(d, 'street2') ? `${_get(d, 'street1')}, ${_get(d, 'street2')}` : `${_get(d, 'street1')}`,
+                address_2: `${_get(d, 'city')}, ${_get(d, 'state')} ${_get(d, 'zipcode')}`
+
             }));
         }
 
