@@ -20,6 +20,7 @@ class ProductsContainer extends React.Component {
     }
 
     componentDidMount(){
+        window.scrollTo(0, 0);
         this.fetchTabs();
     }
 
@@ -49,7 +50,7 @@ redirectToCategories = (category) => {
 }
 
 redirectToCansPage = () => {
-    this.props.history.push('/category/Cans')
+    this.props.history.push('/category/ALL')
 }
     
 

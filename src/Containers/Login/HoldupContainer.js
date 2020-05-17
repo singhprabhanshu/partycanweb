@@ -100,7 +100,7 @@ class HoldupContainer extends React.Component {
                                     <Field name="overAge" component={SwitchInputField} label='ARE YOU OVER 21 ?' />
                                 </Col>                        
                             </Row> 
-                            <Row className="justify-content-center align-items-ceenter">
+                            <Row className="justify-content-center mt-5 align-items-center">
                             <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                     <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                         <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> LET'S PARTY</Button>

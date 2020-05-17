@@ -104,7 +104,10 @@ class MainLayout extends React.Component {
    return <Scrollbar className="mainLayout">{commonContent}</Scrollbar>
    }
   }
-
+  
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   render() {
     let { classes } = this.props;
     return (

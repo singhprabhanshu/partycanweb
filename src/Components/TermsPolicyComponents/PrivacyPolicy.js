@@ -13,7 +13,8 @@ class PrivacyPolicy extends React.Component {
         
         return (
             <React.Fragment>
-              <div className="row">
+              <div className="row my-5">
+              <div className="col-md-12 mb-4"><h1>Privacy Policy</h1></div>
                   <div className="col-md-12" style={{ textAlign: "justify", textJustify: "inter-word"}}>
                       <div>
                         <p>

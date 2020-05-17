@@ -23,6 +23,7 @@ class ProductTabs extends React.Component {
       }
 
     componentDidMount(){
+        window.scrollTo(0, 0);
         this.fetchTabs();
         this.categoriesFetchSuccess();
     }
@@ -58,7 +59,7 @@ class ProductTabs extends React.Component {
     }
 
     handleMobileBack = () => {
-        this.props.history.push('/category/Cans');
+        this.props.history.push('/category/ALL');
     }
 
     render() {

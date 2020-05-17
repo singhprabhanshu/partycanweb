@@ -33,7 +33,7 @@ class CartContainer extends React.Component {
 
     componentDidMount() {
         
-        
+        window.scrollTo(0, 0);
 
     }
 
@@ -76,12 +76,13 @@ class CartContainer extends React.Component {
                 </div>
             </div>
         </>
-        if (isMobile || isTablet) {
-            return <div>{commonContent}</div>
-        }
-        else {
-            return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
-        }
+          return <div>{commonContent}</div>
+        // if (isMobile || isTablet) {
+        //     return <div>{commonContent}</div>
+        // }
+        // else {
+        //     return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        // }
     }
     render() {
         // if (this.props.itemRemovedFetching) {

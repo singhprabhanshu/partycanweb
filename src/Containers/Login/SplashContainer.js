@@ -28,6 +28,7 @@ class SplashContainer extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         this.setState({ isLoading: true});
         genericGetData({
             dispatch:this.props.dispatch,
@@ -76,7 +77,7 @@ class SplashContainer extends React.Component {
     
     categoriesFetchSuccess = (data) => {
 
-        this.props.history.push('/category/Cans');
+        this.props.history.push('/category/ALL');
      }
     
     categoriesFetchError = () => { }

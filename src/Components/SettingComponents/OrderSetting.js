@@ -19,6 +19,7 @@ class OrderSetting extends React.Component {
     }
     
     componentDidMount() {
+        window.scrollTo(0, 0);
         if(this.props.tabValue === 1) {
             this.getOrderSettingData();
         }
@@ -62,8 +63,7 @@ class OrderSetting extends React.Component {
                                 {item.product_name}
                                 </div>
                                 <div className="pricingWrapper">
-                                <span  className="orderDetaillabel">{item.product_qty}
-                                {item.product_qty <= 1 ? ' CAN' : ' CANS'}</span>
+                                <span  className="orderDetaillabel">{item.product_qty}</span>
                                 <span style={{ color: '#0033a0', }}>{item.total}</span>
                                 </div>
                             

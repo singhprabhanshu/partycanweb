@@ -111,6 +111,7 @@ class ProductDetails extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         const productID = this.props.match.params.productID;
         genericGetData({
             dispatch: this.props.dispatch,
@@ -331,12 +332,13 @@ class ProductDetails extends React.Component {
                 </div>
             </div>
         </>
-        if (isMobile || isTablet) {
-            return <div style={{overflow:'hidden'}}>{commonContent}</div>
-        }
-        else {
-            return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
-        }
+         return <div style={{overflow:'hidden'}}>{commonContent}</div>
+        // if (isMobile || isTablet) {
+        //     return <div style={{overflow:'hidden'}}>{commonContent}</div>
+        // }
+        // else {
+        //     return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        // }
     }
 
     render() {

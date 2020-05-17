@@ -50,8 +50,8 @@ class HeaderBar extends React.Component {
                         <Row className="justify-content-between align-items-center flex-grow-1">
                             <Col xs={'auto'}>
                                 {/* <Button className="addCircleIcon icons mr-4">+</Button> */}
-                                <Button onClick={() => this.props.history.push("/category/Cans")}
-                                 className="homeIcons icons mr-3"></Button>
+                                <Button onClick={() => this.props.history.push("/category/ALL")}
+                                 className="homeIcons icons mr-4"></Button>
                                 {/* <Button className="locationIcons icons "></Button> */}
                             </Col>
                             <Col sm={4} className="d-flex justify-content-center" >
@@ -60,10 +60,10 @@ class HeaderBar extends React.Component {
                             <Col xs={'auto'} className="d-flex">
                                 {/* <Button onClick={this.handleSearchAction} className="searchIcons icons"></Button> */}
                                 <Badge badgeContent={this.props.total_items_count} color="primary">
-                                    <Button onClick={() => this.props.history.push("/cart")} className="cartIcons icons ml-3"></Button>
+                                    <Button onClick={() => this.props.history.push("/cart")} className="cartIcons icons ml-4"></Button>
                                 </Badge>
                                 <div className="position-relative">
-                                <Button className="userIcons icons ml-3" onClick={this.showUserMenu}></Button>
+                                <Button className="userIcons icons ml-4" onClick={this.showUserMenu}></Button>
                                 {this.props.showUserMenuOption ? 
                                     <div className="drop-option">
                                         <span className="user">Hey , {this.props.userName ? this.props.userName : 'Guest'}</span>                                        

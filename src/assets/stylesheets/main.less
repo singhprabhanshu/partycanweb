@@ -162,10 +162,12 @@ button:focus {
   max-width: 192rem!important;
   padding-right: 2.5rem!important;
   padding-left: 2.5rem!important;
-  @media (max-width: 1366px){
-   
+  @media (max-width: 991px){
+    padding-right:1.5rem!important;
+    padding-left:1.5rem!important;
   } 
 }
+ 
 
 ////////////////////// Intro carousel css
 .IntroSlider{
@@ -244,11 +246,11 @@ button:focus {
   border-bottom-right-radius: 2rem;
   display: flex; 
   min-height: calc( 100vh - 230px);
-  max-height: calc( 100vh - 230px);
+  // max-height: calc( 100vh - 230px);
   @media (max-width:767px){
     min-height: calc( 100vh - 120px);
     margin: 0 -1.5rem;
-    max-height: unset;
+    // max-height: unset;
   }
 
 }
@@ -459,9 +461,10 @@ button:focus {
   color: #fff;
   font-size: 1.3rem;
   text-transform: uppercase;
+  transition: ease all .3s;
 }
 .footerLink a:hover{
-  color: #000; 
+  color: rgba(255, 255, 255, 0.7); 
   text-decoration: none;
 }
 
@@ -659,6 +662,12 @@ img.cLogo{
     width: 25%;
     background-color: transparent!important;
     border: 0;
+    @media(max-width:991px){
+      width: 33.33%;
+    }   
+    @media(max-width:767px){
+      width: 50%;        
+    }
     .prodcutMinDetails{
       border-radius:1.5rem;
       flex-direction: column;
@@ -956,21 +965,16 @@ span.MuiButton-label {
 }
 
 .leftSecmaxHeight{
-  // max-height: calc(100vh - 24rem);
-  overflow-y: auto;
   width: 100%;
-  
-  @media(max-width:767px){
-    max-height:unset!important;
-  }
+ 
 }
 
 .productImgSection{
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  max-height: calc(100vh - 180px);
+  // max-height: calc(100vh - 180px);
   height: 100%;
   z-index: 1;
 
@@ -981,9 +985,9 @@ span.MuiButton-label {
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(255, 255, 255, .4);
+    background-color: rgba(255, 255, 255, .2);
     content: "";
-    border-bottom-left-radius:10rem;
+    // border-bottom-left-radius:10rem;
     z-index: -1;
   }
 
@@ -1005,7 +1009,7 @@ span.MuiButton-label {
 
   .imgProduct{
     width: auto!important;
-     max-width:60%;
+     max-width:100%;
      height: auto;
       @media(min-width:768px) and (max-width:991px)  {     
         height: auto; 
@@ -1063,7 +1067,7 @@ span.MuiButton-label {
 }
 
 .ImgSectionwt { 
-  max-height: calc(100vh - 120px);  
+  // max-height: calc(100vh - 120px);  
 }
 
 
@@ -1076,7 +1080,7 @@ span.MuiButton-label {
 }
 
 .block-title{
-  font-size: 1.8rem; 
+  font-size: 2rem; 
   text-transform: uppercase;
 }
 
@@ -1882,4 +1886,11 @@ More info: https://stripe.com/docs/stripe-js/reference#element-options
   left: 50%;
   margin-top: -3px;
   margin-left: -25px;
+}
+
+.peripheralContent{
+  word-break: break-all;
+  ul{
+    padding-left: 1.5rem;
+  }
 }

@@ -152,6 +152,7 @@ class Address extends React.Component {
     };
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         if (!_isEmpty(this.props.userDetails)) {
             this.fetchAddress();
         }
@@ -286,7 +287,7 @@ class Address extends React.Component {
                                         autoFocus={false} type='text' />
                                         <Field name="zip" component={TextInputField} placeholder='ZIP'
                                         autoFocus={false} type='text' />         */}
-                                    <div style={{ width: '50%', marginRight: 50 }}>
+                                    <div style={{ width: '50%', marginRight: 50, position:'relative' }}>
                                         <Field name="state" component={RFReactSelect} placeholder='STATE'
                                             autoFocus={false} type='text' options={options} search={true} />
                                     </div>
@@ -311,12 +312,13 @@ class Address extends React.Component {
             </div>
 
         </>
-        if (isMobile || isTablet) {
-            return <div>{commonContent}</div>
-        }
-        else {
-            return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
-        }
+         return <div>{commonContent}</div>
+        // if (isMobile || isTablet) {
+        //     return <div>{commonContent}</div>
+        // }
+        // else {
+        //     return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        // }
     }
 
     addressSubmit = ()=>{
@@ -357,7 +359,7 @@ class Address extends React.Component {
                             </div>
                         </Col>
                         <Col lg={6} className="p-xl-5 p-md-4 py-4 d-flex flex-column order-2 order-md-1">
-                            {!this.state.isAddressFormShown ? <div className="block-title mb-5"> Shipping Address</div> : <div>
+                            {!this.state.isAddressFormShown ? <div className="block-title mb-5">Select a Shipping Address</div> : <div>
                                 <div className="bread-crumb mb-4"><KeyboardBackspaceIcon style={{ fontSize: 13, marginRight: 10 }} onClick={this.handleGoBack} />ADDRESS</div>
                                 <div className="block-title mb-5">ADD NEW ADDRESSES</div>
                             </div>}
