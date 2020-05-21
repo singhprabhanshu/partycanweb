@@ -91,12 +91,18 @@ class SplashContainer extends React.Component {
 
         let renderSlide = this.state.imageData.map((subdata,index) => {
             return(<React.Fragment key={index}>
-                <div className={isMobile ? "d-flex justify-content-center flex-column align-items-center h-100" 
+                {isMobile &&
+                    <div className= "d-block d-md-none splashSlides"   style={{backgroundImage: `url(${subdata.imageurl})`}}></div>
+                }
+             {!isMobile && 
+                <div className= " d-none d-md-block splashSlides"  style={{backgroundImage: `url(${subdata.imageurl})`}}></div>
+                }
+            {/* <div className={isMobile ? "d-flex justify-content-center flex-column align-items-center h-100" 
                 : " d-flex justify-content-center align-items-center h-100 "}>
                   <img src={subdata.imageurl}  className="img-responsive d-none d-md-block"  />
                   <img src={subdata.imageurl}  className="img-responsive d-block d-md-none"  />
                     <p className="legend">{subdata.text}</p>
-                </div>
+                </div> */}
             </React.Fragment>)
         })
 
@@ -105,9 +111,8 @@ class SplashContainer extends React.Component {
              {this.state.isLoading && <Loader /> }
             {this.state.imageData.length > 0 && <div className="WhiteCurveBg">
                      <CssBaseline />
-                <Container className="d-flex flex-column justify-content-center">
-                <Row className="flex-grow-1">
-                      <Col className="text-center d-flex justify-content-center IntroSlider  align-items-center position-relative" >
+               
+                      <div className="IntroSlider" >
                         <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} showArrows={false}
                             selectedItem= {this.state.slideIndex} onChange={this.handleIndicator}
                             >
@@ -121,9 +126,8 @@ class SplashContainer extends React.Component {
                             */}
                            
                         </Carousel>  
-                    </Col>
-                    </Row>  
-                    </Container>
+                    </div>
+                   
                 </div>}
                 {this.state.imageData.length > 0 && <Container className="container-custom">
                     <Row>
