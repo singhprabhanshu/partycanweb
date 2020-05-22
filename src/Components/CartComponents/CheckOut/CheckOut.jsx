@@ -27,6 +27,7 @@ class CheckOut extends React.Component {
         this.state = { driverTip: { id: 0, value: 0 }, driverTipAmount: 0 }
     }
     componentDidMount() {
+        window.scrollTo(0, 0);
         //this.fetchCart(this.cartFetchSuccess);
     };
     fetchCart = (successCB) => {
@@ -159,12 +160,13 @@ class CheckOut extends React.Component {
                 </div>
             </div>
         </>
-        if (isMobile || isTablet) {
-            return <div>{commonContent}</div>
-        }
-        else {
-            return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
-        }
+         return <div>{commonContent}</div>
+        // if (isMobile || isTablet) {
+        //     return <div>{commonContent}</div>
+        // }
+        // else {
+        //     return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        // }
     }
 
     render() {

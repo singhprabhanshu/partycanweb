@@ -16,7 +16,7 @@ class PrivacyPolicyContainer extends React.Component {
     }
 
     componentDidMount() {
-       
+        window.scrollTo(0, 0);
     }
 
 
@@ -26,7 +26,7 @@ class PrivacyPolicyContainer extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline />  
-                <Container>    
+                <Container className="peripheralContent">    
                       <PrivacyPolicy />
                 </Container>
             </React.Fragment>

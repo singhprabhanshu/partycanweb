@@ -63,6 +63,7 @@ class CardComponent extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         // cart tab validation
         let cartTabValidation = this.props.cartTabValidation;
 
@@ -129,12 +130,13 @@ class CardComponent extends React.Component {
                 </div>
             </div>
         if (!this.state.addCard) {
-            if (isMobile || isTablet) {
-                return <div>{commonContent}</div>
-            }
-            else {
-                return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
-            }
+            return <div>{commonContent}</div>
+            // if (isMobile || isTablet) {
+            //     return <div>{commonContent}</div>
+            // }
+            // else {
+            //     return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
+            // }
         }
         else {
             return <AddCard
@@ -159,7 +161,7 @@ class CardComponent extends React.Component {
                             </div>
                         </Col>
                         <Col lg={6} className="p-xl-5 p-md-4 py-4 flex-column d-flex">
-                            {!this.state.addCard ? <div className="block-title mb-4">SAVED CARDS</div> : null}
+                            {!this.state.addCard ? <div className="block-title mb-4">Choose a Card for Payment</div> : null}
                             {this.renderContent()}
                             {!this.state.addCard ?
                                 <div className="text-left mt-4" >

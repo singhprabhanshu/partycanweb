@@ -65,7 +65,7 @@ class SignIn extends React.Component {
     }
 
     componentDidMount() {
-
+        window.scrollTo(0, 0);
     }
 
     onSubmit = async values => {
@@ -166,7 +166,7 @@ class SignIn extends React.Component {
                                 </Col>
                                     </Row> */}
 
-                                    <Row className="justify-content-center align-items-ceenter">
+                                    <Row className="justify-content-center mt-5 align-items-ceenter">
                                         <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                             <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                                 <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />SIGN IN</Button>

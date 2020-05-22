@@ -20,6 +20,7 @@ class CartItemList extends React.Component {
         this.state = { cartItems: [] };
     }
     componentDidMount() {
+        window.scrollTo(0, 0);
         this.setState({cartIsFetching:true})
         if(this.props.isCheckOut){
             this.fetchTaxes(this.sb, this.eb)

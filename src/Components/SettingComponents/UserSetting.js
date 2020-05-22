@@ -22,6 +22,7 @@ class UserSetting extends React.Component {
     }
      
     componentDidMount() {
+        window.scrollTo(0, 0);
         if(this.props.tabValue === 0) {
             this.getSettingData();
         }
