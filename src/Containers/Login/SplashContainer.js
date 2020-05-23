@@ -12,6 +12,7 @@ import { Carousel } from 'react-responsive-carousel';
 import ReactDOM from "react-dom";
 import { Loader } from '../../Global/UIComponents/LoaderHoc';
 import { isMobile, isTablet } from 'react-device-detect';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 const styles = theme => ({   
 });
@@ -92,17 +93,32 @@ class SplashContainer extends React.Component {
         let renderSlide = this.state.imageData.map((subdata,index) => {
             return(<React.Fragment key={index}>
                 {isMobile &&
-                    <div className= "d-block d-md-none splashSlides"   style={{backgroundImage: `url(${subdata.imageurl})`}}></div>
+                    <div className= "d-block d-lg-none splashSlides" style={{backgroundImage: `url(${subdata.imageurl})`}} >
+                        <div className="captionTxt">
+                        <span className="textGreen">BRING THE <b className="tBold">PARTY</b> HOME.</span>
+                        <span className="textBlue mt-4">SERVE 12 COCKTAILS IN SECONDS!</span>
+                        <Button variant="contained"  onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
+                            <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> LET'S PARTY</Button>
+                        </div>
+                    </div>
                 }
-             {!isMobile && 
-                <div className= " d-none d-md-block splashSlides"  style={{backgroundImage: `url(${subdata.imageurl})`}}></div>
-                }
+                {!isMobile && 
+                <div className= " d-none d-lg-block splashSlides"  style={{backgroundImage: `url(${subdata.imageurl})`}}  >
+                        <div className="captionTxt">
+                            <span className="textGreen">BRING THE <b className="tBold">PARTY</b> HOME.</span>
+                            <span className="textBlue mt-4">SERVE 12 COCKTAILS IN SECONDS!</span>
+                            <Button variant="contained"  onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
+                             <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> LET'S PARTY</Button>
+                        </div>
+                </div>
+               }
             {/* <div className={isMobile ? "d-flex justify-content-center flex-column align-items-center h-100" 
                 : " d-flex justify-content-center align-items-center h-100 "}>
                   <img src={subdata.imageurl}  className="img-responsive d-none d-md-block"  />
                   <img src={subdata.imageurl}  className="img-responsive d-block d-md-none"  />
                     <p className="legend">{subdata.text}</p>
                 </div> */}
+                       
             </React.Fragment>)
         })
 
@@ -110,26 +126,19 @@ class SplashContainer extends React.Component {
             <React.Fragment>
              {this.state.isLoading && <Loader /> }
             {this.state.imageData.length > 0 && <div className="WhiteCurveBg">
-                     <CssBaseline />
-               
-                      <div className="IntroSlider" >
+                     <CssBaseline />               
+                      <div className="IntroSlider" >                         
+                        {this.state.imageData.length > 0 && renderSlide}
+                      
+                      {/* {this.state.imageData.length > 0 && renderSlide}
                         <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} showArrows={false}
-                            selectedItem= {this.state.slideIndex} onChange={this.handleIndicator}
-                            >
+                            selectedItem= {this.state.slideIndex} onChange={this.handleIndicator}  >
                                 {this.state.imageData.length > 0 && renderSlide}
-                                {/* {isMobile && this.state.imageData.length > 0 &&renderMobileSlide} */}
-                            {/* <div className=" d-flex justify-content-between flex-column align-items-center h-100 ">
-                            <img src={slide1} className="img-responsive d-none d-lg-block"  />
-                            <img src={slide2} className="img-responsive d-block d-lg-none" />
-                                <p className="legend">THE PARTY CAN BRING CRAFT COCKTAIL GOODNESS TO YOUR GLASS IN SECONDS!</p>
-                            </div>
-                            */}
-                           
-                        </Carousel>  
-                    </div>
-                   
+                        </Carousel>   */}
+                    </div>                   
                 </div>}
-                {this.state.imageData.length > 0 && <Container className="container-custom">
+                {/* {this.state.imageData.length > 0 && 
+                <Container className="container-custom">
                     <Row>
                         <Col className="text-center" style={{height:70}} >
                             <Button variant="text" color="secondary" className="txtButton" 
@@ -138,7 +147,7 @@ class SplashContainer extends React.Component {
                             </Button>
                         </Col>                        
                     </Row>
-                        </Container>}       
+                 </Container>}        */}
          </React.Fragment>
         );
     }
