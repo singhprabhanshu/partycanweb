@@ -93,7 +93,7 @@ class SplashContainer extends React.Component {
 
         let renderSlide = this.state.mobileImageData.map((subdata,index) => {
             return(<React.Fragment key={index}>
-                {isMobile &&
+               
                     <div className= "d-block d-lg-none splashSlides" style={{backgroundImage: `url(${subdata.imageurl})`}} >
                         <div className="captionTxt">
                         <span className="textGreen">BRING THE <b className="tBold">PARTY</b> HOME.</span>
@@ -102,7 +102,7 @@ class SplashContainer extends React.Component {
                             <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> LET'S PARTY</Button>
                         </div>
                     </div>
-                }
+               
             {/* <div className={isMobile ? "d-flex justify-content-center flex-column align-items-center h-100" 
                 : " d-flex justify-content-center align-items-center h-100 "}>
                   <img src={subdata.imageurl}  className="img-responsive d-none d-md-block"  />
@@ -115,8 +115,8 @@ class SplashContainer extends React.Component {
 
         let renderDesktopSlide = this.state.deskTopImageData.map((subdata,index) => {
             return(<React.Fragment key={index}>
-                {!isMobile && 
-                <div className= " d-none d-lg-block splashSlides"  style={{backgroundImage: `url(${subdata.imageurl})`}}  >
+              
+                <div className= "d-none d-lg-block splashSlides"  style={{backgroundImage: `url(${subdata.imageurl})`}}  >
                         <div className="captionTxt">
                             <span className="textGreen">BRING THE <b className="tBold">PARTY</b> HOME.</span>
                             <span className="textBlue mt-4">SERVE 12 COCKTAILS IN SECONDS!</span>
@@ -124,7 +124,7 @@ class SplashContainer extends React.Component {
                              <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> LET'S PARTY</Button>
                         </div>
                 </div>
-               }
+              
             </React.Fragment>)
         })
 
