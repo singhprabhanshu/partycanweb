@@ -54,6 +54,12 @@ class OrderSetting extends React.Component {
     orderSettingDataFailure = () => {
 
     }
+    convertToDecimal = (number) => {
+        const convertedNumber = (Math.round(number * 100) / 100).toFixed(2);
+        console.log('convertedNumber', convertedNumber);
+        console.log('number', number);
+        return convertedNumber;
+    }
 
     render() {
         let renderItems= (items) => items && items.map((item,index)=> {
@@ -64,7 +70,9 @@ class OrderSetting extends React.Component {
                                 </div>
                                 <div className="pricingWrapper">
                                 <span  className="orderDetaillabel">{item.product_qty}</span>
-                                <span style={{ color: '#0033a0', }}>{item.total}</span>
+                                <span style={{ color: '#0033a0', }}>${ item && item.total ?
+                                    this.convertToDecimal(item.total) : '0.00'}
+                                </span>
                                 </div>
                             
                         </div>
@@ -92,32 +100,38 @@ class OrderSetting extends React.Component {
                                         <div className="row pt-4 d-flex flex-wrap align-items-center">
                                             <div className="col-md-12 d-flex justify-content-between align-items-center">
                                         <div>
-                                                <span className="orderStatusText" style={{color: '#00BFB2', fontSize: '1.6rem', fontWeight:'bold',}}>{data.status}</span>                                               
+                                                <span className="orderStatusText" style={{color: '#00BFB2', fontSize: '1.6rem', fontWeight:'bold',}}>
+                                                {data.status}</span>                                               
                                             </div>
                                             <div className="pricingWrapper flex-column">
                                             <div className="d-flex justify-content-between w-100" >
                                                  <span  className="orderDetaillabel">DELIVERY</span> 
-                                                 <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.delivery_fee}</span>
+                                                 <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>
+                                                 ${ data && data.delivery_fee ? this.convertToDecimal(data.delivery_fee) : '0.00' }</span>
                                             </div>
 
                                             <div className="d-flex justify-content-between w-100" >
                                             <span className="orderDetaillabel">TAX</span>
-                                            <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.tax}</span>                                            
+                                            <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>
+                                                ${ data && data.tax ? this.convertToDecimal(data.tax) : '0.00' }</span>                                            
                                             </div>
 
                                             <div className="d-flex justify-content-between w-100" >
                                             <span className="orderDetaillabel">TIP</span>
-                                            <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.driver_tip}</span>                                            
+                                            <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>
+                                            ${ data && data.driver_tip ? this.convertToDecimal(data.driver_tip) : '0.00' }</span>                                            
                                             </div>
 
                                             <div className="d-flex justify-content-between w-100" >
                                             <span className="orderDetaillabel">DISCOUNT</span>
-                                            <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>{data.discount}</span>                                            
+                                            <span  style={{ color: '#0033a0', fontWeight: 'bold',}}>
+                                            ${ data && data.discount ? this.convertToDecimal(data.discount) : '0.00' }</span>                                            
                                             </div>
                                             
                                             <div className="d-flex justify-content-between w-100" style={{ color: '#0033a0', fontWeight: 'bold',}} >                                           
                                                 <span className="orderDetaillabel" >TOTAL</span>
-                                                <span className="ml-2" style={{ color: '#0033a0', fontWeight: 'bold',}} >{data.grand_total}</span>
+                                                <span className="ml-2" style={{ color: '#0033a0', fontWeight: 'bold',}} >
+                                                ${ data && data.grand_total ? this.convertToDecimal(data.grand_total) : '0.00' }</span>
                                               </div>
                                                 
                                             </div> 
