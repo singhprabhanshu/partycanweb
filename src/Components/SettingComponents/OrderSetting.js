@@ -56,8 +56,6 @@ class OrderSetting extends React.Component {
     }
     convertToDecimal = (number) => {
         const convertedNumber = (Math.round(number * 100) / 100).toFixed(2);
-        console.log('convertedNumber', convertedNumber);
-        console.log('number', number);
         return convertedNumber;
     }
 
