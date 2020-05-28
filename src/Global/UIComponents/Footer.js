@@ -90,7 +90,7 @@ class Footer extends React.Component {
                                 </div>
                             </Col>
                             <Col xs={'auto'} md={'3'} className="mNone" >
-                           
+                                    Everyone's Invited Drink Responsibly
                             </Col>
                         </Row>
                     </Container>

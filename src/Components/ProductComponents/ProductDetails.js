@@ -275,7 +275,7 @@ class ProductDetails extends React.Component {
                 </Row>
                 {!_isEmpty(Ingredients) ?
                     <div className="proItems d-flex flex-column mb-md-4 mb-8" >
-                        <div className="mb-3 title-2">INCLUDES</div>
+                        <div className="mb-3 title-2">CONTAINS</div>
 
                         <div>
                             <Carousel responsive={this.state.responsive} showDots={true} itemClass="px-4">
