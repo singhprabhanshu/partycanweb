@@ -130,6 +130,7 @@ button:focus {
 }
 
 /////////////////////////// Layout styling css
+.drinkText{font-size: 1.3rem; color: #fff; text-transform: uppercase; text-align: right;}
 
 .emptyLayout, .mainLayout {
   display: flex;
@@ -230,16 +231,17 @@ button:focus {
 
   .captionTxt{    
     font-family: 'Tungsten-Medium', sans-serif;
-    font-size: 90px;
+    font-size: 85px;
     letter-spacing: 1rem;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
     height: 100%;
-    line-height: 95px;
-    width: 40%;
+    line-height: 70px;
+    width: 45%;
     margin-left: auto;
+    padding-left: 5rem;
 
     .tBold{
       font-family: 'Tungsten-bold', sans-serif;
@@ -253,12 +255,21 @@ button:focus {
       color:#1f00a1;
     }
 
-    @media (max-width: 1440px){
-      font-size: 90px;
-      font-size: 62px;
-      letter-spacing: .8rem;
-      line-height: 58px;
+    .textRed{
+      color:#E5554F;
+    }
+
+    @media (max-width: 1440px){      
+      font-size: 60px;
+      letter-spacing: .6rem;
+      line-height: 54px;
     } 
+
+    @media (max-width: 1140px){      
+      font-size: 50px;
+      letter-spacing: .6rem;
+      line-height: 44px;
+    }
     @media (max-width: 991px) and (min-width: 768px){
     width: 100%;
     text-align: center;
@@ -273,11 +284,15 @@ button:focus {
       width: 100%;
       align-items: center;
       justify-content: flex-start;
-      font-size: 40px;
-      line-height: 50px;
+      font-size: 35px;
+      line-height: 35px;
       text-align: center;
       padding: 3rem 1rem 0 1rem;
       }
+      .bottomActionbutton {
+        min-width: 60%!important;
+      }
+
   }
 
   // .carousel .slide img{
@@ -812,7 +827,7 @@ img.cLogo{
     padding:0;
     li{
       list-style:none;
-      padding-bottom:5px;
+      padding:8px 0px;
     }
   }
 }

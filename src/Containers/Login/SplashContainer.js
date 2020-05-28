@@ -22,7 +22,8 @@ class SplashContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            imageData: [],
+            mobileImageData: [],
+            deskTopImageData: [],
             slideIndex: 0,
             isLoading : false
         }
@@ -47,7 +48,7 @@ class SplashContainer extends React.Component {
     }
 
     splashBannerSuccess= (data) => {
-        this.setState({ imageData : isMobile ? data[1] : data[0], isLoading: false});
+        this.setState({ mobileImageData: data[1] , deskTopImageData : data[0], isLoading: false});
     }
     splashBannerFetchError = (data) => {
         this.setState({ isLoading: false});
@@ -90,28 +91,20 @@ class SplashContainer extends React.Component {
     render() {
         const { classes } = this.props;
 
-        let renderSlide = this.state.imageData.map((subdata,index) => {
+        let renderSlide = this.state.mobileImageData.map((subdata,index) => {
             return(<React.Fragment key={index}>
-                {isMobile &&
+               
                     <div className= "d-block d-lg-none splashSlides" style={{backgroundImage: `url(${subdata.imageurl})`}} >
                         <div className="captionTxt">
-                        <span className="textGreen">BRING THE <b className="tBold">PARTY</b> HOME.</span>
-                        <span className="textBlue mt-4">SERVE 12 COCKTAILS IN SECONDS!</span>
+                        <span className="textGreen">BRING THE<br></br><b className="tBold">PARTY</b> HOME.</span>
+                            <span className="textBlue mt-4 mt-xl-5">SERVES <b>12</b> COCKTAILS<br></br>IN SECONDS!</span>
+                            <span className="textRed mt-4 mt-xl-5">MADE WITH <b className="tBold">100%</b><br></br>REAL JUICE.</span>
+                       
                         <Button variant="contained"  onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
                             <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> LET'S PARTY</Button>
                         </div>
                     </div>
-                }
-                {!isMobile && 
-                <div className= " d-none d-lg-block splashSlides"  style={{backgroundImage: `url(${subdata.imageurl})`}}  >
-                        <div className="captionTxt">
-                            <span className="textGreen">BRING THE <b className="tBold">PARTY</b> HOME.</span>
-                            <span className="textBlue mt-4">SERVE 12 COCKTAILS IN SECONDS!</span>
-                            <Button variant="contained"  onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
-                             <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> LET'S PARTY</Button>
-                        </div>
-                </div>
-               }
+               
             {/* <div className={isMobile ? "d-flex justify-content-center flex-column align-items-center h-100" 
                 : " d-flex justify-content-center align-items-center h-100 "}>
                   <img src={subdata.imageurl}  className="img-responsive d-none d-md-block"  />
@@ -122,13 +115,30 @@ class SplashContainer extends React.Component {
             </React.Fragment>)
         })
 
+        let renderDesktopSlide = this.state.deskTopImageData.map((subdata,index) => {
+            return(<React.Fragment key={index}>
+              
+                <div className= "d-none d-lg-block splashSlides"  style={{backgroundImage: `url(${subdata.imageurl})`}}  >
+                        <div className="captionTxt">
+                            <span className="textGreen">BRING THE<br></br><b className="tBold">PARTY</b> HOME.</span>
+                            <span className="textBlue mt-4 mt-xl-5">SERVES <b>12</b> COCKTAILS<br></br>IN SECONDS!</span>
+                            <span className="textRed mt-4 mt-xl-5">MADE WITH <b className="tBold">100%</b><br></br>REAL JUICE.</span>
+                            <Button variant="contained"  onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
+                             <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> LET'S PARTY</Button>
+                        </div>
+                </div>
+              
+            </React.Fragment>)
+        })
+
         return ( 
             <React.Fragment>
              {this.state.isLoading && <Loader /> }
-            {this.state.imageData.length > 0 && <div className="WhiteCurveBg">
+            {this.state.deskTopImageData.length > 0 && <div className="WhiteCurveBg">
                      <CssBaseline />               
                       <div className="IntroSlider" >                         
-                        {this.state.imageData.length > 0 && renderSlide}
+                        {this.state.mobileImageData.length > 0 && renderSlide}
+                        {this.state.deskTopImageData.length > 0 && renderDesktopSlide}
                       
                       {/* {this.state.imageData.length > 0 && renderSlide}
                         <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} showArrows={false}
