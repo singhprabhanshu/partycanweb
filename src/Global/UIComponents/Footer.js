@@ -76,22 +76,23 @@ class Footer extends React.Component {
             <React.Fragment>
                 <Container fluid={true}  className="footerLayout d-flex align-items-center py-4  p-md-3">              
                 <Container className="container-content-header justify-content-center ">
-                        <Row className="w-100 align-items-start align-items-md-center no-gutters justify-content-sm-between justify-content-center ">
-                        <Col xs={'6'} md={'3'} >
+                <Row className="w-100 align-items-start align-items-md-center no-gutters justify-content-sm-between justify-content-center ">
+                        <Col  xs={'6'} md={'3'}  className="order-1 mb-4 mb-md-0" >
                             <div className="text-left d-flex flex-column footerLink">
                                     <a href="/privacy-policy" className="pb-2">Privacy & Cookie Policy</a>
                                     <a href="/terms-conditions">Terms & Conditions</a>
                             </div>
                             </Col>
-                            <Col xs={'6'} className="d-flex align-items-center justify-content-center">                                
-                                <div className="d-flex flex-column flex-md-row align-items-end align-items-md-center pt-xs-0">
-                                <span className="mt-md-3 mr-md-4 poweredLine">Powered by <br className="mNone"></br>Three-Tier Solution <br className="mNone"></br>From</span>                   
+                            <Col xs={'6'} md={'3'}  className="order-2 order-md-3 drinkText" >                           
+                                    Everyone's Invited<br></br> Drink Responsibly
+                            </Col>
+                            <Col md={'6'} xs={'12'} className="order-3 mb-4 mb-md-0 order-md-2 d-flex align-items-center justify-content-center">                                
+                                <div className="d-flex align-items-center pt-xs-0">
+                                <span className="mt-3 mr-4 poweredLine">Powered by<br></br> Three-Tier Solution<br></br> From</span>                  
                                 <img src={cLogo} className="img-responsive cLogo"></img>
                                 </div>
                             </Col>
-                            <Col xs={'auto'} md={'3'} className="mNone" >
-                                    Everyone's Invited Drink Responsibly
-                            </Col>
+                           
                         </Row>
                     </Container>
                 </Container>
