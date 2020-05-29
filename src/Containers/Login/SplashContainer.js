@@ -97,7 +97,7 @@ class SplashContainer extends React.Component {
                     <div className= "d-block d-lg-none splashSlides" style={{backgroundImage: `url(${subdata.imageurl})`}} >
                         <div className="captionTxt">
                         <span className="textGreen">BRING THE<br></br><b className="tBold">PARTY</b> HOME.</span>
-                            <span className="textBlue mt-4 mt-xl-5">SERVES <b>12</b> COCKTAILS<br></br>IN SECONDS!</span>
+                            <span className="textBlue mt-4 mt-xl-5">SERVES <b className="tBold">12</b> COCKTAILS<br></br>IN SECONDS!</span>
                             <span className="textRed mt-4 mt-xl-5">MADE WITH <b className="tBold">100%</b><br></br>REAL JUICE.</span>
                        
                         <Button variant="contained"  onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
@@ -121,7 +121,7 @@ class SplashContainer extends React.Component {
                 <div className= "d-none d-lg-block splashSlides"  style={{backgroundImage: `url(${subdata.imageurl})`}}  >
                         <div className="captionTxt">
                             <span className="textGreen">BRING THE<br></br><b className="tBold">PARTY</b> HOME.</span>
-                            <span className="textBlue mt-4 mt-xl-5">SERVES <b>12</b> COCKTAILS<br></br>IN SECONDS!</span>
+                            <span className="textBlue mt-4 mt-xl-5">SERVES <b className="tBold">12</b> COCKTAILS<br></br>IN SECONDS!</span>
                             <span className="textRed mt-4 mt-xl-5">MADE WITH <b className="tBold">100%</b><br></br>REAL JUICE.</span>
                             <Button variant="contained"  onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
                              <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> LET'S PARTY</Button>
