@@ -42,6 +42,16 @@
 @color-l: #00BFB2;
 @background-white: #fff;
 
+.divider{
+  width: 2px;
+  background-color: #000;
+  height: 100%;
+  margin:0 3rem;
+  @media(max-width:991px){
+    background-color: transparent;
+  }
+}
+
 
 
 @-webkit-keyframes autofill {
@@ -321,6 +331,24 @@ button:focus {
   @media (max-width:575px){
     font-size: 4.3rem;
   }
+}
+
+.newsOffers{
+  .MuiCheckbox-colorSecondary.Mui-checked{
+    color:#000!important;
+  }
+  }
+
+.genderSelection{
+  font-family: 'GrotesqueMTBold' , sans-serif !important;
+  .selectGender{
+    .MuiTypography-body1{
+      font-family: 'GrotesqueMTBold' , sans-serif !important;
+    }
+    }
+    .MuiRadio-colorSecondary.Mui-checked{
+      color:#000!important;
+    }
 }
 
 
@@ -1908,5 +1936,42 @@ More info: https://stripe.com/docs/stripe-js/reference#element-options
   word-break: break-all;
   ul{
     padding-left: 1.5rem;
+  }
+}
+
+
+.datePicker {
+  position: relative;
+  .form-control:focus{
+    background: transparent!important;
+  }
+  .calenderIcon{
+    position: absolute;
+      right: 0;
+      top: 8px;
+  }
+  input {
+    background: transparent;
+    border-radius: unset;
+    border: 0;
+    border-bottom: 1px solid #000;
+    height: 32px;
+    padding: 0;
+  }
+  
+  }
+
+
+/// guest flow
+
+.sectionWrapper{
+  width: 70%;
+  margin: 0 auto;
+  form{
+    width:100%;
+  }
+ 
+  @media (max-width:767px){
+    width: 100%;
   }
 }
