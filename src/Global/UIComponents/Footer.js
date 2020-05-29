@@ -84,7 +84,8 @@ class Footer extends React.Component {
                             </div>
                             </Col>
                             <Col xs={'6'} md={'3'}  className="order-2 order-md-3 drinkText" >                           
-                                    Everyone's Invited<br></br> Drink Responsibly
+                                    <span className="pb-2">Everyone's Invited</span>
+                                    <span>Drink Responsibly</span>
                             </Col>
                             <Col md={'6'} xs={'12'} className="order-3 mb-4 mb-md-0 order-md-2 d-flex align-items-center justify-content-center">                                
                                 <div className="d-flex align-items-center pt-xs-0">
