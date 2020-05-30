@@ -130,6 +130,10 @@ class SignIn extends React.Component {
         this.props.history.push('/createAccount');
     }
 
+    forgotPasswordHandler = () => {
+        this.props.history.push('/forgot/password');
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -178,6 +182,9 @@ class SignIn extends React.Component {
                     </Container>
                 </div>
                 <Container className="container-custom">
+                <div style={{ marginTop: 10, display: 'flex', justifyContent: 'center'}}>
+                        <a href="javascript:void(0)" onClick={this.forgotPasswordHandler}>Forgot Password</a>
+                </div>
                     <Row>
                         <Col className="text-center" >
                             <Button variant="text" color="secondary" className="txtButton" onClick={this.createAccount} >CREATE ACCOUNT</Button>
