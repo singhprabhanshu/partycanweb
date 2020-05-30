@@ -24,6 +24,7 @@ class SettingContainer extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         const settingParam =  this.props.match.params.settingParam; 
         this.setState({ tabValue : settingParam === 'user' ? 0 :
         settingParam === 'order' ? 1 : settingParam === 'chat' ? 2 : null})
@@ -49,12 +50,13 @@ class SettingContainer extends React.Component {
             {/* {this.state.tabValue === 2 &&  <LivechatSetting /> }    */}
         </div>
          </>
-        if(isMobile || isTablet){
-            return <div>{commonContent}</div>
-        }
-        else{
-        return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
-        }
+          return <div>{commonContent}</div>
+        // if(isMobile || isTablet){
+        //     return <div>{commonContent}</div>
+        // }
+        // else{
+        // return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        // }
       }
 
     render() {

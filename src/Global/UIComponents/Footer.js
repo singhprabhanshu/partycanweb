@@ -74,24 +74,26 @@ class Footer extends React.Component {
         const { classes, isLoginAndSignupScreen } = this.props;
         return (
             <React.Fragment>
-                <Container fluid={true}  className="footerLayout d-flex align-items-center p-3">              
+                <Container fluid={true}  className="footerLayout d-flex align-items-center py-4  p-md-3">              
                 <Container className="container-content-header justify-content-center ">
-                        <Row className="w-100 align-items-center justify-content-sm-between justify-content-center ">
-                        <Col xs={'auto'} md={'3'} className="mNone">
+                <Row className="w-100 align-items-start align-items-md-center no-gutters justify-content-sm-between justify-content-center ">
+                        <Col  xs={'6'} md={'3'}  className="order-1 mb-4 mb-md-0" >
                             <div className="text-left d-flex flex-column footerLink">
-                                    {/* <a href="" className="pb-2">Privacy Policy</a>
-                                    <a href="">Terms & Conditions</a> */}
+                                    <a href="/privacy-policy" className="pb-2">Privacy & Cookie Policy</a>
+                                    <a href="/terms-conditions">Terms & Conditions</a>
                             </div>
                             </Col>
-                            <Col xs={'auto'} className="d-flex align-items-center justify-content-center">                                
+                            <Col xs={'6'} md={'3'}  className="order-2 order-md-3 drinkText" >                           
+                                    <span className="pb-2">Everyone's Invited</span>
+                                    <span>Drink Responsibly</span>
+                            </Col>
+                            <Col md={'6'} xs={'12'} className="order-3 mb-4 mb-md-0 order-md-2 d-flex align-items-center justify-content-center">                                
                                 <div className="d-flex align-items-center pt-xs-0">
-                                <span className="mt-3 mr-4 poweredLine">Powered by<br></br>Three-Tier Solution<br></br>From</span>                   
+                                <span className="mt-3 mr-4 poweredLine">Powered by<br></br> Three-Tier Solution<br></br> From</span>                  
                                 <img src={cLogo} className="img-responsive cLogo"></img>
                                 </div>
                             </Col>
-                            <Col xs={'auto'} md={'3'} className="mNone" >
                            
-                            </Col>
                         </Row>
                     </Container>
                 </Container>
@@ -100,7 +102,7 @@ class Footer extends React.Component {
                 <Container fluid={true}  className="d-flex align-items-center h-100 justify-content-center">   
                         <Row className="justify-content-between align-items-center flex-grow-1 no-gutters">
                             <Col  className="justify-content-around align-items-center d-flex">                                
-                                <Button onClick={() => this.props.history.push("/category/Cans")} className="homeIcons icons"></Button>
+                                <Button onClick={() => this.props.history.push("/category/ALL")} className="homeIcons icons"></Button>
                                 {/* <Button className="locationIcons icons "></Button>                            
                                 <Button onClick={this.handleAddProductToCart} className="addCircleIcon icons">+</Button> */}
                                 <Badge badgeContent={this.props.total_items_count} color="primary">

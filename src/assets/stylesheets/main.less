@@ -130,6 +130,7 @@ button:focus {
 }
 
 /////////////////////////// Layout styling css
+.drinkText{font-size: 1.3rem; color: #fff; text-transform: uppercase; text-align: right; display: flex; flex-direction: column;}
 
 .emptyLayout, .mainLayout {
   display: flex;
@@ -162,13 +163,23 @@ button:focus {
   max-width: 192rem!important;
   padding-right: 2.5rem!important;
   padding-left: 2.5rem!important;
-  @media (max-width: 1366px){
-   
+  @media (max-width: 991px){
+    padding-right:1.5rem!important;
+    padding-left:1.5rem!important;
   } 
 }
+ 
 
 ////////////////////// Intro carousel css
 .IntroSlider{
+  // max-height: calc(100vh - 16rem);
+  overflow: hidden; 
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
   .carousel .slide, .carousel .slide .legend{
     background-color: transparent!important;
   }
@@ -183,6 +194,7 @@ button:focus {
   .carousel-root {
     outline: none;
     height: 100%;
+    width: 100%;
 }
   .carousel .slide .legend{
     left:0!important;
@@ -203,20 +215,99 @@ button:focus {
       font-size: 1.4rem!important;      
     }
   }
-
-  .carousel .slide img{
-   margin-bottom: 8rem;
-    @media (max-width: 1366px) and (min-width: 992px){
-      max-width: 55%;
-    } 
+  .splashSlides{
+    // max-height: calc(100vh - 16rem);
+    width: 100%;
+    height: 100%;
+    background-size: cover!important;
+    background-repeat: no-repeat;
+    background-position: left top;   
+    
     @media (max-width: 991px){
-      max-width: 60%;      
+      background-position: center ;
+    } 
+   
+  }
+
+  .captionTxt{    
+    font-family: 'Tungsten-Medium', sans-serif;
+    font-size: 85px;
+    letter-spacing: 1rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    line-height: 70px;
+    width: 45%;
+    margin-left: auto;
+    padding-left: 5rem;
+
+    .tBold{
+      font-family: 'Tungsten-bold', sans-serif;
+    }
+
+    .textGreen{
+      color:#00bfb3;
+    }
+
+    .textBlue{
+      color:#1f00a1;
+    }
+
+    .textRed{
+      color:#E5554F;
+    }
+
+    @media (max-width: 1440px){      
+      font-size: 60px;
+      letter-spacing: .6rem;
+      line-height: 54px;
+    } 
+
+    @media (max-width: 1140px){      
+      font-size: 50px;
+      letter-spacing: .6rem;
+      line-height: 44px;
+    }
+    @media (max-width: 991px) and (min-width: 768px){
+    width: 100%;
+    text-align: center;
+    font-size: 80px;
+    line-height: 80px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5rem 6rem 0 6rem;
     }
 
     @media (max-width: 767px){
-      max-width: 80%;      
-    }
+      width: 100%;
+      align-items: center;
+      justify-content: flex-start;
+      font-size: 35px;
+      line-height: 35px;
+      text-align: center;
+      padding: 3rem 1rem 0 1rem;
+      }
+      .bottomActionbutton {
+        min-width: 60%!important;
+      }
+
   }
+
+  // .carousel .slide img{
+  //  margin-bottom: 8rem;
+  //   @media (max-width: 1366px) and (min-width: 992px){
+  //     max-width: 55%;
+  //   } 
+  //   @media (max-width: 991px){
+  //     max-width: 60%;      
+  //   }
+
+  //   @media (max-width: 767px){
+  //     max-width: 80%;      
+  //   }
+  // }
 }
 
 ////////////////////// custom Scrollbar css
@@ -242,13 +333,14 @@ button:focus {
   background-color: rgba(255, 255, 255, .1);
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
+  flex-grow: 1;
   display: flex; 
   min-height: calc( 100vh - 230px);
-  max-height: calc( 100vh - 230px);
+  // max-height: calc( 100vh - 230px);
   @media (max-width:767px){
     min-height: calc( 100vh - 120px);
     margin: 0 -1.5rem;
-    max-height: unset;
+    // max-height: unset;
   }
 
 }
@@ -459,9 +551,10 @@ button:focus {
   color: #fff;
   font-size: 1.3rem;
   text-transform: uppercase;
+  transition: ease all .3s;
 }
 .footerLink a:hover{
-  color: #000; 
+  color: rgba(255, 255, 255, 0.7); 
   text-decoration: none;
 }
 
@@ -659,11 +752,18 @@ img.cLogo{
     width: 25%;
     background-color: transparent!important;
     border: 0;
+    @media(max-width:991px){
+      width: 33.33%;
+    }   
+    @media(max-width:767px){
+      width: 50%;        
+    }
     .prodcutMinDetails{
       border-radius:1.5rem;
       flex-direction: column;
       margin:4rem 2rem;
-      padding: 1rem!important;
+      // padding: 1rem!important;
+      overflow: hidden;
       display: flex;
       align-items: center;     
       border: 0!important;
@@ -671,8 +771,12 @@ img.cLogo{
       height: 100%;
       cursor: pointer;
         .card-img{
-          max-width: 24rem;
+          // max-width: 24rem;
         }  
+
+        .card-title {
+          margin:1rem 1rem  0.75rem 1rem;         
+        }
         
         @media(max-width:767px){         
           margin:2rem 1rem;         
@@ -708,18 +812,22 @@ img.cLogo{
 
 .proName{
   text-transform: uppercase;
-  font-size: 1.6rem;
+  letter-spacing: .3rem;
+  font-size: 2.5rem;
+  font-family: 'Tungsten-Semibold', sans-serif !important; 
 }
 
 .proDescription{
-  font-size: 1.3rem;
+  font-size: 2.2rem;
   color:rgba(255, 255, 255, .6);
+  line-height: 2.6rem;
+  font-family: 'Gibson-Regular', sans-serif !important;
   ul{
     margin:0;
     padding:0;
     li{
       list-style:none;
-      padding-bottom:5px;
+      padding:8px 0px;
     }
   }
 }
@@ -765,7 +873,7 @@ img.cLogo{
 }
 .finalProprice{
   font-family: 'Tungsten-Bold';
-  font-size: 3.5rem;
+  font-size: 5rem;
   letter-spacing: 1rem;
   line-height: 3.3rem;
 }
@@ -782,7 +890,7 @@ img.cLogo{
   }
 }
 .smallTitle{
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   margin-bottom: 1rem;
 }
 
@@ -842,7 +950,7 @@ img.cLogo{
 }
 
 .ingredientLabel{
-  font-size: 1.0rem;
+  font-size: 1.4rem;
     text-align: center;
     text-transform: uppercase;
     margin-top: 1rem;
@@ -956,21 +1064,16 @@ span.MuiButton-label {
 }
 
 .leftSecmaxHeight{
-  // max-height: calc(100vh - 24rem);
-  overflow-y: auto;
   width: 100%;
-  
-  @media(max-width:767px){
-    max-height:unset!important;
-  }
+ 
 }
 
 .productImgSection{
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  max-height: calc(100vh - 180px);
+  // max-height: calc(100vh - 180px);
   height: 100%;
   z-index: 1;
 
@@ -981,9 +1084,9 @@ span.MuiButton-label {
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(255, 255, 255, .4);
+    // background-color: rgba(255, 255, 255, .2);
     content: "";
-    border-bottom-left-radius:10rem;
+    // border-bottom-left-radius:10rem;
     z-index: -1;
   }
 
@@ -1005,7 +1108,7 @@ span.MuiButton-label {
 
   .imgProduct{
     width: auto!important;
-     max-width:60%;
+     max-width:100%;
      height: auto;
       @media(min-width:768px) and (max-width:991px)  {     
         height: auto; 
@@ -1014,6 +1117,7 @@ span.MuiButton-label {
         @media(max-width:767px){     
           height: auto; 
           max-width: 80%;
+          margin-top:2rem;
         }
   } 
   
@@ -1063,7 +1167,7 @@ span.MuiButton-label {
 }
 
 .ImgSectionwt { 
-  max-height: calc(100vh - 120px);  
+  // max-height: calc(100vh - 120px);  
 }
 
 
@@ -1076,7 +1180,7 @@ span.MuiButton-label {
 }
 
 .block-title{
-  font-size: 1.8rem; 
+  font-size: 2rem; 
   text-transform: uppercase;
 }
 
@@ -1882,4 +1986,11 @@ More info: https://stripe.com/docs/stripe-js/reference#element-options
   left: 50%;
   margin-top: -3px;
   margin-left: -25px;
+}
+
+.peripheralContent{
+  word-break: break-all;
+  ul{
+    padding-left: 1.5rem;
+  }
 }

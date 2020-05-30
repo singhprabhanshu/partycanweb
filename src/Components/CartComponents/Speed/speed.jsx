@@ -107,6 +107,7 @@ class Speed extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     let cartTabValidation = this.props.cartTabValidation;
 
     let data = {
@@ -488,12 +489,13 @@ class Speed extends React.Component {
                    </div> 
                         </div>
      </>
-    if(isMobile || isTablet){
-        return <div>{commonContent}</div>
-    }
-    else{
-    return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
-    }
+      return <div>{commonContent}</div>
+    // if(isMobile || isTablet){
+    //     return <div>{commonContent}</div>
+    // }
+    // else{
+    // return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+    // }
   }
 
   render() {
@@ -607,7 +609,7 @@ class Speed extends React.Component {
                           </div>
                      </Col>
                     <Col lg={6}  className="p-xl-5 p-md-4 py-4 order-2 d-flex flex-column order-md-1">                                           
-                    <div className="block-title mb-5">Delivery Options</div>
+                    <div className="block-title mb-5">Choose a Delivery Options</div>
                     {this.renderContent(speed,retailer,shippingMethod,selectDate,availableTime)}                       
                     <div className="text-left mt-4" >
                         <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleDeliverySelect} disabled={buttonDisable}>

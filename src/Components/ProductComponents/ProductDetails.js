@@ -111,6 +111,7 @@ class ProductDetails extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         const productID = this.props.match.params.productID;
         genericGetData({
             dispatch: this.props.dispatch,
@@ -274,7 +275,7 @@ class ProductDetails extends React.Component {
                 </Row>
                 {!_isEmpty(Ingredients) ?
                     <div className="proItems d-flex flex-column mb-md-4 mb-8" >
-                        <div className="mb-3 title-2">Includes</div>
+                        <div className="mb-3 title-2">CONTAINS</div>
 
                         <div>
                             <Carousel responsive={this.state.responsive} showDots={true} itemClass="px-4">
@@ -294,7 +295,7 @@ class ProductDetails extends React.Component {
                     : ""}
                 <div className="pt-30">
                     <Row>
-                        <Col className="d-flex flex-column mb-5" xs={6} sm={4} xl={3}>
+                        <Col className="d-flex flex-column mb-5" xs={5} sm={4} xl={3}>
                             <span className="smallTitle">AMOUNT</span>
                             <div className="addQty">
                                 <span onClick={() => this.handleQuantity("less")} ><RemoveOutlinedIcon  /></span>
@@ -302,7 +303,7 @@ class ProductDetails extends React.Component {
                                 <span onClick={() => this.handleQuantity("add")} ><AddOutlined style={{ fontSize: "15px" }} /></span>
                             </div>
                         </Col>
-                        <Col className="d-flex  flex-column mb-4" xs={6} sm={4} xl={4}>
+                        <Col className="d-flex  flex-column mb-4" xs={7} sm={4} xl={4}>
                             <span className="smallTitle">FROM</span>
                             <span className="finalProprice">${!_isEmpty(this.state.productPrice) ? this.state.productPrice : _get(productDetailsData, "price", "")}</span>
                         </Col>
@@ -331,12 +332,13 @@ class ProductDetails extends React.Component {
                 </div>
             </div>
         </>
-        if (isMobile || isTablet) {
-            return <div style={{overflow:'hidden'}}>{commonContent}</div>
-        }
-        else {
-            return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
-        }
+         return <div style={{overflow:'hidden'}}>{commonContent}</div>
+        // if (isMobile || isTablet) {
+        //     return <div style={{overflow:'hidden'}}>{commonContent}</div>
+        // }
+        // else {
+        //     return <Scrollbar className="leftSecmaxHeight">{commonContent}</Scrollbar>
+        // }
     }
 
     render() {

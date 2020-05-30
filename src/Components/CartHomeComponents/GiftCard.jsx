@@ -26,6 +26,7 @@ class GiftCard extends Component {
         this.props.dispatch(commonActionCreater(e.target.value,"GIFT_MESSAGE"));
     }
     componentDidMount() {
+        window.scrollTo(0, 0);
         if(this.props.giftMessage){
             this.setState({checked:true})
         }

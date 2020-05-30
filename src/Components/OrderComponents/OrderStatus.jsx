@@ -96,7 +96,7 @@ class OrderStatus extends React.Component {
         })
     };
     componentDidMount() {
-
+      window.scrollTo(0, 0);
 
       // socket work
 
@@ -143,12 +143,13 @@ class OrderStatus extends React.Component {
     renderContent = (addresses) => {
       let commonContent = <>
        </>
-      if(isMobile || isTablet){
-          return <div>{commonContent}</div>
-      }
-      else{
-      return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
-      }
+        return <div>{commonContent}</div>
+      // if(isMobile || isTablet){
+      //     return <div>{commonContent}</div>
+      // }
+      // else{
+      // return <Scrollbar  className="leftSecmaxHeight">{commonContent}</Scrollbar>
+      // }
     }
 
 

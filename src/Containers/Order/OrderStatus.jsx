@@ -16,6 +16,7 @@ class OrderStatusContainer extends React.Component {
         this.state = {}
     }
     componentDidMount() {
+        window.scrollTo(0, 0);
         // let reqObj = {
         //     "api_token": "1c779ca336234ffc6a98807a6d36140e"
         // };
