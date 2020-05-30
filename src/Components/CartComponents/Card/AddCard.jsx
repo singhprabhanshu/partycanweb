@@ -121,6 +121,7 @@ const AddCard = (props) => {
 
         if (payload.error) {
             console.log('[error]', payload.error);
+            alert(payload.error.message);
             setErrorMessage(payload.error.message);
             setPaymentMethod(null);
             setLoading(false);
@@ -156,12 +157,16 @@ const AddCard = (props) => {
         }
         else {
             setLoading(false);
-            setErrorMessage("something went wrong while processing card")
+            let errorMessage = _get(data,"data","something went wrong while processing card");
+            setErrorMessage(errorMessage);
+            alert(errorMessage);       
             return;
         }
     }
 
     const addPayementCardError = (data) => {
+        setLoading(false);
+        alert("Internal server error occured");
         console.log('ERROR', data);
     }
 
@@ -219,6 +224,8 @@ const AddCard = (props) => {
     }
 
     const addBillingInfoError = (data) => {
+        setLoading(false);
+        alert("Internal server error occured");
         console.log('ERROR', data);
     }
     const sasChange = (val, mutators) => {

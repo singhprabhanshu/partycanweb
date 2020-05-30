@@ -103,6 +103,8 @@ class CheckOut extends React.Component {
         }
     }
     placeOrderError = () => {
+        this.setState({ placeOrderLoading: false });
+        alert("internal server error occured");
         //TODO ERROR HANDLING REAMINING WHEN FETCHING THE CART
     }
 
