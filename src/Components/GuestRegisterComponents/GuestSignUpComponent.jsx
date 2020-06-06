@@ -161,7 +161,7 @@ class GuestSignUpComponent extends React.Component {
                                         autoFocus={false} type='password' />
                                     </Col>                        
                                     </Row>
-                                    <Row className="no-gutters">
+                                    <Row className="no-gutters datetime-placeholder">
                                         <Col className="mb-5 datePicker" >
                                         <CalenderIcon className="calenderIcon" />
                                         <Field name="dob" component={DateTimePicker} 

@@ -55,6 +55,8 @@ import PrivacyPolicyContainer from './Containers/TermsPolicy/PrivacyPolicyContai
 import TermsConditionContainer from './Containers/TermsPolicy/TermsConditionContainer';
 import UpdatePasswordContainer from './Containers/Login/UpdatePasswordContainer';
 import ForgotPasswordContainer from './Containers/Login/ForgotPasswordContainer';
+import NoMatchContainer from './Containers/NoMatchContainer';
+
 // commented temporarly
 
 // import socketIOClient from "socket.io-client";
@@ -132,6 +134,8 @@ ReactDOM.render(
                 <RouteWithLayout Layout={MainLayout} exact path="/terms-conditions" Component={TermsConditionContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/account/resetpassword" Component={UpdatePasswordContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/forgot/password" Component={ForgotPasswordContainer} />
+                <RouteWithLayout Layout={EmptyLayout} Component={NoMatchContainer} />
+
               </Switch>
             </Router>
             </PersistGate>
