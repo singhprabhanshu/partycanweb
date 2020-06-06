@@ -161,7 +161,7 @@ class GuestSignUpComponent extends React.Component {
                                         autoFocus={false} type='password' />
                                     </Col>                        
                                     </Row>
-                                    <Row className="no-gutters">
+                                    <Row className="no-gutters datetime-placeholder">
                                         <Col className="mb-5 datePicker" >
                                         <CalenderIcon className="calenderIcon" />
                                         <Field name="dob" component={DateTimePicker} 
@@ -201,7 +201,7 @@ class GuestSignUpComponent extends React.Component {
                                         </Col>                        
                                     </Row>
                                 <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center'}}>
-                                    <p><span>ALREADY HAVE AN ACCOUNT? </span><a href="javascript:void(0)" onClick={this.props.handleSignInReq}>Sign in</a></p>
+                                    <p><span>ALREADY HAVE AN ACCOUNT? </span><a href="javascript:void(0)" onClick={this.props.handleSignInReq} className="forgotPassword underlineTxt" >Sign in</a></p>
                                 </div>
                             </form>)}
                             />

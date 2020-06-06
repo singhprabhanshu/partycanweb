@@ -86,7 +86,7 @@ class GuestSignInComponent extends React.Component {
                     <Row className="align-items-center pb-5" >
                         <Col  className="text-center" >
                             <h4 className="holduptext">ARE YOU REGISTERED?</h4>
-                                 <div className="pt-5">
+                            <div className="pt-4 pb-5">
                             <h5>COMPLETE YOUR ORDER FASTER - SIGNIN WITH YOUR E-MAIL ADDRESS</h5>
                             {/* Please use your DrinkPartycan login, which is different than your Bacardi.com login */}
                             </div>  
@@ -94,7 +94,7 @@ class GuestSignInComponent extends React.Component {
                     </Row>
                     
                     <Row className="align-items-center d-flex justify-content-center">
-                    <Col  xs={12}  className="pt-5" >
+                    <Col  xs={12}>
                     <Form onSubmit= {this.onSubmit} validate={validate}
                                 render={({ handleSubmit }) => (
                             <form onSubmit={handleSubmit} >  
@@ -106,16 +106,18 @@ class GuestSignInComponent extends React.Component {
                                         <Field name="password" component={TextInputField} placeholder='PASSWORD'
                                         autoFocus={false} type='password' />
                                     </div>
-                                <div style={{ display: "flex", justifyContent: "center"}}>
+                                <div className="justify-content-center flex-column mt-5 align-items-center">
+                                <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                     <Button color="primary" type="submit" className="bottomActionbutton">
                                         {this.state.isLoading?<CircularProgress size={24} style={{ color: 'white'}}/> : <>LOGIN</> }
                                     </Button>
-                                </div>
+                                    </Col>
+                                    <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >                                     
+                                        <a href="javascript:void(0)" onClick={this.props.handleForgetPasswordReq} className="forgotPassword">Forgot Password?</a>
+                                    </Col>
+                                </div>                               
                                 <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center'}}>
-                                    <a href="javascript:void(0)" onClick={this.props.handleForgetPasswordReq}>Forgot Password</a>
-                                </div>
-                                <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center'}}>
-                                    <p><span>NEW CUSTOMER? </span><a href="javascript:void(0)" onClick={this.props.handleSignUpReq}>Start here</a></p>
+                                    <p><span>NEW CUSTOMER? </span><a href="javascript:void(0)" onClick={this.props.handleSignUpReq} className="forgotPassword underlineTxt" >Start here</a></p>
                                 </div>
                             </form>)}
                             />

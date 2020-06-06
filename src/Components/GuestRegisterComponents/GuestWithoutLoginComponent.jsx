@@ -86,10 +86,9 @@ class GuestWithoutLoginContainer extends React.Component {
         };
 
         return (
-            <React.Fragment>
-                <div  className="WhiteCurveBg">
-                     <Container className="container-custom d-flex flex-column justify-content-center">
-                    <Row className="align-items-center mb-5" style={{flex:2, maxHeight:130, minHeight:130}}>
+            <React.Fragment>                
+                     <div className="sectionWrapper">
+                    <Row className="align-items-center mb-5" >
                         <Col  className="text-center" >
                             <h4 className="holduptext"> CHECKOUT AS GUEST</h4>
                             <h5 className="pt-4 pb-5">ENTER YOUR EMAIL ADDRESS TO PROCEED WITH YOUR ORDER.</h5>
@@ -101,14 +100,14 @@ class GuestWithoutLoginContainer extends React.Component {
 
 
                                 <Row>
-                                <Col className="text-center mb-4 mpb-30" >
+                                <Col className="text-center " >
                                     <Field name="email" component={TextInputField} placeholder='EMAIL'
                                         autoFocus={false} type='text' />
                                     </Col>                        
                             </Row>
 
 
-                                <Row className="justify-content-center align-items-ceenter">
+                                <Row className="justify-content-center mt-5 align-items-ceenter">
                                      <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                     <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                     <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> PROCEED</Button>
@@ -116,8 +115,8 @@ class GuestWithoutLoginContainer extends React.Component {
                             </Row>  
                             </form>)}
                     />
-                    </Container>
                     </div>
+                  
             </React.Fragment>
 
 

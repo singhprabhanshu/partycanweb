@@ -1,5 +1,5 @@
 import { Form, Field } from 'react-final-form';
-import {TextInputField, SwitchInputField} from '../../Global/FormCompoents/wrapperComponent';
+import {TextInputField, SwitchInputField, Captcha} from '../../Global/FormCompoents/wrapperComponent';
 import { Button } from '@material-ui/core';
 import validate from './Validate/createAccountValidate';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -13,6 +13,10 @@ import genericPostData from '../../Redux/Actions/genericPostData';
 import showMessage from '../../Redux/Actions/toastAction';
 import {Container, Row, Col} from 'reactstrap'
 import { Loader } from '../../Global/UIComponents/LoaderHoc';
+
+const SITE_KEY = "6LddNwAVAAAAAIEvqN9B0v-kdHgXe_wwjaI8eoiB";
+// const TEST_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+
 const styles = theme => ({
 });
 
@@ -124,7 +128,14 @@ class CreateAccountContainer extends React.Component {
                                 <Col className="text-center d-flex align-items-center justify-content-between" >
                                     <Field name="overAge" component={SwitchInputField} label='ARE YOU OVER 21 ?' />
                                 </Col>                        
-                            </Row> 
+                            </Row>
+
+                            <Row>
+                                <Col className="text-center mb-5" style={{marginLeft: '50px', marginTop: '15px'}}>
+                                    <Field name='captcha' component={Captcha} sitekey={SITE_KEY}/>
+                                </Col>
+                            </Row>
+
                             <Row className="justify-content-center mt-5 align-items-ceenter">
                             <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                     <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">

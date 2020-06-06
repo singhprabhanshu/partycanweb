@@ -12,7 +12,8 @@ var schema = yup.object().shape({
     confirm_password: yup.string().required('Password is required.')
         .oneOf([yup.ref('password'), null], 'Passwords must match'),
     overAge: yup.bool().required('Please confirm you are over 21 to enter the site.')
-        .oneOf([true], "Please confirm you are over 21 to enter the site.")
+        .oneOf([true], "Please confirm you are over 21 to enter the site."),
+    captcha: yup.string().required('Please Verify Captcha')
 });
 
 
