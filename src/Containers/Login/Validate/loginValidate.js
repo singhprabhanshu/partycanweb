@@ -5,8 +5,9 @@ var schema = yup.object().shape({
     email: yup.string().required('Email is required.')
         .email('Email must be in email format.'),
     password: yup.string().min(8, 'Password must be at least 8 characters.')
-        .required('Password is required.') 
+        .required('Password is required.'), 
 //   .matches(/[a-zA-Z]/, 'Password can only contain alphabetic characters.')
+	captcha: yup.string().required('Please Verify Captcha')
   
 })
 

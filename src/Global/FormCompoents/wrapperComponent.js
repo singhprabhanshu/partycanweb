@@ -3,6 +3,7 @@ import { TextField, FormHelperText , Switch, InputLabel, Checkbox, Radio, RadioG
   FormControlLabel, FormLabel, withStyles } from '@material-ui/core';
 
 import Datetime from 'react-datetime';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const TextInputField = (props) => {
 
@@ -156,6 +157,25 @@ const RadioBtnInput = (props) => {
   </React.Fragment>
 }
 
+const Captcha = (props) => {
+  let {meta: { touched, error, } } = props;
+
+  return <React.Fragment>
+    <ReCAPTCHA
+      sitekey={props.sitekey}
+      onChange={response => props.input.onChange(response)}
+    />
+    {touched && error && <React.Fragment>
+          <div className="text-input error" style={{display: 'inline-flex', marginTop: '10px',
+                  marginLeft: '13px'}}><FormHelperText>
+                {error}
+            </FormHelperText>
+          </div>
+        </React.Fragment>
+    }
+  </React.Fragment>
+}
+
 export default withStyles(styles)(RadioBtnInput);
 
 export {
@@ -163,5 +183,6 @@ export {
     SwitchInputField,
     CheckBoxInputField,
     DateTimePicker,
-    RadioBtnInput
+    RadioBtnInput,
+    Captcha
 }
