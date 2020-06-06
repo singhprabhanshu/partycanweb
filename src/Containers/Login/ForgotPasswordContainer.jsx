@@ -94,7 +94,7 @@ class ForgotPasswordContainer extends React.Component {
                      <Row className="align-items-center mb-5" >
                         <Col  className="text-center" >
                             <h4 className="holduptext">PASSWORD ASSISTANCE</h4>
-                                 <div className="pt-5 pb-5">
+                                 <div className="pt-4 pb-5">
                             <h5>ENTER THE EMAIL ADDRESS ASSOCIATE WITH ACCOUNT</h5>
                        </div>  
                         </Col>             
