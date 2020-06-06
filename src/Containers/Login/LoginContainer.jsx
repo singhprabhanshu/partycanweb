@@ -170,11 +170,14 @@ class SignIn extends React.Component {
                                 </Col>
                                     </Row> */}
 
-                                    <Row className="justify-content-center mt-5 align-items-ceenter">
+                                    <Row className="justify-content-center flex-column mt-5 align-items-center">
                                         <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                             <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                                 <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />SIGN IN</Button>
                                         </Col>
+                                        <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
+                                        <a href="javascript:void(0)" onClick={this.forgotPasswordHandler} className="forgotPassword">Forgot Password?</a>
+                                            </Col>
                                     </Row>
 
                                 </form>)}
@@ -182,9 +185,6 @@ class SignIn extends React.Component {
                     </Container>
                 </div>
                 <Container className="container-custom">
-                <div style={{ marginTop: 10, display: 'flex', justifyContent: 'center'}}>
-                        <a href="javascript:void(0)" onClick={this.forgotPasswordHandler}>Forgot Password</a>
-                </div>
                     <Row>
                         <Col className="text-center" >
                             <Button variant="text" color="secondary" className="txtButton" onClick={this.createAccount} >CREATE ACCOUNT</Button>

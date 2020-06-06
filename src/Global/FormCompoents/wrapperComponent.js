@@ -49,7 +49,7 @@ const SwitchInputField = (props) => {
           
       />
       {touched && error && <React.Fragment>
-          <div className="text-input error" style={{display: 'inline-flex', marginTop: '10px',
+          <div className="text-input error" style={{display: 'inline-flex', marginTop: '15px',
                   marginLeft: '13px'}}><FormHelperText>
                 {error}
             </FormHelperText>
@@ -75,10 +75,9 @@ const CheckBoxInputField = (props) => {
        onChange={(event, value) => input.onChange(value)}
        disabled={disabled}
      />
-     <InputLabel className="label-txt fs-13 mb-0" htmlFor={label}>{label}</InputLabel>
+     <InputLabel className="text-white fs-13 mb-0" htmlFor={label}>{label}</InputLabel>
      {touched && error && <React.Fragment>
-          <div className="text-input error" style={{display: 'inline-flex', marginTop: '10px',
-                  marginLeft: '13px'}}><FormHelperText>
+             <div className="text-input error" ><FormHelperText>
                 {error}
             </FormHelperText>
           </div>
@@ -105,8 +104,7 @@ const DateTimePicker = (props) => {
        />
       
       {touched && error && <React.Fragment>
-          <div className="text-input error" style={{display: 'inline-flex', marginTop: '10px',
-                  marginLeft: '13px'}}><FormHelperText>
+          <div className="text-input error"><FormHelperText>
                 {error}
             </FormHelperText>
           </div>
@@ -142,15 +140,14 @@ const RadioBtnInput = (props) => {
               {...input}
             >
               {
-                radioBtnOptions.map(option => <FormControlLabel value={option.value} className="m-0 ml-1 ml-md-4  selectGender" control={<Radio />}
+                radioBtnOptions.map(option => <FormControlLabel value={option.value} className="m-0 ml-1 ml-md-4   selectGender" style={{color: '#fff'}} control={<Radio />}
                    label={option.label} />)
               }
             </RadioGroup>
           </div>
     </div>
     {touched && error && <React.Fragment>
-          <div className="text-input error" style={{display: 'inline-flex', marginTop: '10px',
-                  marginLeft: '13px'}}><FormHelperText>
+          <div className="text-input error" ><FormHelperText>
                 {error}
             </FormHelperText>
           </div>

@@ -89,7 +89,7 @@ class ForgotPasswordContainer extends React.Component {
 
         return (
             <React.Fragment>
-                
+                <div className="d-flex align-items-center flex-column flex-grow-1 justify-content-center">
                 <div className="sectionWrapper">
                      <Row className="align-items-center mb-5" >
                         <Col  className="text-center" >
@@ -100,7 +100,7 @@ class ForgotPasswordContainer extends React.Component {
                         </Col>             
                     </Row>
                 </div> 
-                    <Container className="container-custom d-flex flex-column justify-content-center">
+                <Container className="container-custom d-flex flex-column justify-content-center">
 
                    { !this.state.disableInput ?  (<Form  onSubmit={this.onSubmit} validate={validate}
                         render={({ handleSubmit }) => (
@@ -130,6 +130,7 @@ class ForgotPasswordContainer extends React.Component {
                  
                     
                 </Container>
+                </div>
             </React.Fragment>
 
 

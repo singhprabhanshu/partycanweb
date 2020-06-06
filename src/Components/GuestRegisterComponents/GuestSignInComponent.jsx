@@ -106,16 +106,18 @@ class GuestSignInComponent extends React.Component {
                                         <Field name="password" component={TextInputField} placeholder='PASSWORD'
                                         autoFocus={false} type='password' />
                                     </div>
-                                <div style={{ display: "flex", justifyContent: "center"}}>
+                                <div className="justify-content-center flex-column mt-5 align-items-center">
+                                <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                     <Button color="primary" type="submit" className="bottomActionbutton">
                                         {this.state.isLoading?<CircularProgress size={24} style={{ color: 'white'}}/> : <>LOGIN</> }
                                     </Button>
-                                </div>
+                                    </Col>
+                                    <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >                                     
+                                        <a href="javascript:void(0)" onClick={this.props.handleForgetPasswordReq} className="forgotPassword">Forgot Password?</a>
+                                    </Col>
+                                </div>                               
                                 <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center'}}>
-                                    <a href="javascript:void(0)" onClick={this.props.handleForgetPasswordReq}>Forgot Password</a>
-                                </div>
-                                <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center'}}>
-                                    <p><span>NEW CUSTOMER? </span><a href="javascript:void(0)" onClick={this.props.handleSignUpReq}>Start here</a></p>
+                                    <p><span>NEW CUSTOMER? </span><a href="javascript:void(0)" onClick={this.props.handleSignUpReq} className="forgotPassword underlineTxt" >Start here</a></p>
                                 </div>
                             </form>)}
                             />
