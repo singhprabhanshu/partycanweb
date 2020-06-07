@@ -53,6 +53,10 @@ import SearchProductsContainer from './Containers/Products/SearchProductsContain
 import GuestRegisterContainer from './Containers/GuestRegister/GuestRegisterContainer';
 import PrivacyPolicyContainer from './Containers/TermsPolicy/PrivacyPolicyContainer';
 import TermsConditionContainer from './Containers/TermsPolicy/TermsConditionContainer';
+import UpdatePasswordContainer from './Containers/Login/UpdatePasswordContainer';
+import ForgotPasswordContainer from './Containers/Login/ForgotPasswordContainer';
+import NoMatchContainer from './Containers/NoMatchContainer';
+
 // commented temporarly
 
 // import socketIOClient from "socket.io-client";
@@ -128,6 +132,10 @@ ReactDOM.render(
                 <RouteWithLayout Layout={MainLayout} exact path="/guest/register" Component={GuestRegisterContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/privacy-policy" Component={PrivacyPolicyContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/terms-conditions" Component={TermsConditionContainer} />
+                <RouteWithLayout Layout={MainLayout} exact path="/account/resetpassword" Component={UpdatePasswordContainer} />
+                <RouteWithLayout Layout={MainLayout} exact path="/forgot/password" Component={ForgotPasswordContainer} />
+                <RouteWithLayout Layout={EmptyLayout} Component={NoMatchContainer} />
+
               </Switch>
             </Router>
             </PersistGate>

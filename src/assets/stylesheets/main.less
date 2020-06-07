@@ -42,6 +42,16 @@
 @color-l: #00BFB2;
 @background-white: #fff;
 
+.divider{
+  width: 2px;
+  background-color: rgba(255, 255, 255, .3);
+  height: 100%;
+  margin:0 3rem;
+  @media(max-width:991px){
+    background-color: transparent;
+  }
+}
+
 
 
 @-webkit-keyframes autofill {
@@ -119,6 +129,13 @@ button:focus {
   height: auto;
 }
 
+.pt-50{
+  padding-top: 5rem;
+}
+.mb-50{
+  margin-bottom: 50px;
+}
+
 .pt-30{
   padding-top:3rem;
 }
@@ -128,6 +145,13 @@ button:focus {
     padding-bottom: 3rem;
   }
 }
+
+
+
+.fs-13{
+  font-size: 1.3rem!important;
+}
+
 
 /////////////////////////// Layout styling css
 .drinkText{font-size: 1.3rem; color: #fff; text-transform: uppercase; text-align: right; display: flex; flex-direction: column;}
@@ -169,6 +193,22 @@ button:focus {
   } 
 }
  
+.forgotPassword{
+  font-size: 1.4rem;
+  color: #fff;
+  text-decoration: none;
+  transition: ease all .3s;
+  margin-top: 15px;
+  &:hover{
+    color:rgba(255, 255, 255, .6);
+    text-decoration: none;
+  }
+}
+.underlineTxt{
+  text-decoration: underline;
+}
+
+
 
 ////////////////////// Intro carousel css
 .IntroSlider{
@@ -400,6 +440,31 @@ button:focus {
   @media (max-width:575px){
     font-size: 4.3rem;
   }
+}
+
+.newsOffers{
+  .MuiCheckbox-root{
+    color:rgba(255, 255, 255, .6)!important;
+  }
+  }
+
+.genderSelection{
+  font-family: 'GrotesqueMTBold' , sans-serif !important;
+  position: relative;
+  .selectGender{
+    .MuiTypography-body1{
+      font-family: 'GrotesqueMTBold' , sans-serif !important;
+    }
+    }
+    .MuiRadio-colorSecondary.Mui-checked{
+      color:rgba(255, 255, 255, .6)!important;
+    }
+    .text-input.error{
+      bottom:-10px;
+    }
+    .MuiRadio-root{
+      color:rgba(255, 255, 255, .6)!important;    
+    }
 }
 
 
@@ -1924,6 +1989,7 @@ input::placeholder {
   color: #aab7c4;
 }
 
+
 .result,
 .error {
   font-size: 16px;
@@ -1992,5 +2058,46 @@ More info: https://stripe.com/docs/stripe-js/reference#element-options
   word-break: break-all;
   ul{
     padding-left: 1.5rem;
+  }
+}
+
+
+.datePicker {
+  position: relative;
+  .form-control:focus{
+    background: transparent!important;
+  }
+  .calenderIcon{
+    position: absolute;
+      right: 0;
+      top: 8px;
+  }
+  input {
+    background: transparent;
+    border-radius: unset;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    height: 32px;
+    padding: 0;
+  }
+  input::placeholder {color:rgba(255, 255, 255, 0.3);}
+  .rdtPicker{
+    color:#999!important;
+  }
+  
+  }
+
+
+/// guest flow
+
+.sectionWrapper{
+  width: 70%;
+  margin: 0 auto;
+  form{
+    width:100%;
+  }
+ 
+  @media (max-width:767px){
+    width: 100%;
   }
 }

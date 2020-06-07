@@ -1,5 +1,5 @@
 import { Form, Field } from 'react-final-form';
-import { TextInputField, SwitchInputField } from '../../Global/FormCompoents/wrapperComponent';
+import { TextInputField, SwitchInputField, Captcha} from '../../Global/FormCompoents/wrapperComponent';
 import { Button } from '@material-ui/core';
 import validate from './Validate/loginValidate';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -17,7 +17,8 @@ import WithLoading from '../../Global/UIComponents/LoaderHoc';
 import { commonActionCreater } from "../../Redux/Actions/commonAction";
 import genericGetData from '../../Redux/Actions/genericGetData';
 
-
+const SITE_KEY = "6LddNwAVAAAAAIEvqN9B0v-kdHgXe_wwjaI8eoiB";
+// const TEST_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
 
 const styles = theme => ({
     main: {
@@ -130,6 +131,10 @@ class SignIn extends React.Component {
         this.props.history.push('/createAccount');
     }
 
+    forgotPasswordHandler = () => {
+        this.props.history.push('/forgot/password');
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -165,12 +170,20 @@ class SignIn extends React.Component {
                                             FORGOT PASSWORD ?
                                 </Col>
                                     </Row> */}
+                                    <Row>
+                                        <Col className="text-center mb-5" style={{marginLeft: '50px'}}>
+                                        <Field name='captcha' component={Captcha} sitekey={SITE_KEY}/>
+                                        </Col>
+                                    </Row>
 
-                                    <Row className="justify-content-center mt-5 align-items-ceenter">
+                                    <Row className="justify-content-center flex-column mt-5 align-items-center">
                                         <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                             <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                                 <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />SIGN IN</Button>
                                         </Col>
+                                        <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
+                                        <a href="javascript:void(0)" onClick={this.forgotPasswordHandler} className="forgotPassword">Forgot Password?</a>
+                                            </Col>
                                     </Row>
 
                                 </form>)}
