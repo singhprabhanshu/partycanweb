@@ -32,6 +32,12 @@ const styles = theme => ({
 
 });
 
+const speedIdFromService = {
+  coldNow: 1,
+  shipping: 2, 
+  pickup: 3
+};
+
 class Speed extends React.Component {
   constructor(props) {
     super(props);
@@ -41,6 +47,8 @@ class Speed extends React.Component {
       selectedCardColor: '#00BFB2',
       isLoading: false,
       primarySelected: false,
+      pickupDuration: null,
+      coldNowTime: null,
     }
   }
   selection = {
@@ -65,6 +73,12 @@ class Speed extends React.Component {
         // ...this.state,
         selectedRetailer,
         selectedRetailerId: selectedRetailer.id
+      });
+    }
+
+    if (!_isEmpty(selectedRetailer) && (_get(selectedSpeedDelivery, 'id') === speedIdFromService.pickup)) {
+      this.setState({
+        pickupDuration: _get(selectedRetailer, 'ready_time', null)
       });
     }
     
@@ -100,6 +114,18 @@ class Speed extends React.Component {
         selectedShippingMethodId: selectedShippingMethod.id,
         // selectedTime: _get(selectedSpeedDelivery, 'name') === '1 Hour Delivery' ? selectedShippingMethod.id : undefined, // just shipping time is taken as time selection
       });
+
+      // coldNow time
+      if ( !_isEmpty(selectedSpeedDelivery) && _get(selectedSpeedDelivery, 'id', -1) === speedIdFromService.coldNow && !_isEmpty(selectedShippingMethod)) {
+    
+        if (_get(selectedShippingMethod, 'dropoff_eta')) {
+          let availableTime = moment.parseZone(_get(selectedShippingMethod, 'dropoff_eta')).format("h A"); 
+          this.setState({
+            coldNowTime: availableTime
+          })
+        }
+        
+      }
       return selectedShippingMethod;
     }
     return null;
@@ -210,6 +236,14 @@ class Speed extends React.Component {
       };
 
       
+      // pickup durations
+      const pickupSpeed = _find(_get(deliveryList, 'speed'), ['id', _get(speedIdFromService, 'pickup')]);
+      if (!_isEmpty(pickupSpeed)) {
+        const duration = !_isEmpty(_get(pickupSpeed, 'retailers')) ? _get(pickupSpeed, 'retailers.0.ready_time', null): null; 
+        this.setState({
+          pickupDuration: duration
+        });
+      }
 
       
       this.setState({
@@ -317,6 +351,11 @@ class Speed extends React.Component {
         selectedRetailer: newSelectedRetailer
       });
     }
+    if (!_isEmpty(newSelectedRetailer) && (_get(this.state.selectedSpeed, 'id') === speedIdFromService.pickup)) {
+      this.setState({
+        pickupDuration: _get(newSelectedRetailer, 'ready_time', null)
+      });
+    }
     
   };
 
@@ -330,7 +369,19 @@ class Speed extends React.Component {
       selectedShippingMethodId: selectedId,
       selectedShippingMethod: selectedShippingMethod
       
-    })
+    });
+    // coldNow time
+    if (  _get(this.state, 'selectedSpeed.id', -1) === speedIdFromService.coldNow && !_isEmpty(selectedShippingMethod)) {
+    
+      if (_get(selectedShippingMethod, 'dropoff_eta')) {
+        let availableTime = moment.parseZone(_get(selectedShippingMethod, 'dropoff_eta')).format("h A"); 
+        this.setState({
+          coldNowTime: availableTime
+        })
+      }
+      
+    }
+    
   };
 
   _changeTimeOpacity = (selectedId) => {
@@ -472,7 +523,7 @@ class Speed extends React.Component {
                        </div>
                       : null}
 
-                      {  (!_isEmpty(availableTime)) ?
+                      {  _get(this.state, 'selectedSpeed.id', -1) === speedIdFromService.coldNow ?
                          <div className="d-flex flex-column mb-5 ">
                           <div className="block-sub-title">Select Time</div>
                           <div className="d-flex flex-lg-wrap CardsWrapper">
@@ -505,21 +556,17 @@ class Speed extends React.Component {
       return <Loader />
     }
 
+    // let availableTime;
+    // if (_get(this.state, 'selectedSpeed.id', -1) === 1 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) {
+    //     // availableTime = '1 PM';
+    //   if (_get(this.state, 'selectedShippingMethod.dropoff_eta')) {
+    //     availableTime = moment.parseZone(_get(this.state, 'selectedShippingMethod.dropoff_eta')).format("h A"); 
+    //   }
+      
+    // }
 
-    let speed = this.state.deliveryList && this.state.deliveryList.speed && this.state.deliveryList.speed.map(a => {
-      return (
-        <React.Fragment key={a.id}>
-          <SpeedCard
-            data={a}
-            changeOpactiy={this._changeOpacity}
-            selectedCardColor={this.state.selectedCardColor}
-            selectedTransportAddress={this.state.selectedSpeedDeliveryId}
-          />
-        </React.Fragment>
+    let availableTime = this.state.coldNowTime;
 
-
-      );
-    });
     let retailer = this.state.selectedSpeed && this.state.selectedSpeed.retailers && this.state.selectedSpeed.retailers.map(r => {
       return (
         <React.Fragment key={r.id}>
@@ -533,6 +580,25 @@ class Speed extends React.Component {
         </React.Fragment> 
       )
     });
+
+    let speed = this.state.deliveryList && this.state.deliveryList.speed && this.state.deliveryList.speed.map(a => {
+      return (
+        <React.Fragment key={a.id}>
+          <SpeedCard
+            data={a}
+            changeOpactiy={this._changeOpacity}
+            selectedCardColor={this.state.selectedCardColor}
+            selectedTransportAddress={this.state.selectedSpeedDeliveryId}
+            availableTime={availableTime}
+            speedIdFromService={speedIdFromService}
+            pickupDuration={this.state.pickupDuration}
+          />
+        </React.Fragment>
+
+
+      );
+    });
+    
 
     let selectDate = this.state.selectedRetailer && this.state.selectedSpeed && this.state.selectedSpeed.ship_methods && this.state.selectedSpeed.ship_methods[this.state.selectedRetailer.index].map(sm => {
       let date;
@@ -553,15 +619,7 @@ class Speed extends React.Component {
         
       )
     });
-    let availableTime;
-    if (_get(this.state, 'selectedSpeed.id', -1) === 1 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) {
-        // availableTime = '1 PM';
-      if (_get(this.state, 'selectedShippingMethod.dropoff_eta')) {
-        availableTime = moment(_get(this.state, 'selectedShippingMethod.dropoff_eta')).format("h A");
-        console.log('time', availableTime); 
-      }
-      
-    }
+    
 
     // let selectTime = this.state.deliveryList && this.state.deliveryList.time.map(st => {
     //   return (

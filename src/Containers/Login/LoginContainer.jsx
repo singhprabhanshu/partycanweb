@@ -17,8 +17,8 @@ import WithLoading from '../../Global/UIComponents/LoaderHoc';
 import { commonActionCreater } from "../../Redux/Actions/commonAction";
 import genericGetData from '../../Redux/Actions/genericGetData';
 
-const SITE_KEY = "6LddNwAVAAAAAIEvqN9B0v-kdHgXe_wwjaI8eoiB";
-// const TEST_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+// const SITE_KEY = "6LddNwAVAAAAAIEvqN9B0v-kdHgXe_wwjaI8eoiB";
+const TEST_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
 
 const styles = theme => ({
     main: {
@@ -172,7 +172,7 @@ class SignIn extends React.Component {
                                     </Row> */}
                                     <Row>
                                         <Col className="text-center mb-5" style={{marginLeft: '50px'}}>
-                                        <Field name='captcha' component={Captcha} sitekey={SITE_KEY}/>
+                                        <Field name='captcha' component={Captcha} sitekey={TEST_SITE_KEY}/>
                                         </Col>
                                     </Row>
 

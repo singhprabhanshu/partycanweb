@@ -21,7 +21,7 @@ class TimeCard extends Component {
                                 {this.props.availableTime}
                             </div>
                             <div style={{ fontSize: 12 }}>
-                                ${this.props.fee}
+                                ${this.props.fee} DELIVERY
                             </div>
                         </CardBody>
                     </Card>

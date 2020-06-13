@@ -33,9 +33,22 @@ class SpeedCard extends Component {
                             <div className="cardTitle">
                                 {this.props.data.description}
                             </div>
-                            <div className="inner-content">
-                                {this.props.data.duration}
-                            </div>
+                            { (this.props.availableTime && this.props.data.id === this.props.speedIdFromService.coldNow)  ? 
+                                <div className="inner-content">
+                                    {/* {this.props.data.duration} */}
+                                    BY {this.props.availableTime}
+                                </div> 
+                            : (this.props.data.id === this.props.speedIdFromService.shipping) ? 
+                                <div className="inner-content">     
+                                    {this.props.data.duration}
+                                </div>
+                            : (this.props.pickupDuration && this.props.data.id === this.props.speedIdFromService.pickup) ?  
+                                    <div className="inner-content">     
+                                        READY BY {this.props.pickupDuration}
+                                    </div>
+                                
+                            : null
+                            }
                             {/* <div>
                                 {this.props.data.address}
                             </div> */}
