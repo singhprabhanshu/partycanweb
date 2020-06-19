@@ -29,11 +29,12 @@ class GuestRegisterContainer extends React.Component {
 
 
     handleSignUpReq = () => {
-        this.setState({
-            handleSignUp: true,
-            handleSignIn: false,
-            handleForgetPassword: false
-        });
+        this.props.history.push('/createAccount');
+        // this.setState({
+        //     handleSignUp: true,
+        //     handleSignIn: false,
+        //     handleForgetPassword: false
+        // });
     }
 
     handleSignInReq = () => {
