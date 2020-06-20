@@ -115,10 +115,15 @@ const AddCard = (props) => {
         //step 2 get the Card Number Element (i think it will automatically get the card number from it)
         const cardElement = elements.getElement(CardNumberElement);
 
-
         //step 3 create the payment method it will return a payload that is used for charge the client
         payload = await stripe.createToken(cardElement);
 
+        //save this generated token in local storage
+       let stripeTokenId =  window.localStorage.getItem("stripeTokenId");
+       if(stripeTokenId == _get(payload,"token.id")){
+        payload = await stripe.createToken(cardElement);
+       }
+       localStorage.setItem("stripeTokenId",payload.token.id);
         if (payload.error) {
             console.log('[error]', payload.error);
             alert(payload.error.message);
@@ -158,8 +163,8 @@ const AddCard = (props) => {
         else {
             setLoading(false);
             let errorMessage = _get(data,"data","something went wrong while processing card");
-            setErrorMessage(errorMessage);
-            alert(errorMessage);       
+            setErrorMessage(errorMessage+"BackendError");
+            alert(errorMessage+"BackendError");       
             return;
         }
     }
