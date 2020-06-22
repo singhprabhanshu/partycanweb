@@ -10,7 +10,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 // import AddressCard from './addressCard';
 import AddressCard from './addressCardNew';
 import AddAddressCard from './addAddressCard';
-import { map as _map, findIndex as _findIndex, get as _get, isEmpty as _isEmpty } from 'lodash';
+import { map as _map, findIndex as _findIndex, get as _get, isEmpty as _isEmpty, find as _find } from 'lodash';
 import genericPostData from '../../../Redux/Actions/genericPostData';
 import { Form, Field } from 'react-final-form';
 import { TextInputField, SwitchInputField } from '../../../Global/FormCompoents/wrapperComponent';
@@ -26,6 +26,8 @@ import { Loader } from '../../../Global/UIComponents/LoaderHoc';
 import { cleanEntityData } from '../../../Global/helper/commonUtil';
 import { isMobile, isTablet } from 'react-device-detect';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+import { PageView, ProductCheckout, ProductCheckoutOptions } from '../../../Global/helper/react-ga';
 
 
 const styles = (state) => ({
@@ -151,6 +153,18 @@ class Address extends React.Component {
         });
     };
 
+    reactGACartItem = () => {
+        const cart = _map(this.props.cartItems, c => cleanEntityData({
+            productId: _get(c, 'product_id'),
+            name: _get(c, 'name'),
+            quantity: _get(c, 'qty'),
+            price: _get(c, 'product_price') ? Number(_get(c, 'product_price')) : undefined,
+            variant: _get(c, 'type')
+
+        }));
+        return cart;
+    }
+
     componentDidMount() {
         window.scrollTo(0, 0);
         if (!_isEmpty(this.props.userDetails)) {
@@ -223,7 +237,18 @@ class Address extends React.Component {
 
     };
 
+    reactGACheckoutOptions = () => {
+        const addressDetails = _find(this.state.userAddress, ['id', this.state.selectedAddress]);
+        const cart = this.reactGACartItem();
+        ProductCheckoutOptions({ cart, step: 1, option: _get(addressDetails, 'type')});
+    };
+
     handleCardSelect = () => {
+
+        this.reactGACheckoutOptions();
+        ProductCheckout({ cart: this.reactGACartItem(), step: 2, option: 'Delivery Options'});
+        PageView();
+
         let cartFlow = this.props.cartFlow;
         let data = {
             ...cartFlow,
@@ -389,9 +414,11 @@ const mapStateToProps = (state) => {
     let cartFlow = _get(state, 'cartFlow.lookUpData', {});
     let userInfo = _get(state, 'userSignInInfo.lookUpData', []);
     let userDetails = _get(userInfo, '[0].result', {});
+    let cartItems = _get(state, "cart.lookUpData[0].result", []);
     return {
         cartFlow,
         userDetails,
+        cartItems,
     };
 };
 
