@@ -12,6 +12,10 @@ import {
 } from 'reactstrap';
 import ProductDetails from "../ProductComponents/ProductDetails"
 
+// google analytics
+import { ProductClick, PageView } from '../../Global/helper/react-ga';
+import { cleanEntityData } from '../../Global/helper/commonUtil';
+
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -67,12 +71,22 @@ class ProductsListing extends React.Component {
 
     }
 
+    handleReactGAProcutClickEvents = ({ product }) => {
+        const payload =  cleanEntityData({
+            productId: _get(product, 'id'),
+            name: _get(product, 'name'),
+            price: _get(product, 'price') ? Number(_get(product, 'price')) : undefined,
+        })
+        ProductClick(payload);
+        PageView();
+    };
+
     render() {
         const { productListingData, classes } = this.props;
         let ProductList = []
         _isArray(productListingData) && productListingData.map((product, index)=>{
             ProductList.push(
-                <Card onClick={()=>this.fetchProductDetails(product.id)} >
+                <Card onClick={()=>{this.fetchProductDetails(product.id); this.handleReactGAProcutClickEvents({ product })}} >
                     <div className="prodcutMinDetails">
                         <CardImg src={product.image} alt="Card image cap" />
                         <CardBody>
