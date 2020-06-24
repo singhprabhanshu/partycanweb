@@ -130,13 +130,13 @@ class CreateAccountContainer extends React.Component {
                                 </Col>                        
                             </Row>
 
-                            <Row>
-                                <Col className="text-center mb-5" style={{marginLeft: '50px', marginTop: '15px'}}>
+                            <Row className="justify-content-center">
+                                <Col  xs={'auto'} className="mb-5" style={{marginTop: '15px'}}>
                                     <Field name='captcha' component={Captcha} sitekey={SITE_KEY}/>
                                 </Col>
                             </Row>
 
-                            <Row className="justify-content-center mt-5 align-items-ceenter">
+                            <Row className="justify-content-center mt-4 align-items-ceenter">
                             <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                     <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                         <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />CREATE ACCOUNT</Button>

@@ -511,7 +511,7 @@ class Speed extends React.Component {
 
                       { (_get(this.state, 'selectedSpeed.id', -1) === 2 && !_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', []))) ?
                         <div className="d-flex flex-column mb-5 ">
-                            <div className="block-sub-title ">Select Delivery Options</div>
+                            <div className="block-sub-title ">Select Delivery Option</div>
                             <div className="d-flex flex-lg-wrap CardsWrapper">{shippingMethod}</div>
                       </div>
                       : null}

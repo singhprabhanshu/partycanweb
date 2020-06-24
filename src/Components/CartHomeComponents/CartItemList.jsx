@@ -7,10 +7,12 @@ import proImg from '../../assets/images/party-can.png';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
-import { createReqObjForCart } from "../../Global/helper/commonUtil";
+import { createReqObjForCart, cleanEntityData } from "../../Global/helper/commonUtil";
 import _get from "lodash/get";
 import CartEmptyComponent from "./CartEmptyComponent";
 import { Loader } from "../../Global/UIComponents/LoaderHoc";
+import { ProductRemovefromCart } from '../../Global/helper/react-ga'
+
 
 
 //THIS COMPONENT IS COMMON FOR CHECKOUT CONTAINER AND CART CONTAINER
@@ -83,6 +85,23 @@ class CartItemList extends React.Component {
 
         //TODO HANDLE FETCH ERROR HANDLING REMAIMNING
     }
+
+    reactGAADDRemoveFromCart = ({ id, item }) => {
+        
+        const cart = cleanEntityData({
+            productId: _.get(item, 'product_id'),
+            name: _.get(item, 'name'),
+            quantity: _.get(item, 'qty'),
+            price: _.get(item, 'product_price'),
+            variant: _.get(item, 'type'),
+        });
+        if (id === 2) {
+            ProductRemovefromCart({...cart });
+            
+            
+        } 
+    };
+
     handleCartRemoveItem = (item) => {
         this.setState({itemRemovedFetching: true });
         genericPostData({
@@ -97,6 +116,7 @@ class CartItemList extends React.Component {
             successCb: ()=>{
                 this.setState({itemRemovedFetching:false,cartIsFetching:true});
                 this.fetchCartAgain(this.sb,this.eb);
+                this.reactGAADDRemoveFromCart({ id: 2, item });
             },
             errorCb: this.handleCartItemRemoveError,
             dontShowMessage: true
