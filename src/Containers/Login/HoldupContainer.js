@@ -16,6 +16,9 @@ import _get from 'lodash/get';
 import { isEmpty as _isEmpty } from 'lodash';
 import { commonActionCreater } from '../../Redux/Actions/commonAction';
 
+//google analytics
+import {PageView, Event} from '../../Global/helper/react-ga';
+
 const styles = theme => ({
     main: {
     }
@@ -28,7 +31,12 @@ class HoldupContainer extends React.Component {
         this.state = {
         }
     }
+    componentDidMount() {
+        PageView();
+    };
+
     onSubmit  = async values => {
+        Event("AGE GATE", "Age Gate Triggered", "Age Gate Page");
         genericGetData({
             dispatch:this.props.dispatch,
             url:`/connect/index/getlocation?zipcode=${values.zipcode}&store_id=1&store='drinkpartycan'`,

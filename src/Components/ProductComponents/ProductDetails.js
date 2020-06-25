@@ -39,6 +39,12 @@ import Carousel from 'react-multi-carousel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import 'react-multi-carousel/lib/styles.css';
 import {commonActionCreater} from "../../Redux/Actions/commonAction";
+
+// google analytics
+import { ProductView, PageView, ProductAddedtoCart } from '../../Global/helper/react-ga';
+import { cleanEntityData } from '../../Global/helper/commonUtil';
+
+
 const styles = theme => ({
     main: {
         width: 'auto',
@@ -147,6 +153,13 @@ class ProductDetails extends React.Component {
     }
 
     productDetailsFetchSuccess = (data) => {
+        const productId = this.props.match.params.productID;
+        const payload = cleanEntityData({
+            productId,
+            name: _get(data, 'name'),
+            price:  _get(data, 'price') ? Number( _get(data, 'price')) : undefined
+        })
+        ProductView(payload);
 
         this.setState({ isLoading: false })
     }
@@ -246,6 +259,18 @@ class ProductDetails extends React.Component {
         this.props.history.push(`/category/${categoryName}`)
     }
 
+    reactGAAddToCartEvent = () => {
+        const p = this.props.productDetailsData;
+        const productId = this.props.match.params.productID;
+        const payload = cleanEntityData({
+            productId,
+            name: _get(p, 'name'),
+            price: _get(p, 'price') ? Number(_get(p, 'price')) : undefined,
+            quantity: this.state.defaultQuantity,
+        });
+        ProductAddedtoCart(payload);
+    };
+
     renderContent = (averageRating, reviewsList, productDetailsData, Ingredients, descriptionContent) => {
         let commonContent = <>
             <div className="scrollerwrapper" >
@@ -323,7 +348,7 @@ class ProductDetails extends React.Component {
                     {/* <Button variant="contained" style={{ color: '#0032A0' }} className="bottomActionbutton autoWidthbtn col-4 col-md-auto order-2 order-md-1 bg-white" type="submit">
                         <span className="icons shareIcons d-inline-block mr-2"></span>SHARE
                  </Button> */}
-                    <Button onClick={() => this.handleAddToCart()} variant="contained" className="bottomActionbutton order-1 col-12 col-md-auto order-md-2 cartActionBtn" type="submit">
+                    <Button onClick={() => {this.handleAddToCart(); this.reactGAAddToCartEvent()}} variant="contained" className="bottomActionbutton order-1 col-12 col-md-auto order-md-2 cartActionBtn" type="submit">
                         {this.state.addToCartLoading?<CircularProgress/> :<> <span className="icons cartIcons d-inline-block mr-2"></span>ADD TO CART</>}
                 </Button>
                     {/* <Button style={{ backgroundColor: 'rgba(255, 255, 255, .3)' }} variant="contained" className="bottomActionbutton order-3 col-7 col-md-auto order-md-3 autoWidthbtn transiBtn" type="submit">

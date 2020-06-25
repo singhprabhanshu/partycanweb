@@ -23,6 +23,8 @@ import { commonActionCreater } from "../../../Redux/Actions/commonAction";
 import { isMobile, isTablet } from 'react-device-detect';
 import { Loader } from "../../../Global/UIComponents/LoaderHoc";
 
+import { PageView } from '../../../Global/helper/react-ga';
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const onSubmit = async values => {
@@ -39,6 +41,7 @@ class CardComponent extends React.Component {
         this.setState({ addCard: true });
     }
     handleContinueFromExistingCard = () => {
+        PageView();
         let cartFlow = this.props.cartFlow;
         let selectedCard = this.props.paymentMethods[this.state.selectedCard - 1];
         let card_token = "";

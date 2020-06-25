@@ -5,7 +5,7 @@ import CouponCode from "../../Components/CartHomeComponents/CouponCode";
 import CartPriceSummary from "../../Components/CartHomeComponents/CartPriceSummary"
 import genericPostData from "../../Redux/Actions/genericPostData";
 import _get from "lodash/get";
-import {isEmpty as _isEmpty} from 'lodash';
+import {isEmpty as _isEmpty, map as _map} from 'lodash';
 import LoaderButton from '../../Global/UIComponents/LoaderButton';
 import { isMobile, isTablet } from 'react-device-detect';
 import Scrollbar from "react-scrollbars-custom";
@@ -15,6 +15,9 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { Loader } from "../../Global/UIComponents/LoaderHoc";
 import CartEmptyComponent from "../../Components/CartHomeComponents/CartEmptyComponent";
 import GiftCard from "../../Components/CartHomeComponents/GiftCard";
+
+import {PageView, ProductCheckout } from '../../Global/helper/react-ga';
+import { cleanEntityData } from '../../Global/helper/commonUtil';
 
 
 class CartContainer extends React.Component {
@@ -35,6 +38,23 @@ class CartContainer extends React.Component {
         
         window.scrollTo(0, 0);
 
+    }
+    reactGACartItem = () => {
+        const cart = _map(this.props.cartItems, c => cleanEntityData({
+            productId: _get(c, 'product_id'),
+            name: _get(c, 'name'),
+            quantity: _get(c, 'qty'),
+            price: _get(c, 'product_price') ? Number(_get(c, 'product_price')) : undefined,
+            variant: _get(c, 'type')
+
+        }));
+        return cart;
+    };
+
+    handleCheckout = () => {
+        ProductCheckout({ cart: this.reactGACartItem(), step: 1, option: 'Address Options'});
+        PageView();
+        this.props.history.push("/cart/address");
     }
 
     renderContent = () => {
@@ -104,7 +124,7 @@ class CartContainer extends React.Component {
                                     color="primary"
                                     disabled={itemRemovedFetching || itemUpdatedFetching || cartIsFetching}
                                     className="bottomActionbutton cartActionBtn"
-                                    onClick={() => this.props.history.push("/cart/address")}>
+                                    onClick={() => this.handleCheckout()}>
                                     <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> CHECKOUT
                                   </LoaderButton>
                             </div>

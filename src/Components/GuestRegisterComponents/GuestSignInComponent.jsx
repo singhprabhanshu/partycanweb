@@ -87,7 +87,7 @@ class GuestSignInComponent extends React.Component {
                         <Col  className="text-center" >
                             <h4 className="holduptext">ARE YOU REGISTERED?</h4>
                             <div className="pt-4 pb-5">
-                            <h5>COMPLETE YOUR ORDER FASTER - SIGNIN WITH YOUR E-MAIL ADDRESS</h5>
+                            <h5>COMPLETE YOUR ORDER FASTER - SIGN IN WITH YOUR E-MAIL ADDRESS</h5>
                             {/* Please use your DrinkPartycan login, which is different than your Bacardi.com login */}
                             </div>  
                         </Col>             
