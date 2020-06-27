@@ -645,14 +645,16 @@ class Speed extends React.Component {
 
 
     let shippingMethod = this.state.selectedRetailer && this.state.selectedSpeed && this.state.selectedSpeed.ship_methods && this.state.selectedSpeed.ship_methods[this.state.selectedRetailer.index].map(sm => {
-      // console.log('============deliveryDate', sm);
-      // const deliveryDate = sm.delivery_date.toString();
-      const date1 = new Date();
-      const date2 = new Date(sm.delivery_date);
+
+      // const date1 = new Date();
+      // const date2 = new Date(sm.delivery_date);
       
-      const differenceInTime = date2.getTime() - date1.getTime();
-      const differenceInDays = differenceInTime/(1000 * 3600 * 24);
-      const ceiledDays = Math.ceil(differenceInDays);
+      // const differenceInTime = date2.getTime() - date1.getTime();
+      // const differenceInDays = differenceInTime/(1000 * 3600 * 24);
+      // const ceiledDays = Math.floor(differenceInDays);
+
+      const date = new Date(sm.delivery_date);
+      const ceiledDays = _get(sm, 'delivery_date') ? moment.parseZone(date).format("DD-MMM") : '';
       return (
         <React.Fragment key={sm.id}>
             <ShippingMethodCard

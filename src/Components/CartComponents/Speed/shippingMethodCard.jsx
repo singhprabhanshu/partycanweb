@@ -26,9 +26,10 @@ class ShippingMethodCard extends Component {
                             <div className="cardTitle shippingCardTitle">
                                 {this.props.data.method}
                             </div>
-                            <div className="inner-content py-3">
-                                Estimated ~{this.props.estimatedShippingTime} Days
-                            </div>
+                            { this.props.estimatedShippingTime ? <div className="inner-content py-3">
+                                {/* Estimated ~{this.props.estimatedShippingTime} Days */}
+                                BY {this.props.estimatedShippingTime}
+                            </div> : null }
                             <div className="cardPrice">
                                 ${this.props.data.amount}
                             </div>
