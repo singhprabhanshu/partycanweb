@@ -42,6 +42,7 @@ class GuestForgetPasswordComponent extends React.Component {
                 disableInput: true,
                 displayMessage: _get(data, '[0].message')
             });
+            localStorage.setItem('isCartRedirect', true);
 
             
             // this.props.handleSignInReq();
