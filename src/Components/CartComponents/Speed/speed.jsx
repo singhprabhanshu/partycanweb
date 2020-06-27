@@ -119,7 +119,13 @@ class Speed extends React.Component {
       if ( !_isEmpty(selectedSpeedDelivery) && _get(selectedSpeedDelivery, 'id', -1) === speedIdFromService.coldNow && !_isEmpty(selectedShippingMethod)) {
     
         if (_get(selectedShippingMethod, 'dropoff_eta')) {
-          let availableTime = moment.parseZone(_get(selectedShippingMethod, 'dropoff_eta')).format("h A"); 
+          const marker = moment.parseZone(_get(selectedShippingMethod, 'dropoff_eta')).format("A");
+          const hourMin = moment.parseZone(_get(selectedShippingMethod, 'dropoff_eta')).format("h:m");
+          let [hour, min] = hourMin.split(':');
+          if (min > 0) {
+            hour = hour && Number(hour) + 1;
+          };
+          let availableTime =  `${hour} ${marker}`;
           this.setState({
             coldNowTime: availableTime
           })
@@ -374,7 +380,13 @@ class Speed extends React.Component {
     if (  _get(this.state, 'selectedSpeed.id', -1) === speedIdFromService.coldNow && !_isEmpty(selectedShippingMethod)) {
     
       if (_get(selectedShippingMethod, 'dropoff_eta')) {
-        let availableTime = moment.parseZone(_get(selectedShippingMethod, 'dropoff_eta')).format("h A"); 
+        const marker = moment.parseZone(_get(selectedShippingMethod, 'dropoff_eta')).format("A");
+        const hourMin = moment.parseZone(_get(selectedShippingMethod, 'dropoff_eta')).format("h:m");
+        let [hour, min] = hourMin.split(':');
+        if (min > 0) {
+          hour = hour && Number(hour) + 1;
+        };
+        let availableTime =  `${hour} ${marker}`;
         this.setState({
           coldNowTime: availableTime
         })
@@ -669,6 +681,7 @@ class Speed extends React.Component {
                     <Col lg={6}  className="p-xl-5 p-md-4 py-4 order-2 d-flex flex-column order-md-1">                                           
                     <div className="block-title mb-5">Choose a Delivery Options</div>
                     {this.renderContent(speed,retailer,shippingMethod,selectDate,availableTime)}                       
+                    <div style={{ marginBottom: 10 }}>**Orders received by 3 PM CT will be processed same day</div>
                     <div className="text-left mt-4" >
                         <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleDeliverySelect} disabled={buttonDisable}>
                             <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> CONTINUE
