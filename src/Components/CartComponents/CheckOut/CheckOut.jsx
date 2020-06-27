@@ -2,6 +2,8 @@ import React from "react";
 import CartListItem from "../../CartHomeComponents/CartItemList";
 import { connect } from "react-redux";
 import _get from "lodash/get";
+import { map as _map } from 'lodash';
+import { cleanEntityData } from '../../../Global/helper/commonUtil';
 import genericPostData from "../../../Redux/Actions/genericPostData";
 import CouponCode from "../../../Components/CartHomeComponents/CouponCode";
 import { Button, Label } from 'reactstrap';
@@ -21,11 +23,26 @@ import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { commonActionCreater } from "../../../Redux/Actions/commonAction";
 
+import { PageView, MakeTransaction } from '../../../Global/helper/react-ga';
+
 class CheckOut extends React.Component {
     constructor(props) {
         super(props);
         this.state = { driverTip: { id: 0, value: 0 }, driverTipAmount: 0 }
     }
+
+    reactGACartItem = () => {
+        const cart = _map(this.props.cartItems, c => cleanEntityData({
+            productId: _get(c, 'product_id'),
+            name: _get(c, 'name'),
+            quantity: _get(c, 'qty'),
+            price: _get(c, 'product_price') ? Number(_get(c, 'product_price')) : undefined,
+            variant: _get(c, 'type')
+    
+        }));
+        return cart;
+    };
+
     componentDidMount() {
         window.scrollTo(0, 0);
         //this.fetchCart(this.cartFetchSuccess);
@@ -88,8 +105,24 @@ class CheckOut extends React.Component {
             dontShowMessage: true
         })
     }
+    reactGAPurchase = ({ data }) => {
+        
+        const cart = this.reactGACartItem();
+        const purchasePayload= cleanEntityData({
+            id: _get(data, 'order_id'),
+            revenue: this.props.subTotal ? Number(this.props.subTotal) : undefined,
+            tax: this.props.taxes ? Number(this.props.taxes) : undefined,
+            shipping: this.props.cartFlow.shippingAmount ? Number(this.props.cartFlow.shippingAmount) : undefined,
+            coupon: this.state.coupon_code,
+
+        });
+        MakeTransaction({ cart, purchasePayload });
+        
+    };
     placeOrderSuccess = (data) => {
         if (data.code == 1) {
+            this.reactGAPurchase({ data });
+            PageView();
             localStorage.removeItem("cart_id"); //removing the cart_id when place order is done
             this.props.dispatch(commonActionCreater("", "GIFT_MESSAGE"));
             this.fetchCart(() => {

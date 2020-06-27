@@ -57,6 +57,12 @@ import UpdatePasswordContainer from './Containers/Login/UpdatePasswordContainer'
 import ForgotPasswordContainer from './Containers/Login/ForgotPasswordContainer';
 import NoMatchContainer from './Containers/NoMatchContainer';
 
+// google analytics
+import {initGA} from './Global/helper/react-ga';
+
+// google analytics initialization
+initGA(process.env.REACT_APP_GA_CODE);
+
 // commented temporarly
 
 // import socketIOClient from "socket.io-client";

@@ -172,13 +172,13 @@ class SignIn extends React.Component {
                                             FORGOT PASSWORD ?
                                 </Col>
                                     </Row> */}
-                                    <Row>
-                                        <Col className="text-center mb-5" style={{marginLeft: '50px'}}>
+                                    <Row className="justify-content-center">
+                                        <Col xs={'auto'} className="text-center" >
                                         <Field name='captcha' component={Captcha} sitekey={SITE_KEY}/>
                                         </Col>
                                     </Row>
 
-                                    <Row className="justify-content-center flex-column mt-5 align-items-center">
+                                    <Row className="justify-content-center flex-column mt-4 align-items-center">
                                         <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                             <Button variant="contained" color="primary" className="bottomActionbutton" type="submit">
                                                 <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" />SIGN IN</Button>
