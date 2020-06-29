@@ -35,7 +35,7 @@ class ContactUs extends React.Component {
                     <div className="col-md-12" style={{ textAlign: "justify", textJustify: "inter-word" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
                             <p>
-                                PHONE: 917-969-9180 . EMAIL: INQUIRIES@DRINKBACARDI.COM
+                                PHONE: 917-969-9180 . EMAIL: INQUIRIES@DRINKPARTYCAN.COM
                         </p>
                         </div>
                     </div>
