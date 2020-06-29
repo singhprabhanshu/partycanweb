@@ -24,6 +24,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { commonActionCreater } from "../../../Redux/Actions/commonAction";
 import { connect } from "react-redux";
 import _get from "lodash/get";
+import _isEmpty from "lodash/isEmpty";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { isMobile, isTablet } from 'react-device-detect';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -79,6 +80,7 @@ const AddCard = (props) => {
     let billingAddress = {};
     let cardData = {};
     let payload = {};
+    let payload2 = {}
 
     const createStripeToken = async (cardElement)=>{
         let payload = await stripe.createToken(cardElement);
@@ -125,8 +127,8 @@ const AddCard = (props) => {
 
 
         //step 3 create the payment method it will return a payload that is used for charge the client
-        let payload = await createStripeToken(cardElement);
-        let payload2 = await createStripeToken(cardElement);
+        payload = await createStripeToken(cardElement);
+        payload2 = await createStripeToken(cardElement);
         
     //     let stripeTokenId =  window.localStorage.getItem("stripeTokenId");
     //     if(stripeTokenId == _get(payload,"token.id")){
@@ -134,9 +136,12 @@ const AddCard = (props) => {
     //       }
     //    localStorage.setItem("stripeTokenId",payload.token.id);
         if (payload.error||payload2.error) {
-            console.log('[error]', payload.error);
-            alert(payload.error.message);
-            setErrorMessage(payload.error.message);
+
+            var payloadErrornoumus = !_isEmpty(payload.error)?payload:payload2
+
+            console.log('[error]', payloadErrornoumus.error);
+            alert(payloadErrornoumus.error.message);
+            setErrorMessage(payloadErrornoumus.error.message);
             setPaymentMethod(null);
             setLoading(false);
             return;
@@ -209,8 +214,8 @@ const AddCard = (props) => {
             setLoading(false);
             let paymentMethods = props.paymentMethods;
             let cartFlow = props.cartFlow;
-            let card_token = payload.token.id;
-            let card_id = payload.token.card.id;
+            let card_token = payload.token.id; //this is of no use
+            let card_id = cardData.data[0].id;
             let customer_stripe_id = cardData.data[0].customer; //paymentMethods && Array.isArray(paymentMethods) && paymentMethods.length > 0 ? paymentMethods[0].customer_stripe_id : "";
             let card_info = "";
             let payment_method = "stripe_payments";  //check here
