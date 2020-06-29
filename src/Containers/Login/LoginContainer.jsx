@@ -120,8 +120,14 @@ class SignIn extends React.Component {
     }
     
     categoriesFetchSuccess = (data) => {
-
-        this.props.history.push('/category/ALL');
+        const cartEnabled = localStorage.getItem('isCartRedirect');
+        if (cartEnabled) {
+            localStorage.removeItem('isCartRedirect');
+            this.props.history.push('/cart');
+        } else {
+            this.props.history.push('/category/ALL');
+        }
+        
      }
     
     categoriesFetchError = () => { }
