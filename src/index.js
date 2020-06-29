@@ -56,6 +56,7 @@ import TermsConditionContainer from './Containers/TermsPolicy/TermsConditionCont
 import UpdatePasswordContainer from './Containers/Login/UpdatePasswordContainer';
 import ForgotPasswordContainer from './Containers/Login/ForgotPasswordContainer';
 import NoMatchContainer from './Containers/NoMatchContainer';
+import ContactUsConatiner from './Containers/ContactUs';
 
 // google analytics
 import {initGA} from './Global/helper/react-ga';
@@ -138,6 +139,7 @@ ReactDOM.render(
                 <RouteWithLayout Layout={MainLayout} exact path="/guest/register" Component={GuestRegisterContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/privacy-policy" Component={PrivacyPolicyContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/terms-conditions" Component={TermsConditionContainer} />
+                <RouteWithLayout Layout={MainLayout} exact path="/contact-us" Component={ContactUsConatiner} />
                 <RouteWithLayout Layout={MainLayout} exact path="/account/resetpassword" Component={UpdatePasswordContainer} />
                 <RouteWithLayout Layout={MainLayout} exact path="/forgot/password" Component={ForgotPasswordContainer} />
                 <RouteWithLayout Layout={EmptyLayout} Component={NoMatchContainer} />

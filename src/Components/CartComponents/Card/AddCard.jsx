@@ -82,9 +82,9 @@ const AddCard = (props) => {
 
     const createStripeToken = async (cardElement)=>{
         let payload = await stripe.createToken(cardElement);
-        if(payload&&payload.used){
-            payload = await createStripeToken(cardElement);
-        }
+        // if(payload&&payload.used){
+        //     payload = await createStripeToken(cardElement);
+        // }
         return payload
     }
 
@@ -125,14 +125,15 @@ const AddCard = (props) => {
 
 
         //step 3 create the payment method it will return a payload that is used for charge the client
-        payload = await createStripeToken(cardElement);
+        let payload = await createStripeToken(cardElement);
+        let payload2 = await createStripeToken(cardElement);
         
     //     let stripeTokenId =  window.localStorage.getItem("stripeTokenId");
     //     if(stripeTokenId == _get(payload,"token.id")){
     //         payload = await stripe.createToken(cardElement);
     //       }
     //    localStorage.setItem("stripeTokenId",payload.token.id);
-        if (payload.error) {
+        if (payload.error||payload2.error) {
             console.log('[error]', payload.error);
             alert(payload.error.message);
             setErrorMessage(payload.error.message);
@@ -140,7 +141,9 @@ const AddCard = (props) => {
             setLoading(false);
             return;
         } else {
-            let card_token = payload.token.id;
+            let card_token1 = payload.token.id;
+            let card_token2 = payload2.token.id;
+            let card_token = [card_token1,card_token2];
             saveAndContinue({ api_token, card_token });
 
         }

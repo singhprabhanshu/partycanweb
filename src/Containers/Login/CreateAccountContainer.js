@@ -56,12 +56,14 @@ class CreateAccountContainer extends React.Component {
         const code = _get(data[0],'code');
         const message = _get(data[0],'message');
             if (code === 1) {
-            //   this.props.dispatch(showMessage({ text: message, isSuccess: true }));
+              this.props.dispatch(showMessage({ text: 'Sign Up Successful - Please Sign In with your credentials.', isSuccess: true }));
                 this.signIn();
             } else if (code === 2) {
                 this.props.dispatch(showMessage({ text: message, isSuccess: false }));
-            } else {
+            } else if (message) {
                 this.props.dispatch(showMessage({ text: message, isSuccess: false }));
+            } else {
+                this.props.dispatch(showMessage({ text: 'Something Went wrong', isSuccess: false }));
             }
     }
     userRegisterError = (data) => {

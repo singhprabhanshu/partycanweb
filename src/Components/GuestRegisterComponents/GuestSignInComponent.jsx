@@ -112,9 +112,9 @@ class GuestSignInComponent extends React.Component {
                                         {this.state.isLoading?<CircularProgress size={24} style={{ color: 'white'}}/> : <>LOGIN</> }
                                     </Button>
                                     </Col>
-                                    {/* <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >                                     
+                                    <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >                                     
                                         <a href="javascript:void(0)" onClick={this.props.handleForgetPasswordReq} className="forgotPassword">Forgot Password?</a>
-                                    </Col> */}
+                                    </Col>
                                 </div>                               
                                 <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center'}}>
                                     <p><span>NEW CUSTOMER? </span><a href="javascript:void(0)" onClick={this.props.handleSignUpReq} className="forgotPassword underlineTxt" >Start here</a></p>

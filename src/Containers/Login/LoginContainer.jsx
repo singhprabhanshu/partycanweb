@@ -95,8 +95,10 @@ class SignIn extends React.Component {
             localStorage.setItem('Token', _get(data[0], 'result.api_token', ''));
             localStorage.setItem('cart_id', _get(data[0], 'result.cart_id', ''));
             this.fetchCategories();
-        } else {
+        } else if (message) {
             this.props.dispatch(showMessage({ text: message, isSuccess: false }));
+        } else {
+            this.props.dispatch(showMessage({ text: 'Something Went wrong', isSuccess: false }));
         }
     }
 
@@ -118,8 +120,14 @@ class SignIn extends React.Component {
     }
     
     categoriesFetchSuccess = (data) => {
-
-        this.props.history.push('/category/ALL');
+        const cartEnabled = localStorage.getItem('isCartRedirect');
+        if (cartEnabled) {
+            localStorage.removeItem('isCartRedirect');
+            this.props.history.push('/cart');
+        } else {
+            this.props.history.push('/category/ALL');
+        }
+        
      }
     
     categoriesFetchError = () => { }
