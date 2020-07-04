@@ -58,7 +58,7 @@ class HeaderBar extends React.Component {
                                 <img src={Logo} className="img-responsive"></img>
                             </Col>
                             <Col xs={'auto'} className="d-flex">
-                                {/* <Button onClick={this.handleSearchAction} className="searchIcons icons"></Button> */}
+                                <Button onClick={this.handleSearchAction} className="searchIcons icons"></Button>
                                 <Badge badgeContent={this.props.total_items_count} color="primary">
                                     <Button onClick={() => this.props.history.push("/cart")} className="cartIcons icons ml-4"></Button>
                                 </Badge>
