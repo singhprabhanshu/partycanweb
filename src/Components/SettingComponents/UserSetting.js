@@ -24,12 +24,12 @@ class UserSetting extends React.Component {
     componentDidMount() {
         window.scrollTo(0, 0);
         if(this.props.tabValue === 0) {
-            this.getSettingData();
+            const reqData = {api_token: localStorage.getItem("Token"), store_id: 1};
+            this.getSettingData(reqData);
         }
     }
     
-    getSettingData = () => {
-        let reqData = {api_token: localStorage.getItem("Token")};
+    getSettingData = (reqData) => {
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj: reqData,
@@ -62,6 +62,11 @@ class UserSetting extends React.Component {
 
     handleSwitchChange = (event) => {
         this.setState({ [event.target.name]: event.target.checked });
+        if (event.target.name === 'newsLetter') {
+            let reqData = {api_token: localStorage.getItem("Token"), store_id: 1, 
+            newsletter_subscription: event.target.checked ? 1 : 0};
+            this.getSettingData(reqData);
+        }
     };
       
     getFormatExpireMonth = (month) => {

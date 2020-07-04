@@ -156,7 +156,7 @@ class GuestSignUpComponent extends React.Component {
                                         <Field name="password" component={TextInputField} placeholder='PASSWORD'
                                         autoFocus={false} type='password' />
                                     </Col> 
-                                        <Col className=" mb-5" >
+                                        <Col xs={12} md={6} className=" mb-5" >
                                         <Field name="confirmPassword" component={TextInputField} placeholder='CONFIRM PASSWORD'
                                         autoFocus={false} type='password' />
                                     </Col>                        
