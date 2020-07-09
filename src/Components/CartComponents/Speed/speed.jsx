@@ -11,6 +11,7 @@ import RetailerCard from './retailerCard';
 import ShippingMethodCard from './shippingMethodCard';
 import DateCard from './dateCard';
 import TimeCard from './timeCard';
+import ErrorCard from './errorCard';
 import moment from 'moment';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { commonActionCreater } from '../../../Redux/Actions/commonAction';
@@ -49,6 +50,8 @@ class Speed extends React.Component {
       primarySelected: false,
       pickupDuration: null,
       coldNowTime: null,
+      showErrorMessage: true,
+      errorMessage: '',
     }
   }
   selection = {
@@ -158,6 +161,7 @@ class Speed extends React.Component {
       product_total: _get(d, 'product_total'),
       desc: _get(d, 'desc'),
       distance: _get(d, 'distance'),
+      pickup_date: _get(d, 'pickup_date'),
       ready_time: _get(d, 'ready_time'),
       delivery_fee: _get(d, 'delivery_fee'),
       isPrimary: (index === 0) ? true : false,
@@ -183,6 +187,7 @@ class Speed extends React.Component {
         fee: _get(d, 'fee'),
         duration: _get(d, 'duration'),
         dropoff_eta: _get(d, 'dropoff_eta'),
+        pickup_date: _get(d, 'pickup_date'),
         isPrimary: (index === 0) ? true : false,
         index
       }));
@@ -227,45 +232,54 @@ class Speed extends React.Component {
     };
 
     const deliveryOptionsFetchSuccess = (data) => {
-      
-      let deliveryList = {
-        speed: _map(_get(data, 'speed'), (d, index) => cleanEntityData({
-          id: _get(d, 'speed_id'),
-          description: _get(d, 'description'),
-          duration: _get(deliveryOptionsMetaData, _get(d, 'name')), 
-          name: _get(d, 'name'),
-          retailers: mapRetailers({ data: _get(d, 'retailers')}),
-          ship_methods: _map(_get(d, 'ship_methods'), s => mapShipMethods({ data: s})),
-          isPrimary: _get(this.state, 'primarySelected') ?  false : findPrimarySpeed({ data: d, index}),
-          enablePointer: findPointerEnable({ data: d, index })
-        })),
-      };
-
-      
-      // pickup durations
-      const pickupSpeed = _find(_get(deliveryList, 'speed'), ['id', _get(speedIdFromService, 'pickup')]);
-      if (!_isEmpty(pickupSpeed)) {
-        const duration = !_isEmpty(_get(pickupSpeed, 'retailers')) ? _get(pickupSpeed, 'retailers.0.ready_time', null): null; 
-        this.setState({
-          pickupDuration: duration
+      if (_get(data, 'code') === -1) {
+        this.setState({ 
+          showErrorMessage: true,
+          errorMessage: _get(data, 'message'), 
+          isLoading: false
         });
-      }
 
-      
-      this.setState({
-        // ...this.state,
-        deliveryList: deliveryList
-      });
-      const selectedSpeed = this.selectDeliverySpeed({ deliveryList });
-      
-      const selectedRetailer = this.selectRetailer({ selectedSpeedDelivery: selectedSpeed });
-      
-      this.selectShipping({ selectedRetailer, selectedSpeedDelivery: selectedSpeed});
-      this.setState({
-        isLoading: false
-      });
+      } else {
+        this.setState({ showErrorMessage: false });
+        let deliveryList = {
+          speed: _map(_get(data, 'speed'), (d, index) => cleanEntityData({
+            id: _get(d, 'speed_id'),
+            description: _get(d, 'description'),
+            duration: _get(deliveryOptionsMetaData, _get(d, 'name')), 
+            name: _get(d, 'name'),
+            retailers: mapRetailers({ data: _get(d, 'retailers')}),
+            ship_methods: _map(_get(d, 'ship_methods'), s => mapShipMethods({ data: s})),
+            isPrimary: _get(this.state, 'primarySelected') ?  false : findPrimarySpeed({ data: d, index}),
+            enablePointer: findPointerEnable({ data: d, index })
+          })),
+        };
+
+        
+        // pickup durations
+        const pickupSpeed = _find(_get(deliveryList, 'speed'), ['id', _get(speedIdFromService, 'pickup')]);
+        if (!_isEmpty(pickupSpeed)) {
+          const duration = !_isEmpty(_get(pickupSpeed, 'retailers')) ? _get(pickupSpeed, 'retailers.0.ready_time', null): null; 
+          this.setState({
+            pickupDuration: duration
+          });
+        }
+
+        
+        this.setState({
+          // ...this.state,
+          deliveryList: deliveryList
+        });
+        const selectedSpeed = this.selectDeliverySpeed({ deliveryList });
+        
+        const selectedRetailer = this.selectRetailer({ selectedSpeedDelivery: selectedSpeed });
+        
+        this.selectShipping({ selectedRetailer, selectedSpeedDelivery: selectedSpeed});
+        this.setState({
+          isLoading: false
+        });
       
 
+      };
     };
 
 
@@ -428,6 +442,15 @@ class Speed extends React.Component {
       }
     };
 
+    const findPickeUpDate = () => {
+      if (_get(this.state, 'selectedSpeedDeliveryId') === 2)  {
+        return _get(this.state, 'selectedShippingMethod.pickup_date', 'NA')
+      } else {
+        const pickupDate = _get(this.state, 'selectedRetailer.pickup_date', 'NA');
+        return pickupDate;
+      }
+    };
+
     const findDeliveryDate = () => {
       if (_get(this.state, 'selectedSpeedDeliveryId') === 2) {
         let delivery_date = _get(this.state, 'selectedShippingMethod.delivery_date', '');
@@ -451,7 +474,8 @@ class Speed extends React.Component {
       selectedShippingMethod: findShippingMethod(),
       shippingAmount: findShippingAmount(),
       deliveryFee: _get(this.state, 'selectedRetailer.delivery_fee', '0.00'),
-      deliveryDate: findDeliveryDate()
+      deliveryDate: findDeliveryDate(),
+      pickup_date: findPickeUpDate(),
     });
 
     let cartFlow = this.props.cartFlow;
@@ -498,15 +522,27 @@ class Speed extends React.Component {
     // this.props.navigation.navigate('Card', {isPaymentCard: true});
   }
 
+  handleShippingAddressRedirect = () => {
+    this.props.handleTabOnContinue('address');
+  }
+
   renderContent = (speed,retailer,shippingMethod,selectDate,availableTime) => {
     let commonContent = <>
     <div className="scrollerwrapper" > 
                     <div className="d-flex flex-column">
-
-                        <div className="d-flex flex-column mb-5 ">
-                          <div className="block-sub-title">Select Speed</div>
-                          <div className="d-flex flex-lg-wrap CardsWrapper">{speed}</div>
-                        </div>
+                        { _get(this.state, 'showErrorMessage') === true ?
+                              <ErrorCard
+                              errorMessage={this.state.errorMessage}
+                              /> 
+                            : null
+                        }
+                        { !_isEmpty(_get(this.state, 'selectedSpeed')) ?
+                          <div className="d-flex flex-column mb-5 ">
+                            <div className="block-sub-title">Select Speed</div>
+                            <div className="d-flex flex-lg-wrap CardsWrapper">{speed}</div>
+                          </div>
+                          : null
+                        }
                    
                         { (!_isEmpty(_get(this.state, 'selectedSpeed.ship_methods', [])) && ( _get(this.state, 'selectedSpeed.id', -1) === 1 || _get(this.state, 'selectedSpeed.id', -1) === 2)) ? 
                         
@@ -683,11 +719,17 @@ class Speed extends React.Component {
                     <Col lg={6}  className="p-xl-5 p-md-4 py-4 order-2 d-flex flex-column order-md-1">                                           
                     <div className="block-title mb-5">Choose a Delivery Options</div>
                     {this.renderContent(speed,retailer,shippingMethod,selectDate,availableTime)}                       
-                    <div style={{ marginBottom: 10 }}>**Orders received by 3 PM CT will be processed same day</div>
+                    <div style={{ marginBottom: 10 }}>*Orders received by 3 PM CT will be processed same day</div>
                     <div className="text-left mt-4" >
+                        { _get(this.state, 'showErrorMessage') === true ? 
+                              <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleShippingAddressRedirect}>
+                                  <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> GO TO SHIPPING
+                              </Button>
+                        :
                         <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleDeliverySelect} disabled={buttonDisable}>
                             <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> CONTINUE
-                        </Button>                
+                        </Button> 
+                        }               
                     </div>
               </Col>                        
       </Row>
