@@ -79,6 +79,7 @@ class Footer extends React.Component {
                 <Row className="w-100 align-items-start align-items-md-center no-gutters justify-content-sm-between justify-content-center ">
                         <Col  xs={'6'} md={'3'}  className="order-1 mb-4 mb-md-0" >
                             <div className="text-left d-flex flex-column footerLink">
+                            <a href="/contact-us" className="pb-2">Contact Us</a>
                                     <a href="/privacy-policy" className="pb-2">Privacy & Cookie Policy</a>
                                     <a href="/terms-conditions">Terms & Conditions</a>
                             </div>
