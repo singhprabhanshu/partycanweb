@@ -92,7 +92,8 @@ class CheckOut extends React.Component {
             "delivery_fee": cartFlow.deliveryFee,
             "driver_tip": this.state.driverTipAmount.toString(), //workhere
             "payment_method": cartFlow.payment_method,
-            "gift_message":giftMessage
+            "gift_message":giftMessage,
+            "pickup_date": cartFlow.pickup_date
         }
         this.setState({ placeOrderLoading: true })
         genericPostData({
