@@ -443,10 +443,12 @@ class Speed extends React.Component {
     };
 
     const findPickeUpDate = () => {
+      let pickupDate;
       if (_get(this.state, 'selectedSpeedDeliveryId') === 2)  {
-        return _get(this.state, 'selectedShippingMethod.pickup_date', 'NA')
+        pickupDate = !_isEmpty(_get(this.state, 'selectedShippingMethod.pickup_date', '')) ? moment(_get(this.state, 'selectedShippingMethod.pickup_date')).format('YYYY-MM-DD') : 'NA';
+        return pickupDate;
       } else {
-        const pickupDate = _get(this.state, 'selectedRetailer.pickup_date', 'NA');
+        const pickupDate =!_isEmpty(_get(this.state, 'selectedRetailer.pickup_date', '')) ? moment(_get(this.state, 'selectedRetailer.pickup_date', '')).format('YYYY-MM-DD') : 'NA';
         return pickupDate;
       }
     };
