@@ -62,6 +62,10 @@ class ProductTabs extends React.Component {
         this.props.history.push('/category/ALL');
     }
 
+    handleSearchAction = () => {
+        this.props.history.push('/search')
+    }
+
     render() {
         const { classes, categoriesList } = this.props;
         const { selectedTab } = this.state; 
@@ -81,7 +85,7 @@ class ProductTabs extends React.Component {
                                 {headerTitle}
                         </Col>
                         <Col xs={'auto'}  className=""> 
-                            <SearchIcon style={{fontSize:'3rem'}}/>
+                            <SearchIcon onClick={this.handleSearchAction} style={{fontSize:'3rem'}}/>
                         </Col>
                         </Row>
                         </Container>
