@@ -22,7 +22,7 @@ class ContactUs extends React.Component {
                         </div>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
                             <p>
-                                1765 N, ELSTON AVENUE, SUITE 107
+                                1765 N Elston Ave, Suite 107
                         </p>
                         </div>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
@@ -30,12 +30,28 @@ class ContactUs extends React.Component {
                                 CHICAGO, IL 60642
                         </p>
                         </div>
+                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                            <p>
+                                (Cocktail Courier Storefront)
+                        </p>
+                        </div>
                     </div>
-                    <div style={{ marginTop: "50px", display: "flex", flexDirection: "row", justifyContent: "center" }} className="col-md-12 mb-4"><h2>FOR GENERAL INQUIRIES AND CUSTOMER CARE ASSISTANCE</h2></div>
+                    <div style={{ marginTop: "50px", display: "flex", flexDirection: "row", justifyContent: "center" }} className="col-md-12 mb-4"><h2>FOR GENERAL INQUIRIES, PLEASE EMAIL</h2></div>
                     <div className="col-md-12" style={{ textAlign: "justify", textJustify: "inter-word" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
                             <p>
-                                PHONE: 917-969-9180 . EMAIL: INQUIRIES@DRINKPARTYCAN.COM
+                                EMAIL: INQUIRIES@DRINKPARTYCAN.COM
+                        </p>
+                        </div>
+                    </div>
+                    <div style={{ marginTop: "50px", display: "flex", flexDirection: "row", justifyContent: "center" }} className="col-md-12 mb-4"><h2>FOR CUSTOMER CARE ASSISTANCE PLEASE EMAIL</h2></div>
+                    <div className="col-md-12" style={{ textAlign: "justify", textJustify: "inter-word" }}>
+                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                            <p style={{ marginRight: "30px" }}>
+                                EMAIL: HI@DRINKPARTYCAN.COM
+                        </p>
+                            <p>
+                                PHONE: 917-969-9180
                         </p>
                         </div>
                     </div>
