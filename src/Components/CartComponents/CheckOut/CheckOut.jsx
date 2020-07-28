@@ -92,7 +92,8 @@ class CheckOut extends React.Component {
             "delivery_fee": cartFlow.deliveryFee,
             "driver_tip": this.state.driverTipAmount.toString(), //workhere
             "payment_method": cartFlow.payment_method,
-            "gift_message":giftMessage
+            "gift_message":giftMessage,
+            "pickup_date": cartFlow.pickup_date
         }
         this.setState({ placeOrderLoading: true })
         genericPostData({
@@ -215,13 +216,21 @@ class CheckOut extends React.Component {
                                 <span className="mt-0">Your Order id is <b class="orderNumber">#{this.state.order_id}</b></span>
                                 <div className="mt-5" >
 
-                                    <LoaderButton
+                                   {!this.props.isGuest?
+                                   <LoaderButton
                                         onClick={this.trackOrder}
                                         color="primary"
                                         variant="contained"
                                         type="submit" className="bottomActionbutton autoWidthbtn transiBtn btn btn-secondary">
                                         <LocationOnOutlinedIcon className="mr-3" /> Your Orders
                    </LoaderButton>
+                   :<LoaderButton
+                                        onClick={() => window.location.href = (window.location.origin+"/category/ALL")}
+                                        color="primary"
+                                        variant="contained"
+                                        type="submit" className="bottomActionbutton autoWidthbtn transiBtn btn btn-secondary">
+                                        Continue Shopping
+                   </LoaderButton>}
                                 </div>
                             </Col>
                             <Col lg={5} className="d-none d-lg-block">
@@ -290,6 +299,8 @@ function mapStateToProps(state) {
     let itemUpdatedFetching = _get(state, "updateCart.isFetching");
     let cartFlow = _get(state, "cartFlow.lookUpData");
     let giftMessage = _get(state, "giftMessage.lookUpData","");
+    let userName = _get(state,"userSignInInfo.lookUpData[0].result.cust_name",''); 
+    let isGuest = userName ? false : true;
     return {
         cartItems,
         subTotal,
@@ -305,7 +316,8 @@ function mapStateToProps(state) {
         cartFlow,
         cartId,
         feeAmount,
-        giftMessage
+        giftMessage,
+        isGuest
     }
 }
 
