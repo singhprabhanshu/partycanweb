@@ -7,26 +7,85 @@ import { connect } from 'react-redux';
 import {map, set} from 'lodash';
 import genericGetData from '../../Redux/Actions/genericGetData';
 import {Container, Row, Col} from 'reactstrap'
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
 import ReactDOM from "react-dom";
 import { Loader } from '../../Global/UIComponents/LoaderHoc';
 import { isMobile, isTablet } from 'react-device-detect';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import img1 from '../../assets/images/HU_FANSIDED-LOGO.png';
+import img2 from '../../assets/images/HU_POPSUGAR-LOGO.png';
+import img3 from '../../assets/images/HU_THRILLIST-LOGO.png';
+import img4 from '../../assets/images/HU_SOCIAL-1.png';
+import img5 from '../../assets/images/HU_SOCIAL-2.png';
+import img6 from '../../assets/images/HU_SOCIAL-3.png';
+import img7 from '../../assets/images/HU_SOCIAL-4.png';
+import img8 from '../../assets/images/HU_AGAVE-ICON.png';
+import img9 from '../../assets/images/HU_LIME-ICON.png';
+import img10 from '../../assets/images/HU_TRIPLE-SPICE-ICON.png';
+
 
 const styles = theme => ({   
 });
 
 class SplashContainer extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
             mobileImageData: [],
             deskTopImageData: [],
             slideIndex: 0,
-            isLoading : false
-        }
+            isLoading : false,
+        
+        responsive1: {
+            superLargeDesktop: {
+              // the naming can be any, depends on you.
+              breakpoint: { max: 4000, min: 1200 },
+              items: 4
+            },
+            desktop: {
+              breakpoint: { max: 1199, min: 768 },
+              items: 3,
+              slidesToSlide: 1
+            },
+            tablet: {
+              breakpoint: { max: 767, min: 576 },
+              items: 2,
+              slidesToSlide: 1
+              
+            },
+            mobile: {
+              breakpoint: { max: 575, min: 320 },
+              items: 2,
+              slidesToSlide: 1
+            }
+          },
+
+          responsive2: {
+            superLargeDesktop: {
+              // the naming can be any, depends on you.
+              breakpoint: { max: 4000, min: 1200 },
+              items: 3
+            },
+            desktop: {
+              breakpoint: { max: 1199, min: 768 },
+              items: 3,
+              slidesToSlide: 1
+            },
+            tablet: {
+              breakpoint: { max: 767, min: 576 },
+              items: 2,
+              slidesToSlide: 1
+              
+            },
+            mobile: {
+              breakpoint: { max: 575, min: 320 },
+              items: 1,
+              slidesToSlide: 1
+            }
+          }
+        
+    }
     }
 
     componentDidMount() {
@@ -89,75 +148,91 @@ class SplashContainer extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
-
-        let renderSlide = this.state.mobileImageData.map((subdata,index) => {
-            return(<React.Fragment key={index}>
-               
-                    <div className= "d-block d-lg-none splashSlides" style={{backgroundImage: `url(${subdata.imageurl})`}} >
-                        <div className="captionTxt">
-                        <span className="textGreen">BRING THE<br></br><b className="tBold">PARTY</b> HOME.</span>
-                            <span className="textBlue mt-4 mt-xl-5">SERVES <b className="tBold">12</b> COCKTAILS<br></br>IN SECONDS!</span>
-                            <span className="textRed mt-4 mt-xl-5">MADE WITH <b className="tBold">100%</b><br></br>REAL JUICE.</span>
-                       
-                        <Button variant="contained"  onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
-                            <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> LET'S PARTY</Button>
-                        </div>
-                    </div>
-               
-            {/* <div className={isMobile ? "d-flex justify-content-center flex-column align-items-center h-100" 
-                : " d-flex justify-content-center align-items-center h-100 "}>
-                  <img src={subdata.imageurl}  className="img-responsive d-none d-md-block"  />
-                  <img src={subdata.imageurl}  className="img-responsive d-block d-md-none"  />
-                    <p className="legend">{subdata.text}</p>
-                </div> */}
-                       
-            </React.Fragment>)
-        })
-
-        let renderDesktopSlide = this.state.deskTopImageData.map((subdata,index) => {
-            return(<React.Fragment key={index}>
-              
-                <div className= "d-none d-lg-block splashSlides"  style={{backgroundImage: `url(${subdata.imageurl})`}}  >
-                        <div className="captionTxt">
-                            <span className="textGreen">BRING THE<br></br><b className="tBold">PARTY</b> HOME</span>
-                            <span className="textBlue mt-4 mt-xl-5">SERVES <b className="tBold">12</b> COCKTAILS<br></br>IN SECONDS</span>
-                            <span className="textRed mt-4 mt-xl-5">MADE WITH <b className="tBold">100%</b><br></br>REAL JUICE</span>
-                            <Button variant="contained"  onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
-                             <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> LET'S PARTY</Button>
-                        </div>
-                </div>
-              
-            </React.Fragment>)
-        })
-
+        const { classes } = this.props; 
         return ( 
             <React.Fragment>
-             {this.state.isLoading && <Loader /> }
-            {this.state.deskTopImageData.length > 0 && <div className="WhiteCurveBg">
-                     <CssBaseline />               
-                      <div className="IntroSlider" >                         
-                        {this.state.mobileImageData.length > 0 && renderSlide}
-                        {this.state.deskTopImageData.length > 0 && renderDesktopSlide}
-                      
-                      {/* {this.state.imageData.length > 0 && renderSlide}
-                        <Carousel showThumbs={false} dynamicHeight={false} showStatus={false} showArrows={false}
-                            selectedItem= {this.state.slideIndex} onChange={this.handleIndicator}  >
-                                {this.state.imageData.length > 0 && renderSlide}
-                        </Carousel>   */}
-                    </div>                   
-                </div>}
-                {/* {this.state.imageData.length > 0 && 
-                <Container className="container-custom">
-                    <Row>
-                        <Col className="text-center" style={{height:70}} >
-                            <Button variant="text" color="secondary" className="txtButton" 
-                                onClick={this.state.slideIndex == 2 ? this.redirectToNext: this.handleSlideChange}>
-                                         {this.state.slideIndex == 2 ? ' SHOP NOW !!' : 'NEXT' }
-                            </Button>
-                        </Col>                        
-                    </Row>
-                 </Container>}        */}
+             {this.state.isLoading && <Loader /> }                        
+                     <CssBaseline /> 
+                     <div className="IntroSlider" >
+                        <Row className="landing-section-01 backgroundSlides no-gutters" >
+                        <Col xs={8} xl={7} md={8} className="captionTxt textBlue">
+                            12 READY-TO-DRINK COCKTAILS WITH 100% NATURAL JUICE; CONVENIENTLY IN A RESEALABLE CAN.
+                            <Button variant="contained"  onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
+                                    <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2 d-none d-sm-block" />ORDER NOW</Button>
+                            </Col>
+                        </Row>
+                <Row className="landing-section-02 no-gutters flex-wrap pb-0">
+                    <Col xs={12} className="tBold">HERE’S WHAT PEOPLE ARE SAYING…</Col>
+                    <Col  xs={12} >
+                        <Carousel responsive={this.state.responsive2} arrows={true} itemClass="px-4">
+                            <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
+                                “Great for hanging outdoors at beaches or parks, where mixing is a pain, but where you really don’t want to ruin your tomorrow with a gas station cocktail.”
+                                <img src={img1}  alt="Card image cap" className="img-fluid" />
+                                
+                            </div>
+                            <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
+                                    “If you or your friends are looking for a tasty craft cocktail to sip on while sun bathing, make sure to order your own Party Can before they run out.”
+                                    <img src={img2}  alt="Card image cap" className="img-fluid" />
+                            </div>
+                            <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
+                                “Those who are worn out from at-home bartending over the last few months will love that the Party Can involves absolutely no prep time: simply chill, shake and serve.”
+                                <img src={img3}  alt="Card image cap" className="img-fluid" />                               
+                            </div> 
+                                             
+                        </Carousel>
+                        </Col> 
+                </Row>
+                <Row className="landing-section-03 backgroundSlides justify-content-end no-gutters">
+                    <Col  xs={7} xl={7} md={8} className="captionTxt">
+                        BRING THE PARTY WITH YOU, WHEREVER YOU GO, WHETHER IT’S THE BOAT, THE PATIO, OR THE POOL.
+                        <Button variant="contained"  onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
+                                    <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2 d-none d-sm-block" />SEND A FRIEND A CAN</Button>
+                    </Col> 
+                </Row>
+                <Row className="landing-section-04 no-gutters flex-wrap pb-0">
+                    <Col xs={12} className="mb-5">
+                        <Row className="no-gutters crafted-quality">
+                        <Col xs={12} className="tBold">CRAFT COCKTAIL QUALITY, CANNED.</Col>
+                         <Col  xs={12} ><Carousel responsive={this.state.responsive2} arrows={true} itemClass="px-4">
+                            <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
+                                Made with blue weber agave tequila and orange liqueur, for the perfect balance of booze and sweetness.
+                                <img src={img8}  alt="Card image cap" className="img-fluid" />
+                               
+                            </div>
+                            <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
+                                We squeezed the limes so you don’t have to. Every can includes fresh juice!
+                                <img src={img9}  alt="Card image cap" className="img-fluid" />
+                            </div>
+                            <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
+                            Ginger, cinnamon, and chili pepper combine to give this margarita just the right amount of spice.
+                            <img src={img10}  alt="Card image cap" className="img-fluid" />                               
+                            </div>                            
+                        </Carousel>
+                        </Col>
+                        </Row>
+                    </Col>               
+                
+                <Col xs={12}>
+                    <Col xs={12} className="tBold">SEE MORE OF PARTY CAN IN THE WILD AT OUR INSTAGRAM @DRINKPARTYCAN</Col>
+                    <Carousel responsive={this.state.responsive1} arrows={true} itemClass="px-2 px-md-3">
+                            <div className="d-flex flex-column justify-content-center align-items-center">
+                                <img src={img4}  alt="Card image cap" className="img-fluid" />                               
+                            </div>
+                            <div className="d-flex flex-column justify-content-center align-items-center">
+                                    <img src={img5}  alt="Card image cap" className="img-fluid" />
+                            </div>
+                            <div className="d-flex flex-column justify-content-center align-items-center">
+                                <img src={img6}  alt="Card image cap" className="img-fluid" />                               
+                            </div>   
+                            <div className="d-flex flex-column justify-content-center align-items-center">
+                                <img src={img7}  alt="Card image cap" className="img-fluid" />                               
+                            </div> 
+                                                  
+                        </Carousel>
+                        </Col> 
+                </Row>
+                </div>
+                          
          </React.Fragment>
         );
     }
