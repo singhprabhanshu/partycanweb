@@ -7,7 +7,7 @@ import { get as _get, isEmpty as _isEmpty } from "lodash";
 import {commonActionCreater} from "../../Redux/Actions/commonAction";
 import genericPostData from "../../Redux/Actions/genericPostData";
 import {logoutActionCreator} from '../../Redux/Actions/logoutAction';
-import cLogo from '../../../src/assets/images/cocktail-courier-logo.png';
+import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 const styles = theme => ({
    
 });
@@ -74,27 +74,26 @@ class Footer extends React.Component {
         const { classes, isLoginAndSignupScreen } = this.props;
         return (
             <React.Fragment>
-                <Container fluid={true}  className="footerLayout d-flex align-items-center py-4  p-md-3">              
+                <Container fluid={true}  className="footerLayout d-flex align-items-center py-5 ">              
                 <Container className="container-content-header justify-content-center ">
-                <Row className="w-100 align-items-start align-items-md-center no-gutters justify-content-sm-between justify-content-center ">
-                        <Col  xs={'6'} md={'3'}  className="order-1 mb-4 mb-md-0" >
-                            <div className="text-left d-flex flex-column footerLink">
-                            <a href="/contact-us" className="pb-2">Contact Us</a>
+                <Row className="w-100 align-items-start justify-content-center justify-content-md-start  no-gutters ">
+                        <Col  xs={'12'} md={'3'}  className="mb-5 mb-md-0 footerLink d-flex flex-column">    
+                                                         
+                                    <h3 className="text-white">INFO</h3>
+                                    <a href="/contact-us" className="pb-2">Contact Us</a>
                                     <a href="/privacy-policy" className="pb-2">Privacy & Cookie Policy</a>
-                                    <a href="/terms-conditions">Terms & Conditions</a>
-                            </div>
+                                    <a href="/terms-conditions" className="pb-2">Terms & Conditions</a>
+                                    <a href="/terms-conditions">FAQ</a>                          
                             </Col>
-                            <Col xs={'6'} md={'3'}  className="order-2 order-md-3 drinkText" >                           
-                                    <span className="pb-2">Everyone's Invited</span>
-                                    <span>Drink Responsibly</span>
-                            </Col>
-                            <Col md={'6'} xs={'12'} className="order-3 mb-4 mb-md-0 order-md-2 d-flex align-items-center justify-content-center">                                
-                                <div className="d-flex align-items-center pt-xs-0">
-                                <span className="mt-3 mr-4 poweredLine">Powered by<br></br> Three-Tier Solution<br></br> From</span>                  
-                                <img src={cLogo} className="img-responsive cLogo"></img>
-                                </div>
-                            </Col>
-                           
+                            <Col xs={'12'} md={'4'}  className="drinkText" > 
+                                    <h3 className="text-white">SUBSCRIBE</h3>                         
+                                    <span className="pb-2">Sign up to receive a special discount and early access to new product releases.</span>
+                                    <div className="d-flex signUpbox">
+                                        <Input className="signUpinput" placeholder="EMAIL" />
+                                        <Button variant="contained"  color="primary" className="signUpbtn " type="submit">SIGN UP</Button>
+                                    </div>
+                                    <span className="mt-3 poweredLine">Powered by 3TS by Cocktail Courier</span>  
+                            </Col>                           
                         </Row>
                     </Container>
                 </Container>

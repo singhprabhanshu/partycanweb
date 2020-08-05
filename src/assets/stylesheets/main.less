@@ -154,7 +154,7 @@ button:focus {
 
 
 /////////////////////////// Layout styling css
-.drinkText{font-size: 1.3rem; color: #fff; text-transform: uppercase; text-align: right; display: flex; flex-direction: column;}
+.drinkText{font-size: 1.5rem; color: #fff; display: flex; flex-direction: column;}
 
 .emptyLayout, .mainLayout {
   display: flex;
@@ -211,82 +211,326 @@ button:focus {
 
 
 ////////////////////// Intro carousel css
-.IntroSlider{
-  // max-height: calc(100vh - 16rem);
-  overflow: hidden; 
-  width: 100%;
+.IntroSlider{ 
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  .carousel .slide, .carousel .slide .legend{
-    background-color: transparent!important;
-  }
-  .carousel.carousel-slider, .carousel, .carousel .slider, .carousel .slider-wrapper{
-    position: unset!important;
-    height: 100%;
-  }
-  .carousel .control-dots{
-    right:0;
-    padding: 0;
-  }
-  .carousel-root {
-    outline: none;
-    height: 100%;
-    width: 100%;
-}
-  .carousel .slide .legend{
-    left:0!important;
-    right: 0!important; 
-    margin: auto!important;
-    position: absolute!important;
-    bottom:3rem;
-    opacity: 1!important;
-    max-width: 70%;
-    line-height: 2.2rem;   
-    font-size: 1.5rem!important;
-    text-transform: uppercase;
-    @media (max-width: 767px){
-      max-width: 90%;
-    } 
-    @media (max-width: 991px){   
-      bottom:3rem;
-      font-size: 1.4rem!important;      
-    }
-  }
-  .splashSlides{
-    // max-height: calc(100vh - 16rem);
+  display: flex; 
+  flex-direction: column;
+  flex: 1;  
+  @media (max-width: 767px){
+    margin: 0 -1.5rem;
+  }   
+  .backgroundSlides{  
     width: 100%;
     height: 100%;
     background-size: cover!important;
     background-repeat: no-repeat;
-    background-position: left top;   
-    
+    background-position: left top;
     @media (max-width: 991px){
       background-position: center ;
-    } 
-   
+    }   
+  }
+  .bottomActionbutton {
+    min-width: 60%!important;
+  }
+  .react-multi-carousel-list{    
+    padding-bottom: 5rem;
+  }
+  .react-multi-carousel-dot-list{
+    bottom: 1rem;
   }
 
-  .captionTxt{    
-    font-family: 'Tungsten-Medium', sans-serif;
-    font-size: 85px;
-    letter-spacing: 1rem;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction: column;
-    height: 100%;
-    line-height: 70px;
-    width: 45%;
-    margin-left: auto;
-    padding-left: 5rem;
+  .react-multiple-carousel__arrow, .react-multiple-carousel__arrow:hover{
+    background-color: transparent;
+  }
+  .react-multiple-carousel__arrow--right{
+    right: calc(1% + 1px);
+  }
+  .react-multiple-carousel__arrow--left {
+    left: calc(1% + 1px);
+}
 
-    .tBold{
-      font-family: 'Tungsten-bold', sans-serif;
+  .landing-section-01{
+    background-image: url('../images/HU_MARG-BANNER-DEKSTOP.jpg');
+    min-height: 520px;  
+    display: flex;
+    align-items: center;   
+     
+  
+      .captionTxt{    
+        font-family: 'Tungsten-Medium', sans-serif;
+        font-size: 66px;
+        line-height: 70px;
+        padding:0 5rem;
+        letter-spacing: .5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;       
+        text-align: center;
+      }
+      .bottomActionbutton{
+        min-width: 30%!important;
+        background-color:#1f00a1!important;
+      }
+      
+      @media(min-width: 992px) and (max-width:1199px){
+        min-height: 420px;  
+        .captionTxt{    
+          font-family: 'Tungsten-Medium', sans-serif;
+          font-size: 55px;
+          line-height: 60px;
+          padding:0 3rem;
+        }
+        .bottomActionbutton{
+          min-width: 50%!important;
+        }
+     }
+      @media(min-width: 768px) and (max-width:991px){
+          min-height: 420px;  
+          .captionTxt{
+            font-size: 46px;
+            line-height: 50px;
+            padding:0 3rem;
+          }
+          .bottomActionbutton{
+            min-width: 60%!important;
+          }
+       }
+
+       @media (max-width: 767px){
+        background-image: url('../images/HU_MARG-BANNER-mobile.jpg');
+        min-height: 390px;  
+        .captionTxt{ 
+          font-size: 30px;
+          line-height: 35px;
+          padding:0 1rem;
+          letter-spacing: 0.3rem;
+        }
+        .bottomActionbutton{
+          min-width: 70%!important;
+        }
+      }   
+  }
+ 
+    .landing-section-02 {
+      background-color: #088cac;    
+      background-image: -webkit-linear-gradient(-90deg, #088cac, #0750a4);
+      background-image: -moz-linear-gradient(-90deg, #088cac, #0750a4);
+      background-image: -ms-linear-gradient(-90deg, #088cac, #0750a4);
+      background-image: -o-linear-gradient(-90deg, #088cac, #0750a4);
+      background-repeat: no-repeat;
+      min-height: 400px;
+      padding: 5rem 0;
+      width: 100%;
+      .captionTxt{    
+        font-family: 'Tungsten-Medium', sans-serif;
+        font-weight: 400;
+        line-height: 30px;
+        font-size: 25px;
+        letter-spacing: 0.3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+        padding:0 10rem;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      img{
+        max-width: 70%;
+      }
+      @media(max-width:1600px){
+        .captionTxt{  
+          padding:0 5rem;
+        }
+      }
+      @media(min-width: 992px) and (max-width:1199px){
+        .captionTxt{  
+          padding:0 3rem;
+        }
+      }
+      @media(min-width: 768px) and (max-width:991px){
+        min-height: 420px;  
+        padding: 5rem 0;
+        .captionTxt{    
+          font-family: 'Tungsten-Medium', sans-serif;
+          font-size: 20px;
+          line-height: 25px;
+          padding:0 1rem;
+        }
+      }
+      @media (max-width: 767px){
+        .captionTxt{  
+        font-size: 23px;
+        line-height: 25px;
+        padding:0 4rem;
+        }
+      }
     }
 
+    .landing-section-03{
+      background-image: url('../images/HU_POOL-BANNER---DESKTOP.jpg');
+      min-height: 520px;  
+      display: flex;
+      align-items: center; 
+    
+        .captionTxt{    
+          font-family: 'Tungsten-Medium', sans-serif;
+          font-size: 66px;
+          letter-spacing: .5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          height: 100%;
+          line-height: 70px;
+          padding:0 5rem;
+          text-align: center;
+        }
+        .bottomActionbutton{
+          min-width: 30%!important;
+          background-color:#1f00a1!important;
+        }
+        @media(min-width: 992px) and (max-width:1199px){
+          min-height: 420px;  
+          .captionTxt{
+            font-size: 55px;
+            line-height: 60px;
+            padding:0 3rem;
+          }
+          .bottomActionbutton{
+            min-width: 50%!important;
+          }
+        }
+        @media(min-width: 768px) and (max-width:991px){
+          min-height: 420px;  
+          .captionTxt{ 
+            font-size: 46px;
+            line-height: 50px;
+            padding:0 3rem;
+          }
+          .bottomActionbutton{
+            min-width: 60%!important;
+          }
+        }
+
+        @media (max-width: 767px){
+          background-image: url('../images/HU_POOL-BANNER-mobile.jpg');
+          min-height: 390px;  
+          .captionTxt{ 
+            font-size: 30px;
+            line-height: 35px;
+            padding:0 1rem;
+            letter-spacing: 0.3rem;
+          }
+          .bottomActionbutton{
+            min-width: 100%!important;
+          }
+        }   
+
+    }
+
+    .landing-section-04{
+      background-color: #1f00a1;    
+      background-image: -webkit-linear-gradient(-90deg, #1f00a1, #E5554F);
+      background-image: -moz-linear-gradient(-90deg, #1f00a1, #E5554F);
+      background-image: -ms-linear-gradient(-90deg, #1f00a1, #E5554F);
+      background-image: -o-linear-gradient(-90deg, #1f00a1, #E5554F);
+      background-repeat: no-repeat;
+      min-height: 400px;
+      padding: 5rem 0;
+      width: 100%;
+      .crafted-quality{
+        .captionTxt{    
+          font-family: 'Tungsten-Medium', sans-serif;
+          font-weight: 400;
+          line-height: 30px;
+          font-size: 25px;
+          letter-spacing: 0.3rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          height: 100%;
+          padding:0 10rem;
+          text-align: center;
+          text-transform: uppercase;
+        }
+        img{
+          max-width: 40%;
+          margin-top: 3rem;
+        }
+        @media(max-width:1600px){
+          .captionTxt{  
+            padding:0 5rem;
+          }
+        }
+        @media(min-width: 992px) and (max-width:1199px){
+          .captionTxt{  
+            padding:0 3rem;
+          }
+          img{
+            max-width: 50%;
+          }
+        }
+        @media(min-width: 768px) and (max-width:991px){         
+          .captionTxt{ 
+            font-size: 20px;
+            line-height: 25px;
+            padding:0 1rem;
+          }
+          img{
+            max-width: 50%;
+          }
+        }
+        @media (max-width: 767px){
+          .captionTxt{  
+          font-size: 23px;
+          line-height: 25px;
+          padding:0 4rem;
+          }
+          img{
+            max-width: 40%;
+          }
+        }
+      }    
+    
+    }
+
+    .tBold{
+      font-family: 'Tungsten-semibold', sans-serif;
+      font-weight: 500;
+      letter-spacing: .5rem;
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      font-size: 5rem;
+      line-height: 5rem;
+      align-items: center;
+      margin: 0 auto;
+      margin-bottom: 4rem;
+      max-width: 50%;
+
+      @media(min-width: 992px) and (max-width:1199px){      
+          max-width: 70%;
+          font-size: 4rem;
+          line-height: 4rem;       
+        }
+      @media(min-width: 768px) and (max-width:991px){       
+          font-size: 3.5rem;
+          line-height: 3.6rem;
+          max-width: 80%;
+        }
+        @media (max-width: 767px){
+          max-width:95%;
+          font-size: 3rem;
+          line-height: 3rem;  
+          letter-spacing: .3rem; 
+        }
+    }
+   
     .textGreen{
       color:#00bfb3;
     }
@@ -297,58 +541,14 @@ button:focus {
 
     .textRed{
       color:#E5554F;
-    }
+    }  
+    
+ }
+    
 
-    @media (max-width: 1440px){      
-      font-size: 60px;
-      letter-spacing: .6rem;
-      line-height: 54px;
-    } 
+  
 
-    @media (max-width: 1140px){      
-      font-size: 50px;
-      letter-spacing: .6rem;
-      line-height: 44px;
-    }
-    @media (max-width: 991px) and (min-width: 768px){
-    width: 100%;
-    text-align: center;
-    font-size: 80px;
-    line-height: 80px;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 5rem 6rem 0 6rem;
-    }
-
-    @media (max-width: 767px){
-      width: 100%;
-      align-items: center;
-      justify-content: flex-start;
-      font-size: 35px;
-      line-height: 35px;
-      text-align: center;
-      padding: 3rem 1rem 0 1rem;
-      }
-      .bottomActionbutton {
-        min-width: 60%!important;
-      }
-
-  }
-
-  // .carousel .slide img{
-  //  margin-bottom: 8rem;
-  //   @media (max-width: 1366px) and (min-width: 992px){
-  //     max-width: 55%;
-  //   } 
-  //   @media (max-width: 991px){
-  //     max-width: 60%;      
-  //   }
-
-  //   @media (max-width: 767px){
-  //     max-width: 80%;      
-  //   }
-  // }
-}
+ 
 
 ////////////////////// custom Scrollbar css
 .ScrollbarsCustom-Track{
@@ -604,18 +804,17 @@ button:focus {
 }
 
 .footerLayout{
-  background-color: rgba(254, 68, 47, .1); 
+  background-color:rgba(229, 85, 79, .2); 
   font-size: 1rem;
-  // border-top-left-radius: 2rem;
-  // border-top-right-radius: 2rem;
   color:rgba(255, 255, 255, .6);
-  text-align: center;
   min-height: 9rem;
+  @media (max-width:767px){
+    text-align: center;
+  }
 }
 .footerLink a{
   color: #fff;
-  font-size: 1.3rem;
-  text-transform: uppercase;
+  font-size: 1.5rem;
   transition: ease all .3s;
 }
 .footerLink a:hover{
@@ -629,10 +828,8 @@ img.cLogo{
 }
 
 .poweredLine{
-  font-size: 1.3rem; 
-  text-transform: uppercase;
-  color: #fff;
-  text-align: right;
+  font-size: 1.5rem; 
+  color: rgba(255, 255, 255, .6); 
 }
 
 @media (max-width:767px){
@@ -1916,6 +2113,31 @@ img{
   }
   ::-webkit-input-placeholder {color: rgba(255, 255, 255, 0.4)}
 
+}
+
+.signUpbox{
+  padding: .5rem 0;
+  border-bottom: 1px solid #fff;
+  .signUpbtn{
+    width: 15rem;
+    background-color: #00bfb3;
+    border-radius: 4rem;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    &:hover{
+      background-color: #03a197;
+    }
+  }
+  .signUpinput {
+    background-color: transparent;
+    border:0;
+    color:#fff!important;
+    padding: 0 3rem 0 0;
+    &:focus{
+      background-color: transparent;
+    }    
+  }
+  ::-webkit-input-placeholder {color: rgba(255, 255, 255, 0.6)!important;}
 }
 
 .StripeCard{
