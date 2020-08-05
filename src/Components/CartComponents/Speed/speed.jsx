@@ -524,8 +524,8 @@ class Speed extends React.Component {
     // this.props.navigation.navigate('Card', {isPaymentCard: true});
   }
 
-  handleShippingAddressRedirect = () => {
-    this.props.handleTabOnContinue('address');
+  handleCartRedirect = () => {
+    this.props.handleCartRedirect();
   }
 
   renderContent = (speed,retailer,shippingMethod,selectDate,availableTime) => {
@@ -724,8 +724,8 @@ class Speed extends React.Component {
                     <div style={{ marginBottom: 10 }}>*Orders received by 3 PM CT will be processed same day</div>
                     <div className="text-left mt-4" >
                         { _get(this.state, 'showErrorMessage') === true ? 
-                              <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleShippingAddressRedirect}>
-                                  <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> GO TO SHIPPING
+                              <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleCartRedirect}>
+                                  <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2" /> GO TO CART
                               </Button>
                         :
                         <Button variant="contained" color="primary" className="bottomActionbutton cartActionBtn" onClick={this.handleDeliverySelect} disabled={buttonDisable}>
