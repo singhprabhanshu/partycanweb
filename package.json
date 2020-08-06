@@ -42,6 +42,7 @@
     "file-loader": "4.3.0",
     "final-form": "^4.18.7",
     "fs-extra": "^8.1.0",
+    "google-libphonenumber": "^3.2.10",
     "google-maps-react": "^2.0.2",
     "html-webpack-plugin": "4.0.0-beta.11",
     "i": "^0.3.6",

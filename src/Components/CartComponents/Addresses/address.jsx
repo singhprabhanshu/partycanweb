@@ -29,6 +29,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { PageView, ProductCheckout, ProductCheckoutOptions } from '../../../Global/helper/react-ga';
 
+const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 
 const styles = (state) => ({
 
@@ -226,7 +227,15 @@ class Address extends React.Component {
         this.setState({
             addAddressBody: body
         });
-        this.verifyAddressInfo({ address: body });
+        const number = phoneUtil.parseAndKeepRawInput(_get(body, 'telephone'), 'US');
+        const validPhone = phoneUtil.isValidNumberForRegion(number, 'US');
+        if (validPhone) {
+            this.verifyAddressInfo({ address: body });
+        } else {
+            this.setState({saveAddressLoading:false});
+            alert("Invalid Phone Number");
+        }
+        // this.verifyAddressInfo({ address: body });
 
         // genericPostData({
         //     dispatch: this.props.dispatch,
