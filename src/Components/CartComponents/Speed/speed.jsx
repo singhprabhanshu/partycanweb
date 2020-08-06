@@ -21,6 +21,7 @@ import proImg from '../../../assets/images/party-can.png'
 import { Loader } from '../../../Global/UIComponents/LoaderHoc';
 import Scrollbar from "react-scrollbars-custom";
 import {isMobile, isTablet} from 'react-device-detect';
+import { speedMock } from '../../../assets/data/speedMockData';
 const styles = theme => ({
   root: {    
     background: '#00BFB2',
@@ -656,7 +657,7 @@ class Speed extends React.Component {
         date = moment(_get(sm, 'dropoff_eta')).format("D MMM");
       }
       return (
-        <React.Fragment>
+        <React.Fragment key={sm.id}>
           <DateCard
           data={sm}
           date={date}
