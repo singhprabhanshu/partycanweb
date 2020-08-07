@@ -52,7 +52,7 @@ class SpeedCard extends Component {
                             {/* <div>
                                 {this.props.data.address}
                             </div> */}
-                             <div className="mt-4"><CheckCircleIcon style={{ fontSize: 25 }} /> </div>
+                             <div className="mt-4"><CheckCircleIcon style={{ fontSize: 25, color:this.props.selectedTransportAddress === this.props.data.id ? 'green': '' }} /> </div>
                         </CardBody>
                     </Card>
             </React.Fragment>

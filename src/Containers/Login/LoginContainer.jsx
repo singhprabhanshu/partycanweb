@@ -17,7 +17,7 @@ import WithLoading from '../../Global/UIComponents/LoaderHoc';
 import { commonActionCreater } from "../../Redux/Actions/commonAction";
 import genericGetData from '../../Redux/Actions/genericGetData';
 
-const SITE_KEY = "6LddNwAVAAAAAIEvqN9B0v-kdHgXe_wwjaI8eoiB";
+const SITE_KEY = process.env.REACT_APP_CAPTCHA_SITE_KEY;
 // const TEST_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
 
 const styles = theme => ({
