@@ -9,6 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import _get from 'lodash/get';
+import { isEmpty as _isEmpty } from 'lodash';
 import LoginComponent from '../../Components/LoginComponents/login';
 import genericPostData from '../../Redux/Actions/genericPostData';
 import showMessage from '../../Redux/Actions/toastAction';
@@ -62,11 +63,23 @@ class SignIn extends React.Component {
         super(props);
         this.state = {
             // currentStep: 1
+            forgotPasswordMessage: null,
+            showForgotPasswordMessage: false,
         }
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);
+        this.setState({
+            showForgotPasswordMessage: false,
+            forgotPasswordMessage: null
+        });
+        if (!_isEmpty(_get(this.props, 'location.state.forgotPassword'))) {
+            this.setState({
+                forgotPasswordMessage: _get(this.props, 'location.state.forgotPassword'),
+                showForgotPasswordMessage: true,
+            });
+        }
     }
 
     onSubmit = async values => {
@@ -178,6 +191,13 @@ class SignIn extends React.Component {
                                             FORGOT PASSWORD ?
                                 </Col>
                                     </Row> */}
+                                    {this.state.showForgotPasswordMessage ?
+                                        <Row className="align-items-center  mb-5" >
+                                            <Col className="text-center" >
+                                                {this.state.forgotPasswordMessage}
+                                            </Col>
+                                        </Row>
+                                    : null}
                                     <Row className="justify-content-center">
                                         <Col xs={'auto'} className="text-center" >
                                         <Field name='captcha' component={Captcha} sitekey={SITE_KEY}/>
