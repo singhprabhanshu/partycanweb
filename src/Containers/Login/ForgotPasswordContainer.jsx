@@ -41,6 +41,11 @@ class ForgotPasswordContainer extends React.Component {
                 displayMessage: _get(data, '[0].message')
             });
 
+            this.props.history.push({
+                pathname: '/signIn',
+                state: {forgotPassword: _get(data, '[0].message')}
+            });
+
             
             // this.props.handleSignInReq();
         } else {

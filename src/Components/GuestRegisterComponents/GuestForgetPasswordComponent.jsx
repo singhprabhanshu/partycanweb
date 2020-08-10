@@ -38,10 +38,11 @@ class GuestForgetPasswordComponent extends React.Component {
     forgotPasswordSuccess = (data) => {
         if (_get(data, '[0].code', -1) === 1) {
             this.setState({ isLoading: false });
-            this.setState({ 
-                disableInput: true,
-                displayMessage: _get(data, '[0].message')
-            });
+            // this.setState({ 
+            //     disableInput: true,
+            //     displayMessage: _get(data, '[0].message')
+            // });
+            this.props.handleSignInReq({ forgotMessage: _get(data, '[0].message')});
             localStorage.setItem('isCartRedirect', true);
 
             
