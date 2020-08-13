@@ -7,7 +7,7 @@ import { Button } from 'reactstrap';
 import validate from './validator/guestSigninFormValidator';
 import {TextInputField } from '../../Global/FormCompoents/wrapperComponent';
 import { cleanEntityData } from '../../Global/helper/commonUtil';
-import { get as _get } from 'lodash';
+import { get as _get, isEmpty as _isEmpty } from 'lodash';
 import genericPostData from '../../Redux/Actions/genericPostData';
 import { commonActionCreater } from '../../Redux/Actions/commonAction';
 import showMessage from '../../Redux/Actions/toastAction';
@@ -106,6 +106,11 @@ class GuestSignInComponent extends React.Component {
                                         <Field name="password" component={TextInputField} placeholder='PASSWORD'
                                         autoFocus={false} type='password' />
                                     </div>
+                                    { !_isEmpty(this.props.forgotMessage) ?
+                                        <div style={{ marginTop: 20, marginBottom: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            <text style={{ textAlign: 'center'}}>{this.props.forgotMessage}</text>
+                                        </div>
+                                    : null }
                                 <div className="justify-content-center flex-column mt-5 align-items-center">
                                 <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
                                     <Button color="primary" type="submit" className="bottomActionbutton">

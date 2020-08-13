@@ -23,7 +23,8 @@ class GuestRegisterContainer extends React.Component {
         this.state = {
             handleSignUp: false,
             handleSignIn: true,
-            handleForgetPassword: false
+            handleForgetPassword: false,
+            forgotPasswordMessage: null
         }
     }
 
@@ -37,12 +38,25 @@ class GuestRegisterContainer extends React.Component {
         // });
     }
 
-    handleSignInReq = () => {
-        this.setState({
-            handleSignIn: true,
-            handleSignUp: false,
-            handleForgetPassword: false
-        });
+    handleSignInReq = ({ forgotMessage }) => {
+        if (!_isEmpty(forgotMessage)) {
+            this.setState({
+                handleSignIn: true,
+                handleSignUp: false,
+                handleForgetPassword: false,
+                forgotPasswordMessage: forgotMessage,
+            }); 
+        } else {
+            this.setState({ forgotPasswordMessage: null }, () => {
+                this.setState({
+                    handleSignIn: true,
+                    handleSignUp: false,
+                    handleForgetPassword: false
+                });
+                
+            });
+        }
+        
     }
 
     handleForgetPasswordReq = () => {
@@ -82,6 +96,7 @@ class GuestRegisterContainer extends React.Component {
                             /> : this.state.handleSignIn ? 
                             <GuestSignInComponent
                                 {...this.props}
+                                forgotMessage={this.state.forgotPasswordMessage}
                                 handleSignUpReq={this.handleSignUpReq}
                                 handleForgetPasswordReq={this.handleForgetPasswordReq}
                             /> : this.state.handleForgetPassword ?
