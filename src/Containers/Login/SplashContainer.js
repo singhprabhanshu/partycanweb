@@ -170,20 +170,12 @@ class SplashContainer extends React.Component {
                         <Col xs={12} className="tBold">HERE’S WHAT PEOPLE ARE SAYING…</Col>
                         <Col xs={12} >
                             <Carousel responsive={this.state.responsive2} arrows={true} itemClass="px-4">
-                                <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
-                                    “Great for hanging outdoors at beaches or parks, where mixing is a pain, but where you really don’t want to ruin your tomorrow with a gas station cocktail.”
-                                <img src={img1} alt="Card image cap" className="img-fluid" />
-
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
-                                    “If you or your friends are looking for a tasty craft cocktail to sip on while sun bathing, make sure to order your own Party Can before they run out.”
-                                    <img src={img2} alt="Card image cap" className="img-fluid" />
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
-                                    “Those who are worn out from at-home bartending over the last few months will love that the Party Can involves absolutely no prep time: simply chill, shake and serve.”
-                                <img src={img3} alt="Card image cap" className="img-fluid" />
-                                </div>
-
+                                {this.state.deskTopImageData.map((data) => (
+                                    <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
+                                        {data.text}
+                                        <img src={data.imageurl} alt="Card image cap" className="img-fluid" />
+                                    </div>
+                                ))}
                             </Carousel>
                         </Col>
                     </Row>
@@ -220,19 +212,11 @@ class SplashContainer extends React.Component {
                         <Col xs={12}>
                             <Col xs={12} className="tBold">SEE MORE OF PARTY CAN IN THE WILD AT OUR INSTAGRAM @DRINKPARTYCAN</Col>
                             <Carousel responsive={this.state.responsive1} arrows={true} itemClass="px-2 px-md-3">
-                                <div className="d-flex flex-column justify-content-center align-items-center">
-                                    <img src={img4} alt="Card image cap" className="img-fluid" />
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center">
-                                    <img src={img5} alt="Card image cap" className="img-fluid" />
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center">
-                                    <img src={img6} alt="Card image cap" className="img-fluid" />
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center">
-                                    <img src={img7} alt="Card image cap" className="img-fluid" />
-                                </div>
-
+                                {this.state.deskTopImageData.map((data) => (
+                                    <div className="d-flex flex-column justify-content-center align-items-center">
+                                        <img src={data.imageurl} alt="Card image cap" className="img-fluid" />
+                                    </div>
+                                ))}
                             </Carousel>
                         </Col>
                     </Row>
