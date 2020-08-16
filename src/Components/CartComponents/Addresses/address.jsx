@@ -29,6 +29,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { PageView, ProductCheckout, ProductCheckoutOptions } from '../../../Global/helper/react-ga';
 
+const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 
 const styles = (state) => ({
 
@@ -57,6 +58,8 @@ class Address extends React.Component {
             isAddressFormShown: false,
             selectedCardColor: 'green',
             isLoading: false,
+            addAddressBody: {},
+            shippingErrorMessage: null,
         }
     }
 
@@ -200,7 +203,8 @@ class Address extends React.Component {
 
     addUserAddressError = (err) => {
         this.setState({saveAddressLoading:false});
-        console.log(err)
+        alert("Some Error Occured while verifying the Shipping info");
+        console.log("ERROR", err);
     };
 
     onSubmit = async values => {
@@ -219,6 +223,73 @@ class Address extends React.Component {
             'country': 'USA',
 
         };
+
+        this.setState({
+            addAddressBody: body
+        });
+        const number = phoneUtil.parseAndKeepRawInput(_get(body, 'telephone'), 'US');
+        const validPhone = phoneUtil.isValidNumberForRegion(number, 'US');
+        if (validPhone) {
+            this.verifyAddressInfo({ address: body });
+        } else {
+            this.setState({saveAddressLoading:false});
+            alert("Invalid Phone Number");
+        }
+        // this.verifyAddressInfo({ address: body });
+
+        // genericPostData({
+        //     dispatch: this.props.dispatch,
+        //     reqObj: body,
+        //     url: `/connect/customer/addaddress?customerid=${_get(this.props, 'userDetails.customer_id', 0)}`,
+        //     constants: {
+        //         init: 'POST_USER_ADDRESSES_INIT',
+        //         success: 'POST_USER_ADDRESSES_SUCCESS',
+        //         error: 'POST_USER_ADDRESSES_ERROR'
+        //     },
+        //     identifier: 'POST_USER_ADDRESSES',
+        //     successCb: this.addUserAddressSuccess,
+        //     errorCb: this.addUserAddressError,
+        //     dontShowMessage: true
+        // });
+
+
+    };
+
+    verifyAddressInfo = async ({ address}) => {
+        let reqObj = {
+            street: address.street1,
+            city: address.city,
+            zipcode: address.zipcode,
+            state:address.state
+          };
+          genericPostData({
+            dispatch: this.props.dispatch,
+            reqObj: reqObj,
+            url: `api/fedexApi/`,
+            identifier: "VERIFY_SHIPPINGINFO",
+            successCb: this.verifyShippingInfoSuccess,
+            errorCb: this.verifyShippingInfoError,
+            dontShowMessage: true,
+          });
+    };
+
+    verifyShippingInfoSuccess = async (data) => {
+        if (_get(data, 'code') === 1) {
+            this.saveShippingAddress();
+        } else {
+            // setLoading(false);
+            let errorMessage = _get(data,"message","something went wrong when verify the shipping info");
+            this.setState({
+                shippingErrorMessage: errorMessage,
+                saveAddressLoading: false
+            });
+            alert(errorMessage);
+            return;
+        }
+    };
+
+    saveShippingAddress = async () => {
+        const body = this.state.addAddressBody;
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj: body,
@@ -233,9 +304,13 @@ class Address extends React.Component {
             errorCb: this.addUserAddressError,
             dontShowMessage: true
         });
+    }
 
-
-    };
+    verifyShippingInfoError = async (err) => {
+        this.setState({saveAddressLoading:false});
+        alert("Some Error Occured while verifying the Shipping info");
+        console.log("ERROR", err);
+    }
 
     reactGACheckoutOptions = () => {
         const addressDetails = _find(this.state.userAddress, ['id', this.state.selectedAddress]);

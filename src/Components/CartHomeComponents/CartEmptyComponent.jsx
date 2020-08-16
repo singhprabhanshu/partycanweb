@@ -12,7 +12,7 @@ const CartEmptyComponent = (props) => {
                     <div className="emptyCart">
                         <img src={cartEmptyImg} className="img-fluid" ></img>                       
                         </div>
-                    <div>Hey fill me, i am Empty</div>
+                    <div>Hey, fill me! I am empty!</div>
                     <Button variant="contained" color="primary" className="mt-4 bottomActionbutton cartActionBtn" onClick={() => props.history.push("category/ALL")}>
                         Start Shopping
                     </Button>

@@ -67,6 +67,11 @@ class AddressHome extends React.Component {
         localStorage.setItem("nextTab", value);
         this.props.history.push(`/cart/${value}`);
     };
+
+    handleCartRedirect = () => {
+        this.props.history.push('/cart');
+    };
+
     componentDidMount () {
         window.scrollTo(0, 0);
         const isCheckout = localStorage.getItem("isCheckout");
@@ -103,6 +108,7 @@ class AddressHome extends React.Component {
             link: 'speed',
             component: <Speed 
                 handleTabOnContinue={this.handleTabOnContinue}
+                handleCartRedirect={this.handleCartRedirect}
             />
         },
         {
