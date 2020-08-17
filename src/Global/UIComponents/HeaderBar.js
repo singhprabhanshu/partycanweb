@@ -48,16 +48,16 @@ class HeaderBar extends React.Component {
                 <Container fluid={true} className="topHeader d-flex align-items-center">
                     <Container className="container-content-header">
                         <Row className="justify-content-between align-items-center flex-grow-1">
-                            <Col xs={'auto'}>
+                            <Col className="d-none d-md-block" xs={'auto'}>
                                 {/* <Button className="addCircleIcon icons mr-4">+</Button> */}
                                 <Button onClick={() => this.props.history.push("/category/ALL")}
                                  className="homeIcons icons mr-4"></Button>
                                 {/* <Button className="locationIcons icons "></Button> */}
                             </Col>
-                            <Col sm={4} className="d-flex justify-content-center" >
-                                <img src={Logo} className="img-responsive"></img>
+                            <Col sm={12} md={4} >
+                                <a href="/splash" className="d-flex justify-content-center align-items-center"><img src={Logo} className="img-responsive logo-header"></img></a>
                             </Col>
-                            <Col xs={'auto'} className="d-flex">
+                            <Col xs={'auto'} className="d-none d-md-flex">
                                 <Button onClick={this.handleSearchAction} className="searchIcons icons"></Button>
                                 <Badge badgeContent={this.props.total_items_count} color="primary">
                                     <Button onClick={() => this.props.history.push("/cart")} className="cartIcons icons ml-4"></Button>
