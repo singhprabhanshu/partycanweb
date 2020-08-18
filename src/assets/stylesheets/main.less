@@ -513,6 +513,12 @@ button:focus {
       margin-bottom: 4rem;
       max-width: 50%;
 
+      a{
+        color: #fff;
+        &:hover{
+          text-decoration: none;
+        }
+      }
       @media(min-width: 992px) and (max-width:1199px){      
           max-width: 70%;
           font-size: 4rem;
@@ -2142,6 +2148,7 @@ img{
     &:focus{
       background-color: transparent;
     }    
+    ::-webkit-input-placeholder {color: rgba(255, 255, 255, 0.6)!important;}
   }
   ::-webkit-input-placeholder {color: rgba(255, 255, 255, 0.6)!important;}
 }

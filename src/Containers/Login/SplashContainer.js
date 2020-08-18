@@ -13,6 +13,10 @@ import { isMobile, isTablet } from 'react-device-detect';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import img4 from '../../assets/images/HU_SOCIAL-1.jpg';
+import img5 from '../../assets/images/HU_SOCIAL-2.jpg';
+import img6 from '../../assets/images/HU_SOCIAL-3.jpg';
+import img7 from '../../assets/images/HU_SOCIAL-4.jpg';
 import img8 from '../../assets/images/HU_AGAVE-ICON.png';
 import img9 from '../../assets/images/HU_LIME-ICON.png';
 import img10 from '../../assets/images/HU_TRIPLE-SPICE-ICON.png';
@@ -203,13 +207,22 @@ class SplashContainer extends React.Component {
                         </Col>
 
                         <Col xs={12}>
-                            <Col xs={12} className="tBold">SEE MORE OF PARTY CAN IN THE WILD AT OUR INSTAGRAM @DRINKPARTYCAN</Col>
+                            <Col xs={12} className="tBold d-flex"><p>SEE MORE OF PARTY CAN IN THE WILD AT OUR INSTAGRAM <a href="https://www.instagram.com/drinkpartycan">@DRINKPARTYCAN</a></p></Col>
                             <Carousel responsive={this.state.responsive1} arrows={true} itemClass="px-2 px-md-3">
-                                {this.state.deskTopImageData.map((data) => (
+                                {/* {this.state.deskTopImageData.map((data) => ( */}
                                     <div className="d-flex flex-column justify-content-center align-items-center">
-                                        <a href="https://www.instagram.com/drinkpartycan"><img src={data.imageurl} alt="Card image cap" className="img-fluid" /></a>
+                                        <a href="https://www.instagram.com/drinkpartycan"><img src={img4} alt="Card image cap" className="img-fluid" /></a>                                        
                                     </div>
-                                ))}
+                                    <div className="d-flex flex-column justify-content-center align-items-center">                                      
+                                        <a href="https://www.instagram.com/drinkpartycan"><img src={img5} alt="Card image cap" className="img-fluid" /></a>
+                                    </div>
+                                    <div className="d-flex flex-column justify-content-center align-items-center">
+                                        <a href="https://www.instagram.com/drinkpartycan"><img src={img6} alt="Card image cap" className="img-fluid" /></a>
+                                    </div>
+                                    <div className="d-flex flex-column justify-content-center align-items-center">
+                                        <a href="https://www.instagram.com/drinkpartycan"><img src={img7} alt="Card image cap" className="img-fluid" /></a>
+                                    </div>
+                                {/* ))} */}
                             </Carousel>
                         </Col>
                     </Row>
