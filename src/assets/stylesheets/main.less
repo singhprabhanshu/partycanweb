@@ -800,7 +800,13 @@ button:focus {
 
 .topHeader {
   background: #0033a0; 
-  min-height: 7rem,
+  min-height: 7rem;
+  
+  @media (max-width:767px){
+    .logo-header{
+      max-width: 50%;
+    }
+  }
 }
 
 .footerLayout{
@@ -2122,8 +2128,8 @@ img{
     width: 15rem;
     background-color: #00bfb3;
     border-radius: 4rem;
-    height: 3.5rem;
-    line-height: 3.5rem;
+    height: 3.5rem;  
+    align-items: unset;
     &:hover{
       background-color: #03a197;
     }

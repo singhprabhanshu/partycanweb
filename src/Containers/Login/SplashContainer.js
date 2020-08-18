@@ -13,13 +13,6 @@ import { isMobile, isTablet } from 'react-device-detect';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import img1 from '../../assets/images/HU_FANSIDED-LOGO.png';
-import img2 from '../../assets/images/HU_POPSUGAR-LOGO.png';
-import img3 from '../../assets/images/HU_THRILLIST-LOGO.png';
-import img4 from '../../assets/images/HU_SOCIAL-1.jpg';
-import img5 from '../../assets/images/HU_SOCIAL-2.jpg';
-import img6 from '../../assets/images/HU_SOCIAL-3.jpg';
-import img7 from '../../assets/images/HU_SOCIAL-4.jpg';
 import img8 from '../../assets/images/HU_AGAVE-ICON.png';
 import img9 from '../../assets/images/HU_LIME-ICON.png';
 import img10 from '../../assets/images/HU_TRIPLE-SPICE-ICON.png';
@@ -170,20 +163,12 @@ class SplashContainer extends React.Component {
                         <Col xs={12} className="tBold">HERE’S WHAT PEOPLE ARE SAYING…</Col>
                         <Col xs={12} >
                             <Carousel responsive={this.state.responsive2} arrows={true} itemClass="px-4">
-                                <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
-                                    “Great for hanging outdoors at beaches or parks, where mixing is a pain, but where you really don’t want to ruin your tomorrow with a gas station cocktail.”
-                                <img src={img1} alt="Card image cap" className="img-fluid" />
-
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
-                                    “If you or your friends are looking for a tasty craft cocktail to sip on while sun bathing, make sure to order your own Party Can before they run out.”
-                                    <img src={img2} alt="Card image cap" className="img-fluid" />
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
-                                    “Those who are worn out from at-home bartending over the last few months will love that the Party Can involves absolutely no prep time: simply chill, shake and serve.”
-                                <img src={img3} alt="Card image cap" className="img-fluid" />
-                                </div>
-
+                                {this.state.deskTopImageData.map((data) => (
+                                    <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
+                                        {data.text}
+                                        <img src={data.imageurl} alt="Card image cap" className="img-fluid" />
+                                    </div>
+                                ))}
                             </Carousel>
                         </Col>
                     </Row>
@@ -220,19 +205,11 @@ class SplashContainer extends React.Component {
                         <Col xs={12}>
                             <Col xs={12} className="tBold">SEE MORE OF PARTY CAN IN THE WILD AT OUR INSTAGRAM @DRINKPARTYCAN</Col>
                             <Carousel responsive={this.state.responsive1} arrows={true} itemClass="px-2 px-md-3">
-                                <div className="d-flex flex-column justify-content-center align-items-center">
-                                    <img src={img4} alt="Card image cap" className="img-fluid" />
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center">
-                                    <img src={img5} alt="Card image cap" className="img-fluid" />
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center">
-                                    <img src={img6} alt="Card image cap" className="img-fluid" />
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center">
-                                    <img src={img7} alt="Card image cap" className="img-fluid" />
-                                </div>
-
+                                {this.state.deskTopImageData.map((data) => (
+                                    <div className="d-flex flex-column justify-content-center align-items-center">
+                                        <a href="https://www.instagram.com/drinkpartycan"><img src={data.imageurl} alt="Card image cap" className="img-fluid" /></a>
+                                    </div>
+                                ))}
                             </Carousel>
                         </Col>
                     </Row>

@@ -69,7 +69,7 @@ class MainLayout extends React.Component {
 
   renderContent = (classes) => {
     let commonContent =  <>
-    <div className="d-none d-md-block" onClick={this.hideUserMenu}>
+    <div  onClick={this.hideUserMenu}>
       <HeaderBar history={this.props.history} showUserMenu={this.showUserMenu}
        showUserMenuOption={this.state.showUserMenuOption}/></div>
     <div className="container-content-section" onClick={this.hideUserMenu}>
