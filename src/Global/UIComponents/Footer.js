@@ -126,7 +126,7 @@ class Footer extends React.Component {
                                 <a href="/contact-us" className="pb-2">Contact Us</a>
                                 <a href="/privacy-policy" className="pb-2">Privacy & Cookie Policy</a>
                                 <a href="/terms-conditions" className="pb-2">Terms & Conditions</a>
-                                <a href="/terms-conditions">FAQ</a>
+                                <a href="/faq">FAQ</a>
                             </Col>
                             {/* <MailchimpSubscribe url={url} /> */}
                             <Col xs={'12'} md={'4'} className="drinkText" >
