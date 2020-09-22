@@ -59,7 +59,8 @@ import NoMatchContainer from './Containers/NoMatchContainer';
 import ContactUsConatiner from './Containers/ContactUs';
 
 // google analytics
-import {initGA} from './Global/helper/react-ga';
+import { initGA } from './Global/helper/react-ga';
+import FaqContainer from './Containers/TermsPolicy/FaqContainer';
 
 // google analytics initialization
 initGA(process.env.REACT_APP_GA_CODE);
@@ -118,34 +119,35 @@ ReactDOM.render(
         <SnackbarProvider maxSnack={8} autoHideDuration={4000} style={{ width: '100%' }}>
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-            <Router>
-              <Switch>
-                <RouteWithLayout Layout={EmptyLayout} exact path="/" Component={HoldupContainer} />
-                <RouteWithLayout Layout={EmptyLayout} exact path="/signIn" Component={LoginContainer} />
-                <RouteWithLayout Layout={EmptyLayout} exact path="/createAccount" Component={CreateAccountContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/splash" Component={SplashContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/cart" Component={CartContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/cart/:cartflow" Component={AddressHomeContainer} />
-                {/* <RouteWithLayout Layout={EmptyLayout} exact path="/holdup" Component={HoldupContainer} /> */}
-                {/* <RouteWithLayout Layout={MainLayout} exact path="/cart/address" Component={AddressHomeContainer} /> */}
-                <RouteWithLayout Layout={MainLayout} exact path="/category" Component={ProductsContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/category/:categoryType" Component={ProductsContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/category/:categoryType/product/:productID" Component={ProductDetails} />
-                <RouteWithLayout Layout={MainLayout} exact path="/home" Component={ProductMainSection} />
-                <RouteWithLayout Layout={MainLayout} exact path="/setting/:settingParam" Component={SettingContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/order/status" Component={OrderStatusContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/party/locator" Component={PartyLocatorContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/search" Component={SearchProductsContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/guest/register" Component={GuestRegisterContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/privacy-policy" Component={PrivacyPolicyContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/terms-conditions" Component={TermsConditionContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/contact-us" Component={ContactUsConatiner} />
-                <RouteWithLayout Layout={MainLayout} exact path="/account/resetpassword" Component={UpdatePasswordContainer} />
-                <RouteWithLayout Layout={MainLayout} exact path="/forgot/password" Component={ForgotPasswordContainer} />
-                <RouteWithLayout Layout={EmptyLayout} Component={NoMatchContainer} />
+              <Router>
+                <Switch>
+                  <RouteWithLayout Layout={EmptyLayout} exact path="/" Component={HoldupContainer} />
+                  <RouteWithLayout Layout={EmptyLayout} exact path="/signIn" Component={LoginContainer} />
+                  <RouteWithLayout Layout={EmptyLayout} exact path="/createAccount" Component={CreateAccountContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/splash" Component={SplashContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/cart" Component={CartContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/cart/:cartflow" Component={AddressHomeContainer} />
+                  {/* <RouteWithLayout Layout={EmptyLayout} exact path="/holdup" Component={HoldupContainer} /> */}
+                  {/* <RouteWithLayout Layout={MainLayout} exact path="/cart/address" Component={AddressHomeContainer} /> */}
+                  <RouteWithLayout Layout={MainLayout} exact path="/category" Component={ProductsContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/category/:categoryType" Component={ProductsContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/category/:categoryType/product/:productID" Component={ProductDetails} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/home" Component={ProductMainSection} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/setting/:settingParam" Component={SettingContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/order/status" Component={OrderStatusContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/party/locator" Component={PartyLocatorContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/search" Component={SearchProductsContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/guest/register" Component={GuestRegisterContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/privacy-policy" Component={PrivacyPolicyContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/faq" Component={FaqContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/terms-conditions" Component={TermsConditionContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/contact-us" Component={ContactUsConatiner} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/account/resetpassword" Component={UpdatePasswordContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/forgot/password" Component={ForgotPasswordContainer} />
+                  <RouteWithLayout Layout={EmptyLayout} Component={NoMatchContainer} />
 
-              </Switch>
-            </Router>
+                </Switch>
+              </Router>
             </PersistGate>
           </Provider>
         </SnackbarProvider>
