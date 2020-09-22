@@ -159,7 +159,7 @@ class SplashContainer extends React.Component {
                     <Row className="landing-section-01 backgroundSlides no-gutters" >
                         <Col xs={8} xl={7} md={8} className="captionTxt textBlue">
                             12 READY-TO-DRINK COCKTAILS WITH 100% NATURAL JUICE; CONVENIENTLY IN A RESEALABLE CAN.
-                            <Button onClick={this.onOrderNowBtnClick} variant="contained" color="primary" className="bottomActionbutton mt-5" type="submit">
+                            <Button onClick={this.onOrderNowBtnClick} variant="contained" color="primary" className="bottomActionbutton mt-3" type="submit">
                                 <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2 d-none d-sm-block" />ORDER NOW</Button>
                         </Col>
                     </Row>
@@ -177,8 +177,8 @@ class SplashContainer extends React.Component {
                         </Col>
                     </Row>
                     <Row className="landing-section-03 backgroundSlides justify-content-start no-gutters">
-                        <Col xs={7} xl={7} md={8} className="captionTxt">
-                        WARM UP THE PARTY THIS FALL WITH OUR SPICED UP MARGARITA.
+                        <Col xs={7} xl={7} md={8} className="captionTxt">                      
+                        WARM UP THE PARTY WITH OUR SPICED MARGARITA.
                         <Button variant="contained" onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
                                 <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2 d-none d-sm-block" />ORDER NOW</Button>
                         </Col>
