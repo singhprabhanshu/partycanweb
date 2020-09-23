@@ -158,7 +158,7 @@ class SplashContainer extends React.Component {
                 <div className="IntroSlider" >
                     <Row className="landing-section-01 backgroundSlides no-gutters" >
                         
-                        <Col xs={8} xl={7} md={8} className="captionTxt textBlue">
+                        <Col xs={8} xl={8} md={8} lg={9} className="captionTxt ">
                             <div className="captionTxtWapper p-3 p-lg-5">
                             12 READY-TO-DRINK COCKTAILS WITH 100% NATURAL JUICE; CONVENIENTLY IN A RESEALABLE CAN.
                             <Button onClick={this.onOrderNowBtnClick} variant="contained" color="primary" className="bottomActionbutton mt-5" type="submit">
