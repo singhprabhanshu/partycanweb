@@ -157,11 +157,15 @@ class SplashContainer extends React.Component {
                 <CssBaseline />
                 <div className="IntroSlider" >
                     <Row className="landing-section-01 backgroundSlides no-gutters" >
-                        <Col xs={8} xl={7} md={8} className="captionTxt textBlue">
+                        
+                        <Col xs={8} xl={8} md={8} lg={9} className="captionTxt ">
+                            <div className="captionTxtWapper p-3 p-lg-5">
                             12 READY-TO-DRINK COCKTAILS WITH 100% NATURAL JUICE; CONVENIENTLY IN A RESEALABLE CAN.
                             <Button onClick={this.onOrderNowBtnClick} variant="contained" color="primary" className="bottomActionbutton mt-5" type="submit">
                                 <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2 d-none d-sm-block" />ORDER NOW</Button>
+                        </div>
                         </Col>
+                      
                     </Row>
                     <Row className="landing-section-02 no-gutters flex-wrap pb-0">
                         <Col xs={12} className="tBold">HERE’S WHAT PEOPLE ARE SAYING…</Col>
@@ -176,11 +180,11 @@ class SplashContainer extends React.Component {
                             </Carousel>
                         </Col>
                     </Row>
-                    <Row className="landing-section-03 backgroundSlides justify-content-end no-gutters">
-                        <Col xs={7} xl={7} md={8} className="captionTxt">
-                            BRING THE PARTY WITH YOU, WHEREVER YOU GO, WHETHER IT’S THE BOAT, THE PATIO, OR THE POOL.
+                    <Row className="landing-section-03 backgroundSlides justify-content-start no-gutters">
+                        <Col xs={7} xl={7} md={8} className="captionTxt">                      
+                        WARM UP THE PARTY WITH OUR SPICED MARGARITA.
                         <Button variant="contained" onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
-                                <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2 d-none d-sm-block" />SEND TO A FRIEND</Button>
+                                <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2 d-none d-sm-block" />ORDER NOW</Button>
                         </Col>
                     </Row>
                     <Row className="landing-section-04 no-gutters flex-wrap pb-0">
