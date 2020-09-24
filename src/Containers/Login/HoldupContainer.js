@@ -84,29 +84,34 @@ class HoldupContainer extends React.Component {
                 <div  className="WhiteCurveBg">
                      <CssBaseline />
                 <Container className="container-custom d-flex flex-column justify-content-center">
-                    <Row className="align-items-center mb-5" style={{flex:2, maxHeight:130, minHeight:130}}>
+                    <Row className="align-items-center mb-5" >
                         <Col  className="text-center" >
-                        <h4 className="holduptext">HOLD UP!</h4>
+                        <h4 className="welcomeTxt">Welcome!</h4>
+                        <p className="welcomeTxtdescription">Please Enter Your Shipping ZIP Code</p>
                         </Col>                        
                     </Row>  
                     <Form  onSubmit= {this.onSubmit} validate={validate}
                             render={({ handleSubmit }) => (
                         <form className="d-flex flex-column justify-content-around mb-4"  onSubmit={handleSubmit}>
+                            <div className="py-3">
                             <Row>
-                                <Col className="text-center mb-4 mpb-30" >
-                                <Field name="zipcode" component={TextInputField} placeholder='ZIPCODE'
+                                <Col className="text-center mb-4" >
+                                <Field name="zipcode" component={TextInputField} placeholder='Enter Destination Zip Code'
                                         autoFocus={false} type='text' />
                                 </Col>                        
                             </Row>
-                            {/* <Row >
-                                <Col className="locationTxt mb-5" >
-                                <RoomOutlinedIcon style={{ fontSize: 23 }} /> USE MY LOCATION
-                                </Col>                        
-                            </Row> */}
-                            <Row>
+                           
+                            <Row className="text-center mb-5 mt-3 mpb-30 age-checker">
                                 <Col className="text-center d-flex align-items-center justify-content-between" >
                                     <Field name="overAge" component={SwitchInputField} label='ARE YOU OVER 21 ?' />
                                 </Col>                        
+                            </Row>
+                            </div> 
+                            <Row >
+                               <Col  className="text-center changelocation" >
+                                    <p >Assortment Varies By Location</p>
+                                    <p className="secondpara">You Can Update This ZIP Anytime</p>
+                                    </Col>                      
                             </Row> 
                             <Row className="justify-content-center mt-5 align-items-center">
                             <Col xs={12} sm={'auto'} className="d-flex justify-content-center" >
