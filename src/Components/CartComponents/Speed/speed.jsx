@@ -22,6 +22,9 @@ import { Loader } from '../../../Global/UIComponents/LoaderHoc';
 import Scrollbar from "react-scrollbars-custom";
 import {isMobile, isTablet} from 'react-device-detect';
 import { speedMock } from '../../../assets/data/speedMockData';
+
+import { PageView, ProductCheckout, ProductCheckoutOptions } from '../../../Global/helper/react-ga';
+
 const styles = theme => ({
   root: {    
     background: '#00BFB2',
@@ -142,8 +145,21 @@ class Speed extends React.Component {
     
   }
 
+  reactGACartItem = () => {
+    const cart = _map(this.props.cartItems, c => cleanEntityData({
+        productId: _get(c, 'product_id'),
+        name: _get(c, 'name'),
+        quantity: _get(c, 'qty'),
+        price: _get(c, 'product_price') ? Number(_get(c, 'product_price')) : undefined,
+        variant: _get(c, 'type')
+
+    }));
+    return cart;
+  };
+
   componentDidMount() {
     window.scrollTo(0, 0);
+    PageView();
     let cartTabValidation = this.props.cartTabValidation;
 
     let data = {
@@ -300,6 +316,7 @@ class Speed extends React.Component {
       cart_id: localStorage.getItem("cart_id"),
       delivery_address_id: _get(this.props, 'cartFlow.selectedAddress', '0')
     }
+    
     this.setState({
       isLoading: true,
     });
@@ -417,7 +434,16 @@ class Speed extends React.Component {
     });
   };
 
+  reactGACheckoutOptions = () => {
+    const deliveryDetails = _find(this.state.deliveryList.speed, ['id', this.state.selectedSpeedDeliveryId]);
+    const cart = this.reactGACartItem();
+    ProductCheckoutOptions({ cart, step: 2, option: _get(deliveryDetails, 'name')});
+  };
+
   handleDeliverySelect = async () => {
+    this.reactGACheckoutOptions();
+    ProductCheckout({ cart: this.reactGACartItem(), step: 3, option: 'Payment Options'});
+    
     const findShippingId = () => {
       if (_get(this.state, 'selectedSpeedDeliveryId') === 2 || _get(this.state, 'selectedSpeedDeliveryId') === 3) {
         return -1;
@@ -528,6 +554,7 @@ class Speed extends React.Component {
   handleCartRedirect = () => {
     this.props.handleCartRedirect();
   }
+  
 
   renderContent = (speed,retailer,shippingMethod,selectDate,availableTime) => {
     let commonContent = <>
@@ -766,10 +793,12 @@ const mapStateToProps = (state) => {
   let userInfo = _get(state, 'userSignInInfo.lookUpData', []);
   let userDetails = _get(userInfo, '[0].result', {});
   let cartTabValidation = _get(state, 'cartTabValidation.lookUpData', {});
+  let cartItems = _get(state, "cart.lookUpData[0].result", []);
     return {
         cartFlow,
         userDetails,
-        cartTabValidation
+        cartTabValidation,
+        cartItems
     };
 };
 
