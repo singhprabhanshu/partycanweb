@@ -41,7 +41,7 @@ class CardComponent extends React.Component {
         this.setState({ addCard: true });
     }
     handleContinueFromExistingCard = () => {
-        PageView();
+        
         let cartFlow = this.props.cartFlow;
         let selectedCard = this.props.paymentMethods[this.state.selectedCard - 1];
         let card_token = "";
@@ -67,6 +67,7 @@ class CardComponent extends React.Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);
+        PageView();
         // cart tab validation
         let cartTabValidation = this.props.cartTabValidation;
 

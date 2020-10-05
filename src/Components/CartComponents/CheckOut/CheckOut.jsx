@@ -45,6 +45,7 @@ class CheckOut extends React.Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);
+        PageView();
         //this.fetchCart(this.cartFetchSuccess);
     };
     fetchCart = (successCB) => {
@@ -111,7 +112,7 @@ class CheckOut extends React.Component {
         const cart = this.reactGACartItem();
         const purchasePayload= cleanEntityData({
             id: _get(data, 'order_id'),
-            revenue: this.props.subTotal ? Number(this.props.subTotal) : undefined,
+            revenue: this.props.grandTotal ? Number(this.props.grandTotal) : undefined,
             tax: this.props.taxes ? Number(this.props.taxes) : undefined,
             shipping: this.props.cartFlow.shippingAmount ? Number(this.props.cartFlow.shippingAmount) : undefined,
             coupon: this.state.coupon_code,
@@ -123,7 +124,7 @@ class CheckOut extends React.Component {
     placeOrderSuccess = (data) => {
         if (data.code == 1) {
             this.reactGAPurchase({ data });
-            PageView();
+            
             localStorage.removeItem("cart_id"); //removing the cart_id when place order is done
             this.props.dispatch(commonActionCreater("", "GIFT_MESSAGE"));
             this.fetchCart(() => {
