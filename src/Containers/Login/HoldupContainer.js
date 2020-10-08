@@ -33,6 +33,9 @@ class HoldupContainer extends React.Component {
     }
     componentDidMount() {
         PageView();
+        if(this.props.zipCodeStatus && this.props.zipCodeStatus === "Zipcode validation success") {
+            this.props.history.push('/splash');
+        }
     };
 
     onSubmit  = async values => {
@@ -137,8 +140,10 @@ class HoldupContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     let isLoading = _get(state, 'zipCodeLocator.isFetching')
+    let zipCodeStatus = _get(state,'zipCodeLocator.lookUpData.messgae')
     return {
         isLoading,
+        zipCodeStatus,
     };
 };
 
