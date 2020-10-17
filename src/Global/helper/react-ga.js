@@ -44,7 +44,7 @@ export const Event = (category, action, label) => {
  * @param {string} coupon
  */
 export const ProductClick = ({ productId, name, category, brand, variant, position, price, quantity, coupon}) => {
-    const payload = cleanEntityData({
+  const payload = cleanEntityData({
         id: productId,
         name,
         category,
@@ -59,7 +59,9 @@ export const ProductClick = ({ productId, name, category, brand, variant, positi
     ReactGA.plugin.execute('ec', 'addProduct', {
         ...payload
     });
-    ReactGA.plugin.execute('ec', 'setAction', 'click');
+    ReactGA.plugin.execute('ec', 'setAction', 'click', {
+      ...payload
+    });
 };
 
 
@@ -91,7 +93,10 @@ export const ProductView = ({ productId, name, category, brand, variant, positio
   ReactGA.plugin.execute('ec', 'addProduct', {
       ...payload
   });
-  ReactGA.plugin.execute('ec', 'setAction', 'detail');
+  ReactGA.plugin.execute('ec', 'setAction', 'detail', {
+    ...payload
+  });
+  ReactGA.event({category: 'enhanced ecommerce', action:'click',label:'product detail'})
 };
 
 /**
@@ -135,6 +140,8 @@ export const ProductCheckout = ({ cart,  step, option}) => {
   ReactGA.plugin.execute('ec', 'setAction', 'checkout', {
     ...checkoutPayoload
   });
+  ReactGA.event({category: 'enhanced ecommerce', action:'click',label:'checkout'})
+
 };
 
 export const ProductCheckoutOptions = ({ cart,  step, option}) => {
@@ -190,11 +197,14 @@ export const ProductAddedtoCart = ({ productId, name, category, brand, variant, 
       quantity,
       coupon
   });
-  
+  console.log("inside React GA add to cart")
   ReactGA.plugin.execute('ec', 'addProduct', {
       ...payload
   });
-  ReactGA.plugin.execute('ec', 'setAction', 'add');
+  ReactGA.plugin.execute('ec', 'setAction', 'add', {
+    ...payload
+  });
+  ReactGA.event({category: 'enhanced ecommerce', action:'click',label:'add to cart'})
 };
 
 /**
@@ -226,6 +236,8 @@ export const ProductRemovefromCart = ({ productId, name, category, brand, varian
       ...payload
   });
   ReactGA.plugin.execute('ec', 'setAction', 'remove');
+  ReactGA.event({category: 'enhanced ecommerce', action:'click',label:'remove from cart'})
+
 };
 
 
@@ -271,4 +283,5 @@ export const MakeTransaction = ({ cart, purchasePayload}) => {
     list: _get(purchasePayload, 'list')
   });
   ReactGA.plugin.execute('ec', 'setAction', 'purchase', purchasePayloadData);
+  ReactGA.event({category: 'enhanced ecommerce', action:'click',label:'purchase'})
 };
