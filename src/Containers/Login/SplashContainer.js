@@ -156,8 +156,8 @@ class SplashContainer extends React.Component {
                 {this.state.isLoading && <Loader />}
                 <CssBaseline />
                 <div className="IntroSlider" >
-                    <Row className="landing-section-01 backgroundSlides no-gutters justify-content-end" >                        
-                        <Col xs={9} xl={7} md={8} lg={8} className="captionTxt ">
+                    <Row className="landing-section-01 backgroundSlides no-gutters justify-content-center justify-content-md-end" >                        
+                        <Col xs={10} xl={7} md={8} lg={8} className="captionTxt ">
                             <div className="captionTxtWapper p-3 p-lg-5">
                             12 READY-TO-DRINK MARGARITAS WITH 100% NATURAL JUICE; CONVENIENTLY IN A RESEALABLE CAN.
                             <Button onClick={this.onOrderNowBtnClick} variant="contained" color="primary" className="bottomActionbutton mt-5" type="submit">
@@ -190,8 +190,8 @@ class SplashContainer extends React.Component {
                         </Col>
                         
                     </Row>
-                    <Row className="landing-section-03 backgroundSlides justify-content-start no-gutters">
-                        <Col xs={8} xl={5} md={7} className="captionTxt secondBannertext">                      
+                    <Row className="landing-section-03 backgroundSlides justify-content-center justify-content-md-start no-gutters">
+                        <Col xs={10} xl={5} md={7} className="captionTxt secondBannertext">                      
                         WARM UP THE PARTY WITH OUR SPICED MARGARITA.
                         <Button variant="contained" onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
                                 <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2 d-none d-sm-block" />ORDER NOW</Button>
