@@ -234,9 +234,9 @@ button:focus {
   .bottomActionbutton {
     min-width: 60%!important;
   }
-  .react-multi-carousel-list{    
-    padding-bottom: 5rem;
-  }
+  // .react-multi-carousel-list{    
+  //   padding-bottom: 5rem;
+  // }
   .react-multi-carousel-dot-list{
     bottom: 1rem;
   }
@@ -255,18 +255,21 @@ button:focus {
     background-image: url('../images/HU_MARG-BANNER-DEKSTOP.jpg');
     min-height:700px;  
     display: flex;
-    // align-items: center;   
-    
+    align-items: center;   
+    background-position: 40% 0;
+    @media (max-width: 767px){
+      background-position: 75% 0;
+    }
     .captionTxtWapper
     {     
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      color:#fff;
-      text-shadow: 3px 3px 3px #101010;  
+      color:#d93130;
+      // text-shadow: 3px 3px 3px #101010;  
       margin-top: -77px;
-      margin-left: 117px;  
+      // margin-left: 117px;  
       @media (max-width: 1600px){
         margin-left: 50px;  
       }
@@ -274,6 +277,7 @@ button:focus {
         margin-top: 30px;
         margin-left: 0px;  
       }
+     
     }
      
   
@@ -289,7 +293,7 @@ button:focus {
         flex-direction: column;
         height: 100%;       
         text-align: center;  
-        margin-top: 8%;     
+        // margin-top: 8%;     
       }
       .bottomActionbutton{
         min-width: 30%!important;
@@ -324,8 +328,8 @@ button:focus {
         background-image: url('../images/HU_MARG-BANNER-mobile.jpg');
         min-height: 450px;  
         .captionTxt{ 
-          font-size: 30px;
-          line-height: 35px;
+          font-size: 40px;
+          line-height: 40px;
           padding:0 1rem;
           letter-spacing: 0.3rem;
           
@@ -350,7 +354,7 @@ button:focus {
       background-image: -o-linear-gradient(-90deg, #088cac, #0750a4);
       background-repeat: no-repeat;
       min-height: 400px;
-      padding: 5rem 0;
+      padding: 7rem 0 6rem 0;
       width: 100%;
       .captionTxt{    
         font-family: 'Tungsten-Medium', sans-serif;
@@ -368,7 +372,8 @@ button:focus {
         text-transform: uppercase;
       }
       img{
-        max-width: 70%;
+        max-width: 40%;
+        margin-top: 3rem;
       }
       @media(max-width:1600px){
         .captionTxt{  
@@ -379,15 +384,18 @@ button:focus {
         .captionTxt{  
           padding:0 3rem;
         }
+        img{
+          max-width: 50%;
+        }
       }
-      @media(min-width: 768px) and (max-width:991px){
-        min-height: 420px;  
-        padding: 5rem 0;
-        .captionTxt{    
-          font-family: 'Tungsten-Medium', sans-serif;
+      @media(min-width: 768px) and (max-width:991px){         
+        .captionTxt{ 
           font-size: 20px;
           line-height: 25px;
           padding:0 1rem;
+        }
+        img{
+          max-width: 50%;
         }
       }
       @media (max-width: 767px){
@@ -396,8 +404,13 @@ button:focus {
         line-height: 25px;
         padding:0 4rem;
         }
+        img{
+          max-width: 40%;
+        }
       }
     }
+
+    
 
     .landing-section-03{
       background-image: url('../images/HU_POOL-BANNER---DESKTOP.jpg');
@@ -417,14 +430,35 @@ button:focus {
           line-height: 70px;
           padding:0 5rem;
           text-align: center;
-          color: #1f00a1 ;
+          color: #1f00a1;
+           text-shadow: 3px 3px 3px #ffffff;
         }
         .bottomActionbutton{
           min-width: 30%!important;
           background-color:#1f00a1!important;
         }
+
+        .secondBannertext{
+          margin-left: 117px;  
+        }
+
+        @media(max-width: 1440px){         
+          .bottomActionbutton{
+            min-width: 50%!important;           
+          }
+        }
+
+        @media(max-width: 1200px){         
+          .secondBannertext{
+            margin-left: 0px;  
+          }
+        }
+
         @media(min-width: 992px) and (max-width:1199px){
           min-height: 420px;  
+
+          
+         
           .captionTxt{
             font-size: 55px;
             line-height: 60px;
@@ -449,9 +483,10 @@ button:focus {
         @media (max-width: 767px){
           background-image: url('../images/HU_POOL-BANNER-mobile.jpg');
           min-height: 390px;  
+         
           .captionTxt{ 
-            font-size: 30px;
-            line-height: 35px;
+            font-size: 40px;
+            line-height: 40px;
             padding:0 1rem;
             letter-spacing: 0.3rem;
           }
@@ -470,9 +505,9 @@ button:focus {
       background-image: -o-linear-gradient(-90deg, #1f00a1, #E5554F);
       background-repeat: no-repeat;
       min-height: 400px;
-      padding: 5rem 0;
+      padding: 7rem 0;
       width: 100%;
-      .crafted-quality{
+      .crafted-quality{margin-bottom: 10rem;
         .captionTxt{    
           font-family: 'Tungsten-Medium', sans-serif;
           font-weight: 400;
@@ -488,9 +523,9 @@ button:focus {
           text-align: center;
           text-transform: uppercase;
         }
+
         img{
-          max-width: 40%;
-          margin-top: 3rem;
+          max-width: 70%;
         }
         @media(max-width:1600px){
           .captionTxt{  
@@ -501,18 +536,15 @@ button:focus {
           .captionTxt{  
             padding:0 3rem;
           }
-          img{
-            max-width: 50%;
-          }
         }
-        @media(min-width: 768px) and (max-width:991px){         
-          .captionTxt{ 
+        @media(min-width: 768px) and (max-width:991px){
+          min-height: 420px;  
+          padding: 5rem 0;
+          .captionTxt{    
+            font-family: 'Tungsten-Medium', sans-serif;
             font-size: 20px;
             line-height: 25px;
             padding:0 1rem;
-          }
-          img{
-            max-width: 50%;
           }
         }
         @media (max-width: 767px){
@@ -521,10 +553,7 @@ button:focus {
           line-height: 25px;
           padding:0 4rem;
           }
-          img{
-            max-width: 40%;
-          }
-        }
+        }       
       }    
     
     }
