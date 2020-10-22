@@ -253,7 +253,7 @@ button:focus {
 
   .landing-section-01{
     background-image: url('../images/HU_MARG-BANNER-DEKSTOP.jpg');
-    min-height:700px;  
+    min-height:600px;  
     display: flex;
     align-items: center;   
     background-position: 40% 0;
@@ -328,8 +328,8 @@ button:focus {
         background-image: url('../images/HU_MARG-BANNER-mobile.jpg');
         min-height: 450px;  
         .captionTxt{ 
-          font-size: 40px;
-          line-height: 40px;
+          font-size: 45px;
+          line-height: 45px;
           padding:0 1rem;
           letter-spacing: 0.3rem;
           
@@ -414,7 +414,7 @@ button:focus {
 
     .landing-section-03{
       background-image: url('../images/HU_POOL-BANNER---DESKTOP.jpg');
-      min-height: 520px;  
+      min-height: 600px;  
       display: flex;
       align-items: center; 
     
@@ -431,7 +431,7 @@ button:focus {
           padding:0 5rem;
           text-align: center;
           color: #1f00a1;
-           text-shadow: 3px 3px 3px #ffffff;
+           text-shadow: 3px 3px 3px rgba(255, 255, 255, .6);
         }
         .bottomActionbutton{
           min-width: 30%!important;
@@ -439,8 +439,19 @@ button:focus {
         }
 
         .secondBannertext{
-          margin-left: 117px;  
+          margin-left: 225px;  
         }
+
+        @media(max-width: 1600px){         
+          .bottomActionbutton{
+            min-width: 50%!important;           
+          }
+          .secondBannertext{
+            margin-left: 117px;  
+          }
+        }
+
+        
 
         @media(max-width: 1440px){         
           .bottomActionbutton{
@@ -485,8 +496,8 @@ button:focus {
           min-height: 390px;  
          
           .captionTxt{ 
-            font-size: 40px;
-            line-height: 40px;
+            font-size: 45px;
+            line-height: 45px;
             padding:0 1rem;
             letter-spacing: 0.3rem;
           }
@@ -1181,7 +1192,7 @@ img.cLogo{
 
 .proDescription{
   font-size: 2.2rem;
-  color:rgba(255, 255, 255, .6);
+  color:rgba(255, 255, 255, 1);
   line-height: 2.6rem;
   font-family: 'Gibson-Regular', sans-serif !important;
   ul{
