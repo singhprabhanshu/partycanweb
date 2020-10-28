@@ -52,7 +52,7 @@ class CartContainer extends React.Component {
     };
 
     handleCheckout = () => {
-        ProductCheckout({ cart: this.reactGACartItem(), step: 1, option: 'Address Options'});
+        ProductCheckout({ cart: this.reactGACartItem(), coupon: this.props.cartCouponCode, step: 1, option: 'Address Options'});
         PageView();
         this.props.history.push("/cart/address");
     }
@@ -153,6 +153,7 @@ function mapStateToProps(state) {
     let itemUpdatedFetching = _get(state, "updateCart.isFetching");
     let feeAmount = _get(state, "cart.lookUpData[0].fee_amount", 0);
     let taxes = _get(state, "cart.lookUpData[0].taxes", 0);
+    let cartCouponCode = _get(state, "cart.lookUpData[0].coupon_code", "");
     let userSignInInfo = _get(state, 'userSignInInfo.lookUpData', []);
 
     return {
@@ -165,6 +166,7 @@ function mapStateToProps(state) {
         itemUpdatedFetching,
         feeAmount,
         taxes,
+        cartCouponCode,
         userSignInInfo,
     }
 }

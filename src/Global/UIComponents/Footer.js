@@ -129,7 +129,7 @@ class Footer extends React.Component {
                                 <a href="/faq">FAQ</a>
                             </Col>
                             {/* <MailchimpSubscribe url={url} /> */}
-                            <Col xs={'12'} md={'4'} className="drinkText" >
+                            <Col xs={'12'} md={'4'} className="drinkText m-auto" >
                                 <h3 className="text-white">SUBSCRIBE</h3>
                                 <span className="pb-2">Sign up to receive a special discount and early access to new product releases.</span>
                                 <div className="d-flex signUpbox">
@@ -140,8 +140,12 @@ class Footer extends React.Component {
                                 </div>
                                 <span className="mt-3 poweredLine">Powered by 3TS by Cocktail Courier</span>
                             </Col>
+                            <Col xs={'12'} md={'4'} >
+                            <span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=JWPgBKPmZqDrpxtZoKzAmv8t01LTIKJIDzQzIk5dixdWoyYIq51bHL9AgmpG"></script></span>
+                            </Col>
                         </Row>
                     </Container>
+
                 </Container>
                 {isLoginAndSignupScreen ? "" :
                     <div className="mobile-bottom-bar d-block d-md-none" onClick={this.props.hideUserMenu}>
