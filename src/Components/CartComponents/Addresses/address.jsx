@@ -321,7 +321,7 @@ class Address extends React.Component {
     handleCardSelect = () => {
 
         this.reactGACheckoutOptions();
-        ProductCheckout({ cart: this.reactGACartItem(), step: 2, option: 'Delivery Options'});
+        ProductCheckout({ cart: this.reactGACartItem(), coupon: this.props.couponCode, step: 2, option: 'Delivery Options'});
         PageView();
 
         let cartFlow = this.props.cartFlow;
@@ -490,9 +490,11 @@ const mapStateToProps = (state) => {
     let userInfo = _get(state, 'userSignInInfo.lookUpData', []);
     let userDetails = _get(userInfo, '[0].result', {});
     let cartItems = _get(state, "cart.lookUpData[0].result", []);
+    let couponCode = _get(state, "cart.lookUpData[0].coupon_code", "");
     return {
         cartFlow,
         userDetails,
+        couponCode,
         cartItems,
     };
 };

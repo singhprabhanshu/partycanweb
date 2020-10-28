@@ -113,7 +113,7 @@ export const ProductView = ({ productId, name, category, brand, variant, positio
  * @param {number} step
  * @param {string} option
  */
-export const ProductCheckout = ({ cart,  step, option}) => {
+export const ProductCheckout = ({ cart, coupon, step, option}) => {
   // ReactGA.plugin.require('ec');
   _map(cart, c => {
     const payload = cleanEntityData({

@@ -442,7 +442,7 @@ class Speed extends React.Component {
 
   handleDeliverySelect = async () => {
     this.reactGACheckoutOptions();
-    ProductCheckout({ cart: this.reactGACartItem(), step: 3, option: 'Payment Options'});
+    ProductCheckout({ cart: this.reactGACartItem(), coupon: this.props.couponCode, step: 3, option: 'Payment Options'});
     
     const findShippingId = () => {
       if (_get(this.state, 'selectedSpeedDeliveryId') === 2 || _get(this.state, 'selectedSpeedDeliveryId') === 3) {
@@ -793,11 +793,13 @@ const mapStateToProps = (state) => {
   let userInfo = _get(state, 'userSignInInfo.lookUpData', []);
   let userDetails = _get(userInfo, '[0].result', {});
   let cartTabValidation = _get(state, 'cartTabValidation.lookUpData', {});
+  let couponCode = _get(state, "cart.lookUpData[0].coupon_code", "");
   let cartItems = _get(state, "cart.lookUpData[0].result", []);
     return {
         cartFlow,
         userDetails,
         cartTabValidation,
+        couponCode,
         cartItems
     };
 };
