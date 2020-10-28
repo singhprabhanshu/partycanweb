@@ -115,7 +115,7 @@ class CheckOut extends React.Component {
             revenue: this.props.grandTotal ? Number(this.props.grandTotal) : undefined,
             tax: this.props.taxes ? Number(this.props.taxes) : undefined,
             shipping: this.props.cartFlow.shippingAmount ? Number(this.props.cartFlow.shippingAmount) : undefined,
-            coupon: this.state.coupon_code,
+            coupon: this.props.coupon_code,
 
         });
         MakeTransaction({ cart, purchasePayload });
@@ -310,7 +310,6 @@ function mapStateToProps(state) {
         grandTotal,
         taxes,
         delivery_charges,
-        coupon_code,
         cartIsFetching,
         itemRemovedFetching,
         itemUpdatedFetching,
