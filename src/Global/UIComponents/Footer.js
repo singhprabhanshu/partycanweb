@@ -18,6 +18,7 @@ const mailChimpUrl = "https://gmail.us17.list-manage.com/subscribe/post-json?u=a
 const styles = theme => ({
 
 });
+
 class Footer extends React.Component {
 
     constructor(props) {
@@ -26,15 +27,8 @@ class Footer extends React.Component {
             // showUserMenuOption: false
             email: ""
         }
-        this.digicertSeal = React.createRef();
     }
 
-    componentDidMount() {
-        const script = document.createElement("script");
-        script.src = 'https://seal.godaddy.com/getSeal?sealID=JWPgBKPmZqDrpxtZoKzAmv8t01LTIKJIDzQzIk5dixdWoyYIq51bHL9AgmpG';
-        script.async = true;
-        document.getElementById('siteseal').appendChild(script);
-    }
     // showUserMenu = () => {
     //     this.setState({ showUserMenuOption: true })
     //     // this.props.history.push('/setting/user')
@@ -147,7 +141,7 @@ class Footer extends React.Component {
                                 <span className="mt-3 poweredLine">Powered by 3TS by Cocktail Courier</span>
                             </Col>
                             <Col xs={'12'} md={'4'} >
-                                <span id="siteseal"></span>
+                            <span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=JWPgBKPmZqDrpxtZoKzAmv8t01LTIKJIDzQzIk5dixdWoyYIq51bHL9AgmpG"></script></span>
                             </Col>
                         </Row>
                     </Container>
