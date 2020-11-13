@@ -1,3 +1,6 @@
+
+import { GoogleLogin } from 'react-google-login';
+
 import { Form, Field } from 'react-final-form';
 import { TextInputField, SwitchInputField, Captcha} from '../../Global/FormCompoents/wrapperComponent';
 import { Button } from '@material-ui/core';
@@ -156,6 +159,10 @@ class SignIn extends React.Component {
         this.props.history.push('/forgot/password');
     }
 
+    responseGoogle = (response) => {
+        console.log(response);
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -169,6 +176,13 @@ class SignIn extends React.Component {
                             </Col>
                         </Row>
 
+                        <GoogleLogin
+                            clientId="184173755807-ugj572pvfqn1c8fmlnvgk8lq61keercg.apps.googleusercontent.com"
+                            buttonText="Login With Google"
+                            onSuccess={this.responseGoogle}
+                            onFailure={this.responseGoogle}
+                            cookiePolicy={'single_host_origin'}
+                        />
 
                         <Form onSubmit={this.onSubmit} validate={validate}
                             render={({ handleSubmit }) => (
