@@ -1,6 +1,6 @@
 
 import { GoogleLogin } from 'react-google-login';
-
+import Facebook from '../../Components/LoginComponents/facebook';
 import { Form, Field } from 'react-final-form';
 import { TextInputField, SwitchInputField, Captcha} from '../../Global/FormCompoents/wrapperComponent';
 import { Button } from '@material-ui/core';
@@ -183,6 +183,12 @@ class SignIn extends React.Component {
                             onFailure={this.responseGoogle}
                             cookiePolicy={'single_host_origin'}
                         />
+
+                        <Row>
+                                        <Col className="text-center mb-5" >
+                                           <Facebook />
+                                        </Col>
+                                    </Row>
 
                         <Form onSubmit={this.onSubmit} validate={validate}
                             render={({ handleSubmit }) => (
