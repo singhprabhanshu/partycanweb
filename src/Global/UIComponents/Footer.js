@@ -146,7 +146,7 @@ class Footer extends React.Component {
                                 </div>
                                 <span className="mt-3 poweredLine">Powered by 3TS by Cocktail Courier</span>
                             </Col>
-                            <Col xs={'12'} md={'4'} >
+                            <Col xs={'12'} md={'4'} className="d-flex justify-content-md-end justify-content-center mt-5 mt-md-0" >
                                 <span id="siteseal"></span>
                             </Col>
                         </Row>
