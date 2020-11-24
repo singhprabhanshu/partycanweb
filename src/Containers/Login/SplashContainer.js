@@ -146,7 +146,7 @@ class SplashContainer extends React.Component {
 
     onOrderNowBtnClick = () => {
         // send to a party can pdt on special request that's why hardcoded
-        this.props.history.push('/category/ALL/product/86228');
+        this.props.history.push('/category/ALL');
     }
 
     render() {
