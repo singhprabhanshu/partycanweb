@@ -165,7 +165,7 @@ class SignIn extends React.Component {
     }
 
     responseGoogle = (response) => {
-        console.log(response);
+        // console.log(response);
         const accessToken = _get(response, 'tokenObj.access_token');
         axios({
             method: 'get',
@@ -176,9 +176,9 @@ class SignIn extends React.Component {
             }
         })
         .then((data) => {
-            console.log('working', data);
+            // console.log('working', data);
             const birthDateObj = _find(_get(data, 'data.birthdays'), ['metadata.primary', true]);
-            console.log(birthDateObj);
+            // console.log(birthDateObj);
             let month = _get(birthDateObj.date, 'month');
             let day = _get(birthDateObj.date, 'day');
             if (_get(birthDateObj.date, 'month').toString().length === 1) {
@@ -217,12 +217,13 @@ class SignIn extends React.Component {
         
     }
 
-    failedResponseGoogle = (response) => {
-        alert('Something Went Wrong');
+    failedResponseGoogle = (err) => {
+        console.log('google error', err);
+        // alert('Something Went Wrong');
     }
 
     userSocialSigninSuccess = (data) => {
-        console.log('signin success data', data);
+        // console.log('signin success data', data);
         const code = _get(data, 'code');
         const total_items_count = _get(data, 'result.total_product_in_cart', 0);
         const message = _get(data, 'message');
