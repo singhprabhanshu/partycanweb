@@ -13,6 +13,7 @@ import genericPostData from '../../Redux/Actions/genericPostData';
 import { commonActionCreater } from '../../Redux/Actions/commonAction';
 import {Container, Row, Col} from 'reactstrap'
 import { TextInputField } from '../../Global/FormCompoents/wrapperComponent';
+import showMessage from '../../Redux/Actions/toastAction';
 
 
 
@@ -28,6 +29,7 @@ class GuestWithoutLoginContainer extends React.Component {
         window.scrollTo(0, 0);
     }
     addGuestEmailSuccess = (data) => {
+        const message = _get(data, 'message', '');
         if (_get(data, 'code', -1) === 1) {
             let cartId = localStorage.getItem("cart_id");
             let lookupData = _get(this.props.userSignInInfo, '[0]', {});
@@ -45,6 +47,10 @@ class GuestWithoutLoginContainer extends React.Component {
             localStorage.setItem('Token', _get(data, 'data.api_token', ''));
             this.props.dispatch(commonActionCreater(userSignInInfo, 'USER_SIGNIN_SUCCESS'));
             this.props.history.push('/cart');
+        } else if (!_isEmpty(message)) {
+            this.props.dispatch(showMessage({ text: message, isSuccess: false }));
+        } else {
+            this.props.dispatch(showMessage({ text: 'Something Went wrong', isSuccess: false }));
         }
         
     };
