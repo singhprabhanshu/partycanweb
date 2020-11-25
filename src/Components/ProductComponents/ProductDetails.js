@@ -112,7 +112,30 @@ class ProductDetails extends React.Component {
                   items: 2,
                   slidesToSlide: 2
                 }
-              }
+            },
+            pdpImageResponsive: {
+                superLargeDesktop: {
+                    // the naming can be any, depends on you.
+                    breakpoint: { max: 4000, min: 1200 },
+                    items: 1,
+                    // slidesToSlide: 1
+                  },
+                  desktop: {
+                    breakpoint: { max: 1199, min: 768 },
+                    items: 1,
+                    // slidesToSlide: 1
+                  },
+                  tablet: {
+                    breakpoint: { max: 767, min: 464 },
+                    items: 1,
+                    slidesToSlide: 1
+                  },
+                  mobile: {
+                    breakpoint: { max: 575, min: 320 },
+                    items: 1,
+                    slidesToSlide: 1
+                  }
+            }
         }
     }
 
@@ -412,8 +435,11 @@ class ProductDetails extends React.Component {
         let descriptionContent = decriptionArray.map((data, index) => (<React.Fragment>            
                 <li>{data}</li>          
         </React.Fragment>));
-
-
+        
+        const pdpImages = _map(_get(this.props, 'productDetailsData.images', []), i => (
+            <img src={i} className="imgProduct"></img>
+        ));
+        
         return (
 
             <React.Fragment>
@@ -426,12 +452,22 @@ class ProductDetails extends React.Component {
                     {isLoading ? <Loader /> :
                         <Row className="no-gutters justify-content-lg-between secMinHeight">
                             <Col xs={12} lg={5} className="order-1 order-lg-2">
-                                <div className="productImgSection proDetailSec">
+                                {/* <div className="productImgSection proDetailSec"> */}
                                     {/* <Carousel  showStatus={false} >
                         {productImages}
                     </Carousel>  */}
-                                    <img src={_get(this.props, "productDetailsData.images[0]", "")} className="imgProduct"></img>
-                                </div>
+                                    {/* <img src={_get(this.props, "productDetailsData.images[0]", "")} className="imgProduct"></img> */}
+                                    {/* <Carousel
+                                    responsive={this.state.pdpImageResponsive}  
+                                    showDots={true} >
+                                        {pdpImages}
+                                    </Carousel> */}
+                                {/* </div> */}
+                                <Carousel
+                                    responsive={this.state.pdpImageResponsive}  
+                                    showDots={true} >
+                                        {pdpImages}
+                                </Carousel>
                             </Col>
 
                             <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 order-2  d-flex order-lg-1 ">
