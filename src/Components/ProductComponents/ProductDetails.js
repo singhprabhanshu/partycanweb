@@ -314,34 +314,12 @@ class ProductDetails extends React.Component {
                     <Col  className="order-md-1" >
                         <div className="proName text-uppercase mb-4 d-flex align-items-center" >
                             <ArrowBackIcon onClick={this.handleBackAction} className="mr-4 d-none d-lg-block" style={{ fontSize: '20px', color: 'rgba(255, 255, 255, .6)' }} />  {_get(productDetailsData, "name", "")}
-                        </div>
-                        <div className="proDescription"  >
-                           <ul>{descriptionContent}</ul> 
-                        </div>
+                        </div>                       
                     </Col>
 
                 </Row>
-                {!_isEmpty(Ingredients) ?
-                    <div className="proItems d-flex flex-column mb-md-4 mb-8" >
-                        <div className="mb-3 title-2">CONTAINS</div>
 
-                        <div>
-                            <Carousel responsive={this.state.responsive} showDots={true} itemClass="px-4">
-                               {Ingredients}
-                            </Carousel>
-                    {/* <AliceCarousel mouseTrackingEnabled
-                                items={Ingredients}
-                                responsive={this.state.responsive}
-                                buttonsDisabled={false}
-                                dotsDisabled={true}
-                                infinite={false}
-                            /> */}
-                        </div>
-
-
-                    </div>
-                    : ""}
-                <div className="pt-30">
+               
                     <Row>
                         <Col className="d-flex flex-column mb-5" xs={5} sm={4} xl={3}>
                             <span className="smallTitle">AMOUNT</span>
@@ -365,9 +343,9 @@ class ProductDetails extends React.Component {
                             </div>
                         </Col> */}
                     </Row>
+               
 
-                </div>
-                <div className="d-flex flex-wrap justify-content-between justify-content-md-start flex-md-row pt-30" >
+                <div className="d-flex flex-wrap justify-content-between justify-content-md-start flex-md-row mt-3" >
                     {/* <Button variant="contained" style={{ color: '#0032A0' }} className="bottomActionbutton autoWidthbtn col-4 col-md-auto order-2 order-md-1 bg-white" type="submit">
                         <span className="icons shareIcons d-inline-block mr-2"></span>SHARE
                  </Button> */}
@@ -378,6 +356,33 @@ class ProductDetails extends React.Component {
                         <span className="icons locationIcons d-inline-block mr-2"></span>FIND IN STORES
                 </Button> */}
                 </div>
+                
+                <div className="proDescription pt-5 mt-5"  >
+                           <ul>{descriptionContent}</ul> 
+                </div>
+
+                {!_isEmpty(Ingredients) ?
+                    <div className="proItems d-flex flex-column mb-md-4 pt-5 mt-5 mb-8" >
+                        <div className="mb-3 title-2">CONTAINS</div>
+
+                        <div>
+                            <Carousel responsive={this.state.responsive} showDots={true} itemClass="px-4">
+                               {Ingredients}
+                            </Carousel>
+                    {/* <AliceCarousel mouseTrackingEnabled
+                                items={Ingredients}
+                                responsive={this.state.responsive}
+                                buttonsDisabled={false}
+                                dotsDisabled={true}
+                                infinite={false}
+                            /> */}
+                        </div>
+
+
+                    </div>
+                    : ""}
+               
+               
             </div>
         </>
          return <div style={{overflow:'hidden'}}>{commonContent}</div>
