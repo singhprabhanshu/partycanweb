@@ -1,5 +1,7 @@
 
 import React from 'react';
+import axios from 'axios';
+import { GoogleLogin } from 'react-google-login';
 
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
@@ -7,7 +9,7 @@ import { Button } from 'reactstrap';
 import validate from './validator/guestSigninFormValidator';
 import {TextInputField } from '../../Global/FormCompoents/wrapperComponent';
 import { cleanEntityData } from '../../Global/helper/commonUtil';
-import { get as _get, isEmpty as _isEmpty } from 'lodash';
+import { get as _get, isEmpty as _isEmpty, find as _find } from 'lodash';
 import genericPostData from '../../Redux/Actions/genericPostData';
 import { commonActionCreater } from '../../Redux/Actions/commonAction';
 import showMessage from '../../Redux/Actions/toastAction';
@@ -74,7 +76,100 @@ class GuestSignInComponent extends React.Component {
             errorCb: this.userSigninError,
             dontShowMessage: true
         })
+    };
+
+    responseGoogle = (response) => {
+        // console.log(response);
+        const accessToken = _get(response, 'tokenObj.access_token');
+        axios({
+            method: 'get',
+            url: 'https://people.googleapis.com/v1/people/me?personFields=birthdays',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        .then((data) => {
+            // console.log('working', data);
+            const birthDateObj = _find(_get(data, 'data.birthdays'), ['metadata.primary', true]);
+            // console.log(birthDateObj);
+            let month = _get(birthDateObj.date, 'month');
+            let day = _get(birthDateObj.date, 'day');
+            if (_get(birthDateObj.date, 'month').toString().length === 1) {
+                month = `0${_get(birthDateObj.date, 'month')}`;
+            }
+
+            if (_get(birthDateObj.date, 'day').toString().length === 1) {
+                day = `0${_get(birthDateObj.date, 'day')}`;
+            }
+            const body = {
+                email: _get(response, 'profileObj.email'),
+                first_name: _get(response, 'profileObj.givenName'),
+                last_name: _get(response, 'profileObj.familyName'),
+                dob: `${_get(birthDateObj.date, 'year')}-${month}-${day}`
+            };
+            genericPostData({
+                dispatch: this.props.dispatch,
+                reqObj: body,
+                url: `/api/customer/sociallogin`,
+                constants: {
+                    init: "USER_SIGNIN_INIT",
+                    success: "USER_SIGNIN_SUCCESS",
+                    error: "USER_SIGNIN_ERROR"
+                },
+                identifier: "USER_SIGNIN",
+                successCb: this.userSocialSigninSuccess,
+                errorCb: this.userSocialSigninError,
+                dontShowMessage: true
+            });
+
+
+
+        }).catch( (err) => {
+            alert('Something Went Wrong');
+        })
+        
     }
+
+    failedResponseGoogle = (err) => {
+        console.log('google signin error', err);
+        // alert('Something Went Wrong');
+    }
+
+    userSocialSigninSuccess = (data) => {
+        this.setState({ isLoading: false });
+        const code = _get(data, 'code');
+        const total_items_count = _get(data, 'total_product_in_cart', 0);
+        const message = _get(data[0], 'message');
+        if (code === 1 ) {
+            let cartObj = [{ total_items_count }];
+            this.props.dispatch(commonActionCreater(cartObj, 'CART_ITEMS_SUCCESS'));
+            localStorage.setItem('Token', _get(data, 'api_token', ''));
+            localStorage.setItem('cart_id', _get(data, 'cart_id', ''));
+            this.props.history.push('/cart');
+        } else {
+            this.props.dispatch(showMessage({ text: message, isSuccess: false }));
+        }
+        // console.log('signin success data', data);
+        // const code = _get(data, 'code');
+        // const total_items_count = _get(data, 'result.total_product_in_cart', 0);
+        // const message = _get(data, 'message');
+        // if (code === 1) {
+        //     let cartObj = [{ total_items_count }];
+        //     this.props.dispatch(commonActionCreater(cartObj, 'CART_ITEMS_SUCCESS'));
+        //     localStorage.setItem('Token', _get(data, 'api_token', ''));
+        //     localStorage.setItem('cart_id', _get(data, 'cart_id', ''));
+        //     this.fetchCategories();
+        // } else if (message) {
+        //     this.props.dispatch(showMessage({ text: message, isSuccess: false }));
+        // } else {
+        //     this.props.dispatch(showMessage({ text: 'Something Went wrong', isSuccess: false }));
+        // }
+    };
+
+    userSocialSigninError = (err) => {
+        console.log('error', err);
+    };
 
     render() {
         
@@ -95,7 +190,20 @@ class GuestSignInComponent extends React.Component {
                     
                     <Row className="align-items-center d-flex justify-content-center">
                     <Col  xs={12}>
-                    <Form onSubmit= {this.onSubmit} validate={validate}
+                    <Row className="d-flex justify-content-around justify-content-center">
+                        <Col className="text-center mb-5" >
+                    <GoogleLogin
+                            clientId="184173755807-ugj572pvfqn1c8fmlnvgk8lq61keercg.apps.googleusercontent.com"
+                            buttonText="Login With Google"
+                            onSuccess={this.responseGoogle}
+                            onFailure={this.failedResponseGoogle}
+                            scope={'https://www.googleapis.com/auth/user.birthday.read'}
+                            cookiePolicy={'single_host_origin'}
+                            className="googleSocialbtn"
+                            />
+                            </Col>
+                            </Row>
+                             <Form onSubmit= {this.onSubmit} validate={validate}
                                 render={({ handleSubmit }) => (
                             <form onSubmit={handleSubmit} >  
                                     <div style={{ marginBottom: 20}}>
