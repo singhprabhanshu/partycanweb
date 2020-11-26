@@ -366,9 +366,9 @@ class ProductDetails extends React.Component {
                         <div className="mb-3 title-2">CONTAINS</div>
 
                         <div>
-                            <Carousel responsive={this.state.responsive} showDots={true} itemClass="px-4">
-                               {Ingredients}
-                            </Carousel>
+                            {/* <Carousel responsive={this.state.responsive} showDots={true} itemClass="px-4"> */}
+                           <ul className="contains-sec">{Ingredients}</ul>    
+                            {/* </Carousel> */}
                     {/* <AliceCarousel mouseTrackingEnabled
                                 items={Ingredients}
                                 responsive={this.state.responsive}
@@ -399,11 +399,10 @@ class ProductDetails extends React.Component {
         console.log("product details", this.props.productDetailsData)
         let Ingredients = []
         const { productDetailsData } = this.props;
-        Ingredients = !_isEmpty(productDetailsData.ingredients) && productDetailsData.ingredients.map((ingredient, index) =>
-            <div className="d-flex flex-column justify-content-center align-items-center">
-                <img src={ingredient.image} alt="Card image cap" className="img-fluid" />
-                <div className="ingredientLabel">{ingredient.title}</div>
-            </div>)
+        Ingredients = !_isEmpty(productDetailsData.ingredients) && productDetailsData.ingredients.map((ingredient, index) =>          
+              
+                <li className="ingredientLabel">{ingredient.title}</li>
+           )
         let totalRating = 0;
         !_isEmpty(productDetailsData.reviews) && productDetailsData.reviews.map((review, index) => {
             totalRating += Number(review.rating)
