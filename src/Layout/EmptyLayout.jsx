@@ -29,7 +29,7 @@ class EmptyLayout extends React.Component {
       <div className="emptyLayout">
         <div className="d-none d-md-block">
         <div className="topHeader d-flex justify-content-center align-items-center ">
-           <Col xs={4} className="d-flex justify-content-center"><img src={Logo} className="img-responsive"></img></Col>      
+           <Col xs={4} className="d-flex justify-content-center"><a href="/splash" className="d-flex justify-content-center align-items-center"><img src={Logo} className="img-responsive"></img></a></Col>      
         </div>
         </div>
         <div className="container-content-section">

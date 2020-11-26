@@ -190,6 +190,8 @@ class GuestSignInComponent extends React.Component {
                     
                     <Row className="align-items-center d-flex justify-content-center">
                     <Col  xs={12}>
+                    <Row className="d-flex justify-content-around justify-content-center">
+                        <Col className="text-center mb-5" >
                     <GoogleLogin
                             clientId="184173755807-ugj572pvfqn1c8fmlnvgk8lq61keercg.apps.googleusercontent.com"
                             buttonText="Login With Google"
@@ -197,8 +199,11 @@ class GuestSignInComponent extends React.Component {
                             onFailure={this.failedResponseGoogle}
                             scope={'https://www.googleapis.com/auth/user.birthday.read'}
                             cookiePolicy={'single_host_origin'}
-                        />
-                    <Form onSubmit= {this.onSubmit} validate={validate}
+                            className="googleSocialbtn"
+                            />
+                            </Col>
+                            </Row>
+                             <Form onSubmit= {this.onSubmit} validate={validate}
                                 render={({ handleSubmit }) => (
                             <form onSubmit={handleSubmit} >  
                                     <div style={{ marginBottom: 20}}>

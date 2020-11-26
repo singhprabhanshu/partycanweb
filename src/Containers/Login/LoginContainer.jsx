@@ -256,7 +256,8 @@ class SignIn extends React.Component {
                                 <h4 className="holduptext">SIGN IN</h4>
                             </Col>
                         </Row>
-
+                        <Row className="justify-content-center align-items-center">
+                        <Col className="col-12 col-sm-8  d-flex justify-content-around justify-content-center mb-5" >
                         <GoogleLogin
                             clientId="184173755807-ugj572pvfqn1c8fmlnvgk8lq61keercg.apps.googleusercontent.com"
                             buttonText="Login With Google"
@@ -264,8 +265,10 @@ class SignIn extends React.Component {
                             onFailure={this.failedResponseGoogle}
                             scope={'https://www.googleapis.com/auth/user.birthday.read'}
                             cookiePolicy={'single_host_origin'}
+                            className="googleSocialbtn"
                         />
-
+                        </Col>
+                        </Row>
                         {/* <Row>
                                         <Col className="text-center mb-5" >
                                            <Facebook />
