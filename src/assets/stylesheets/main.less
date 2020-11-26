@@ -356,58 +356,56 @@ button:focus {
       min-height: 400px;
       padding: 7rem 0 6rem 0;
       width: 100%;
-      .captionTxt{    
-        font-family: 'Tungsten-Medium', sans-serif;
-        font-weight: 400;
-        line-height: 30px;
-        font-size: 25px;
-        letter-spacing: 0.3rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        height: 100%;
-        padding:0 10rem;
-        text-align: center;
-        text-transform: uppercase;
-      }
-      img{
-        max-width: 40%;
-        margin-top: 3rem;
-      }
-      @media(max-width:1600px){
-        .captionTxt{  
-          padding:0 5rem;
+
+
+      .crafted-quality{
+        .captionTxt{    
+          font-family: 'Tungsten-Medium', sans-serif;
+          font-weight: 400;
+          line-height: 30px;
+          font-size: 25px;
+          letter-spacing: 0.3rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          height: 100%;
+          padding:0 10rem;
+          text-align: center;
+          text-transform: uppercase;
         }
-      }
-      @media(min-width: 992px) and (max-width:1199px){
-        .captionTxt{  
-          padding:0 3rem;
-        }
+
         img{
-          max-width: 50%;
+          max-width: 70%;
         }
-      }
-      @media(min-width: 768px) and (max-width:991px){         
-        .captionTxt{ 
-          font-size: 20px;
+        @media(max-width:1600px){
+          .captionTxt{  
+            padding:0 5rem;
+          }
+        }
+        @media(min-width: 992px) and (max-width:1199px){
+          .captionTxt{  
+            padding:0 3rem;
+          }
+        }
+        @media(min-width: 768px) and (max-width:991px){
+          min-height: 420px;  
+          padding: 5rem 0;
+          .captionTxt{    
+            font-family: 'Tungsten-Medium', sans-serif;
+            font-size: 20px;
+            line-height: 25px;
+            padding:0 1rem;
+          }
+        }
+        @media (max-width: 767px){
+          .captionTxt{  
+          font-size: 23px;
           line-height: 25px;
-          padding:0 1rem;
-        }
-        img{
-          max-width: 50%;
-        }
-      }
-      @media (max-width: 767px){
-        .captionTxt{  
-        font-size: 23px;
-        line-height: 25px;
-        padding:0 4rem;
-        }
-        img{
-          max-width: 40%;
-        }
-      }
+          padding:0 4rem;
+          }
+        }       
+      }       
     }
 
     
@@ -518,54 +516,64 @@ button:focus {
       min-height: 400px;
       padding: 7rem 0;
       width: 100%;
-      .crafted-quality{margin-bottom: 10rem;
-        .captionTxt{    
-          font-family: 'Tungsten-Medium', sans-serif;
-          font-weight: 400;
-          line-height: 30px;
-          font-size: 25px;
-          letter-spacing: 0.3rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-          height: 100%;
-          padding:0 10rem;
-          text-align: center;
-          text-transform: uppercase;
-        }
 
+      .sec-spacer{
+        margin-bottom: 10rem;
+      }
+      .crafted-cans{
+      .captionTxt{    
+        font-family: 'Tungsten-Medium', sans-serif;
+        font-weight: 400;
+        line-height: 30px;
+        font-size: 25px;
+        letter-spacing: 0.3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+        padding:0 10rem;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      img{
+        max-width: 40%;
+        margin-top: 3rem;
+      }
+      @media(max-width:1600px){
+        .captionTxt{  
+          padding:0 5rem;
+        }
+      }
+      @media(min-width: 992px) and (max-width:1199px){
+        .captionTxt{  
+          padding:0 3rem;
+        }
         img{
-          max-width: 70%;
+          max-width: 50%;
         }
-        @media(max-width:1600px){
-          .captionTxt{  
-            padding:0 5rem;
-          }
-        }
-        @media(min-width: 992px) and (max-width:1199px){
-          .captionTxt{  
-            padding:0 3rem;
-          }
-        }
-        @media(min-width: 768px) and (max-width:991px){
-          min-height: 420px;  
-          padding: 5rem 0;
-          .captionTxt{    
-            font-family: 'Tungsten-Medium', sans-serif;
-            font-size: 20px;
-            line-height: 25px;
-            padding:0 1rem;
-          }
-        }
-        @media (max-width: 767px){
-          .captionTxt{  
-          font-size: 23px;
+      }
+      @media(min-width: 768px) and (max-width:991px){         
+        .captionTxt{ 
+          font-size: 20px;
           line-height: 25px;
-          padding:0 4rem;
-          }
-        }       
-      }    
+          padding:0 1rem;
+        }
+        img{
+          max-width: 50%;
+        }
+      }
+      @media (max-width: 767px){
+        .captionTxt{  
+        font-size: 23px;
+        line-height: 25px;
+        padding:0 4rem;
+        }
+        img{
+          max-width: 40%;
+        }
+      }
+    }
     
     }
 
@@ -1129,7 +1137,7 @@ img.cLogo{
       width: 33.33%;
     }   
     @media(max-width:767px){
-      width: 50%;        
+      width: 100%;        
     }
     .prodcutMinDetails{
       border-radius:1.5rem;
@@ -1156,7 +1164,7 @@ img.cLogo{
         }
       }
       @media(max-width:767px){
-        width: 50%;        
+        width: 100%;        
       }
 
 
@@ -2433,5 +2441,20 @@ More info: https://stripe.com/docs/stripe-js/reference#element-options
  
   @media (max-width:767px){
     width: 100%;
+  }
+}
+
+.googleSocialbtn{
+  background-color: transparent!important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+  @media (max-width:767px){
+   div{
+    margin-right: 5px!important;    
+   }
+   span{
+    padding:5px!important;
+    font-size: 12px!important;
+  }
   }
 }
