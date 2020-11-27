@@ -160,7 +160,7 @@ class SplashContainer extends React.Component {
                         <Col xs={10} xl={7} md={8} lg={8} className="captionTxt ">
                             <div className="captionTxtWapper p-3 p-lg-5">
                             12 READY-TO-DRINK MARGARITAS WITH 100% NATURAL JUICE; CONVENIENTLY IN A RESEALABLE CAN.
-                            <Button onClick={this.onOrderNowBtnClick} variant="contained" color="primary" className="bottomActionbutton mt-5" type="submit">
+                            <Button onClick={this.redirectToNext} variant="contained" color="primary" className="bottomActionbutton mt-5" type="submit">
                                 <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2 d-none d-sm-block" />ORDER NOW</Button>
                         </div>
                         </Col>
