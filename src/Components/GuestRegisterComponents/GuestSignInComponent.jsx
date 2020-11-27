@@ -138,14 +138,14 @@ class GuestSignInComponent extends React.Component {
 
     userSocialSigninSuccess = (data) => {
         this.setState({ isLoading: false });
-        const code = _get(data, 'code');
-        const total_items_count = _get(data, 'total_product_in_cart', 0);
+        const code = _get(data[0], 'code');
+        const total_items_count = _get(data[0], 'result.total_product_in_cart', 0);
         const message = _get(data[0], 'message');
         if (code === 1 ) {
             let cartObj = [{ total_items_count }];
             this.props.dispatch(commonActionCreater(cartObj, 'CART_ITEMS_SUCCESS'));
-            localStorage.setItem('Token', _get(data, 'api_token', ''));
-            localStorage.setItem('cart_id', _get(data, 'cart_id', ''));
+            localStorage.setItem('Token', _get(data[0], 'result.api_token', ''));
+            localStorage.setItem('cart_id', _get(data[0], 'result.cart_id', ''));
             this.props.history.push('/cart');
         } else {
             this.props.dispatch(showMessage({ text: message, isSuccess: false }));
@@ -193,7 +193,7 @@ class GuestSignInComponent extends React.Component {
                     <Row className="d-flex justify-content-around justify-content-center">
                         <Col className="text-center mb-5" >
                     <GoogleLogin
-                            clientId="184173755807-ugj572pvfqn1c8fmlnvgk8lq61keercg.apps.googleusercontent.com"
+                            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                             buttonText="Login With Google"
                             onSuccess={this.responseGoogle}
                             onFailure={this.failedResponseGoogle}

@@ -224,14 +224,14 @@ class SignIn extends React.Component {
 
     userSocialSigninSuccess = (data) => {
         // console.log('signin success data', data);
-        const code = _get(data, 'code');
-        const total_items_count = _get(data, 'result.total_product_in_cart', 0);
-        const message = _get(data, 'message');
+        const code = _get(data[0], 'code');
+        const total_items_count = _get(data[0], 'result.total_product_in_cart', 0);
+        const message = _get(data[0], 'message');
         if (code === 1) {
             let cartObj = [{ total_items_count }];
             this.props.dispatch(commonActionCreater(cartObj, 'CART_ITEMS_SUCCESS'));
-            localStorage.setItem('Token', _get(data, 'api_token', ''));
-            localStorage.setItem('cart_id', _get(data, 'cart_id', ''));
+            localStorage.setItem('Token', _get(data[0], 'result.api_token', ''));
+            localStorage.setItem('cart_id', _get(data[0], 'result.cart_id', ''));
             this.fetchCategories();
         } else if (message) {
             this.props.dispatch(showMessage({ text: message, isSuccess: false }));
@@ -259,7 +259,7 @@ class SignIn extends React.Component {
                         <Row className="justify-content-center align-items-center">
                         <Col className="col-12 col-sm-8  d-flex justify-content-around justify-content-center mb-5" >
                         <GoogleLogin
-                            clientId="300008818206-9sitggspaim6s0d0vv943vl5cabsdmtj.apps.googleusercontent.com"
+                            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                             buttonText="Login With Google"
                             onSuccess={this.responseGoogle}
                             onFailure={this.failedResponseGoogle}
