@@ -39,6 +39,8 @@ import Carousel from 'react-multi-carousel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import 'react-multi-carousel/lib/styles.css';
 import {commonActionCreater} from "../../Redux/Actions/commonAction";
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/scss/image-gallery.scss";
 
 // google analytics
 import { ProductView, PageView, ProductAddedtoCart } from '../../Global/helper/react-ga';
@@ -440,9 +442,11 @@ class ProductDetails extends React.Component {
                 <li>{data}</li>          
         </React.Fragment>));
         
-        const pdpImages = _map(_get(this.props, 'productDetailsData.images', []), i => (
-            <img src={i} className="imgProduct"></img>
-        ));
+        const pdpImages = _map(_get(this.props, 'productDetailsData.images', []), s => cleanEntityData({
+            
+            original: s,
+            thumbnail: s
+        }));
         
         return (
 
@@ -453,6 +457,7 @@ class ProductDetails extends React.Component {
                         tabValue={this.state.tabValue}
                         handleTabChange={(index, selectedTab) => this.handleTabChange(index, selectedTab)}
                     />
+                
                     {isLoading ? <Loader /> :
                         <Row className="no-gutters justify-content-lg-between secMinHeight">
                             <Col xs={12} lg={5} className="order-1 order-lg-2">
@@ -467,11 +472,15 @@ class ProductDetails extends React.Component {
                                         {pdpImages}
                                     </Carousel> */}
                                 {/* </div> */}
-                                <Carousel
+                                {/* <Carousel
                                     responsive={this.state.pdpImageResponsive}  
                                     showDots={true} >
                                         {pdpImages}
-                                </Carousel>
+                                </Carousel> */}
+
+                                <ImageGallery items={pdpImages} thumbnailPosition="left"  showNav ={true} 
+                                                    showFullscreenButton = {false} 
+                                                    showPlayButton = {false}/>
                             </Col>
 
                             <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 order-2  d-flex order-lg-1 ">
