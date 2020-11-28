@@ -13,8 +13,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import {isMobile, isTablet} from 'react-device-detect';
 import Scrollbar from "react-scrollbars-custom";
-const stripePromise = loadStripe("pk_test_RkUSbyxxcn4xFQ0ttE6QsIDh00bGPMtJdc");
-// const stripePromise = loadStripe("pk_live_YWHAuQZ9QVoqDq3bOdRRz8Rg006Mq0WrB9");
+//const stripePromise = loadStripe("pk_test_RkUSbyxxcn4xFQ0ttE6QsIDh00bGPMtJdc");
+const stripePromise = loadStripe("pk_live_YWHAuQZ9QVoqDq3bOdRRz8Rg006Mq0WrB9");
 
 const styles = theme => ({
   failure: {
