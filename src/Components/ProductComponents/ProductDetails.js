@@ -39,6 +39,8 @@ import Carousel from 'react-multi-carousel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import 'react-multi-carousel/lib/styles.css';
 import {commonActionCreater} from "../../Redux/Actions/commonAction";
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/scss/image-gallery.scss";
 
 // google analytics
 import { ProductView, PageView, ProductAddedtoCart } from '../../Global/helper/react-ga';
@@ -112,7 +114,30 @@ class ProductDetails extends React.Component {
                   items: 2,
                   slidesToSlide: 2
                 }
-              }
+            },
+            pdpImageResponsive: {
+                superLargeDesktop: {
+                    // the naming can be any, depends on you.
+                    breakpoint: { max: 4000, min: 1200 },
+                    items: 1,
+                    // slidesToSlide: 1
+                  },
+                  desktop: {
+                    breakpoint: { max: 1199, min: 768 },
+                    items: 1,
+                    // slidesToSlide: 1
+                  },
+                  tablet: {
+                    breakpoint: { max: 767, min: 464 },
+                    items: 1,
+                    slidesToSlide: 1
+                  },
+                  mobile: {
+                    breakpoint: { max: 575, min: 320 },
+                    items: 1,
+                    slidesToSlide: 1
+                  }
+            }
         }
     }
 
@@ -291,34 +316,12 @@ class ProductDetails extends React.Component {
                     <Col  className="order-md-1" >
                         <div className="proName text-uppercase mb-4 d-flex align-items-center" >
                             <ArrowBackIcon onClick={this.handleBackAction} className="mr-4 d-none d-lg-block" style={{ fontSize: '20px', color: 'rgba(255, 255, 255, .6)' }} />  {_get(productDetailsData, "name", "")}
-                        </div>
-                        <div className="proDescription"  >
-                           <ul>{descriptionContent}</ul> 
-                        </div>
+                        </div>                       
                     </Col>
 
                 </Row>
-                {!_isEmpty(Ingredients) ?
-                    <div className="proItems d-flex flex-column mb-md-4 mb-8" >
-                        <div className="mb-3 title-2">CONTAINS</div>
 
-                        <div>
-                            <Carousel responsive={this.state.responsive} showDots={true} itemClass="px-4">
-                               {Ingredients}
-                            </Carousel>
-                    {/* <AliceCarousel mouseTrackingEnabled
-                                items={Ingredients}
-                                responsive={this.state.responsive}
-                                buttonsDisabled={false}
-                                dotsDisabled={true}
-                                infinite={false}
-                            /> */}
-                        </div>
-
-
-                    </div>
-                    : ""}
-                <div className="pt-30">
+               
                     <Row>
                         <Col className="d-flex flex-column mb-5" xs={5} sm={4} xl={3}>
                             <span className="smallTitle">AMOUNT</span>
@@ -342,9 +345,9 @@ class ProductDetails extends React.Component {
                             </div>
                         </Col> */}
                     </Row>
+               
 
-                </div>
-                <div className="d-flex flex-wrap justify-content-between justify-content-md-start flex-md-row pt-30" >
+                <div className="d-flex flex-wrap justify-content-between justify-content-md-start flex-md-row mt-3" >
                     {/* <Button variant="contained" style={{ color: '#0032A0' }} className="bottomActionbutton autoWidthbtn col-4 col-md-auto order-2 order-md-1 bg-white" type="submit">
                         <span className="icons shareIcons d-inline-block mr-2"></span>SHARE
                  </Button> */}
@@ -355,6 +358,33 @@ class ProductDetails extends React.Component {
                         <span className="icons locationIcons d-inline-block mr-2"></span>FIND IN STORES
                 </Button> */}
                 </div>
+                
+                <div className="proDescription pt-5 mt-5"  >
+                           <ul>{descriptionContent}</ul> 
+                </div>
+
+                {!_isEmpty(Ingredients) ?
+                    <div className="proItems d-flex flex-column mb-md-4 pt-5 mt-5 mb-8" >
+                        <div className="mb-3 title-2">CONTAINS</div>
+
+                        <div>
+                            {/* <Carousel responsive={this.state.responsive} showDots={true} itemClass="px-4"> */}
+                           <ul className="contains-sec">{Ingredients}</ul>    
+                            {/* </Carousel> */}
+                    {/* <AliceCarousel mouseTrackingEnabled
+                                items={Ingredients}
+                                responsive={this.state.responsive}
+                                buttonsDisabled={false}
+                                dotsDisabled={true}
+                                infinite={false}
+                            /> */}
+                        </div>
+
+
+                    </div>
+                    : ""}
+               
+               
             </div>
         </>
          return <div style={{overflow:'hidden'}}>{commonContent}</div>
@@ -371,11 +401,10 @@ class ProductDetails extends React.Component {
         console.log("product details", this.props.productDetailsData)
         let Ingredients = []
         const { productDetailsData } = this.props;
-        Ingredients = !_isEmpty(productDetailsData.ingredients) && productDetailsData.ingredients.map((ingredient, index) =>
-            <div className="d-flex flex-column justify-content-center align-items-center">
-                <img src={ingredient.image} alt="Card image cap" className="img-fluid" />
-                <div className="ingredientLabel">{ingredient.title}</div>
-            </div>)
+        Ingredients = !_isEmpty(productDetailsData.ingredients) && productDetailsData.ingredients.map((ingredient, index) =>          
+              
+                <li className="ingredientLabel">{ingredient.title}</li>
+           )
         let totalRating = 0;
         !_isEmpty(productDetailsData.reviews) && productDetailsData.reviews.map((review, index) => {
             totalRating += Number(review.rating)
@@ -412,8 +441,13 @@ class ProductDetails extends React.Component {
         let descriptionContent = decriptionArray.map((data, index) => (<React.Fragment>            
                 <li>{data}</li>          
         </React.Fragment>));
-
-
+        
+        const pdpImages = _map(_get(this.props, 'productDetailsData.images', []), s => cleanEntityData({
+            
+            original: s,
+            thumbnail: s
+        }));
+        
         return (
 
             <React.Fragment>
@@ -423,15 +457,30 @@ class ProductDetails extends React.Component {
                         tabValue={this.state.tabValue}
                         handleTabChange={(index, selectedTab) => this.handleTabChange(index, selectedTab)}
                     />
+                
                     {isLoading ? <Loader /> :
                         <Row className="no-gutters justify-content-lg-between secMinHeight">
                             <Col xs={12} lg={5} className="order-1 order-lg-2">
-                                <div className="productImgSection proDetailSec">
+                                {/* <div className="productImgSection proDetailSec"> */}
                                     {/* <Carousel  showStatus={false} >
                         {productImages}
                     </Carousel>  */}
-                                    <img src={_get(this.props, "productDetailsData.images[0]", "")} className="imgProduct"></img>
-                                </div>
+                                    {/* <img src={_get(this.props, "productDetailsData.images[0]", "")} className="imgProduct"></img> */}
+                                    {/* <Carousel
+                                    responsive={this.state.pdpImageResponsive}  
+                                    showDots={true} >
+                                        {pdpImages}
+                                    </Carousel> */}
+                                {/* </div> */}
+                                {/* <Carousel
+                                    responsive={this.state.pdpImageResponsive}  
+                                    showDots={true} >
+                                        {pdpImages}
+                                </Carousel> */}
+
+                                <ImageGallery items={pdpImages} thumbnailPosition="left"  showNav ={true} 
+                                                    showFullscreenButton = {false} 
+                                                    showPlayButton = {false}/>
                             </Col>
 
                             <Col xs={12} lg={7} className="p-xl-5 p-md-4 py-4 order-2  d-flex order-lg-1 ">

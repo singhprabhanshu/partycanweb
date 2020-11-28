@@ -146,7 +146,7 @@ class SplashContainer extends React.Component {
 
     onOrderNowBtnClick = () => {
         // send to a party can pdt on special request that's why hardcoded
-        this.props.history.push('/category/ALL/product/86228');
+        this.props.history.push('/category/ALL');
     }
 
     render() {
@@ -160,14 +160,34 @@ class SplashContainer extends React.Component {
                         <Col xs={10} xl={7} md={8} lg={8} className="captionTxt ">
                             <div className="captionTxtWapper p-3 p-lg-5">
                             12 READY-TO-DRINK MARGARITAS WITH 100% NATURAL JUICE; CONVENIENTLY IN A RESEALABLE CAN.
-                            <Button onClick={this.onOrderNowBtnClick} variant="contained" color="primary" className="bottomActionbutton mt-5" type="submit">
+                            <Button onClick={this.redirectToNext} variant="contained" color="primary" className="bottomActionbutton mt-5" type="submit">
                                 <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2 d-none d-sm-block" />ORDER NOW</Button>
                         </div>
                         </Col>
                       
                     </Row>
                     <Row className="landing-section-02 no-gutters flex-wrap">
-                    <Col xs={12} >
+                    <Col xs={12} className="tBold">HERE’S WHAT PEOPLE ARE SAYING…</Col>
+                        <Col xs={12} className="crafted-quality" >
+                            <Carousel responsive={this.state.responsive2} arrows={true} itemClass="px-4">
+                                {this.state.deskTopImageData.map((data) => (
+                                    <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
+                                         <img src={data.imageurl} alt="Card image cap" className="img-fluid" />
+                                        {data.text}                                       
+                                    </div>
+                                ))}
+                            </Carousel>
+                        </Col>
+                    </Row>
+                    <Row className="landing-section-03 backgroundSlides justify-content-center justify-content-md-start no-gutters">
+                        <Col xs={10} xl={5} md={7} className="captionTxt secondBannertext">                      
+                        WARM UP THE PARTY WITH OUR SPICED MARGARITA.
+                        <Button variant="contained" onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
+                                <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2 d-none d-sm-block" />ORDER NOW</Button>
+                        </Col>
+                    </Row>
+                    <Row className="landing-section-04 no-gutters flex-wrap pb-0">
+                    <Col xs={12} className="sec-spacer crafted-cans" >
                             <Row className="no-gutters ">
                                 <Col xs={12} className="tBold">CRAFT COCKTAIL QUALITY, CANNED.</Col>
                                 <Col xs={12} ><Carousel responsive={this.state.responsive2} arrows={true} itemClass="px-4">
@@ -187,27 +207,6 @@ class SplashContainer extends React.Component {
                                 </Carousel>
                                 </Col>
                             </Row>
-                        </Col>
-                        
-                    </Row>
-                    <Row className="landing-section-03 backgroundSlides justify-content-center justify-content-md-start no-gutters">
-                        <Col xs={10} xl={5} md={7} className="captionTxt secondBannertext">                      
-                        WARM UP THE PARTY WITH OUR SPICED MARGARITA.
-                        <Button variant="contained" onClick={this.redirectToNext} color="primary" className="bottomActionbutton mt-5" type="submit">
-                                <ArrowForwardIcon style={{ fontSize: 16 }} className="mr-2 d-none d-sm-block" />ORDER NOW</Button>
-                        </Col>
-                    </Row>
-                    <Row className="landing-section-04 no-gutters flex-wrap pb-0">
-                        <Col xs={12} className="tBold">HERE’S WHAT PEOPLE ARE SAYING…</Col>
-                        <Col xs={12} className="crafted-quality" >
-                            <Carousel responsive={this.state.responsive2} arrows={true} itemClass="px-4">
-                                {this.state.deskTopImageData.map((data) => (
-                                    <div className="d-flex flex-column justify-content-center align-items-center captionTxt">
-                                        {data.text}
-                                        <img src={data.imageurl} alt="Card image cap" className="img-fluid" />
-                                    </div>
-                                ))}
-                            </Carousel>
                         </Col>
 
                         <Col xs={12}>

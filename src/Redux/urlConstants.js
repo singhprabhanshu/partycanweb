@@ -18,7 +18,7 @@ if (process.env.NODE_ENV !== 'production') {
 else {
 
     // APPLICATION_BFF_URL = process.env.APPLICATION_BFF_URL;
-    APPLICATION_BFF_URL = "http://drinkpartycan.com/api";
+    APPLICATION_BFF_URL = "http://uat.drinkpartycan.com:3001/api";
     // APP_QUICKBOOK_KEY = 'quickBook';
     // APP_DUNS_NO_KEY = 'DUNSNumber';
 
