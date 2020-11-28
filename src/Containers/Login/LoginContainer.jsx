@@ -1,6 +1,5 @@
-
 import { GoogleLogin } from 'react-google-login';
-import Facebook from '../../Components/LoginComponents/facebook';
+/*import Facebook from '../../Components/LoginComponents/facebook';*/
 import axios from 'axios';
 
 import { Form, Field } from 'react-final-form';
