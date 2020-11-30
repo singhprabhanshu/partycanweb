@@ -87,8 +87,8 @@ class GuestRegisterContainer extends React.Component {
                     </div> */}
 
 
-                <Row className="justify-content-center pt-50 mb-50 secMinHeight">
-                    <Col xs={12} lg={5} className="d-flex justify-content-center order-2 col-md-1 mb-5 mb-md-0 mpb-30 ">
+<Row className="justify-content-center pt-50 mb-50 m-0">
+                    <Col xs={12} lg={5} className="d-flex justify-content-center order-3 order-md-1  col-md-1 mb-5 mb-md-0 mpb-30 ">
                         {this.state.handleSignUp ? 
                             <GuestSignUpComponent
                                 {...this.props}
@@ -106,10 +106,10 @@ class GuestRegisterContainer extends React.Component {
                             /> : null
                             }
                     </Col>
-                    <Col lg={'auto'} className="my-5 my-lg-0 my-xl-0 order-2">
+                    <Col lg={'auto'} className="my-5 my-lg-0 my-xl-0 order-2 d-none d-md-block">
                             <div className="divider"></div>
                     </Col>
-                    <Col  xs={12} lg={5} className="d-flex justify-content-center mb-5 mb-md-0  order-1 col-md-2">
+                    <Col  xs={12} lg={5} className="d-flex justify-content-center mb-5 mb-md-0  order-1 order-md-3 col-md-2">
                         <GuestWithoutLoginComponent 
                             {...this.props} 
                         />
