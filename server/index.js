@@ -392,6 +392,19 @@ app.post("/api/customer/sociallogin", (req, res) => {
   })
 });
 
+app.post("/api/customer/reset", (req, res) => {
+  console.log("--------", req.body);
+  let p1 = axios.post(`${application_bff_url}/api/customer/reset`, req.body);
+  p1.then((apiRespo) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(apiRespo.data);
+  })
+  p1.catch((err) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(err)
+  })
+});
+
 app.listen(3001, () =>
   console.log('Express server is running on localhost:3001')
 );

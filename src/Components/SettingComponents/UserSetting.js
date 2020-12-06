@@ -9,7 +9,7 @@ import Switch from '@material-ui/core/Switch';
 import genericPostData from "../../Redux/Actions/genericPostData";
 import UserInfo from './UserInfo';
 import AddCard from "../../Components/CartComponents/Card/AddCard.jsx";
-
+import ChangePassword from '../../Components/SettingComponents/ChangePassword';
 class UserSetting extends React.Component {
     constructor(props){
         super(props);
@@ -17,7 +17,8 @@ class UserSetting extends React.Component {
             userSettingData: {},
             newsLetter: false,
             notification: false,
-            addCard: false
+            addCard: false,
+            changePassword: false
         }
     }
      
@@ -91,7 +92,10 @@ class UserSetting extends React.Component {
     }
 
     handleBackFromNewCard = () =>  {
-        this.setState({ addCard : false });
+        this.setState({ addCard : false, changePassword: false });
+    }
+    handleChangePassword = () => {
+        this.setState({ changePassword: true });
     }
 
     render() {
@@ -125,8 +129,13 @@ class UserSetting extends React.Component {
 
     return (
         <React.Fragment>
-        {!this.state.addCard && <React.Fragment>
-            {this.state.userSettingData && <UserInfo userName={this.props.userName} userInfo={this.state.userSettingData} />}
+        {!this.state.addCard && !this.state.changePassword && <React.Fragment>
+            {this.state.userSettingData && 
+            <UserInfo userName={this.props.userName} 
+            userInfo={this.state.userSettingData}
+            handleChangePassword={this.handleChangePassword}
+             />
+            }
             <div className="block-sub-title">YOUR PREFRENCES</div> 
             <div className="CardsWrapper">              
                 <Card className="userinfoSettingContainer mb-5 ">
@@ -171,6 +180,9 @@ class UserSetting extends React.Component {
             handleContinueFromNewCard={this.handleContinueFromNewCard}
             goBack={this.handleBackFromNewCard}
              /> : null}
+        </React.Fragment>
+        <React.Fragment>
+            {this.state.changePassword ?  <ChangePassword  goBack={this.handleBackFromNewCard}/> : null}
         </React.Fragment>
         </React.Fragment>);
     }

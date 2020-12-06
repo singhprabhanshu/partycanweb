@@ -47,6 +47,10 @@ export default class UserInfo extends Component {
                                     </div>
                                     <div  className="myInfocolor">
                                         **********
+                                        <a href="javascript:void(0)" onClick={this.props.handleChangePassword} 
+                                        className="ml-3 mb-1">
+                                            CHANGE PASSWORD
+                                        </a>
                                     </div>
                                 </div>}
                             </React.Fragment>}                
