@@ -387,7 +387,7 @@ class ProductDetails extends React.Component {
                
             </div>
         </>
-         return <div style={{overflow:'hidden'}}>{commonContent}</div>
+         return <div className="flex-grow-1">{commonContent}</div>
         // if (isMobile || isTablet) {
         //     return <div style={{overflow:'hidden'}}>{commonContent}</div>
         // }
